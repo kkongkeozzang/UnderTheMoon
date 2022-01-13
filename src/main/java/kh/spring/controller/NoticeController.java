@@ -8,23 +8,36 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import kh.spring.dao.NoticeDAO;
 import kh.spring.dto.NoticeDTO;
+import kh.spring.service.NoticeService;
 
 @RequestMapping("/notice/")
 @Controller
 public class NoticeController {
 	
 	@Autowired
-    public NoticeDAO dao;
+	public NoticeService service;
 	
 	@RequestMapping("toNotice")
 	public String notice(Model model) throws Exception {
-		List<NoticeDTO> notices = dao.selectAll();
-		System.out.println(notices.get(0).getMember_id());
+		List<NoticeDTO> notices = service.selectAll();
+		
 		model.addAttribute("notices", notices);
+		
 	    return "/notice/noticeList";
 	}
+	
+	@RequestMapping("detail")
+	public String selectById(int notice_id, Model model) {
+		NoticeDTO dto = service.selectById(notice_id);
+		String username = service.selectUsername(notice_id);
+		model.addAttribute("dto", dto);
+		model.addAttribute("username", username);
+		return "/notice/noticeDetail";
+	}
+	
+	
+	
 	
 	@ExceptionHandler(Exception.class)
 	public String exceptionHandler(Exception e) {

@@ -9,6 +9,6 @@
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 </head>
 <body>
-
+	<a href="/signup">회원가입</a>
 </body>
 </html>

@@ -44,6 +44,7 @@ body {
 	border-width: 0;
 	transition: all .2s;
 	margin: auto;
+	padding:0px;
 }
 
 .card-header:first-child {
@@ -98,7 +99,7 @@ body {
 
 .card-body {
 	flex: 1 1 auto;
-	padding: 1.25rem
+	padding: 0rem
 }
 
 .flex-truncate {
@@ -164,8 +165,8 @@ select {
 				style="justify-content: space-around; background-color: rgba(255, 111, 97); color: white;">
 				<div class="row no-gutters w-100 align-items-center"
 					style="justify-content: space-around">
-					<div class="col-1 d-none d-md-block" style="text-align: center;">번호</div>
-					<div class="col-5 d-none d-md-block" style="text-align: center;">제목</div>
+					<div class="col-2 d-none d-md-block" style="text-align: center;">번호</div>
+					<div class="col-4 d-none d-md-block" style="text-align: center;">제목</div>
 					<div class="col-2 d-md-none" style="text-align: center;">번호</div>
 					<div class="col-9 d-md-none" style="text-align: center;">제목</div>
 					<div class="col-6 text-muted">
@@ -189,15 +190,15 @@ select {
 			<c:forEach var="dto" items="${notices}">
 
 
-				<div class="card-body py-3 " style="justify-content: space-around;">
+				<div class="card-body py-3 " style="justify-content: space-around; margin:0px;">
 					<div class="row no-gutters align-items-center"
 						style="justify-content: space-around">
 
 						<%-- 웹버전 seq --%>
-						<div class="col-1 d-none d-md-block pl-3">${dto.notice_id }</div>
+						<div class="col-2 d-none d-md-block pl-3" align=center style="padding-left:0px;">${dto.notice_id }</div>
 						<%-- 웹버전 title --%>
-						<div class="col-5 d-none d-md-block">
-							<a href="/notice/detail?seq=${dto.notice_id}"
+						<div class="col-4 d-none d-md-block" align=center>
+							<a href="/notice/detail?notice_id=${dto.notice_id}"
 								class="text-big" data-abc="true">${dto.notice_title }</a>
 								
 							<%-- <div class="text-muted small mt-1 d-md-none">${dto.detailDate }

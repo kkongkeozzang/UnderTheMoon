@@ -18,4 +18,12 @@ public class NoticeDAO {
 		return mybatis.selectList("Notice.selectAll");
 	}
 	
+	public NoticeDTO selectById(int notice_id) {
+		return mybatis.selectOne("Notice.selectById", notice_id);
+	}
+	
+	public String selectUsername(int notice_id) {
+		return mybatis.selectOne("Notice.selectUsername", notice_id);
+	}
+	
 }

@@ -6,7 +6,15 @@
 <mapper namespace="Notice">
 
 	<select id="selectAll" resultType="kh.spring.dto.NoticeDTO">
-		select * from notice order by member_id
+		select * from notice order by notice_id
+	</select>
+	
+	<select id="selectById" resultType="kh.spring.dto.NoticeDTO">
+		select * from notice where notice_id = #{value}
+	</select>
+	
+	<select id="selectUsername" resultType="String">
+		select member_username from member where member_id = #{value}
 	</select>
 
 

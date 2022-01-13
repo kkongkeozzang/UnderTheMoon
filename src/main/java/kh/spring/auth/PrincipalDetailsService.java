@@ -22,7 +22,6 @@ import lombok.RequiredArgsConstructor;
 @Component("principalDetailsService")
 public class PrincipalDetailsService implements UserDetailsService {
 
-	@Autowired
     private final MemberDAO memberDAO;
 
     //시큐리티 session(내부 Authentication(내부 UserDetails)) =

@@ -11,5 +11,6 @@
 <body>
 	<a href="/md/list">상품 리스트</a>
 	<a href="toNotice"><button>Board</button></a>
+	<a href="/login">로그인..</a>
 </body>
 </html>

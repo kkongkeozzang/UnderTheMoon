@@ -21,7 +21,6 @@ public class NoticeController {
 	@RequestMapping("toNotice")
 	public String notice(Model model) throws Exception {
 		List<NoticeDTO> notices = dao.selectAll();
-		System.out.println(notices.get(0).getMember_id());
 		model.addAttribute("notices", notices);
 	    return "/notice/noticeList";
 	}

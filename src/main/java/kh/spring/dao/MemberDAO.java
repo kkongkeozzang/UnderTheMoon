@@ -15,5 +15,7 @@ public class MemberDAO {
 	public MemberDTO SelectByUsername(String member_username) {
 		
 		return mybatis.selectOne("Member.SelectByUsername",member_username);
+		}
+	
 	}
-}
+

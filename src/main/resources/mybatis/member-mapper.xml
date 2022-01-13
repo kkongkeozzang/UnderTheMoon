@@ -9,7 +9,6 @@
   	select * from member where member_username = #{member_username}
   </select>
   
-  
   </mapper>
   
   

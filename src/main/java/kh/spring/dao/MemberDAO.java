@@ -4,19 +4,21 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Repository;
 
 import kh.spring.dto.MemberDTO;
-import lombok.RequiredArgsConstructor;
 
 
 @Repository
 public class MemberDAO {
 
 	private final SqlSessionTemplate mybatis;
+	private final BCryptPasswordEncoder bCrptPasswordEncoder;
 	
-	public MemberDAO(SqlSessionTemplate mybatis) {
+	public MemberDAO(SqlSessionTemplate mybatis, BCryptPasswordEncoder bCrptPasswordEncoder) {
 		this.mybatis = mybatis;
+		this.bCrptPasswordEncoder = bCrptPasswordEncoder;
 	}
 
 	public MemberDTO SelectByUsername(String member_username) {
@@ -31,6 +33,22 @@ public class MemberDAO {
 		map.put("member_name", member_name);
 		
 		return mybatis.selectOne("Member.SelectByNameAndEmail",map);
+	}
+	
+	public int insertMember(MemberDTO dto) {
+		
+		Map<String,String> map = new HashMap<>();
+		map.put("member_username", dto.getMember_username());
+		map.put("member_password", bCrptPasswordEncoder.encode((dto.getMember_password())));
+		map.put("member_name", dto.getMember_name());
+		map.put("member_birth_date", dto.getMember_birth_date());
+		map.put("member_phone", dto.getMember_phone());
+		map.put("member_zipcode", dto.getMember_zipcode());
+		map.put("member_address1", dto.getMember_address1());
+		map.put("member_address2", dto.getMember_address2());
+		map.put("member_email", dto.getMember_email());
+				
+		return mybatis.insert("Member.insertMember",map);
 	}
 	
 	}

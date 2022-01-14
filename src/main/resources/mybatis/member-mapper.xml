@@ -13,6 +13,11 @@
   	select member_username from member where member_email = #{member_email} and member_name = #{member_name}
   </select>
   
+  <insert id="insertMember">
+  	insert into member values(member_id_seq.nextval,#{member_username},#{member_password},#{member_name},#{member_birth_date}
+  	, #{member_phone}, #{member_zipcode}, #{member_address1}, #{member_address2}, default, '별', 'ROLE_USER', #{member_email})
+  </insert>
+  
   </mapper>
   
   

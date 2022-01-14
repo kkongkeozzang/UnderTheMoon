@@ -9,6 +9,10 @@
   	select * from member where member_username = #{member_username}
   </select>
   
+  <select id="SelectByNameAndEmail" resultType="String">
+  	select member_username from member where member_email = #{member_email} and member_name = #{member_name}
+  </select>
+  
   </mapper>
   
   

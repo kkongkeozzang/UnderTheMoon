@@ -112,52 +112,66 @@ body {
    text-decoration: underline;
 }
 </style>
+<script>
+
+$(function(){
+	
+    $("#findUsername").on("click",function(){
+       $.ajax({
+    	  type: 'get',
+          url:"/member/findUsernameProc",
+          data: {
+        	  member_email:$("#email").val(),
+              member_name:$("#name").val() 
+          }
+         
+       }).done(function(resp){
+           console.log("success" + resp);
+           $("#findUsername").css("color","grey");
+           $("#findUsername").text("귀하의 아이디는 "+resp+"입니다.");
+       }).fail(function(error){
+    	   $("#findUsername").css("color","pink");
+           $("#findUsername").text("존재하지 않는 아이디입니다.");
+           $("#email").val("");
+           $("#name").val("");
+           $("#email").focus();
+       })
+     })
+ })
+</script>
 </head>
 <body>
    <div class="signup-form">
-      <form action="/login" method="post"
+    <form
          class="form-horizontal">
          <div class="row">
             <div class="col-8 offset-4">
-               <h2 align="center">로그인</h2>
+               <h2 align="center">아이디찾기 </h2>
             </div>
          </div>
          <div class="form-group row">
-            <label class="col-form-label col-4">아이디:</label>
+            <label class="col-form-label col-4">Email:</label>
             <div class="col-8">
-               <input type="text" class="form-control" name="member_username"
+               <input type="email" id="email" class="form-control" name="member_email"
                   required="required">
             </div>
          </div>
          <div class="form-group row">
-            <label class="col-form-label col-4">비밀번호:</label>
+            <label class="col-form-label col-4">이름:</label>
             <div class="col-8">
-               <input type="password" class="form-control" name="member_password"
+               <input type="text" id="name" class="form-control" name="member_name"
                   required="required">
             </div>
          </div>
-         <c:if test="${param.error != null }">
-        	<p>잘못된 정보입니다..</p>
-        </c:if>
          <div class="form-group row">
             <div class="col-8 offset-4">
-               <button type="submit" class="btn btn-primary btn-lg">로그인</button>
+               <button type="button" id="findUsername" class="btn btn-primary btn-lg">아이디찾기 </button>
             </div>
          </div>
-      </form>
+        </form>
       <div class="text-center">
          아이디가 없으신가요? <a href="#">회원가입</a><br>
-           <a id="findUsername" href="#">아이디찾기</a><br>
-            <a id="findPassword" href="#">비밀번호찾기</a>
       </div>
    </div>
-    <script>
-   		$("#findUsername").on("click",function(){
-			location.href = "/member/findUsername";
-		})
-		$("#findPassword").on("click",function(){
-			location.href = "/member/findPassword";
-		})
-   </script>
 </body>
 </html>

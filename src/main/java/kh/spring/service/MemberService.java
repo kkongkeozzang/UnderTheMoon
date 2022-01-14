@@ -10,11 +10,14 @@ import kh.spring.dao.MemberDAO;
 
 import lombok.RequiredArgsConstructor;
 
-@RequiredArgsConstructor
 @Service
 public class MemberService {
 
 	private final MemberDAO memberDAO;
+	
+	public MemberService(MemberDAO memberDAO) {
+		this.memberDAO = memberDAO;
+	}
 
 	public String selectByNameAndEmail(String member_email, String member_name) throws IllegalArgumentException {
 		String member_username = memberDAO.selectByNameAndEmail(member_email,member_name);

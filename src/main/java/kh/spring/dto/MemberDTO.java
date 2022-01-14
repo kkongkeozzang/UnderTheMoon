@@ -12,8 +12,6 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class MemberDTO {
-
-	
 	private Integer member_id;
 	private String member_username;
 	private String member_password;
@@ -26,5 +24,6 @@ public class MemberDTO {
 	private Timestamp member_signup_date;
 	private String grade_name;
 	private String role;
+	private String member_email;
 	
 }

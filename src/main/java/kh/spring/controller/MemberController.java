@@ -33,6 +33,12 @@ public class MemberController {
 		return "login/findPassword";
 	}
 	
+	@RequestMapping("/signup")
+	public String signup() {
+		
+		return "/signup/signup";
+	}
+	
 	@RequestMapping("member/signup")
 	public String signup(MemberDTO dto) throws Exception{
 		

@@ -20,5 +20,7 @@ private final SqlSessionTemplate mybatis;
 		return mybatis.selectList("Md.selectAll");
 	}
 	
-	
+	public int selectAllCount() {
+		return mybatis.selectOne("Md.selectAllCount");
+	}
 }

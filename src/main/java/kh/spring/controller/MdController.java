@@ -22,7 +22,9 @@ public class MdController {
 	@RequestMapping("list")
 	public String list(Model model) {
 		List<MdDTO> mds = mdService.selectAll();
+		int allMdCount = mdService.selectAllCount();
 		model.addAttribute("mds", mds);
+		model.addAttribute("allMdCount", allMdCount);
 		System.out.println(mds.size());
 		return "/md/mdList";
 	}

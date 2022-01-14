@@ -20,4 +20,8 @@ public class MdService {
 		return mdDAO.selectAll();
 	}
 	
+	public int selectAllCount() {
+		return mdDAO.selectAllCount();
+	}
+	
 }

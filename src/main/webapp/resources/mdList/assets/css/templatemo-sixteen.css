@@ -614,6 +614,7 @@ footer .inner-content p a {
 }
 
 .products .filters {
+	height:30px;
 	text-align: center;
 	border-bottom: 1px solid #eee;
 	padding-bottom: 10px;
@@ -629,6 +630,14 @@ footer .inner-content p a {
 	margin: 0px 10px;
 	transition: all .3s;
 	cursor: pointer;
+}
+
+.sort {
+	float:right;
+}
+
+.count {
+	float:left;
 }
 
 .products .filters ul li.active,

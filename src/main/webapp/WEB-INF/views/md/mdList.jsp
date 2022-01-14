@@ -15,15 +15,16 @@
 <link rel="stylesheet" href="/resources/mdList/assets/css/owl.css">
 </head>
 <body>
-
+	
     <div class="products">
       <div class="container">
         <div class="row">
           <div class="col-md-12">
             <div class="filters">
-              <ul align=right>
-                  <li >리뷰순</li>
-                  <li >최신순</li>
+              <ul >
+                  <li class=count>총 ${allMdCount } 개</li>
+                  <li class=sort>리뷰순</li>
+                  <li class=sort>최신순</li>
               </ul>
             </div>
           </div>

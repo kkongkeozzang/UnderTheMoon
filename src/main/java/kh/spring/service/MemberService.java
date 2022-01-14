@@ -2,13 +2,10 @@ package kh.spring.service;
 
 import java.util.Optional;
 
-
-
 import org.springframework.stereotype.Service;
 
 import kh.spring.dao.MemberDAO;
-
-import lombok.RequiredArgsConstructor;
+import kh.spring.dto.MemberDTO;
 
 @Service
 public class MemberService {
@@ -31,5 +28,7 @@ public class MemberService {
 		
 	}
 	
-
+	public int insertMember(MemberDTO dto) {
+		return memberDAO.insertMember(dto);
+	}
 }

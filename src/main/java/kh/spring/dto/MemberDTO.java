@@ -2,18 +2,12 @@ package kh.spring.dto;
 
 import java.sql.Timestamp;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
-
 public class MemberDTO {
 	private Integer member_id;
 	private String member_username;
 	private String member_password;
 	private String member_name;
-	private Timestamp member_birth_date;
+	private String member_birth_date;
 	private String member_phone;
 	private String member_zipcode;
 	private String member_address1;
@@ -26,7 +20,7 @@ public class MemberDTO {
 	public MemberDTO() {}
 	
 	public MemberDTO(Integer member_id, String member_username, String member_password, String member_name,
-			Timestamp member_birth_date, String member_phone, String member_zipcode, String member_address1,
+			String member_birth_date, String member_phone, String member_zipcode, String member_address1,
 			String member_address2, Timestamp member_signup_date, String grade_name, String role, String member_email) {
 		super();
 		this.member_id = member_id;
@@ -76,11 +70,11 @@ public class MemberDTO {
 		this.member_name = member_name;
 	}
 
-	public Timestamp getMember_birth_date() {
+	public String getMember_birth_date() {
 		return member_birth_date;
 	}
 
-	public void setMember_birth_date(Timestamp member_birth_date) {
+	public void setMember_birth_date(String member_birth_date) {
 		this.member_birth_date = member_birth_date;
 	}
 

@@ -13,7 +13,7 @@
 		select nvl(review_count,0) review_count, m2.* from md m2 left outer join 
 	    (select m.md_id, count(*) review_count from md m join md_review r on r.MD_ID = m.MD_ID group by m.md_id) a 
 	    on m2.md_id = a.md_id
-	    order by review_count desc
+	    order by review_count desc, m2.md_id desc
 	</select>
 	
 	<select id="selectAllNewSort" resultType="kh.spring.dto.MdDTO">

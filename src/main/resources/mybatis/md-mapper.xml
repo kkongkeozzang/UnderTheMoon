@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="Md">
+	
+	<select id="selectAll" resultType="kh.spring.dto.MdDTO">
+		select * from md
+	</select>
+	
+</mapper>

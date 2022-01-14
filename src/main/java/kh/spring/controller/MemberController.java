@@ -6,6 +6,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import kh.spring.dto.MemberDTO;
+
 @Controller
 public class MemberController {
 
@@ -34,4 +36,11 @@ public class MemberController {
 		return "/login/resetPassword";
 	}
 	
+	@RequestMapping("member/resetPasswordProc")
+	public String resetPasswordProc(MemberDTO memberDTO) {
+		
+		
+		
+		return null;
+	}
 }

@@ -2,7 +2,6 @@ package kh.spring.controller;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -15,8 +14,11 @@ import kh.spring.service.NoticeService;
 @Controller
 public class NoticeController {
 	
-	@Autowired
-	public NoticeService service;
+	private final NoticeService service;
+	
+	public NoticeController(NoticeService service) {
+		this.service = service;
+	}
 	
 	@RequestMapping("toNotice")
 	public String notice(Model model) throws Exception {

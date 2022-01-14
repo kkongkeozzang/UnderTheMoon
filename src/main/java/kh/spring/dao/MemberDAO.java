@@ -9,11 +9,15 @@ import org.springframework.stereotype.Repository;
 import kh.spring.dto.MemberDTO;
 import lombok.RequiredArgsConstructor;
 
-@RequiredArgsConstructor
+
 @Repository
 public class MemberDAO {
 
 	private final SqlSessionTemplate mybatis;
+	
+	public MemberDAO(SqlSessionTemplate mybatis) {
+		this.mybatis = mybatis;
+	}
 
 	public MemberDTO SelectByUsername(String member_username) {
 		

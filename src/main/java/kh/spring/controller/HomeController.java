@@ -15,7 +15,7 @@ public class HomeController {
 	@RequestMapping("signup")
 	public String signup() {
 		
-		return "signup";
+		return "/signup/signup";
 	}
 
 }

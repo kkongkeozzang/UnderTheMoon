@@ -30,9 +30,9 @@ function reviewSort(){
 			for(let i = 0;i < mdsSize; i++) {
 				str += "<div class='col-lg-4 col-md-4 all des'>";
 				str += "<div class='product-item'>";
-				str += "<a href='#'><img src='/resources/mdList/assets/images/${md.md_image }' alt=''></a>";
+				str += "<a ><img  alt=''></a>";
 				str += "<div class='down-content'>";
-				str += "<a href='#'><h4>"+resp.mds[i].md_name+"</h4></a>";
+				str += "<a ><h4>"+resp.mds[i].md_name+"</h4></a>";
 				str += "<h6>"+resp.mds[i].md_price+"</h6>";
 				str += "<p>"+resp.mds[i].md_content+"</p>";
 				str += "<ul class='stars'>";
@@ -66,9 +66,9 @@ function newSort() {
 			for(let i = 0;i < mdsSize; i++) {
 				str += "<div class='col-lg-4 col-md-4 all des'>";
 				str += "<div class='product-item'>";
-				str += "<a href='#'><img src='/resources/mdList/assets/images/${md.md_image }' alt=''></a>";
+				str += "<a><img src='/resources/mdList/assets/images/${md.md_image }' alt=''></a>";
 				str += "<div class='down-content'>";
-				str += "<a href='#'><h4>"+resp.mds[i].md_name+"</h4></a>";
+				str += "<a><h4>"+resp.mds[i].md_name+"</h4></a>";
 				str += "<h6>"+resp.mds[i].md_price+"</h6>";
 				str += "<p>"+resp.mds[i].md_content+"</p>";
 				str += "<ul class='stars'>";
@@ -90,6 +90,48 @@ function newSort() {
 		})
 	})
 }
+function getPage(pageNavi) {
+	$.ajax({
+		url: "/md/listPage",
+		post: "get",
+		dataType: "json",
+		data: {currentPage: pageNavi}
+	}).done(function(resp){
+		console.log(resp);
+		let mdsSize = resp.mds.length;
+		let naviSize = resp.pageNavis.length;
+		let str = "";
+		for(let i = 0; i < mdsSize; i++) {
+			str += "<div class='col-lg-4 col-md-4 all des'>";
+			str += "<div class='product-item'>";
+			str += "<a><img alt=''></a>";
+			str += "<div class='down-content'>";
+			str += "<a><h4>"+resp.mds[i].md_name+"</h4></a>";
+			str += "<h6>"+resp.mds[i].md_price+"</h6>";
+			str += "<p>"+resp.mds[i].md_content+"</p>";
+			str += "<ul class='stars'>";
+			str += "<li><i class='fa fa-star'></i></li>";
+			str += "<li><i class='fa fa-star'></i></li>";
+			str += "<li><i class='fa fa-star'></i></li>";
+			str += "<li><i class='fa fa-star'></i></li>";
+			str += "<li><i class='fa fa-star'></i></li>";
+			str += "</ul>";
+			str += "<span>Reviews (12)</span>";
+			str += "</div>";
+			str += "</div>";
+			str += "</div>";
+		}
+		$("#list-page").html(str);
+		
+		let pageStr = "";
+		for(let i = 0; i < naviSize; i++) {
+			pageStr += "<li>";
+			pageStr += resp.pageNavis[i];
+			pageStr += "</li>";
+		}
+		$("#pages").html(pageStr);
+	})
+}
 </script>
 </head>
 <body>
@@ -99,6 +141,7 @@ function newSort() {
         <div class="row">
           <div class="col-md-12">
             <div class="filters">
+            <input type="hidden" id="cPage" value="${cPage }" >
               <ul >
                   <li class=count>총 ${allMdCount } 개</li>
                   <li class=sort id=review-sort>리뷰순</li>
@@ -113,9 +156,9 @@ function newSort() {
                 	<c:forEach var="md" items="${mds }">
 	                    <div class="col-lg-4 col-md-4 all des">
 	                      <div class="product-item">
-	                        <a href="#"><img src="/resources/mdList/assets/images/${md.md_image }" alt=""></a>
+	                        <a ><img alt=""></a>
 	                        <div class="down-content">
-	                          <a href="#"><h4>${md.md_name }</h4></a>
+	                          <a><h4>${md.md_name }</h4></a>
 	                          <h6>${md.md_price }</h6>
 	                          <p>${md.md_content }</p>
 	                          <ul class="stars">
@@ -168,12 +211,17 @@ function newSort() {
             </div>
           </div>
           <div class="col-md-12">
-            <ul class="pages">
+            <ul class="pages" id="pages">
+            <c:forEach var="pageNavi" items="${ pageNavis}">
+            	<li>${pageNavi}</li>
+            </c:forEach>
+            <%-- 
               <li><a href="#">1</a></li>
               <li class="active"><a href="#">2</a></li>
               <li><a href="#">3</a></li>
               <li><a href="#">4</a></li>
               <li><a href="#"><i class="fa fa-angle-double-right"></i></a></li>
+              --%>
             </ul>
           </div>
         </div>

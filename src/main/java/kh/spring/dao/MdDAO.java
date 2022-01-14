@@ -1,6 +1,8 @@
 package kh.spring.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
@@ -30,6 +32,13 @@ private final SqlSessionTemplate mybatis;
 	
 	public List<MdDTO> selectAllNewSort() {
 		return mybatis.selectList("Md.selectAllNewSort");
+	}
+	
+	public List<MdDTO> selectByBound(int start, int end) {
+		Map<String, Integer> map = new HashMap<>();
+		map.put("start", start);
+		map.put("end", end);
+		return mybatis.selectList("Md.selectByBound", map);
 	}
 	
 }

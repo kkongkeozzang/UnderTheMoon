@@ -24,4 +24,8 @@
 		select count(*) from md
 	</select>
 	
+	<select id="selectByBound" resultType="kh.spring.dto.MdDTO">
+		select * from (select md.*, row_number() over(order by md_id desc) rn from md)
+		where rn between #{start} and #{end}
+	</select>
 </mapper>

@@ -32,4 +32,7 @@ public class MdService {
 		return mdDAO.selectAllCount();
 	}
 	
+	public List<MdDTO> selectByBound(int start, int end) {
+		return mdDAO.selectByBound(start, end);
+	}
 }

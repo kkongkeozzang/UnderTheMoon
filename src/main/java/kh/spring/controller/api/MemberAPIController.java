@@ -4,21 +4,21 @@ package kh.spring.controller.api;
 
 
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-
-
 import kh.spring.service.MemberService;
-import lombok.RequiredArgsConstructor;
 
-@RequiredArgsConstructor
+
+
 @RestController
 @RequestMapping("/member/")
 public class MemberAPIController {
 
 	private final MemberService memberService;
+	
+	public  MemberAPIController(MemberService memberService) {
+		this.memberService = memberService;
+	}
 	
 	@GetMapping(value="findUsernameProc",produces="text/html;charset=utf8")
 	public String findUsername(String member_email,String member_name) {

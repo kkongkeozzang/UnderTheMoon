@@ -18,11 +18,14 @@ import lombok.RequiredArgsConstructor;
 
 //시큐리티 설정에서 loginProcessingUrl("/login")
 //로그인 요청이 오면 자동으로 userDetailService 타입으로 ioc 되어있는 loadUserByUsername 함수가 실행
-@RequiredArgsConstructor
 @Component("principalDetailsService")
 public class PrincipalDetailsService implements UserDetailsService {
 
     private final MemberDAO memberDAO;
+    
+    public PrincipalDetailsService(MemberDAO memberDAO) {
+    	this.memberDAO = memberDAO;
+    }
 
     //시큐리티 session(내부 Authentication(내부 UserDetails)) =
     @Override

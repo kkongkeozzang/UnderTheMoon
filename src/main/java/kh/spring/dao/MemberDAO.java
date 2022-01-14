@@ -7,7 +7,6 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import kh.spring.dto.MemberDTO;
-import lombok.RequiredArgsConstructor;
 
 
 @Repository
@@ -31,6 +30,17 @@ public class MemberDAO {
 		map.put("member_name", member_name);
 		
 		return mybatis.selectOne("Member.SelectByNameAndEmail",map);
+	}
+
+	public Integer selectByUsernameAndPhone(String member_username, String member_phone) {
+		
+		Map<String,String> map = new HashMap<>();
+		map.put("member_username",member_username );
+		map.put("member_phone", member_phone);
+		
+		int result = mybatis.selectOne("Member.SelectByUsernameAndPhone",map);
+		System.out.println(result+"sdsd");
+		return result;
 	}
 	
 	}

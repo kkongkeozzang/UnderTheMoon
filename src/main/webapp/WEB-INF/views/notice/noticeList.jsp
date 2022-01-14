@@ -313,7 +313,7 @@ select {
 							글쓰기</button>
 						<script>
 	         			$(".btn-write").on("click",function(){
-	         				location.href="/write.board?cpage=${cpage}";
+	         				location.href="/notice/toWrite";
 	         			});
 	         			let searchEvent = function(){
 	         				let select = $(".select").val();

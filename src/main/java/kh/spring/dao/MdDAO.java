@@ -23,4 +23,13 @@ private final SqlSessionTemplate mybatis;
 	public int selectAllCount() {
 		return mybatis.selectOne("Md.selectAllCount");
 	}
+	
+	public List<MdDTO> selectAllReviewSort() {
+		return mybatis.selectList("Md.selectAllReviewSort");
+	}
+	
+	public List<MdDTO> selectAllNewSort() {
+		return mybatis.selectList("Md.selectAllNewSort");
+	}
+	
 }

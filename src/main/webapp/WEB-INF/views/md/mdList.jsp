@@ -23,9 +23,17 @@
             <div class="filters">
               <ul >
                   <li class=count>총 ${allMdCount } 개</li>
-                  <li class=sort>리뷰순</li>
-                  <li class=sort>최신순</li>
+                  <li class=sort id=review-sort>리뷰순</li>
+                  <li class=sort id=new-sort>최신순</li>
               </ul>
+              <script>
+              	$("#review-sort").on("click",function(){
+              		location.href="/md/reviewSort";
+              	})
+              	$("#new-sort").on("click",function(){
+              		location.href="/md/newSort";
+              	})
+              </script>
             </div>
           </div>
           <div class="col-md-12">

@@ -20,6 +20,14 @@ public class MdService {
 		return mdDAO.selectAll();
 	}
 	
+	public List<MdDTO> selectAllReviewSort() {
+		return mdDAO.selectAllReviewSort();
+	}
+	
+	public List<MdDTO> selectAllNewSort() {
+		return mdDAO.selectAllNewSort();
+	}
+	
 	public int selectAllCount() {
 		return mdDAO.selectAllCount();
 	}

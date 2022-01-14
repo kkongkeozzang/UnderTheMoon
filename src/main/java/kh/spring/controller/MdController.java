@@ -29,4 +29,24 @@ public class MdController {
 		return "/md/mdList";
 	}
 	
+	@RequestMapping("reviewSort")
+	public String reviewSort(Model model) {
+		List<MdDTO> mds = mdService.selectAllReviewSort();
+		// 상품 갯수는 동일하므로 메소드 그대로 사용
+		int allMdCount = mdService.selectAllCount();
+		model.addAttribute("mds", mds);
+		model.addAttribute("allMdCount", allMdCount);
+		return "/md/mdList";
+	}
+	
+	@RequestMapping("newSort")
+	public String newSort(Model model) {
+		List<MdDTO> mds = mdService.selectAllNewSort();
+		// 상품갯수는 동일하므로 메소드 그대로 사용
+		int allMdCount = mdService.selectAllCount();
+		model.addAttribute("allMdCount", allMdCount);
+		model.addAttribute("mds", mds);
+		return "/md/mdList";
+	}
+	
 }

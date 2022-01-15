@@ -208,19 +208,20 @@ body {
 	<div class="container-fluid mt-100">
 		<div id="board-title">
 			<!-- <img id="title" src="/resources/board/image/title.png"> -->
-			<span>공지사항</span>
+			<span><h3>공지사항</h3></span>
 		</div>
 		<br>
 
 		<!-- 게시판 박스 -->
 		<div class="card mb-3 col-xl-6 col-md-12">
 			<!-- 게시글 등록 박스 -->
-			<form action="/notice/insert" method="post" id="frm">
+			<form action="/notice/update" method="post" id="frmDetail">
 				<div class="container mb-4 mt-4">
 					<div class="row" style="padding-bottom: 5px;">
-						<div class="col-sm-12">
-							<input hidden="hidden" name=member_id value=${dto.member_id }> 
-							<input type=text id=input-title name=notice_title placeholder="제목을 작성하세요" style="width: 100%;" value=${dto.notice_title }>
+						<div class="col-sm-12"> 
+							<input type="hidden" value="${dto.member_id}" name="member_id">
+							<input type="hidden" value="${dto.notice_id}" name="notice_id">
+							<input type=text id=input-title name=notice_title placeholder="제목을 작성하세요" style="width: 100%;" value='${dto.notice_title }'>
 						</div>
 					</div>
 					<div class="row">
@@ -235,16 +236,19 @@ body {
 					</div>
 					<div class="row">
 						<div class="col-sm-12" style="text-align: right">
-							<button type="button" id="boardList" class="btn btn-dark"
-								style="background-color: rgb(255, 111, 97);">목록으로</button>
-							<button class="btn btn-dark" type=button id="write"
-								style="background-color: rgb(255, 111, 97);">작성하기</button>
-							<script>
-					$("#boardList").on("click",function(){
-						location.href="/notice/toNotice";
-					})
-					$("#write").on("click",function(){
-						console.log($("#contents").val());
+							<button type="button" id="update" class="btn btn-dark"
+								style="background-color: rgb(255, 111, 97);">수정완료</button>
+							<button class="btn btn-dark" type=button id="cancel"
+								style="background-color: rgb(255, 111, 97);">취소</button>
+					<script>
+					
+					$("#cancel").on("click",function(){
+						if(confirm("정말 취소하시겠습니까?")){
+							location.href="/notice/detail?notice_id=${dto.notice_id}";
+						}
+					});
+					
+					$("#update").on("click",function(){
 						if($('.note-editable').html()==""){
 							alert("내용을 입력해주세요.");
 						}else if(textCnt > 1000){
@@ -252,7 +256,9 @@ body {
 						}else if($("#input-title").val()==""){
 							alert("제목을 입력해주세요.");
 						}else {
-							$("#frm").submit();					
+							if(confirm("이대로 수정하시겠습니까?")){
+								$("#frmDetail").submit();
+							}				
 						}
 					})
 				</script>
@@ -334,7 +340,7 @@ body {
 			var maxCnt = 1000; //최대 글자수
 			var editorText = f_SkipTags_html(str); //에디터에서 태그를 삭제하고 내용만 가져오기
 			editorText = editorText.replace(/\s/gi,""); //줄바꿈 제거
-			editorText = editorText.replace(/&nbsp;/gi, ""); //공백제거
+			/* editorText = editorText.replace(/&nbsp;/gi, ""); //공백제거 */
 			
 			textCnt = editorText.length; // 줄바꿈, 공백제거한 현재 글자 수
 			if(maxCnt > 0) {

@@ -35,4 +35,14 @@ public class NoticeDAO {
 	public int delete(int notice_id) {
 		return mybatis.delete("Notice.delete", notice_id);
 	}
+	
+	public int update(NoticeDTO dto) {
+		int result = mybatis.update("Notice.update", dto);
+		return dto.getNotice_id();
+	}
+	
+	public int updateViewCount(int notice_id) {
+		return mybatis.update("Notice.updateViewCount", notice_id);
+		
+	}
 }

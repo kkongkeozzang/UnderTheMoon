@@ -44,6 +44,7 @@ public class NoticeController {
 	@RequestMapping("detail")
 	public String selectById(int notice_id, Model model) {
 		NoticeDTO dto = service.selectById(notice_id);
+		int viewCount = service.updateViewCount(notice_id);
 		String username = service.selectUsername(notice_id);
 		model.addAttribute("dto", dto);
 		model.addAttribute("username", username);
@@ -106,6 +107,12 @@ public class NoticeController {
 		NoticeDTO dto = service.selectById(notice_id);
 		model.addAttribute("dto", dto);
 		return "/notice/noticeUpdate";
+	}
+	
+	@RequestMapping("update")
+	public String update(NoticeDTO dto, Model model) {
+		int result = service.update(dto); // 게시판에 작성된 내용을 DB에 저장하는 부분
+		return "redirect:/notice/detail?notice_id="+dto.getNotice_id();
 	}
 	
 	@ExceptionHandler(Exception.class)

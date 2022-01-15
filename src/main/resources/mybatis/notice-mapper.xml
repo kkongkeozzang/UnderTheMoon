@@ -24,5 +24,13 @@
 	<delete id="delete">
 		delete from notice where notice_id = #{value}
 	</delete>
+	
+	<update id="update">
+		update notice set notice_title = #{notice_title}, notice_content= #{notice_content} where notice_id = #{notice_id}
+	</update>
+	
+	<update id="updateViewCount">
+		update notice set notice_view_count = notice_view_count + 1 where notice_id = #{notice_id}
+	</update>
 
 </mapper>

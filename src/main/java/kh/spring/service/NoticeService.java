@@ -35,4 +35,13 @@ public class NoticeService {
 	public int delete(int notice_id) {
 		return dao.delete(notice_id);
 	}
+	
+	public int update(NoticeDTO dto) {
+		return dao.update(dto);
+	}
+	
+	public int updateViewCount(int notice_id) {
+		return dao.updateViewCount(notice_id);
+	}
+	
 }

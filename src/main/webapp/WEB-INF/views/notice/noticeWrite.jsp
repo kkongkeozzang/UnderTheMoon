@@ -208,7 +208,7 @@ body {
 	<div class="container-fluid mt-100">
 		<div id="board-title">
 			<!-- <img id="title" src="/resources/board/image/title.png"> -->
-			<span>공지사항</span>
+			<span><h3>공지사항</h3></span>
 		</div>
 		<br>
 
@@ -219,7 +219,7 @@ body {
 				<div class="container mb-4 mt-4">
 					<div class="row" style="padding-bottom: 5px;">
 						<div class="col-sm-12">
-							<input hidden="hidden" name=member_id value=1> 
+							<input type="hidden" name=member_id value=1> 
 							<input type=text id=input-title name=notice_title placeholder="제목을 작성하세요" style="width: 100%;">
 						</div>
 					</div>
@@ -334,7 +334,7 @@ body {
 			var maxCnt = 1000; //최대 글자수
 			var editorText = f_SkipTags_html(str); //에디터에서 태그를 삭제하고 내용만 가져오기
 			editorText = editorText.replace(/\s/gi,""); //줄바꿈 제거
-			editorText = editorText.replace(/&nbsp;/gi, ""); //공백제거
+			/* editorText = editorText.replace(/&nbsp;/gi, ""); //공백제거 */
 			
 			textCnt = editorText.length; // 줄바꿈, 공백제거한 현재 글자 수
 			if(maxCnt > 0) {

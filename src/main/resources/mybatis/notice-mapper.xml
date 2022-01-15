@@ -6,7 +6,7 @@
 <mapper namespace="Notice">
 
 	<select id="selectAll" resultType="kh.spring.dto.NoticeDTO">
-		select * from notice order by notice_id
+		select * from notice order by notice_id desc
 	</select>
 	
 	<select id="selectById" resultType="kh.spring.dto.NoticeDTO">
@@ -16,6 +16,13 @@
 	<select id="selectUsername" resultType="String">
 		select member_username from member where member_id = #{value}
 	</select>
-
+	
+	<insert id="insert">
+		insert into notice values(notice_id_seq.nextval, #{notice_title}, #{notice_content},default,default,#{member_id})
+	</insert>
+	
+	<delete id="delete">
+		delete from notice where notice_id = #{value}
+	</delete>
 
 </mapper>

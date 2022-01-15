@@ -27,4 +27,12 @@ public class NoticeService {
 	public String selectUsername(int member_id) {
 		return dao.selectUsername(member_id);
 	}
+	
+	public int insert(NoticeDTO dto) {
+		return dao.insert(dto);
+	}
+	
+	public int delete(int notice_id) {
+		return dao.delete(notice_id);
+	}
 }

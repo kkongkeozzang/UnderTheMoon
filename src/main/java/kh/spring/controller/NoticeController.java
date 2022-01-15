@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletRequestWrapper;
 
 import org.apache.commons.io.FileUtils;
 import org.springframework.stereotype.Controller;
@@ -56,20 +55,25 @@ public class NoticeController {
 		return "/notice/noticeWrite";
 	}
 	
+	@RequestMapping("insert")
+	public String insert(NoticeDTO dto) {
+		int result = service.insert(dto); // 게시판에 작성된 내용을 DB에 저장하는 부분
+		return "redirect:/notice/toNotice";
+	}
+	
 	@RequestMapping(value="/uploadSummernoteImageFile", produces = "application/json; charset=utf8")
 	@ResponseBody
 	public String uploadSummernoteImageFile(@RequestParam("file") MultipartFile multipartFile, HttpServletRequest request )  {
 		
 		JsonObject jsonObject = new JsonObject();
 		
-        /*
-		 * String fileRoot = "C:\\summernote_image\\"; // 외부경로로 저장을 희망할때.
-		 */
-		
+        
+		String fileRoot = "C:\\summernoteImage\\"; // 외부경로로 저장을 희망할때.
+				
 		// 내부경로로 저장
-		String contextRoot = new HttpServletRequestWrapper(request).getRealPath("/");
-		System.out.println(contextRoot);
-		String fileRoot = contextRoot+"resources/fileupload/";
+//		String contextRoot = new HttpServletRequestWrapper(request).getRealPath("/");
+//		System.out.println(contextRoot);
+//		String fileRoot = contextRoot+"resources/fileupload/";
 		
 		String originalFileName = multipartFile.getOriginalFilename();	//오리지날 파일명
 		String extension = originalFileName.substring(originalFileName.lastIndexOf("."));	//파일 확장자
@@ -79,7 +83,7 @@ public class NoticeController {
 		try {
 			InputStream fileStream = multipartFile.getInputStream();
 			FileUtils.copyInputStreamToFile(fileStream, targetFile);	//파일 저장
-			jsonObject.addProperty("url", "/resources/fileupload/"+savedFileName); // contextroot + resources + 저장할 내부 폴더명
+			jsonObject.addProperty("url", "/summernoteImage/"+savedFileName); // contextroot + resources + 저장할 내부 폴더명
 			jsonObject.addProperty("responseCode", "success");
 				
 		} catch (IOException e) {
@@ -91,6 +95,18 @@ public class NoticeController {
 		return a;
 	}
 	
+	@RequestMapping("delete")
+	public String delete(int notice_id) {
+		int result = service.delete(notice_id); // 게시판에 작성된 내용을 DB에 저장하는 부분
+		return "redirect:/notice/toNotice";
+	}
+	
+	@RequestMapping("toUpdate")
+	public String toUpdate(int notice_id, Model model) {
+		NoticeDTO dto = service.selectById(notice_id);
+		model.addAttribute("dto", dto);
+		return "/notice/noticeUpdate";
+	}
 	
 	@ExceptionHandler(Exception.class)
 	public String exceptionHandler(Exception e) {

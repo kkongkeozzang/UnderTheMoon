@@ -252,7 +252,7 @@ body {
 	<!-- 타이틀  -->
 	<div class="container-fluid mt-100">
 		<div id="board-title">
-			<!-- <img id="title" src="/resources/board/image/title.png"> --> <span><h3>공지사항</h3></span>
+			<span><h3>공지사항</h3></span>
 		</div>
 		<br>
 
@@ -265,106 +265,108 @@ body {
 						<div class="col-sm-12">
 							<div class="row profile-detail">
 								<div class="col profile-box mt-4 mb-2 ">
-									<div class="img-box"
-										style="height: 100%; display: inline-block">
-										<img id="profile" class="img-profile"
-											style="width2: 50px; height: 50px;"
-											src="/profile.file?writer=${dto.member_id }" alt="">
-									</div>
-									<ul
-										class="meta list list-unstyled profile-detail d-flex mb-0 ml-2">
+									<ul class="meta list list-unstyled profile-detail d-flex mb-0 ml-2">
 										<li class="name mt-0" style="color: rgba(255, 111, 97);"></li>
 										<li class="label" style="margin: 0; padding: 0"></li>
 									</ul>
 								</div>
 							</div>
-							<input type="hidden" value="${loginID}" id="kkanbu">
+							<input type="hidden" value="${dto.member_id}" id="member_id">
+							<input type="hidden" value="${dto.notice_id}" id="notice_id">
 						</div>
 					</div>
 					<div class="row" style="padding-bottom: 5px;">
 						<div class="col-sm-12">
-							<input type=text id=input-title name=title style="width: 100%;"
-								value="${dto.notice_title}" readonly>
+							<div id=input-title name=title style="width: 100%; border:1px solid black;">${dto.notice_title}</div>
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-sm-12">
-							<textarea id="contents" name="contents" readonly
-								style="min-height: 200px; overflow: hidden"></textarea>
-							<script>
-                	$("#contents").text(`${dto.notice_content}`);
-                	autosize($("textArea"));
-                </script>
+							<div id="contents" name="contents"
+								style="min-height: 200px; overflow: auto; border:1px solid black;">${dto.notice_content}</div>
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-sm-12" style="text-align: right">
-							<c:if test="${loginID==dto.member_id}">
-								<button type="button" class="btn btn-dark" id="mod"
+							<%-- <c:if test="${loginID==dto.member_id}"> --%>
+								<button type="button" class="btn btn-dark" id="update"
 									style="background-color: rgb(255, 111, 97);">수정하기</button>
-								<button type="button" class="btn btn-dark" id="del"
+								<button type="button" class="btn btn-dark" id="delete"
 									style="background-color: rgb(255, 111, 97);">삭제하기</button>
 								<button type="button" class="btn btn-dark" id="modDone"
 									style="background-color: rgb(255, 111, 97); display: none;">수정완료</button>
-								<button type="button" class="btn btn-dark" id="cancle"
+								<button type="button" class="btn btn-dark" id="cancel"
 									style="background-color: rgb(255, 111, 97); display: none;">취소</button>
-							</c:if>
-							<c:if test="${loginID=='kkanbu'}">
+							<%-- </c:if> --%>
+							<c:if test="${loginID=='admin'}">
 								<button type="button" class="btn btn-dark" id="del"
 									style="background-color: rgb(255, 111, 97);">삭제하기</button>
 							</c:if>
 							<button type="button" id="boardList" class="btn btn-dark"
 								style="background-color: rgb(255, 111, 97);">목록으로</button>
-							 <script>
+								
+							<script>
 							$("#boardList").on("click",function(){
-						location.href="/notice/toNotice";
-					});
-							 <!-- // 기존 내용 백업
-					let bkTitle = $("#input-title").val();					
-					let bkContents = $("#contents").val();					
-					$("#mod").on("click", function(){
-                		$("#del").css("display","none");
-                		$("#mod").css("display","none");
-                		$("#boardList").css("display","none");
-                		$("#modDone").css("display","inline-block");
-                		$("#cancle").css("display","inline-block");
-                		$("#frm").removeAttr("action");
-                		$("#input-title").removeAttr("readonly");
-                		$("#contents").removeAttr("readonly");
-                		$("#contents").focus();
-                		
-                	 	$("#frm").attr("action","/modify.board?cpage=${cpage}&seq=${dto.member_id}");
-                		
-                	});
-                	$("#del").on("click", function(){
-                		if(confirm("정말 삭제하시겠습니까? \r\n되돌릴 수 없습니다.")) {
-                			if($("#kkanbu").val()=="kkanbu"){
-                			 location.href="/delete.board?seq=${dto.member_id}";
-                			}else{
-                				location.href="/delete.board?cpage=${cpage}&seq=${dto.member_id}";
-                			}
-                		}
-                	});
-                	$("#modDone").on("click",function(){
-                		$("#frm").submit();
-                	})
-                	$("#cancle").on("click",function(){
-                		$("#input-title").val(bkTitle);
-                		$("#contents").val(bkContents);
-                		$("#input-title").attr("readonly","");
-                		$("#contents").attr("readonly","");
-                		$("#mod").css("display","inline-block");
-                		$("#del").css("display","inline-block");
-                		$("#modDone").css("display","none");
-                		$("#cancle").css("display","none");
-                		$("#boardList").css("display","inline-block");
-                	})-->
-				</script> 
+								location.href="/notice/toNotice";
+							});
+							
+							$("#delete").on("click", function(){
+		                		if(confirm("정말 삭제하시겠습니까? \r\n되돌릴 수 없습니다.")) {
+// 		                			if($("#member_id").val()=="admin"){
+		                			 location.href="/notice/delete?notice_id="+${dto.notice_id};
+// 		                			}else{
+// 		                				location.href="/delete.board?cpage=${cpage}&seq=${dto.notice_id}";
+// 		                			}
+		                		}
+		                	});
+							
+							$("#update").on("click", function(){
+								location.href="/notice/toUpdate?notice_id="+${dto.notice_id};;
+							});
+							</script>
+							
+							
+							<%-- // 기존 내용 백업
+							let bkTitle = $("#input-title").val();					
+							let bkContents = $("#contents").val();					
+							$("#mod").on("click", function(){
+		                		$("#del").css("display","none");
+		                		$("#mod").css("display","none");
+		                		$("#boardList").css("display","none");
+		                		$("#modDone").css("display","inline-block");
+		                		$("#cancel").css("display","inline-block");
+		                		$("#frm").removeAttr("action");
+		                		$("#input-title").removeAttr("readonly");
+		                		$("#contents").removeAttr("readonly");
+		                		$("#contents").focus();
+		                		
+		                	 	$("#frm").attr("action","/modify.board?cpage=${cpage}&seq=${dto.member_id}");
+		                		
+		                	});
+		                	
+		                	$("#modDone").on("click",function(){
+		                		$("#frm").submit();
+		                	})
+		                	$("#cancel").on("click",function(){
+		                		$("#input-title").val(bkTitle);
+		                		$("#contents").val(bkContents);
+		                		$("#input-title").attr("readonly","");
+		                		$("#contents").attr("readonly","");
+		                		$("#mod").css("display","inline-block");
+		                		$("#del").css("display","inline-block");
+		                		$("#modDone").css("display","none");
+		                		$("#cancel").css("display","none");
+		                		$("#boardList").css("display","inline-block");
+		                	}) --%>
+		                	
+							
 						</div>
 					</div>
 				</div>
 			</form>
+		</div>
 			<hr>
+			
 			<!-- 댓글 보여주기 -->
 			<%-- <c:if test="${fn:length(cList)!=0}">
 				<c:forEach var="cdto" items="${cList }">
@@ -412,7 +414,7 @@ body {
 											style="background-color: rgb(255, 111, 97);">수정</button>
 										<button class="btn btn-dark modCmtOk"
 											style="background-color: rgb(255, 111, 97); display: none;">완료</button>
-										<button type="button" class="btn btn-dark modCmtCancle"
+										<button type="button" class="btn btn-dark modCmtCancel"
 											style="background-color: rgb(255, 111, 97); display: none;">취소</button>
 										<button type="button" class="btn btn-dark delCmt"
 											style="background-color: rgb(255, 111, 97);">삭제</button>
@@ -440,7 +442,7 @@ body {
    		$(this).closest(".frm-cmt").find("textarea").removeAttr("readonly");
    		$(this).closest(".frm-cmt").find("textarea").focus();
    	});
-   	$(".card").on("click",".modCmtCancle",function(){
+   	$(".card").on("click",".modCmtCancel",function(){
    		$(this).closest(".frm-cmt").find("textarea").val(bkContentsCmt);
    		$(this).closest(".frm-cmt").find("textarea").attr("readonly","");
    		$(this).prev().prev().css("display","inline-block");
@@ -502,15 +504,15 @@ body {
             		$("#frm-cmt").submit();
             	}
             })
-            </script> --%>
+            </script>
 						</div>
 					</div>
 				</div>
-			</form>
+			</form>--%>
 
 
 
-		</div>
+		
 
 		<br>
 
@@ -519,7 +521,6 @@ body {
 		<!-- 푸터 -->
 		<%-- <jsp:include page="/footer.jsp" flush="false" /> --%>
 	</div>
-	<script type="text/javascript">
-</script>
+	<script type="text/javascript"></script> 
 </body>
 </html>

@@ -28,4 +28,11 @@ public class NoticeDAO {
 		return mybatis.selectOne("Notice.selectUsername", notice_id);
 	}
 	
+	public int insert(NoticeDTO dto) {
+		return mybatis.insert("Notice.insert", dto);
+	}
+	
+	public int delete(int notice_id) {
+		return mybatis.delete("Notice.delete", notice_id);
+	}
 }

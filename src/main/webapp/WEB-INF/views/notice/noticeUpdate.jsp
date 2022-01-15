@@ -219,14 +219,14 @@ body {
 				<div class="container mb-4 mt-4">
 					<div class="row" style="padding-bottom: 5px;">
 						<div class="col-sm-12">
-							<input hidden="hidden" name=member_id value=1> 
-							<input type=text id=input-title name=notice_title placeholder="제목을 작성하세요" style="width: 100%;">
+							<input hidden="hidden" name=member_id value=${dto.member_id }> 
+							<input type=text id=input-title name=notice_title placeholder="제목을 작성하세요" style="width: 100%;" value=${dto.notice_title }>
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-sm-12">
 							<textarea name="notice_content" id="summernote"
-								style="min-height: 200px; overflow: auto" maxlength="1000"></textarea>
+								style="min-height: 200px; overflow: auto" maxlength="1000">${dto.notice_content }</textarea>
 							<script>
                 				autosize($("textarea"));
         			        </script>

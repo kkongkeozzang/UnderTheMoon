@@ -344,28 +344,33 @@ body {
 		                	});
 							
 							$("#update").on("click", function(){
-								location.href="/notice/toUpdate?notice_id="+${dto.notice_id};;
+								location.href="/notice/toUpdate?notice_id="+${dto.notice_id};
 							});
+							
 							</script>
 						
 					</div>
 				</div>
+				<c:if test="${upDown.prevNum ne 0 }">
 				<div class="row" style="border-top:1px solid black; border-bottom:1px solid gray; margin:0px;">
 					<div class="col-sm-2">
-						▲ 이전글
-					</div>
-					<div class="col-sm-10"">
-						<div style="width: 100%;">이전글이전글이전글이전글이전글</div>
-					</div>
-				</div>
-				<div class="row" style="border-bottom:1px solid black; margin:0px;">
-					<div class="col-sm-2">
-						▼ 다음글
+						▲ 이전 글
 					</div>
 					<div class="col-sm-10">
-						<div style="width: 100%;">다음글다음글다음글다음글다음글</div>
+						<a href="/notice/detail?notice_id=${upDown.prevNum}&member_id=${upDown.prevMember}"><div style="width: 100%;">${upDown.prevTitle}</div></a>
 					</div>
 				</div>
+				</c:if>
+				<c:if test="${upDown.nextNum ne 0 }">
+				<div class="row" style="border-bottom:1px solid black; margin:0px;">
+					<div class="col-sm-2">
+						▼ 다음 글
+					</div>
+					<div class="col-sm-10">
+						<a href="/notice/detail?notice_id=${upDown.nextNum}&member_id=${upDown.nextMember}"><div style="width: 100%;">${upDown.nextTitle}</div></a>
+					</div>
+				</div>
+				</c:if>
 			</div>
 			
 		</div>

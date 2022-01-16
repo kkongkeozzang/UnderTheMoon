@@ -43,12 +43,14 @@ public class NoticeController {
 	public String selectById(int notice_id, int member_id, Model model) {
 		NoticeDTO dto = service.selectById(notice_id);
 		int viewCount = service.updateViewCount(notice_id);
+		NoticeDTO selectUpDown = service.selectUpDown(notice_id);
 		String username = service.selectUsername(member_id);
 		model.addAttribute("dto", dto);
 		model.addAttribute("username", username);
+		model.addAttribute("upDown", selectUpDown);
 		return "/notice/noticeDetail";
 	}
-	
+		
 	@RequestMapping("toWrite")
 	public String toWrite() {
 		return "/notice/noticeWrite";

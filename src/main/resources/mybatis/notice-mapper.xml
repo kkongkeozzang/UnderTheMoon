@@ -17,6 +17,18 @@
 		select member_username from member where member_id = #{value}
 	</select>
 	
+	<select id="selectUpDown" resultType="kh.spring.dto.NoticeDTO">
+		select notice_id, prevNum, nextNum,
+		(select notice_title from notice where notice_id=prevNum) as prevTitle,
+		(select notice_title from notice where notice_id=nextNum) as nextTitle,
+		(select member_id from notice where notice_id=prevNum) as prevMember,
+		(select member_id from notice where notice_id=nextNum) as nextMember
+		from (select notice_id, 
+		lag(notice_id,1,0) over(order by notice_id desc) as nextNum,
+		lead(notice_id,1,0) over(order by notice_id desc) as prevNum
+		from notice) where notice_id= #{value}
+	</select>
+	
 	<insert id="insert">
 		insert into notice values(notice_id_seq.nextval, #{notice_title}, #{notice_content},default,default,#{member_id})
 	</insert>

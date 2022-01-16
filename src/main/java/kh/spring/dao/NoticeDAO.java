@@ -28,6 +28,10 @@ public class NoticeDAO {
 		return mybatis.selectOne("Notice.selectUsername", member_id);
 	}
 	
+	public NoticeDTO selectUpDown(int notice_id) {
+		return mybatis.selectOne("Notice.selectUpDown", notice_id);
+	}
+	
 	public int insert(NoticeDTO dto) {
 		return mybatis.insert("Notice.insert", dto);
 	}

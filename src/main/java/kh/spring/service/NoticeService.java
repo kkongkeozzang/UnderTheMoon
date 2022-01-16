@@ -28,6 +28,10 @@ public class NoticeService {
 		return dao.selectUsername(member_id);
 	}
 	
+	public NoticeDTO selectUpDown(int notice_id) {
+		return dao.selectUpDown(notice_id);
+	}
+	
 	public int insert(NoticeDTO dto) {
 		return dao.insert(dto);
 	}

@@ -13,6 +13,12 @@ public class NoticeDTO {
     private int notice_view_count;
     private int member_id;
     private String member_username;
+    private int prevNum;
+    private int nextNum;
+    private String prevTitle;
+    private String nextTitle;
+    private int prevMember;
+    private int nextMember;
     
     public NoticeDTO() {
         super();
@@ -70,6 +76,48 @@ public class NoticeDTO {
     }
     public void setMember_username(String member_username) {
         this.member_username = member_username;
+    }
+    
+    public int getPrevNum() {
+        return prevNum;
+    }
+    public void setPrevNum(int prevNum) {
+        this.prevNum = prevNum;
+    }
+    
+    public int getNextNum() {
+        return nextNum;
+    }
+    public void setNextNum(int nextNum) {
+        this.nextNum = nextNum;
+    }
+    
+    public String getPrevTitle() {
+        return prevTitle;
+    }
+    public void setPrevTitle(String prevTitle) {
+        this.prevTitle = prevTitle;
+    }
+    
+    public String getNextTitle() {
+        return nextTitle;
+    }
+    public void setNextTitle(String nextTitle) {
+        this.nextTitle = nextTitle;
+    }
+    
+    public int getPrevMember() {
+        return prevMember;
+    }
+    public void setPrevMember(int prevMember) {
+        this.prevMember = prevMember;
+    }
+    
+    public int getNextMember() {
+        return nextMember;
+    }
+    public void setNextMember(int nextMember) {
+        this.nextMember = nextMember;
     }
     
     public String getFormedDate() {

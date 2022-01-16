@@ -114,88 +114,60 @@ body {
 </style>
 <script>
 
-$(function(){
+ $(function(){
 	
-
-
-	let username = $("#username").val();
-	
-    $("#findPassword").on("click",function(){
-    	
-    	$("#findPassword").attr("disabled","true");
-    	
+    $("#resetPassword").on("click",function(){
+    	if($("#password").val()==$("#password2").val()){
        $.ajax({
-    	  type: 'get',
-          url:"/member/findPasswordProc",
+    	  type: 'post',
+          url:"/member/resetPasswordProc",
           data: {
-        	  member_username:$("#username").val(),
-              member_phone:$("#phone").val() 
+        	  member_password:$("#password").val(),
+              member_username:$("#member_username").val() 
           }
        }).done(function(resp){
-    	   if(JSON.parse(resp).result == "Optional[2]"){
-    		   $("#username").attr("readonly","true");
-     		 	$("#phone").attr("readonly","true");
-     		 	$("#verification").css("display","block");
-    		   alert("인증번호가 발송 되었습니다. 인증번호를 입력해주세요.")
-              $("#phoneContainer").append("<br><br><br><br><div id='veri' class='form-group row'><label class='col-form-label col-4'>인증번호:</label><div class='col-8'><input type='text' id='verificationNumber' class='form-control' name='verificationNumber' required='required'></div></div>")
-              $("#veri").css("margin-left","80px");
-               $("#verification").click(function(){
-                        if($.trim(JSON.parse(resp).numStr) ==$('#verificationNumber').val()){
-                           alert('휴대폰 인증이 정상적으로 완료되었습니다.');
-                          document.location.href="/member/resetPassword?username="+$("#username").val();
-              }else{
-            	  alert("잘못된 번호입니다.");
-              }
-           })
-    	   }else if(JSON.parse(resp)== 1){
-         	  alert("잘못된 정보입니다.");
-              $("#username").val("");
-              $("#phone").val("");
-              $("#username").focus();
-          }
+         	alert("비밀번호가 변경되었습니다.");
+         	document.location.href="/login";
        })
+    	}else if(!($("#password").val()==$("#password2").val())){
+    		alert("비밀번호가 일치하지 않습니다.");
+    		 $("#password").val("");
+             $("#password2").val("");
+             $("#password").focus();
+    	}
      })
- })                 
-
+ }) 
 </script>
 </head>
 <body>
    <div class="signup-form">
-    <form
-         class="form-horizontal">
+    <form action class="form-horizontal">
          <div class="row">
             <div class="col-8 offset-4">
-               <h2 align="center">비밀번호 찾기 </h2>
+               <h2 align="center">비밀번호 재설정 </h2>
+               <input type="hidden" id="member_username" value="${member_username }" name="member_username">
             </div>
          </div>
          <div class="form-group row">
-            <label class="col-form-label col-4">아이디:</label>
+            <label class="col-form-label col-4">비밀번호</label>
             <div class="col-8">
-               <input type="text" id="username" class="form-control" name="member_username"
+               <input type="password" id="password" class="form-control" name="member_password"
                   required="required">
             </div>
          </div>
-
-         <div class="form-group row" id=phoneContainer>
-            <label class="col-form-label col-4">전화번호:</label>
+         <div class="form-group row">
+            <label class="col-form-label col-4">비밀번호확인</label>
             <div class="col-8">
-               <input type="text" id="phone" class="form-control" name="member_phone"
+               <input type="password" id="password2" class="form-control" 
                   required="required">
             </div>
          </div>
          <div class="form-group row">
             <div class="col-8 offset-4">
-
-               <button type="button" id="findPassword" class="btn btn-primary btn-lg">인증번호요청. </button>
-            </div>
-            <div class="col-8 offset-4">
-               <button style="display: none" type="button" id="verification" class="btn btn-primary btn-lg">인증완료. </button>
+               <button type="button" id="resetPassword" class="btn btn-primary btn-lg">비밀번호변경 </button>
             </div>
          </div>
         </form>
-      <div class="text-center">
-         아이디가 없으신가요? <a href="#">회원가입</a><br>
-      </div>
    </div>
 </body>
 </html>

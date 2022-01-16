@@ -24,8 +24,29 @@ public class NoticeDAO {
 		return mybatis.selectOne("Notice.selectById", notice_id);
 	}
 	
-	public String selectUsername(int notice_id) {
-		return mybatis.selectOne("Notice.selectUsername", notice_id);
+	public String selectUsername(int member_id) {
+		return mybatis.selectOne("Notice.selectUsername", member_id);
 	}
 	
+	public NoticeDTO selectUpDown(int notice_id) {
+		return mybatis.selectOne("Notice.selectUpDown", notice_id);
+	}
+	
+	public int insert(NoticeDTO dto) {
+		return mybatis.insert("Notice.insert", dto);
+	}
+	
+	public int delete(int notice_id) {
+		return mybatis.delete("Notice.delete", notice_id);
+	}
+	
+	public int update(NoticeDTO dto) {
+		int result = mybatis.update("Notice.update", dto);
+		return dto.getNotice_id();
+	}
+	
+	public int updateViewCount(int notice_id) {
+		return mybatis.update("Notice.updateViewCount", notice_id);
+		
+	}
 }

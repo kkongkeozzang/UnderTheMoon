@@ -153,7 +153,7 @@ select {
 	<!-- 타이틀  -->
 	<div class="container-fluid mt-100">
 		<div id="board-title">
-			<span><h3>고객센터</h3>공지사항입니다. 공지사항</span>
+			<span><h3>공지사항</h3>공지사항입니다. 공지사항</span>
 		</div>
 		<br>
 
@@ -198,7 +198,7 @@ select {
 						<div class="col-2 d-none d-md-block pl-3" align=center style="padding-left:0px;">${dto.notice_id }</div>
 						<%-- 웹버전 title --%>
 						<div class="col-4 d-none d-md-block" align=center>
-							<a href="/notice/detail?notice_id=${dto.notice_id}"
+							<a href="/notice/detail?notice_id=${dto.notice_id}&member_id=${dto.member_id}"
 								class="text-big" data-abc="true">${dto.notice_title }</a>
 								
 							<%-- <div class="text-muted small mt-1 d-md-none">${dto.detailDate }
@@ -207,8 +207,8 @@ select {
 						<%-- 웹버전 조회수, 작성자, 날짜 --%>
 						<div class="d-none d-md-block col-6">
 							<div class="row no-gutters align-items-center">
-								<div class="col-4" style="text-align: center;">${dto.member_id }</div>
-								<div class="col-4" style="text-align: center;">${dto.notice_write_date }</div>
+								<div class="col-4" style="text-align: center;">${dto.member_username }</div>
+								<div class="col-4" style="text-align: center;">${dto.getFormedDate()}</div>
 								<div class="col-4" style="text-align: center;">${dto.notice_view_count }</div>
 								
 								<%-- <div class="media pl-4 col-8 align-items-center">
@@ -313,7 +313,7 @@ select {
 							글쓰기</button>
 						<script>
 	         			$(".btn-write").on("click",function(){
-	         				location.href="/write.board?cpage=${cpage}";
+	         				location.href="/notice/toWrite";
 	         			});
 	         			let searchEvent = function(){
 	         				let select = $(".select").val();

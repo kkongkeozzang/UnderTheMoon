@@ -1,12 +1,7 @@
 package kh.spring.dto;
 
 import java.sql.Timestamp;
-
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
+import java.text.SimpleDateFormat;
 
 public class NoticeDTO {
 
@@ -16,13 +11,20 @@ public class NoticeDTO {
     private Timestamp notice_write_date;
     private int notice_view_count;
     private int member_id;
+    private String member_username;
+    private int prevNum;
+    private int nextNum;
+    private String prevTitle;
+    private String nextTitle;
+    private int prevMember;
+    private int nextMember;
     
     public NoticeDTO() {
         super();
         // TODO Auto-generated constructor stub
     }
     public NoticeDTO(int notice_id, String notice_title, String notice_content, Timestamp notice_write_date,
-            int notice_view_count, int member_id) {
+            int notice_view_count, int member_id, String member_username) {
         super();
         this.notice_id = notice_id;
         this.notice_title = notice_title;
@@ -30,6 +32,7 @@ public class NoticeDTO {
         this.notice_write_date = notice_write_date;
         this.notice_view_count = notice_view_count;
         this.member_id = member_id;
+        this.member_username = member_username;
     }
     public int getNotice_id() {
         return notice_id;
@@ -66,7 +69,60 @@ public class NoticeDTO {
     }
     public void setMember_id(int member_id) {
         this.member_id = member_id;
-    } 
+    }
+    public String getMember_username() {
+        return member_username;
+    }
+    public void setMember_username(String member_username) {
+        this.member_username = member_username;
+    }
+    
+    public int getPrevNum() {
+        return prevNum;
+    }
+    public void setPrevNum(int prevNum) {
+        this.prevNum = prevNum;
+    }
+    
+    public int getNextNum() {
+        return nextNum;
+    }
+    public void setNextNum(int nextNum) {
+        this.nextNum = nextNum;
+    }
+    
+    public String getPrevTitle() {
+        return prevTitle;
+    }
+    public void setPrevTitle(String prevTitle) {
+        this.prevTitle = prevTitle;
+    }
+    
+    public String getNextTitle() {
+        return nextTitle;
+    }
+    public void setNextTitle(String nextTitle) {
+        this.nextTitle = nextTitle;
+    }
+    
+    public int getPrevMember() {
+        return prevMember;
+    }
+    public void setPrevMember(int prevMember) {
+        this.prevMember = prevMember;
+    }
+    
+    public int getNextMember() {
+        return nextMember;
+    }
+    public void setNextMember(int nextMember) {
+        this.nextMember = nextMember;
+    }
+    
+    public String getFormedDate() {
+    	SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
+    	return sdf.format(this.notice_write_date.getTime());
+    }
 }
 
 

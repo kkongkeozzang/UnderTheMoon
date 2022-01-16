@@ -2,6 +2,7 @@ package kh.spring.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import kh.spring.dto.MemberDTO;
 import kh.spring.service.MemberService;
@@ -44,5 +45,12 @@ public class MemberController {
 		
 		memberService.insertMember(dto);
 		return "redirect:/";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="member/idDuplCheck", produces="text/html;charset=utf8")
+	public String idDuplCheck(String id) throws Exception{
+		int result = memberService.idDuplCheck(id);		
+		return String.valueOf(result);		
 	}
 }

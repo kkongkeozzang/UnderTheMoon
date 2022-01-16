@@ -31,4 +31,8 @@ public class MemberService {
 	public int insertMember(MemberDTO dto) {
 		return memberDAO.insertMember(dto);
 	}
+	
+	public int idDuplCheck(String id) {
+		return memberDAO.idDuplCheck(id);
+	} 
 }

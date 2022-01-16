@@ -18,6 +18,10 @@
   	, #{member_phone}, #{member_zipcode}, #{member_address1}, #{member_address2}, default, '별', 'ROLE_USER', #{member_email})
   </insert>
   
+  <select id="idDuplCheck" resultType="int">
+ 		select count(*) from member where member_username = #{value}
+  </select>
+ 	
   </mapper>
   
   

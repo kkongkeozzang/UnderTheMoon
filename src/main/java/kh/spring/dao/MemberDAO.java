@@ -21,7 +21,7 @@ public class MemberDAO {
 		this.bCrptPasswordEncoder = bCrptPasswordEncoder;
 	}
 
-	public MemberDTO SelectByUsername(String member_username) {
+	public MemberDTO selectByUsername(String member_username) {
 		
 		return mybatis.selectOne("Member.SelectByUsername",member_username);
 		}
@@ -49,6 +49,10 @@ public class MemberDAO {
 		map.put("member_email", dto.getMember_email());
 				
 		return mybatis.insert("Member.insertMember",map);
+	}
+	
+	public int idDuplCheck(String id) {
+		return mybatis.selectOne("Member.idDuplCheck", id);
 	}
 	
 	}

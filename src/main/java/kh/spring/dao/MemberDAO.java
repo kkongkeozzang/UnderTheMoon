@@ -23,7 +23,8 @@ public class MemberDAO {
 
 	public MemberDTO SelectByUsername(String member_username) {
 		
-		return mybatis.selectOne("Member.SelectByUsername",member_username);
+		return mybatis.selectOne("Member.selectByUsername",member_username);
+
 		}
 
 	public String selectByNameAndEmail(String member_email, String member_name) {
@@ -32,10 +33,21 @@ public class MemberDAO {
 		map.put("member_email", member_email);
 		map.put("member_name", member_name);
 		
-		return mybatis.selectOne("Member.SelectByNameAndEmail",map);
+		return mybatis.selectOne("Member.selectByNameAndEmail",map);
 	}
+
+
+	public Integer selectByUsernameAndPhone(String member_username, String member_phone) {
+		
+		Map<String,String> map = new HashMap<>();
+		map.put("member_username",member_username );
+		map.put("member_phone", member_phone);
+		
+		return mybatis.selectOne("Member.selectByUsernameAndPhone",map);
+		 
+}
 	
-	public int insertMember(MemberDTO dto) {
+	public Integer insertMember(MemberDTO dto) {
 		
 		Map<String,String> map = new HashMap<>();
 		map.put("member_username", dto.getMember_username());
@@ -49,7 +61,17 @@ public class MemberDAO {
 		map.put("member_email", dto.getMember_email());
 				
 		return mybatis.insert("Member.insertMember",map);
+
 	}
+
+	public Integer resetPassword(String member_password, String member_username) {
+		
+		Map<String,String> map = new HashMap<>();
+		map.put("member_password", member_password);
+		map.put("member_username", member_username);
+		
+		return mybatis.update("Member.resetPassword", map);
+		}
 	
 	}
 

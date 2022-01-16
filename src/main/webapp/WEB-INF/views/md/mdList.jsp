@@ -13,220 +13,304 @@
 <link rel="stylesheet" href="/resources/mdList/assets/css/fontawesome.css">
 <link rel="stylesheet" href="/resources/mdList/assets/css/templatemo-sixteen.css">
 <link rel="stylesheet" href="/resources/mdList/assets/css/owl.css">
+<script>
+$(document).ready(function(){
+	reviewSort();
+	newSort();
+})
+function reviewSort() {
+	$("#review-sort").on("click",function(){
+		$.ajax({
+			url: "/md/reviewSort",
+			DataType: "json",
+			type: "get",
+			data: {currentPage: 1}
+		}).done(function(resp){
+			let mdsSize = resp.mds.length;
+			let str = "";
+			for(let i = 0;i < mdsSize; i++) {
+				str += "<div class='col-lg-4 col-md-4 all des'>";
+				str += "<div class='product-item'>";
+				str += "<a ><img  alt=''></a>";
+				str += "<div class='down-content'>";
+				str += "<a ><h4>"+resp.mds[i].md_name+"</h4></a>";
+				str += "<h6>"+resp.mds[i].md_price+"</h6>";
+				str += "<p>"+resp.mds[i].md_content+"</p>";
+				str += "<ul class='stars'>";
+				str += "<li><i class='fa fa-star'></i></li>";
+				str += "<li><i class='fa fa-star'></i></li>";
+				str += "<li><i class='fa fa-star'></i></li>";
+				str += "<li><i class='fa fa-star'></i></li>";
+				str += "<li><i class='fa fa-star'></i></li>";
+				str += "</ul>";
+				str += "<span>Reviews (12)</span>";
+				str += "</div>";
+				str += "</div>";
+				str += "</div>";
+			}
+			
+			$("#list-page").html(str);
+			getPageReviewSort(resp.cPage);
+		})
+	})
+}
+function newSort() {
+	$("#new-sort").on("click",function(){
+		$.ajax({
+			url: "/md/newSort",
+			DataType: "json",
+			type: "get",
+			data: {currentPage: 1}
+		}).done(function(resp){
+			console.log(resp);
+			let mdsSize = resp.mds.length;
+			let str = "";
+			for(let i = 0; i < mdsSize; i++) {
+				str += "<div class='col-lg-4 col-md-4 all des'>";
+				str += "<div class='product-item'>";
+				str += "<a><img src='/resources/mdList/assets/images/${md.md_image }' alt=''></a>";
+				str += "<div class='down-content'>";
+				str += "<a><h4>"+resp.mds[i].md_name+"</h4></a>";
+				str += "<h6>"+resp.mds[i].md_price+"</h6>";
+				str += "<p>"+resp.mds[i].md_content+"</p>";
+				str += "<ul class='stars'>";
+				str += "<li><i class='fa fa-star'></i></li>";
+				str += "<li><i class='fa fa-star'></i></li>";
+				str += "<li><i class='fa fa-star'></i></li>";
+				str += "<li><i class='fa fa-star'></i></li>";
+				str += "<li><i class='fa fa-star'></i></li>";
+				str += "</ul>";
+				str += "<span>Reviews (12)</span>";
+				str += "</div>";
+				str += "</div>";
+				str += "</div>";
+			}
+			
+			$("#list-page").html(str);
+			getPageNewSort(resp.cPage);
+		})
+	})
+}
+function getPage(pageNavi) {
+	$.ajax({
+		url: "/md/listPage",
+		type: "get",
+		dataType: "json",
+		data: {currentPage: pageNavi}
+	}).done(function(resp){
+		console.log(resp);
+		let mdsSize = resp.mds.length;
+		let naviSize = resp.pageNavis.length;
+		let str = "";
+		for(let i = 0; i < mdsSize; i++) {
+			str += "<div class='col-lg-4 col-md-4 all des'>";
+			str += "<div class='product-item'>";
+			str += "<a><img alt=''></a>";
+			str += "<div class='down-content'>";
+			str += "<a><h4>"+resp.mds[i].md_name+"</h4></a>";
+			str += "<h6>"+resp.mds[i].md_price+"</h6>";
+			str += "<p>"+resp.mds[i].md_content+"</p>";
+			str += "<ul class='stars'>";
+			str += "<li><i class='fa fa-star'></i></li>";
+			str += "<li><i class='fa fa-star'></i></li>";
+			str += "<li><i class='fa fa-star'></i></li>";
+			str += "<li><i class='fa fa-star'></i></li>";
+			str += "<li><i class='fa fa-star'></i></li>";
+			str += "</ul>";
+			str += "<span>Reviews (12)</span>";
+			str += "</div>";
+			str += "</div>";
+			str += "</div>";
+		}
+		$("#list-page").html(str);
+		
+		let pageStr = "";
+		for(let i = 0; i < naviSize; i++) {
+			pageStr += "<li>";
+			pageStr += resp.pageNavis[i];
+			pageStr += "</li>";
+		}
+		$("#pages").html(pageStr);
+	})
+}
+function getPageReviewSort(pageNavi) {
+	$.ajax({
+		url: "/md/reviewSort",
+		post: "get",
+		dataType: "json",
+		data: {currentPage: pageNavi}
+	}).done(function(resp){
+		console.log(resp);
+		let mdsSize = resp.mds.length;
+		let naviSize = resp.pageNavis.length;
+		let str = "";
+		for(let i = 0; i < mdsSize; i++) {
+			str += "<div class='col-lg-4 col-md-4 all des'>";
+			str += "<div class='product-item'>";
+			str += "<a><img alt=''></a>";
+			str += "<div class='down-content'>";
+			str += "<a><h4>"+resp.mds[i].md_name+"</h4></a>";
+			str += "<h6>"+resp.mds[i].md_price+"</h6>";
+			str += "<p>"+resp.mds[i].md_content+"</p>";
+			str += "<ul class='stars'>";
+			str += "<li><i class='fa fa-star'></i></li>";
+			str += "<li><i class='fa fa-star'></i></li>";
+			str += "<li><i class='fa fa-star'></i></li>";
+			str += "<li><i class='fa fa-star'></i></li>";
+			str += "<li><i class='fa fa-star'></i></li>";
+			str += "</ul>";
+			str += "<span>Reviews (12)</span>";
+			str += "</div>";
+			str += "</div>";
+			str += "</div>";
+		}
+		$("#list-page").html(str);
+		
+		let pageStr = "";
+		for(let i = 0; i < naviSize; i++) {
+			pageStr += "<li>";
+			pageStr += resp.pageNavis[i];
+			pageStr += "</li>";
+		}
+		$("#pages").html(pageStr);
+	})
+}
+function getPageNewSort(pageNavi) {
+	$.ajax({
+		url: "/md/newSort",
+		post: "get",
+		dataType: "json",
+		data: {currentPage: pageNavi}
+	}).done(function(resp){
+		console.log(resp);
+		let mdsSize = resp.mds.length;
+		let naviSize = resp.pageNavis.length;
+		let str = "";
+		for(let i = 0; i < mdsSize; i++) {
+			str += "<div class='col-lg-4 col-md-4 all des'>";
+			str += "<div class='product-item'>";
+			str += "<a><img alt=''></a>";
+			str += "<div class='down-content'>";
+			str += "<a><h4>"+resp.mds[i].md_name+"</h4></a>";
+			str += "<h6>"+resp.mds[i].md_price+"</h6>";
+			str += "<p>"+resp.mds[i].md_content+"</p>";
+			str += "<ul class='stars'>";
+			str += "<li><i class='fa fa-star'></i></li>";
+			str += "<li><i class='fa fa-star'></i></li>";
+			str += "<li><i class='fa fa-star'></i></li>";
+			str += "<li><i class='fa fa-star'></i></li>";
+			str += "<li><i class='fa fa-star'></i></li>";
+			str += "</ul>";
+			str += "<span>Reviews (12)</span>";
+			str += "</div>";
+			str += "</div>";
+			str += "</div>";
+		}
+		$(".forEach").html(str);
+		
+		let pageStr = "";
+		for(let i = 0; i < naviSize; i++) {
+			pageStr += "<li>";
+			pageStr += resp.pageNavis[i];
+			pageStr += "</li>";
+		}
+		$("#pages").html(pageStr);
+	})
+}
+</script>
 </head>
 <body>
-
-    <!-- ***** Preloader Start ***** -->
-    <div id="preloader">
-        <div class="jumper">
-            <div></div>
-            <div></div>
-            <div></div>
-        </div>
-    </div>  
-    <!-- ***** Preloader End ***** -->
-
-    <!-- Header -->
-    <header class="">
-      <nav class="navbar navbar-expand-lg">
-        <div class="container">
-          <a class="navbar-brand" href="index.html"><h2>Sixteen <em>Clothing</em></h2></a>
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarResponsive">
-            <ul class="navbar-nav ml-auto">
-              <li class="nav-item">
-                <a class="nav-link" href="index.html">Home
-                  <span class="sr-only">(current)</span>
-                </a>
-              </li> 
-              <li class="nav-item active">
-                <a class="nav-link" href="products.html">Our Products</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="about.html">About Us</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="contact.html">Contact Us</a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </nav>
-    </header>
-
-    <!-- Page Content -->
-    <div class="page-heading products-heading header-text">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-12">
-            <div class="text-content">
-              <h4>new arrivals</h4>
-              <h2>sixteen products</h2>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    
+	
     <div class="products">
       <div class="container">
         <div class="row">
           <div class="col-md-12">
             <div class="filters">
-              <ul>
-                  <li class="active" data-filter="*">All Products</li>
-                  <li data-filter=".des">Featured</li>
-                  <li data-filter=".dev">Flash Deals</li>
-                  <li data-filter=".gra">Last Minute</li>
+              <ul >
+                  <li class=count>총 ${allMdCount } 개</li>
+                  <li class=sort id=review-sort onclick=reviewSort()>리뷰순</li>
+                  <li class=sort id=new-sort>최신순</li>
               </ul>
             </div>
           </div>
           <div class="col-md-12">
             <div class="filters-content">
-                <div class="row grid">
-                    <div class="col-lg-4 col-md-4 all des">
-                      <div class="product-item">
-                        <a href="#"><img src="assets/images/product_01.jpg" alt=""></a>
-                        <div class="down-content">
-                          <a href="#"><h4>Tittle goes here</h4></a>
-                          <h6>$18.25</h6>
-                          <p>Lorem ipsume dolor sit amet, adipisicing elite. Itaque, corporis nulla aspernatur.</p>
-                          <ul class="stars">
-                            <li><i class="fa fa-star"></i></li>
-                            <li><i class="fa fa-star"></i></li>
-                            <li><i class="fa fa-star"></i></li>
-                            <li><i class="fa fa-star"></i></li>
-                            <li><i class="fa fa-star"></i></li>
-                          </ul>
-                          <span>Reviews (12)</span>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-lg-4 col-md-4 all dev">
-                      <div class="product-item">
-                        <a href="#"><img src="assets/images/product_02.jpg" alt=""></a>
-                        <div class="down-content">
-                          <a href="#"><h4>Tittle goes here</h4></a>
-                          <h6>$16.75</h6>
-                          <p>Lorem ipsume dolor sit amet, adipisicing elite. Itaque, corporis nulla aspernatur.</p>
-                          <ul class="stars">
-                            <li><i class="fa fa-star"></i></li>
-                            <li><i class="fa fa-star"></i></li>
-                            <li><i class="fa fa-star"></i></li>
-                            <li><i class="fa fa-star"></i></li>
-                            <li><i class="fa fa-star"></i></li>
-                          </ul>
-                          <span>Reviews (24)</span>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-lg-4 col-md-4 all gra">
-                      <div class="product-item">
-                        <a href="#"><img src="assets/images/product_03.jpg" alt=""></a>
-                        <div class="down-content">
-                          <a href="#"><h4>Tittle goes here</h4></a>
-                          <h6>$32.50</h6>
-                          <p>Lorem ipsume dolor sit amet, adipisicing elite. Itaque, corporis nulla aspernatur.</p>
-                          <ul class="stars">
-                            <li><i class="fa fa-star"></i></li>
-                            <li><i class="fa fa-star"></i></li>
-                            <li><i class="fa fa-star"></i></li>
-                            <li><i class="fa fa-star"></i></li>
-                            <li><i class="fa fa-star"></i></li>
-                          </ul>
-                          <span>Reviews (36)</span>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-lg-4 col-md-4 all gra">
-                      <div class="product-item">
-                        <a href="#"><img src="assets/images/product_04.jpg" alt=""></a>
-                        <div class="down-content">
-                          <a href="#"><h4>Tittle goes here</h4></a>
-                          <h6>$24.60</h6>
-                          <p>Lorem ipsume dolor sit amet, adipisicing elite. Itaque, corporis nulla aspernatur.</p>
-                          <ul class="stars">
-                            <li><i class="fa fa-star"></i></li>
-                            <li><i class="fa fa-star"></i></li>
-                            <li><i class="fa fa-star"></i></li>
-                            <li><i class="fa fa-star"></i></li>
-                            <li><i class="fa fa-star"></i></li>
-                          </ul>
-                          <span>Reviews (48)</span>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-lg-4 col-md-4 all dev">
-                      <div class="product-item">
-                        <a href="#"><img src="assets/images/product_05.jpg" alt=""></a>
-                        <div class="down-content">
-                          <a href="#"><h4>Tittle goes here</h4></a>
-                          <h6>$18.75</h6>
-                          <p>Lorem ipsume dolor sit amet, adipisicing elite. Itaque, corporis nulla aspernatur.</p>
-                          <ul class="stars">
-                            <li><i class="fa fa-star"></i></li>
-                            <li><i class="fa fa-star"></i></li>
-                            <li><i class="fa fa-star"></i></li>
-                            <li><i class="fa fa-star"></i></li>
-                            <li><i class="fa fa-star"></i></li>
-                          </ul>
-                          <span>Reviews (60)</span>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-lg-4 col-md-4 all des">
-                      <div class="product-item">
-                        <a href="#"><img src="assets/images/product_06.jpg" alt=""></a>
-                        <div class="down-content">
-                          <a href="#"><h4>Tittle goes here</h4></a>
-                          <h6>$12.50</h6>
-                          <p>Lorem ipsume dolor sit amet, adipisicing elite. Itaque, corporis nulla aspernatur.</p>
-                          <ul class="stars">
-                            <li><i class="fa fa-star"></i></li>
-                            <li><i class="fa fa-star"></i></li>
-                            <li><i class="fa fa-star"></i></li>
-                            <li><i class="fa fa-star"></i></li>
-                            <li><i class="fa fa-star"></i></li>
-                          </ul>
-                          <span>Reviews (72)</span>
-                        </div>
-                      </div>
-                    </div>
+                <div class="row grid" id="list-page">
+                <div class="forEach">
+                	<c:forEach var="md" items="${mds }">
+	                    <div class="col-lg-4 col-md-4 all des">
+	                      <div class="product-item">
+	                        <a ><img alt=""></a>
+	                        <div class="down-content">
+	                          <a><h4>${md.md_name }</h4></a>
+	                          <h6>${md.md_price }</h6>
+	                          <p>${md.md_content }</p>
+	                          <ul class="stars">
+	                            <li><i class="fa fa-star"></i></li>
+	                            <li><i class="fa fa-star"></i></li>
+	                            <li><i class="fa fa-star"></i></li>
+	                            <li><i class="fa fa-star"></i></li>
+	                            <li><i class="fa fa-star"></i></li>
+	                          </ul>
+	                          <span>Reviews (12)</span>
+	                        </div>
+	                      </div>
+	                    </div>
+                   	</c:forEach>
+                </div>
+              <%--
+              <script>
+              	$("#review-sort").on("click",function(){
+              		location.href="/md/reviewSort";
+              	})
+              	$("#new-sort").on("click",function(){
+              		location.href="/md/newSort";
+              	})
+              </script>
+              --%>
+                <%-- 
+               	<!-- 상품 정보 리스트 가져오기 -->
+                	<c:forEach var="md" items="${mds }">
+	                    <div class="col-lg-4 col-md-4 all des">
+	                      <div class="product-item">
+	                        <a href="#"><img src="/resources/mdList/assets/images/${md.md_image }" alt=""></a>
+	                        <div class="down-content">
+	                          <a href="#"><h4>${md.md_name }</h4></a>
+	                          <h6>${md.md_price }</h6>
+	                          <p>${md.md_content }</p>
+	                          <ul class="stars">
+	                            <li><i class="fa fa-star"></i></li>
+	                            <li><i class="fa fa-star"></i></li>
+	                            <li><i class="fa fa-star"></i></li>
+	                            <li><i class="fa fa-star"></i></li>
+	                            <li><i class="fa fa-star"></i></li>
+	                          </ul>
+	                          <span>Reviews (12)</span>
+	                        </div>
+	                      </div>
+	                    </div>
+                   	</c:forEach>
+				--%>
                 </div>
             </div>
           </div>
-          <div class="col-md-12">
-            <ul class="pages">
+          <div class="col-md-12" id="page-box">
+            <ul class="pages" id="pages">
+            <c:forEach var="pageNavi" items="${ pageNavis}">
+            	<li>${pageNavi}</li>
+            </c:forEach>
+            <%-- 
               <li><a href="#">1</a></li>
               <li class="active"><a href="#">2</a></li>
               <li><a href="#">3</a></li>
               <li><a href="#">4</a></li>
               <li><a href="#"><i class="fa fa-angle-double-right"></i></a></li>
+              --%>
             </ul>
           </div>
         </div>
       </div>
     </div>
-
-    
-    <footer>
-      <div class="container">
-        <div class="row">
-          <div class="col-md-12">
-            <div class="inner-content">
-              <p>Copyright &copy; 2020 Sixteen Clothing Co., Ltd.
-            
-            - Design: <a rel="nofollow noopener" href="https://templatemo.com" target="_blank">TemplateMo</a></p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </footer>
-
-
     <!-- Bootstrap core JavaScript -->
     <script src="/resources/mdList/vendor/jquery/jquery.min.js"></script>
     <script src="/resources/mdList/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

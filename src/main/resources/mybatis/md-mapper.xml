@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="Md">
+	
+	<select id="selectAll" resultType="kh.spring.dto.MdDTO">
+		select * from md
+	</select>
+	
+	<select id="selectAllReviewSort" resultType="kh.spring.dto.MdDTO">
+		select nvl(review_count,0) review_count, m2.* from md m2 left outer join 
+	    (select m.md_id, count(*) review_count from md m join md_review r on r.MD_ID = m.MD_ID group by m.md_id) a 
+	    on m2.md_id = a.md_id
+	    order by review_count desc, m2.md_id desc
+	</select>
+	
+	<select id="selectAllNewSort" resultType="kh.spring.dto.MdDTO">
+		select * from md order by md_id desc
+	</select>
+	
+	<select id="selectAllCount" resultType="int">
+		select count(*) from md
+	</select>
+	
+	<select id="selectByBound" resultType="kh.spring.dto.MdDTO">
+		select * from (select md.*, row_number() over(order by md_id desc) rn from md)
+		where rn between #{start} and #{end}
+	</select>
+	
+	<select id="selectByBoundReviewSort" resultType="kh.spring.dto.MdDTO">
+		select * from 
+        (select review_sort.*, row_number() 
+        over
+        (order by review_count desc) rn 
+        from (select nvl(review_count,0) review_count, m2.* from md m2 left outer join 
+	    (select m.md_id, count(*) review_count from md m join md_review r on r.MD_ID = m.MD_ID group by m.md_id) a 
+	    on m2.md_id = a.md_id
+	    order by review_count desc, m2.md_id desc) review_sort) where rn between #{start} and #{end} order by rn
+	</select>
+	
+	<select id="selectByBoundNewSort" resultType="kh.spring.dto.MdDTO">
+		select * from (select md.*, row_number() over(order by md_id desc) rn from md) 
+		where rn between #{start} and #{end}
+	</select>
+	
+</mapper>

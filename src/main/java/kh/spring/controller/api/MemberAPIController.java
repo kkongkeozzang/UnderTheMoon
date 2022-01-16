@@ -2,6 +2,7 @@ package kh.spring.controller.api;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Random;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -44,9 +45,15 @@ public class MemberAPIController {
 	@GetMapping(value="findPasswordProc",produces="text/html;charset=utf8")
 	public String findPasswordProc(String member_username,String member_phone) throws JsonProcessingException {
 		
-		Integer result = memberService.selectByUsernameAndPhone(member_username,member_phone);
+		Optional<Integer> opt = memberService.selectByUsernameAndPhone(member_username,member_phone);
+		String result = "";
+		String phone = String.valueOf(opt);
 		
-		String phone = String.valueOf(result);
+		if(opt.isEmpty()) {
+			System.out.println(phone);
+			result = "1";
+			
+		}else if(!(opt.isEmpty())){
 		
 		 Random rand  = new Random();
 	        String numStr = "";
@@ -63,10 +70,11 @@ public class MemberAPIController {
 	        map.put("result", phone);
 	        map.put("numStr", numStr);
 	        
-	        String json = new ObjectMapper().writeValueAsString(map);
+	        result = new ObjectMapper().writeValueAsString(map);
 	        
-		
-	        return json;
+		}
+		System.out.println("result"+result);
+		return result;
 	}
 	
 	@PostMapping("resetPasswordProc")

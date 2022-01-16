@@ -43,9 +43,8 @@ public class MemberDAO {
 		map.put("member_username",member_username );
 		map.put("member_phone", member_phone);
 		
-		int result = mybatis.selectOne("Member.selectByUsernameAndPhone",map);
-		System.out.println(result+"sdsd");
-		return result;
+		return mybatis.selectOne("Member.selectByUsernameAndPhone",map);
+		 
 }
 	
 	public Integer insertMember(MemberDTO dto) {

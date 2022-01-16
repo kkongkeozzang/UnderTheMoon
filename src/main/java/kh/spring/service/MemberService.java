@@ -34,16 +34,13 @@ public class MemberService {
 		
 	}
 
-	public Integer selectByUsernameAndPhone(String member_username, String member_phone) {
+	public Optional<Integer> selectByUsernameAndPhone(String member_username, String member_phone) {
 		
 		Integer result = memberDAO.selectByUsernameAndPhone(member_username,member_phone);
-
+		System.out.println(result);
 		Optional<Integer> op = Optional.ofNullable(result);
-		op.orElseThrow(()->{
-            return new IllegalArgumentException("user not found");
-        });
-		
-		return result;
+		System.out.println(op);
+		return op;
 	}
 
 	

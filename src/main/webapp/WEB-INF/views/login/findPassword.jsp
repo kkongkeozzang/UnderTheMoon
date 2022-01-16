@@ -131,7 +131,7 @@ $(function(){
               member_phone:$("#phone").val() 
           }
        }).done(function(resp){
-    	   if(JSON.parse(resp).result == 2){
+    	   if(JSON.parse(resp).result == "Optional[2]"){
     		   $("#username").attr("readonly","true");
      		 	$("#phone").attr("readonly","true");
      		 	$("#verification").css("display","block");
@@ -146,7 +146,7 @@ $(function(){
             	  alert("잘못된 번호입니다.");
               }
            })
-    	   }else if(!JSON.parse(resp).result == 2){
+    	   }else if(JSON.parse(resp)== 1){
          	  alert("잘못된 정보입니다.");
               $("#username").val("");
               $("#phone").val("");

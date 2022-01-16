@@ -27,4 +27,25 @@ public class NoticeService {
 	public String selectUsername(int member_id) {
 		return dao.selectUsername(member_id);
 	}
+	
+	public NoticeDTO selectUpDown(int notice_id) {
+		return dao.selectUpDown(notice_id);
+	}
+	
+	public int insert(NoticeDTO dto) {
+		return dao.insert(dto);
+	}
+	
+	public int delete(int notice_id) {
+		return dao.delete(notice_id);
+	}
+	
+	public int update(NoticeDTO dto) {
+		return dao.update(dto);
+	}
+	
+	public int updateViewCount(int notice_id) {
+		return dao.updateViewCount(notice_id);
+	}
+	
 }

@@ -214,18 +214,19 @@ body {
 		<!-- 게시판 박스 -->
 		<div class="card mb-3 col-xl-6 col-md-12">
 			<!-- 게시글 등록 박스 -->
-			<form action="/notice/insert" method="post" id="frm">
+			<form action="/notice/update" method="post" id="frmDetail">
 				<div class="container mb-4 mt-4">
 					<div class="row" style="padding-bottom: 5px;">
-						<div class="col-sm-12">
-							<input type="hidden" name=member_id value=1> 
-							<input type=text id=input-title name=notice_title placeholder="제목을 작성하세요" style="width: 100%;">
+						<div class="col-sm-12"> 
+							<input type="hidden" value="${dto.member_id}" name="member_id">
+							<input type="hidden" value="${dto.notice_id}" name="notice_id">
+							<input type=text id=input-title name=notice_title placeholder="제목을 작성하세요" style="width: 100%;" value='${dto.notice_title }'>
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-sm-12">
 							<textarea name="notice_content" id="summernote"
-								style="min-height: 200px; overflow: auto" maxlength="1000"></textarea>
+								style="min-height: 200px; overflow: auto" maxlength="1000">${dto.notice_content }</textarea>
 							<script>
                 				autosize($("textarea"));
         			        </script>
@@ -234,16 +235,19 @@ body {
 					</div>
 					<div class="row">
 						<div class="col-sm-12" style="text-align: right">
-							<button type="button" id="boardList" class="btn btn-dark"
-								style="background-color: rgb(255, 111, 97);">목록으로</button>
-							<button class="btn btn-dark" type=button id="write"
-								style="background-color: rgb(255, 111, 97);">작성하기</button>
-							<script>
-					$("#boardList").on("click",function(){
-						location.href="/notice/toNotice";
-					})
-					$("#write").on("click",function(){
-						console.log($("#contents").val());
+							<button type="button" id="update" class="btn btn-dark"
+								style="background-color: rgb(255, 111, 97);">수정완료</button>
+							<button class="btn btn-dark" type=button id="cancel"
+								style="background-color: rgb(255, 111, 97);">취소</button>
+					<script>
+					
+					$("#cancel").on("click",function(){
+						if(confirm("정말 취소하시겠습니까?")){
+							location.href="/notice/detail?notice_id=${dto.notice_id}&member_id=${dto.member_id}";
+						}
+					});
+					
+					$("#update").on("click",function(){
 						if($('.note-editable').html()==""){
 							alert("내용을 입력해주세요.");
 						}else if(textCnt > 1000){
@@ -251,7 +255,9 @@ body {
 						}else if($("#input-title").val()==""){
 							alert("제목을 입력해주세요.");
 						}else {
-							$("#frm").submit();					
+							if(confirm("이대로 수정하시겠습니까?")){
+								$("#frmDetail").submit();
+							}				
 						}
 					})
 				</script>

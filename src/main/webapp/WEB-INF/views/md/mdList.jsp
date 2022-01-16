@@ -48,7 +48,6 @@ function reviewSort() {
 				str += "</div>";
 				str += "</div>";
 			}
-			
 			$("#list-page").html(str);
 			getPageReviewSort(resp.cPage);
 		})
@@ -62,7 +61,6 @@ function newSort() {
 			type: "get",
 			data: {currentPage: 1}
 		}).done(function(resp){
-			console.log(resp);
 			let mdsSize = resp.mds.length;
 			let str = "";
 			for(let i = 0; i < mdsSize; i++) {
@@ -88,6 +86,7 @@ function newSort() {
 			
 			$("#list-page").html(str);
 			getPageNewSort(resp.cPage);
+			
 		})
 	})
 }
@@ -98,7 +97,6 @@ function getPage(pageNavi) {
 		dataType: "json",
 		data: {currentPage: pageNavi}
 	}).done(function(resp){
-		console.log(resp);
 		let mdsSize = resp.mds.length;
 		let naviSize = resp.pageNavis.length;
 		let str = "";
@@ -140,7 +138,6 @@ function getPageReviewSort(pageNavi) {
 		dataType: "json",
 		data: {currentPage: pageNavi}
 	}).done(function(resp){
-		console.log(resp);
 		let mdsSize = resp.mds.length;
 		let naviSize = resp.pageNavis.length;
 		let str = "";
@@ -182,7 +179,6 @@ function getPageNewSort(pageNavi) {
 		dataType: "json",
 		data: {currentPage: pageNavi}
 	}).done(function(resp){
-		console.log(resp);
 		let mdsSize = resp.mds.length;
 		let naviSize = resp.pageNavis.length;
 		let str = "";
@@ -226,11 +222,9 @@ function getPageNewSort(pageNavi) {
         <div class="row">
           <div class="col-md-12">
             <div class="filters">
-              <ul >
-                  <li class=count>총 ${allMdCount } 개</li>
-                  <li class=sort id=review-sort onclick=reviewSort()>리뷰순</li>
-                  <li class=sort id=new-sort>최신순</li>
-              </ul>
+            <div class=count >총 ${allMdCount } 개</div>
+            <div class=sort id=review-sort>리뷰순</div>
+            <div class=sort id=new-sort>최신순</div>
             </div>
           </div>
           <div class="col-md-12">

@@ -69,7 +69,7 @@
                 <input type="text" class="form-control" id="member_phone" name="member_phone">
             </div>
              <div class="col-4">
-            	<button type="button" class="btn btn-primary">인증받기</button>
+            	<button type="button" class="btn btn-primary" id="member_confirm_send">인증받기</button>
             </div>          	
         </div>
          <div class="form-group row">
@@ -78,7 +78,7 @@
                 <input type="text" class="form-control" id="member_confirm_phone" name="member_confirm_phone">
             </div>
              <div class="col-4">
-            	<button type="button" class="btn btn-primary">인증확인</button>
+            	<button type="button" class="btn btn-primary" id="member_confirm_check">인증확인</button>
             </div>          	
         </div>
         <div class="form-group row">
@@ -245,6 +245,39 @@
 	         result.innerHTML = "패스워드가 일치합니다."
 	      }
 	   }
+	   
+	//휴대폰 번호 인증 API 시작
+	//생성된 인증번호를 저장할 전역변수 선언
+	var confirmNumber ="";
+	
+	$(function(){
+		$("#member_confirm_send").on("click",function(){
+			$.ajax({
+				url:"signup/confirmPhoneProc",
+				data:{phone:$("#member_phone").val()}
+			}).done(function(randomNumber){
+				console.log(randomNumber); //인증번호 확인을 위한 코드 추후 삭제
+				confirmNumber = randomNumber; //생성된 인증번호를 비교하기 위해 가져온 뒤, 변수에 저장
+			})
+		})
+		}
+	)
+	
+	
+	$(function(){
+		$("#member_confirm_check").on("click", function(){	
+			$.ajax({
+				url:"signup/confirmNumberProc",
+				data:{number:$("#member_confirm_phone").val()}
+			}).done(function(result){	
+				if($("#member_confirm_phone").val() == confirmNumber){ //사용자가 입력한 인증번호와 생성된 인증번호를 비교
+			         alert("휴대폰 인증에 성공했습니다.");
+					console.log("성공"); 
+				}else{
+					console.log("f");
+				}})	
+		})
+	})	
 </script>
 </body>
 </html>

@@ -114,39 +114,38 @@ body {
 </style>
 <script>
 
-$(function(){
+ $(function(){
 	
-    $("#findUsername").on("click",function(){
+    $("#resetPassword").on("click",function(){
+    	if($("#password").val()==$("#password2").val()){
        $.ajax({
-    	  type: 'get',
-          url:"/member/findUsernameProc",
+    	  type: 'post',
+          url:"/member/resetPasswordProc",
           data: {
-        	  member_email:$("#email").val(),
-              member_name:$("#name").val() 
+        	  member_password:$("#password").val(),
+              member_username:$("#member_username").val() 
           }
-         
        }).done(function(resp){
-           console.log("success" + resp);
-           $("#findUsername").css("color","grey");
-           $("#findUsername").text("귀하의 아이디는 "+resp+"입니다.");
-       }).fail(function(error){
-    	   $("#findUsername").css("color","pink");
-           $("#findUsername").text("존재하지 않는 아이디입니다.");
-           $("#email").val("");
-           $("#name").val("");
-           $("#email").focus();
+         	alert("비밀번호가 변경되었습니다.");
+         	document.location.href="/login";
        })
+    	}else if(!($("#password").val()==$("#password2").val())){
+    		alert("비밀번호가 일치하지 않습니다.");
+    		 $("#password").val("");
+             $("#password2").val("");
+             $("#password").focus();
+    	}
      })
- })
+ }) 
 </script>
 </head>
 <body>
    <div class="signup-form">
-    <form action="/member/resetPasswordProc" method="post" class="form-horizontal">
+    <form action class="form-horizontal">
          <div class="row">
             <div class="col-8 offset-4">
                <h2 align="center">비밀번호 재설정 </h2>
-               <input type="hidden" value="${member_username }" name="member_username">
+               <input type="hidden" id="member_username" value="${member_username }" name="member_username">
             </div>
          </div>
          <div class="form-group row">
@@ -165,7 +164,7 @@ $(function(){
          </div>
          <div class="form-group row">
             <div class="col-8 offset-4">
-               <button type="submit" id="findUsername" class="btn btn-primary btn-lg">비밀번호변경 </button>
+               <button type="button" id="resetPassword" class="btn btn-primary btn-lg">비밀번호변경 </button>
             </div>
          </div>
         </form>

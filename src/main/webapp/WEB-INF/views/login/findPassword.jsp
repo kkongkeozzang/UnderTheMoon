@@ -116,9 +116,13 @@ body {
 
 $(function(){
 	
+
 	let username = $("#username").val();
 	
     $("#findPassword").on("click",function(){
+    	
+    	$("#findPassword").attr("disabled","true");
+    	
        $.ajax({
     	  type: 'get',
           url:"/member/findPasswordProc",
@@ -130,22 +134,13 @@ $(function(){
     	   if(JSON.parse(resp).result == 2){
     		   $("#username").attr("readonly","true");
      		 	$("#phone").attr("readonly","true");
-     		 	$("#findPassword").attr("disabled","true");
      		 	$("#verification").css("display","block");
     		   alert("인증번호가 발송 되었습니다. 인증번호를 입력해주세요.")
-              $("#phoneContainer").append("<br><br><div class='form-group row'><label class='col-form-label col-4'>인증번호:</label><div class='col-8'><input type='text' id='verificationNumber' class='form-control' name='verificationNumber' required='required'></div></div>")
-              
+              $("#phoneContainer").append("<br><br><br><br><div id='veri' class='form-group row'><label class='col-form-label col-4'>인증번호:</label><div class='col-8'><input type='text' id='verificationNumber' class='form-control' name='verificationNumber' required='required'></div></div>")
+              $("#veri").css("margin-left","80px");
                $("#verification").click(function(){
                         if($.trim(JSON.parse(resp).numStr) ==$('#verificationNumber').val()){
-                           alert('휴대폰 인증이 정상적으로 완료되었습니다.')
-
-                            /* $.ajax({
-                                type: "GET",
-                                url: "/member/resetPassword",
-                                data: {
-                                	member_username:$("#username").val()
-                                }
-                            }) */
+                           alert('휴대폰 인증이 정상적으로 완료되었습니다.');
                           document.location.href="/member/resetPassword?username="+$("#username").val();
               }else{
             	  alert("잘못된 번호입니다.");
@@ -159,23 +154,7 @@ $(function(){
           }
        })
      })
- })
- 
- /* $(function(){
-    $("#verification").on("click",function(){
-       $.ajax({
-    	  type: 'get',
-          url:"/member/sendSMS",
-          data: {
-              member_phone:$("#phone").val() 
-          }
-         
-       }).done(function(resp){
-    	   
-       })
-     })
- }) */
-                   
+ })                 
 </script>
 </head>
 <body>

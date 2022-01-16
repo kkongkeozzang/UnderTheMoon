@@ -1,23 +1,21 @@
 package kh.spring.controller.api;
 
-
-
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
-
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import kh.spring.dto.MemberDTO;
 import kh.spring.service.MemberService;
 import kh.spring.service.VerificationService;
+import kh.spring.service.MemberService;
 
 
 
@@ -34,13 +32,14 @@ public class MemberAPIController {
 		this.verificationService = verificationService;
 	}
 	
-	
+		
 	@GetMapping(value="findUsernameProc",produces="text/html;charset=utf8")
 	public String findUsername(String member_email,String member_name) {
 		
 		String member_username = memberService.selectByNameAndEmail(member_email,member_name);
 		return member_username;
 	}
+
 		
 	@GetMapping(value="findPasswordProc",produces="text/html;charset=utf8")
 	public String findPasswordProc(String member_username,String member_phone) throws JsonProcessingException {
@@ -68,6 +67,14 @@ public class MemberAPIController {
 	        
 		
 	        return json;
+	}
+	
+	@PostMapping("resetPasswordProc")
+	public String resetPasswordProc( String member_password,String member_username) {
+		
+		int result = memberService.resetPassword(member_password,member_username);
+		
+		return String.valueOf(result);
 	}
 	
 	

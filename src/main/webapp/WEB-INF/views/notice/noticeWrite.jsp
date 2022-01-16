@@ -152,7 +152,7 @@ a {
 }
 
 .container {
-	width: 1000px;
+/* 	width: 1000px; */
 }
 
 textarea {
@@ -207,7 +207,6 @@ body {
 	<!-- 타이틀  -->
 	<div class="container-fluid mt-100">
 		<div id="board-title">
-			<!-- <img id="title" src="/resources/board/image/title.png"> -->
 			<span><h3>공지사항</h3></span>
 		</div>
 		<br>

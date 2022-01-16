@@ -24,8 +24,8 @@ public class NoticeDAO {
 		return mybatis.selectOne("Notice.selectById", notice_id);
 	}
 	
-	public String selectUsername(int notice_id) {
-		return mybatis.selectOne("Notice.selectUsername", notice_id);
+	public String selectUsername(int member_id) {
+		return mybatis.selectOne("Notice.selectUsername", member_id);
 	}
 	
 	public int insert(NoticeDTO dto) {

@@ -152,7 +152,7 @@ a {
 }
 
 .container {
-	width: 1000px;
+/* 	width: 1000px; */
 }
 
 textarea {
@@ -207,7 +207,6 @@ body {
 	<!-- 타이틀  -->
 	<div class="container-fluid mt-100">
 		<div id="board-title">
-			<!-- <img id="title" src="/resources/board/image/title.png"> -->
 			<span><h3>공지사항</h3></span>
 		</div>
 		<br>
@@ -244,7 +243,7 @@ body {
 					
 					$("#cancel").on("click",function(){
 						if(confirm("정말 취소하시겠습니까?")){
-							location.href="/notice/detail?notice_id=${dto.notice_id}";
+							location.href="/notice/detail?notice_id=${dto.notice_id}&member_id=${dto.member_id}";
 						}
 					});
 					

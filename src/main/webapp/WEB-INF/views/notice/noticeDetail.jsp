@@ -161,7 +161,7 @@ a {
 }
 
 .container {
-	width: 1000px;
+	/* width: 1000px; */
 }
 
 textarea {
@@ -246,66 +246,89 @@ body {
 </style>
 </head>
 <body>
-	<!-- 메인 네비바 -->
-	<%-- <jsp:include page="/header.jsp" flush="false" /> --%>
 
 	<!-- 타이틀  -->
 	<div class="container-fluid mt-100">
 		<div id="board-title">
 			<span><h3>공지사항</h3></span>
 		</div>
-		<br>
+		<div align=center>
+			
+		</div>
 
 		<!-- 게시판 박스 -->
 		<div class="card mb-3 col-xl-6 col-md-12">
-
-			<form action="/done.board" method="post" id="frm">
-				<div class="container mb-4">
-					<div class="row" style="padding-bottom: 5px;">
-						<div class="col-sm-12">
-							<div class="row profile-detail">
-								<div class="col profile-box mt-4 mb-2 ">
-									<ul class="meta list list-unstyled profile-detail d-flex mb-0 ml-2">
-										<li class="name mt-0" style="color: rgba(255, 111, 97);"></li>
-										<li class="label" style="margin: 0; padding: 0"></li>
-									</ul>
-								</div>
+			<div class="container mb-4">
+				<div class="row" style="padding-bottom: 5px;">
+					<div class="col-sm-12">
+						<div class="row profile-detail">
+							<div class="col profile-box mt-4 mb-2 ">
+								<ul class="meta list list-unstyled profile-detail d-flex mb-0 ml-2">
+									<li class="name mt-0" style="color: rgba(255, 111, 97);"></li>
+									<li class="label" style="margin: 0; padding: 0"></li>
+								</ul>
 							</div>
-							<input type="hidden" value="${dto.member_id}" id="member_id">
-							<input type="hidden" value="${dto.notice_id}" id="notice_id">
 						</div>
+						<input type="hidden" value="${dto.member_id}" name="member_id">
+						<input type="hidden" value="${dto.notice_id}" name="notice_id">
 					</div>
-					<div class="row" style="padding-bottom: 5px;">
-						<div class="col-sm-12">
-							<div id=input-title name=title style="width: 100%; border:1px solid black;">${dto.notice_title}</div>
-						</div>
+				</div>
+				<div class="row" style="border-top:1px solid black; margin:0px;">
+					<div class="col-sm-2" style="background-color:#DCDADA;">
+						제목
 					</div>
-					<div class="row">
-						<div class="col-sm-12">
-							<div id="contents" name="contents"
-								style="min-height: 200px; overflow: auto; border:1px solid black;">${dto.notice_content}</div>
-						</div>
+					<div class="col-sm-10"">
+						<div id=input-title name=title style="width: 100%;">${dto.notice_title}</div>
 					</div>
-					<div class="row">
-						<div class="col-sm-12" style="text-align: right">
-							<%-- <c:if test="${loginID==dto.member_id}"> --%>
-								<button type="button" class="btn btn-dark" id="update"
-									style="background-color: rgb(255, 111, 97);">수정하기</button>
-								<button type="button" class="btn btn-dark" id="delete"
-									style="background-color: rgb(255, 111, 97);">삭제하기</button>
-								<button type="button" class="btn btn-dark" id="modDone"
-									style="background-color: rgb(255, 111, 97); display: none;">수정완료</button>
-								<button type="button" class="btn btn-dark" id="cancel"
-									style="background-color: rgb(255, 111, 97); display: none;">취소</button>
-							<%-- </c:if> --%>
-							<c:if test="${loginID=='admin'}">
-								<button type="button" class="btn btn-dark" id="del"
-									style="background-color: rgb(255, 111, 97);">삭제하기</button>
-							</c:if>
-							<button type="button" id="boardList" class="btn btn-dark"
-								style="background-color: rgb(255, 111, 97);">목록으로</button>
-								
-							<script>
+				</div>
+				<div class="row" style="margin:0px;border-top:1px solid gray;border-bottom:1px solid gray;">
+					<div class="col-sm-2" style="background-color:#DCDADA;">
+						작성자
+					</div>
+					<div class="col-sm-10">
+						<div id=input-title name=title style="width: 100%;">${username}</div>
+					</div>
+				</div>
+				<div class="row" style="border-bottom:1px solid gray; margin:0px;">
+					<div class="col-sm-2" style="background-color:#DCDADA;">
+						작성일
+					</div>
+					<div class="col-sm-2">
+						${dto.getFormedDate()}
+					</div>
+					<div class="col-sm-2" style="background-color:#DCDADA;">
+						조회수
+					</div>
+					<div class="col-sm-6">
+						<div id=input-title name=title style="width: 100%;">${dto.notice_view_count}</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-12">
+						<div id="contents" name="contents"
+							style="min-height: 200px; overflow: auto;">${dto.notice_content}</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-12" style="text-align: right; margin-top:15px;margin-bottom:15px;">
+						<%-- <c:if test="${loginID==dto.member_id}"> --%>
+							<button type="button" class="btn btn-dark" id="update"
+								style="background-color: rgb(255, 111, 97);">수정하기</button>
+							<button type="button" class="btn btn-dark" id="delete"
+								style="background-color: rgb(255, 111, 97);">삭제하기</button>
+							<button type="button" class="btn btn-dark" id="modDone"
+								style="background-color: rgb(255, 111, 97); display: none;">수정완료</button>
+							<button type="button" class="btn btn-dark" id="cancel"
+								style="background-color: rgb(255, 111, 97); display: none;">취소</button>
+						<%-- </c:if> --%>
+						<c:if test="${loginID=='admin'}">
+							<button type="button" class="btn btn-dark" id="del"
+								style="background-color: rgb(255, 111, 97);">삭제하기</button>
+						</c:if>
+						<button type="button" id="boardList" class="btn btn-dark"
+							style="background-color: rgb(255, 111, 97);">목록으로</button>
+							
+						<script>
 							$("#boardList").on("click",function(){
 								location.href="/notice/toNotice";
 							});
@@ -324,46 +347,27 @@ body {
 								location.href="/notice/toUpdate?notice_id="+${dto.notice_id};;
 							});
 							</script>
-							
-							
-							<%-- // 기존 내용 백업
-							let bkTitle = $("#input-title").val();					
-							let bkContents = $("#contents").val();					
-							$("#mod").on("click", function(){
-		                		$("#del").css("display","none");
-		                		$("#mod").css("display","none");
-		                		$("#boardList").css("display","none");
-		                		$("#modDone").css("display","inline-block");
-		                		$("#cancel").css("display","inline-block");
-		                		$("#frm").removeAttr("action");
-		                		$("#input-title").removeAttr("readonly");
-		                		$("#contents").removeAttr("readonly");
-		                		$("#contents").focus();
-		                		
-		                	 	$("#frm").attr("action","/modify.board?cpage=${cpage}&seq=${dto.member_id}");
-		                		
-		                	});
-		                	
-		                	$("#modDone").on("click",function(){
-		                		$("#frm").submit();
-		                	})
-		                	$("#cancel").on("click",function(){
-		                		$("#input-title").val(bkTitle);
-		                		$("#contents").val(bkContents);
-		                		$("#input-title").attr("readonly","");
-		                		$("#contents").attr("readonly","");
-		                		$("#mod").css("display","inline-block");
-		                		$("#del").css("display","inline-block");
-		                		$("#modDone").css("display","none");
-		                		$("#cancel").css("display","none");
-		                		$("#boardList").css("display","inline-block");
-		                	}) --%>
-		                	
-							
-						</div>
+						
 					</div>
 				</div>
-			</form>
+				<div class="row" style="border-top:1px solid black; border-bottom:1px solid gray; margin:0px;">
+					<div class="col-sm-2">
+						▲ 이전글
+					</div>
+					<div class="col-sm-10"">
+						<div style="width: 100%;">이전글이전글이전글이전글이전글</div>
+					</div>
+				</div>
+				<div class="row" style="border-bottom:1px solid black; margin:0px;">
+					<div class="col-sm-2">
+						▼ 다음글
+					</div>
+					<div class="col-sm-10">
+						<div style="width: 100%;">다음글다음글다음글다음글다음글</div>
+					</div>
+				</div>
+			</div>
+			
 		</div>
 			<hr>
 			
@@ -510,17 +514,6 @@ body {
 				</div>
 			</form>--%>
 
-
-
-		
-
-		<br>
-
-
-
-		<!-- 푸터 -->
-		<%-- <jsp:include page="/footer.jsp" flush="false" /> --%>
 	</div>
-	<script type="text/javascript"></script> 
 </body>
 </html>

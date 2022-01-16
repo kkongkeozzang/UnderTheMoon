@@ -35,17 +35,15 @@ public class NoticeController {
 	@RequestMapping("toNotice")
 	public String notice(Model model) throws Exception {
 		List<NoticeDTO> notices = service.selectAll();
-		
 		model.addAttribute("notices", notices);
-		
 	    return "/notice/noticeList";
 	}
 	
 	@RequestMapping("detail")
-	public String selectById(int notice_id, Model model) {
+	public String selectById(int notice_id, int member_id, Model model) {
 		NoticeDTO dto = service.selectById(notice_id);
 		int viewCount = service.updateViewCount(notice_id);
-		String username = service.selectUsername(notice_id);
+		String username = service.selectUsername(member_id);
 		model.addAttribute("dto", dto);
 		model.addAttribute("username", username);
 		return "/notice/noticeDetail";
@@ -112,7 +110,7 @@ public class NoticeController {
 	@RequestMapping("update")
 	public String update(NoticeDTO dto, Model model) {
 		int result = service.update(dto); // 게시판에 작성된 내용을 DB에 저장하는 부분
-		return "redirect:/notice/detail?notice_id="+dto.getNotice_id();
+		return "redirect:/notice/detail?notice_id="+dto.getNotice_id()+"&member_id="+dto.getMember_id();
 	}
 	
 	@ExceptionHandler(Exception.class)

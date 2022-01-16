@@ -1,6 +1,7 @@
 package kh.spring.dto;
 
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 
 
 public class NoticeDTO {
@@ -11,13 +12,14 @@ public class NoticeDTO {
     private Timestamp notice_write_date;
     private int notice_view_count;
     private int member_id;
+    private String member_username;
     
     public NoticeDTO() {
         super();
         // TODO Auto-generated constructor stub
     }
     public NoticeDTO(int notice_id, String notice_title, String notice_content, Timestamp notice_write_date,
-            int notice_view_count, int member_id) {
+            int notice_view_count, int member_id, String member_username) {
         super();
         this.notice_id = notice_id;
         this.notice_title = notice_title;
@@ -25,6 +27,7 @@ public class NoticeDTO {
         this.notice_write_date = notice_write_date;
         this.notice_view_count = notice_view_count;
         this.member_id = member_id;
+        this.member_username = member_username;
     }
     public int getNotice_id() {
         return notice_id;
@@ -61,7 +64,18 @@ public class NoticeDTO {
     }
     public void setMember_id(int member_id) {
         this.member_id = member_id;
-    } 
+    }
+    public String getMember_username() {
+        return member_username;
+    }
+    public void setMember_username(String member_username) {
+        this.member_username = member_username;
+    }
+    
+    public String getFormedDate() {
+    	SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
+    	return sdf.format(this.notice_write_date.getTime());
+    }
 }
 
 

@@ -32,7 +32,7 @@ public class PrincipalDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String member_username) throws UsernameNotFoundException {
       
     	System.out.println(member_username);
-        MemberDTO userEntity = memberDAO.SelectByUsername(member_username);
+        MemberDTO userEntity = memberDAO.selectByUsername(member_username);
        
         if(userEntity != null){
 //            return new PrincipalDetails(userEntity);

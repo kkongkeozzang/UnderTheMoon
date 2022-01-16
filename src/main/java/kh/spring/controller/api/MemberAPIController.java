@@ -73,7 +73,6 @@ public class MemberAPIController {
 	        result = new ObjectMapper().writeValueAsString(map);
 	        
 		}
-		System.out.println("result"+result);
 		return result;
 	}
 	

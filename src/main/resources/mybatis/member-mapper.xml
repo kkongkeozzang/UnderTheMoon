@@ -5,17 +5,27 @@
   
   <mapper namespace ="Member">
   
-  <select id="SelectByUsername" resultType="kh.spring.dto.MemberDTO">
+  <select id="selectByUsername" resultType="kh.spring.dto.MemberDTO">
   	select * from member where member_username = #{member_username}
   </select>
   
-  <select id="SelectByNameAndEmail" resultType="String">
+  <select id="selectByNameAndEmail" resultType="String">
   	select member_username from member where member_email = #{member_email} and member_name = #{member_name}
   </select>
   
-  <select id="SelectByUsernameAndPhone" resultType="Integer">
+
+  <select id="selectByUsernameAndPhone" resultType="Integer">
   	select * from member where member_username = #{member_username} and member_phone = #{member_phone}
   </select>
+
+  <insert id="insertMember">
+  	insert into member values(member_id_seq.nextval,#{member_username},#{member_password},#{member_name},#{member_birth_date}
+  	, #{member_phone}, #{member_zipcode}, #{member_address1}, #{member_address2}, default, '별', 'ROLE_USER', #{member_email})
+  </insert>
+  
+  <update id="resetPassword">
+  	update member set member_password = #{member_password} where member_username = #{member_username}
+  </update>
   </mapper>
   
   

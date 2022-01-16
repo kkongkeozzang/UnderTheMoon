@@ -1,23 +1,22 @@
 package kh.spring.controller.api;
 
-
-
-
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Random;
-
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import kh.spring.dto.MemberDTO;
 import kh.spring.service.MemberService;
 import kh.spring.service.VerificationService;
+import kh.spring.service.MemberService;
 
 
 
@@ -34,20 +33,27 @@ public class MemberAPIController {
 		this.verificationService = verificationService;
 	}
 	
-	
+		
 	@GetMapping(value="findUsernameProc",produces="text/html;charset=utf8")
 	public String findUsername(String member_email,String member_name) {
 		
 		String member_username = memberService.selectByNameAndEmail(member_email,member_name);
 		return member_username;
 	}
+
 		
 	@GetMapping(value="findPasswordProc",produces="text/html;charset=utf8")
 	public String findPasswordProc(String member_username,String member_phone) throws JsonProcessingException {
 		
-		Integer result = memberService.selectByUsernameAndPhone(member_username,member_phone);
+		Optional<Integer> opt = memberService.selectByUsernameAndPhone(member_username,member_phone);
+		String result = "";
+		String phone = String.valueOf(opt);
 		
-		String phone = String.valueOf(result);
+		if(opt.isEmpty()) {
+			System.out.println(phone);
+			result = "1";
+			
+		}else if(!(opt.isEmpty())){
 		
 		 Random rand  = new Random();
 	        String numStr = "";
@@ -64,10 +70,18 @@ public class MemberAPIController {
 	        map.put("result", phone);
 	        map.put("numStr", numStr);
 	        
-	        String json = new ObjectMapper().writeValueAsString(map);
+	        result = new ObjectMapper().writeValueAsString(map);
 	        
+		}
+		return result;
+	}
+	
+	@PostMapping("resetPasswordProc")
+	public String resetPasswordProc( String member_password,String member_username) {
 		
-	        return json;
+		int result = memberService.resetPassword(member_password,member_username);
+		
+		return String.valueOf(result);
 	}
 	
 	

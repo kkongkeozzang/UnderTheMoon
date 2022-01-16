@@ -14,7 +14,7 @@ import kh.spring.dto.MemberDTO;
 public class MemberService {
 
 	private final MemberDAO memberDAO;
-
+	
 	private final BCryptPasswordEncoder bCrptPasswordEncoder;
 	
 	public MemberService(MemberDAO memberDAO,BCryptPasswordEncoder bCrptPasswordEncoder) {
@@ -57,5 +57,10 @@ public class MemberService {
 		return result;
 		
 	}
+
+	
+	public int idDuplCheck(String id) {
+		return memberDAO.idDuplCheck(id);
+	} 
 
 }

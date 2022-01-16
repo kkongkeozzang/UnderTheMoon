@@ -143,9 +143,9 @@ public class MemberDTO {
 	   public void setMember_email(String member_email) {
 	      this.member_email = member_email;
 	   }
+
 	   
 	   
 	   
-	   
-	}
+}
 

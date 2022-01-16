@@ -1,5 +1,6 @@
 package kh.spring.controller.api;
 
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -16,6 +17,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import kh.spring.dto.MemberDTO;
 import kh.spring.service.MemberService;
 import kh.spring.service.VerificationService;
+
 import kh.spring.service.MemberService;
 
 
@@ -25,7 +27,7 @@ import kh.spring.service.MemberService;
 public class MemberAPIController {
 
 	private final MemberService memberService;
-	
+
 	private final VerificationService verificationService;
 	
 	public  MemberAPIController(MemberService memberService,VerificationService verificationService) {
@@ -40,6 +42,7 @@ public class MemberAPIController {
 		String member_username = memberService.selectByNameAndEmail(member_email,member_name);
 		return member_username;
 	}
+
 
 		
 	@GetMapping(value="findPasswordProc",produces="text/html;charset=utf8")

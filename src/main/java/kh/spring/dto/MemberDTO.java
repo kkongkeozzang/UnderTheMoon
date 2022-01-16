@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 
 public class MemberDTO {
 
+
 	   private Integer member_id;
 	   private String member_username;
 	   private String member_password;

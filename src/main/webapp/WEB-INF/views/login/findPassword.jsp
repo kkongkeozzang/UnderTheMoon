@@ -117,6 +117,7 @@ body {
 $(function(){
 	
 
+
 	let username = $("#username").val();
 	
     $("#findPassword").on("click",function(){
@@ -155,6 +156,7 @@ $(function(){
        })
      })
  })                 
+
 </script>
 </head>
 <body>
@@ -173,6 +175,7 @@ $(function(){
                   required="required">
             </div>
          </div>
+
          <div class="form-group row" id=phoneContainer>
             <label class="col-form-label col-4">전화번호:</label>
             <div class="col-8">
@@ -182,6 +185,7 @@ $(function(){
          </div>
          <div class="form-group row">
             <div class="col-8 offset-4">
+
                <button type="button" id="findPassword" class="btn btn-primary btn-lg">인증번호요청. </button>
             </div>
             <div class="col-8 offset-4">

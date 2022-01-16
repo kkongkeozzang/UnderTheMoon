@@ -14,7 +14,6 @@ import kh.spring.dto.MemberDTO;
 public class MemberDAO {
 
 	private final SqlSessionTemplate mybatis;
-
 	private final BCryptPasswordEncoder bCrptPasswordEncoder;
 	
 	public MemberDAO(SqlSessionTemplate mybatis, BCryptPasswordEncoder bCrptPasswordEncoder) {
@@ -25,6 +24,7 @@ public class MemberDAO {
 	public MemberDTO SelectByUsername(String member_username) {
 		
 		return mybatis.selectOne("Member.selectByUsername",member_username);
+
 		}
 
 	public String selectByNameAndEmail(String member_email, String member_name) {

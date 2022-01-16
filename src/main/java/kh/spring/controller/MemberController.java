@@ -29,12 +29,13 @@ public class MemberController {
 	@RequestMapping("member/findUsername")
 	public String findUsername() {
 		
+
 		return "/login/findUsername";
+
 	}
 	
 	@RequestMapping("member/findPassword")
 	public String findPassword() {
-		
 		return "/login/findPassword";
 	}
 	
@@ -43,6 +44,7 @@ public class MemberController {
 		System.out.println(username+"ㄴ");
 		model.addAttribute("member_username",username);
 		return "/login/resetPassword";
+
 	}
 	
 	@RequestMapping("/signup")

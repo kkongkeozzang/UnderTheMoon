@@ -13,7 +13,7 @@
 	  class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/> 
 	   <context:component-scan base-package="kh.spring.auth"/> 
 	     <context:component-scan base-package="kh.spring.dao"/> 
-	  <beans:bean class="org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler" /> 
+<beans:bean class="org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler" /> 
 
 	
 

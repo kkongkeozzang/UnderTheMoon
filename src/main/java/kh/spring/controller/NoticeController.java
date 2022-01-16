@@ -33,9 +33,15 @@ public class NoticeController {
 	}
 	
 	@RequestMapping("toNotice")
-	public String notice(Model model) throws Exception {
-		List<NoticeDTO> notices = service.selectAll();
+	public String notice(int cpage, Model model) throws Exception {
+		
+		int start = cpage * 10 - 9;
+		int end = cpage * 10;
+		
+		List<NoticeDTO> notices = service.selectByBound(start, end);
+		String pageNavi = service.getPageNavi(cpage);
 		model.addAttribute("notices", notices);
+		model.addAttribute("pageNavi", pageNavi);
 	    return "/notice/noticeList";
 	}
 	

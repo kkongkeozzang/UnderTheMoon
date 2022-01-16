@@ -1,6 +1,8 @@
 package kh.spring.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
@@ -47,6 +49,18 @@ public class NoticeDAO {
 	
 	public int updateViewCount(int notice_id) {
 		return mybatis.update("Notice.updateViewCount", notice_id);
+	}
+	
+	public int selectRecordCount() {
+		return mybatis.selectOne("Notice.selectRecordCount");
+	}
+	
+	public List<NoticeDTO> selectByBound(int start, int end) {
 		
+		Map<String, String> map = new HashMap<>();
+		map.put("start", String.valueOf(start));
+		map.put("end", String.valueOf(end));
+		
+		return mybatis.selectList("Notice.selectByBound", map);
 	}
 }

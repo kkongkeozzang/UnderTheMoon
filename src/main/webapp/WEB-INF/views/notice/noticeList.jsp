@@ -287,6 +287,7 @@ select {
 							style="background-color: rgb(255, 111, 97); border-color: rgb(255, 111, 97);">
 							글 쓰기</button>
 					</div>
+					<span>${pageNavi}</span>
 				</div>
 			</div>
 
@@ -337,7 +338,7 @@ select {
 
 		</div>
 
-		<br> ${navi }
+		<br>
 
 		<%-- 
     <!-- 페이지 네비 -->

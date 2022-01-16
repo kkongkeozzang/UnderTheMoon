@@ -12,8 +12,8 @@ import net.nurigo.java_sdk.exceptions.CoolsmsException;
 public class VerificationService {
 
 	public void verifiedPhoneNumber(String member_phone, String numStr) {
-		String api_key = "NCSPZ2MGB8QYWUSG";
-        String api_secret = "39YKNABHPTQATGGMZFTABDIRVJR7CPOY";
+		String api_key = "인증토큰키.";
+        String api_secret = "인증토큰시크릿.";
         Message coolsms = new Message(api_key, api_secret);
 
         // 4 params(to, from, type, text) are mandatory. must be filled

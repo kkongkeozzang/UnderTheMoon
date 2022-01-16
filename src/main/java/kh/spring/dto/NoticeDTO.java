@@ -2,7 +2,6 @@ package kh.spring.dto;
 
 import java.sql.Timestamp;
 
-
 public class NoticeDTO {
 
     private int notice_id;

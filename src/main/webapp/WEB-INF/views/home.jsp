@@ -13,5 +13,8 @@
 	<a href="/notice/toNotice"><button>Board</button></a>
 	<a href="/login">로그인..</a>
 	<a href="/signup">회원가입</a>
+
+	<a href="/cart/cart">장바구니..</a>
+
 </body>
 </html>

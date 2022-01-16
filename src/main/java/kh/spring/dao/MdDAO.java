@@ -41,4 +41,18 @@ private final SqlSessionTemplate mybatis;
 		return mybatis.selectList("Md.selectByBound", map);
 	}
 	
+	public List<MdDTO> selectByBoundReviewSort(int start, int end) {
+		Map<String, Integer> map = new HashMap<>();
+		map.put("start", start);
+		map.put("end", end);
+		return mybatis.selectList("Md.selectByBoundReviewSort", map);
+	}
+	
+	public List<MdDTO> selectByBoundNewSort(int start, int end) {
+		Map<String, Integer> map = new HashMap<>();
+		map.put("start", start);
+		map.put("end", end);
+		return mybatis.selectList("Md.selectByBoundNewSort", map);
+	}
+	
 }

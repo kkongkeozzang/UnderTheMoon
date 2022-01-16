@@ -18,12 +18,13 @@ $(document).ready(function(){
 	reviewSort();
 	newSort();
 })
-function reviewSort(){
+function reviewSort() {
 	$("#review-sort").on("click",function(){
 		$.ajax({
 			url: "/md/reviewSort",
 			DataType: "json",
-			type: "get"
+			type: "get",
+			data: {currentPage: 1}
 		}).done(function(resp){
 			let mdsSize = resp.mds.length;
 			let str = "";
@@ -49,8 +50,7 @@ function reviewSort(){
 			}
 			
 			$("#list-page").html(str);
-			console.log(str);
-			
+			getPageReviewSort(resp.cPage);
 		})
 	})
 }
@@ -59,11 +59,13 @@ function newSort() {
 		$.ajax({
 			url: "/md/newSort",
 			DataType: "json",
-			type: "get"
+			type: "get",
+			data: {currentPage: 1}
 		}).done(function(resp){
+			console.log(resp);
 			let mdsSize = resp.mds.length;
 			let str = "";
-			for(let i = 0;i < mdsSize; i++) {
+			for(let i = 0; i < mdsSize; i++) {
 				str += "<div class='col-lg-4 col-md-4 all des'>";
 				str += "<div class='product-item'>";
 				str += "<a><img src='/resources/mdList/assets/images/${md.md_image }' alt=''></a>";
@@ -85,14 +87,55 @@ function newSort() {
 			}
 			
 			$("#list-page").html(str);
-			console.log(str);
-			
+			getPageNewSort(resp.cPage);
 		})
 	})
 }
 function getPage(pageNavi) {
 	$.ajax({
 		url: "/md/listPage",
+		type: "get",
+		dataType: "json",
+		data: {currentPage: pageNavi}
+	}).done(function(resp){
+		console.log(resp);
+		let mdsSize = resp.mds.length;
+		let naviSize = resp.pageNavis.length;
+		let str = "";
+		for(let i = 0; i < mdsSize; i++) {
+			str += "<div class='col-lg-4 col-md-4 all des'>";
+			str += "<div class='product-item'>";
+			str += "<a><img alt=''></a>";
+			str += "<div class='down-content'>";
+			str += "<a><h4>"+resp.mds[i].md_name+"</h4></a>";
+			str += "<h6>"+resp.mds[i].md_price+"</h6>";
+			str += "<p>"+resp.mds[i].md_content+"</p>";
+			str += "<ul class='stars'>";
+			str += "<li><i class='fa fa-star'></i></li>";
+			str += "<li><i class='fa fa-star'></i></li>";
+			str += "<li><i class='fa fa-star'></i></li>";
+			str += "<li><i class='fa fa-star'></i></li>";
+			str += "<li><i class='fa fa-star'></i></li>";
+			str += "</ul>";
+			str += "<span>Reviews (12)</span>";
+			str += "</div>";
+			str += "</div>";
+			str += "</div>";
+		}
+		$("#list-page").html(str);
+		
+		let pageStr = "";
+		for(let i = 0; i < naviSize; i++) {
+			pageStr += "<li>";
+			pageStr += resp.pageNavis[i];
+			pageStr += "</li>";
+		}
+		$("#pages").html(pageStr);
+	})
+}
+function getPageReviewSort(pageNavi) {
+	$.ajax({
+		url: "/md/reviewSort",
 		post: "get",
 		dataType: "json",
 		data: {currentPage: pageNavi}
@@ -132,6 +175,48 @@ function getPage(pageNavi) {
 		$("#pages").html(pageStr);
 	})
 }
+function getPageNewSort(pageNavi) {
+	$.ajax({
+		url: "/md/newSort",
+		post: "get",
+		dataType: "json",
+		data: {currentPage: pageNavi}
+	}).done(function(resp){
+		console.log(resp);
+		let mdsSize = resp.mds.length;
+		let naviSize = resp.pageNavis.length;
+		let str = "";
+		for(let i = 0; i < mdsSize; i++) {
+			str += "<div class='col-lg-4 col-md-4 all des'>";
+			str += "<div class='product-item'>";
+			str += "<a><img alt=''></a>";
+			str += "<div class='down-content'>";
+			str += "<a><h4>"+resp.mds[i].md_name+"</h4></a>";
+			str += "<h6>"+resp.mds[i].md_price+"</h6>";
+			str += "<p>"+resp.mds[i].md_content+"</p>";
+			str += "<ul class='stars'>";
+			str += "<li><i class='fa fa-star'></i></li>";
+			str += "<li><i class='fa fa-star'></i></li>";
+			str += "<li><i class='fa fa-star'></i></li>";
+			str += "<li><i class='fa fa-star'></i></li>";
+			str += "<li><i class='fa fa-star'></i></li>";
+			str += "</ul>";
+			str += "<span>Reviews (12)</span>";
+			str += "</div>";
+			str += "</div>";
+			str += "</div>";
+		}
+		$(".forEach").html(str);
+		
+		let pageStr = "";
+		for(let i = 0; i < naviSize; i++) {
+			pageStr += "<li>";
+			pageStr += resp.pageNavis[i];
+			pageStr += "</li>";
+		}
+		$("#pages").html(pageStr);
+	})
+}
 </script>
 </head>
 <body>
@@ -141,10 +226,9 @@ function getPage(pageNavi) {
         <div class="row">
           <div class="col-md-12">
             <div class="filters">
-            <input type="hidden" id="cPage" value="${cPage }" >
               <ul >
                   <li class=count>총 ${allMdCount } 개</li>
-                  <li class=sort id=review-sort>리뷰순</li>
+                  <li class=sort id=review-sort onclick=reviewSort()>리뷰순</li>
                   <li class=sort id=new-sort>최신순</li>
               </ul>
             </div>
@@ -210,7 +294,7 @@ function getPage(pageNavi) {
                 </div>
             </div>
           </div>
-          <div class="col-md-12">
+          <div class="col-md-12" id="page-box">
             <ul class="pages" id="pages">
             <c:forEach var="pageNavi" items="${ pageNavis}">
             	<li>${pageNavi}</li>

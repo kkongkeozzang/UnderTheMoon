@@ -214,19 +214,19 @@ body {
 		<!-- 게시판 박스 -->
 		<div class="card mb-3 col-xl-6 col-md-12">
 			<!-- 게시글 등록 박스 -->
-			<form action="/notice/update" method="post" id="frmDetail">
+			<form action="/notice/update?cpage=${cpage}" method="post" id="frmDetail">
 				<div class="container mb-4 mt-4">
 					<div class="row" style="padding-bottom: 5px;">
 						<div class="col-sm-12"> 
-							<input type="hidden" value="${dto.member_id}" name="member_id">
-							<input type="hidden" value="${dto.notice_id}" name="notice_id">
-							<input type=text id=input-title name=notice_title placeholder="제목을 작성하세요" style="width: 100%;" value='${dto.notice_title }'>
+							<input type="hidden" value="${notices.member_id}" name="member_id">
+							<input type="hidden" value="${notices.notice_id}" name="notice_id">
+							<input type=text id=input-title name=notice_title placeholder="제목을 작성하세요" style="width: 100%;" value='${notices.notice_title }'>
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-sm-12">
 							<textarea name="notice_content" id="summernote"
-								style="min-height: 200px; overflow: auto" maxlength="1000">${dto.notice_content }</textarea>
+								style="min-height: 200px; overflow: auto" maxlength="1000">${notices.notice_content }</textarea>
 							<script>
                 				autosize($("textarea"));
         			        </script>
@@ -236,14 +236,14 @@ body {
 					<div class="row">
 						<div class="col-sm-12" style="text-align: right">
 							<button type="button" id="update" class="btn btn-dark"
-								style="background-color: rgb(255, 111, 97);">수정완료</button>
+								style="background-color: #406882;">수정완료</button>
 							<button class="btn btn-dark" type=button id="cancel"
-								style="background-color: rgb(255, 111, 97);">취소</button>
+								style="background-color: #406882;">취소</button>
 					<script>
 					
 					$("#cancel").on("click",function(){
 						if(confirm("정말 취소하시겠습니까?")){
-							location.href="/notice/detail?notice_id=${dto.notice_id}&member_id=${dto.member_id}";
+							location.href="/notice/detail?notice_id=${notices.notice_id}&member_id=${notices.member_id}&cpage=${cpage}";
 						}
 					});
 					

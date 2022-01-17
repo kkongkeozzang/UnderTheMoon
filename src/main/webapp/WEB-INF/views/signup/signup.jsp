@@ -39,10 +39,16 @@
                 <input type="password" class="form-control" id="member_password" name="member_password">
             </div>        	
         </div>
+		<div class="form-group row" id="passwordCondition" style="display:none;">
+			<label class="col-form-label col-3"></label>
+			<div class="col-7" id="password-Condition">
+
+            </div>        	
+        </div>
 		<div class="form-group row">
 			<label class="col-form-label col-3">비밀번호확인</label>
 			<div class="col-7">
-                <input type="password" class="form-control" id="member_confirm_password" name="member_confirm_password">
+                <input type="password" class="form-control" id="member_confirm_password" name="member_confirm_password">             
             </div>        	
         </div>
 		<div class="form-group row">
@@ -216,9 +222,21 @@
 		})
 	})
 	
-	document.getElementById("member_confirm_phone").oninput = function() {
+	$("#member_password").on("click",function(){
+		$("#passwordCondition").css("display","show");
+	})
+	
+	
+	
+	
+	
+	
+	let result = document.getElementById("password-Condition");
+	
+	document.getElementById("member_confirm_password").oninput = function() {
 	      let pw1 = $("#member_password").val();
-	      let pw2 = $("#member_confirm_phone").val();
+	      let pw2 = $("#member_confirm_password").val();
+	      $("#passwordCondition").css("display","inline")
 	      if (pw1 != pw2) {
 	         result.innerHTML = "패스워드가 일치하지않습니다"
 
@@ -233,7 +251,7 @@
 	
 	   document.getElementById("member_password").oninput = function() {
 	      let pw1 = $("#member_password").val();
-	      let pw2 = $("#member_confirm_phone").val();
+	      let pw2 = $("#member_confirm_password").val();
 	      if (pw1 != pw2) {
 	         result.innerHTML = "패스워드가 일치하지않습니다"
 
@@ -245,6 +263,8 @@
 	         result.innerHTML = "패스워드가 일치합니다."
 	      }
 	   }
+	   
+
 </script>
 </body>
 </html>

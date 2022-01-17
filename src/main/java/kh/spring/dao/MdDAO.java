@@ -54,5 +54,10 @@ private final SqlSessionTemplate mybatis;
 		map.put("end", end);
 		return mybatis.selectList("Md.selectByBoundNewSort", map);
 	}
+
+	public MdDTO selectMdById(Integer md_id) {
+		
+		return mybatis.selectOne("selectMdById",md_id);
+	}
 	
 }

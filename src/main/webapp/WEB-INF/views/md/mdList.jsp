@@ -22,25 +22,37 @@
 }
 </style>
 <script>
+<%--
+select (지역선택 또는 전체선택) : 서울, 부산, 인천, ..., ALL
+sort (리뷰 많은 순 정렬, 최신 순 정렬) : reviewSort, newSort, none
+--%>
 $(document).ready(function(){
-	sortFunc("none");
+	sortFunc("all", "none");
 	
 })
-function sortFunc(sort) {
+function sortFunc(select, sort) {
+	if (select != "all") {
+		select = $(this).html();
+	}
 	$("#review-sort").on("click",function(){
-		sortFuncDetail("reviewSort");
+		sortFuncDetail(select, "reviewSort");
 	});
 	$("#new-sort").on("click",function(){
-		sortFuncDetail("newSort");
+		sortFuncDetail(select, "newSort");
 	});
+	$(".nav-item").on("click",function(){
+		select = $(this).html();
+		sortFuncDetail(select, "none");
+	})
 }
-function sortFuncDetail(sort) {
+function sortFuncDetail(select, sort) {
 	$.ajax({
 		url: "/md/listPage",
 		DataType: "json",
 		type: "get",
 		data: {
 			currentPage: 1,
+			select: select,
 			sort: sort
 			}
 	}).done(function(resp){
@@ -67,16 +79,18 @@ function sortFuncDetail(sort) {
 			str += "</div>";
 		}
 		$("#list-page").html(str);
-		getPage(resp.cPage, sort);
+		getPage(resp.cPage, select, sort);
+		$("#count").html("총 " + resp.allMdCount + " 개");
 	})
 }
-function getPage(pageNavi, sort) {
+function getPage(pageNavi, select, sort) {
 	$.ajax({
 		url: "/md/listPage",
 		type: "get",
 		dataType: "json",
 		data: {
 			currentPage: pageNavi,
+			select: select,
 			sort: sort
 			}
 	}).done(function(resp){
@@ -114,7 +128,6 @@ function getPage(pageNavi, sort) {
 		$("#pages").html(pageStr);
 	})
 }
-
 </script>
 </head>
 <body>
@@ -123,32 +136,32 @@ function getPage(pageNavi, sort) {
       <div class="container">
       	<div class="row region-sort">
 			<ul class="nav justify-content-between" style="flex:1 1 100%">
-				<li class="nav-item"><a class="nav-link" href="#">서울</a></li>
-				<li class="nav-item"><a class="nav-link" href="#">부산</a></li>
-				<li class="nav-item"><a class="nav-link" href="#">인천</a></li>
-				<li class="nav-item"><a class="nav-link" href="#">대전</a></li>
-				<li class="nav-item"><a class="nav-link" href="#">울산</a></li>
+				<li class="nav-item">서울</li>
+				<li class="nav-item">부산</li>
+				<li class="nav-item">인천</li>
+				<li class="nav-item">대전</li>
+				<li class="nav-item">울산</li>
 			</ul>
 			<ul class="nav justify-content-between" style="flex:1 1 100%">
-				<li class="nav-item"><a class="nav-link" href="#">경기도</a></li>
-				<li class="nav-item"><a class="nav-link" href="#">강원도</a></li>
-				<li class="nav-item"><a class="nav-link" href="#">충청북도</a></li>
-				<li class="nav-item"><a class="nav-link" href="#">충청남도</a></li>
-				<li class="nav-item"><a class="nav-link" href="#">전라북도</a></li>
+				<li class="nav-item">경기도</li>
+				<li class="nav-item">강원도</li>
+				<li class="nav-item">충청북도</li>
+				<li class="nav-item">충청남도</li>
+				<li class="nav-item">전라북도</li>
 				
 			</ul>
 			<ul class="nav justify-content-between" style="flex:1 1 100%">
-				<li class="nav-item"><a class="nav-link" href="#">전라남도</a></li>
-				<li class="nav-item"><a class="nav-link" href="#">경상북도</a></li>
-				<li class="nav-item"><a class="nav-link" href="#">경상남도</a></li>
-				<li class="nav-item"><a class="nav-link" href="#">제주도</a></li>
+				<li class="nav-item">전라남도</li>
+				<li class="nav-item">경상북도</li>
+				<li class="nav-item">경상남도</li>
+				<li class="nav-item">제주도</li>
 				<li class="nav-item"></li>
 			</ul>
 		</div>
         <div class="row">
           <div class="col-md-12">
             <div class="filters">
-            <div class=count >총 ${allMdCount } 개</div>
+            <div class=count id=count>총 ${allMdCount } 개</div>
             <div class=sort id=review-sort>리뷰순</div>
             <div class=sort id=new-sort>최신순</div>
             </div>

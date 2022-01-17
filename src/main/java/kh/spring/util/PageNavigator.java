@@ -8,7 +8,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class PageNavigator {
 	
-	public static List<String> getPageNavigator(int recordTotalCount, int currentPage, int recordCountPerPage, int naviCountPerPage, String sort) {
+	public static List<String> getPageNavigator(int recordTotalCount, int currentPage, int recordCountPerPage, int naviCountPerPage, String select, String sort) {
+		
 		int pageTotalCount = 0;
 		
 		if(recordTotalCount % recordCountPerPage == 0) {
@@ -42,6 +43,9 @@ public class PageNavigator {
 			start += "(" + (startNavi - 1);
 			start += ","; 
 			start += "\'";
+			start += select;
+			start += "',"; 
+			start += "\'";
 			start += sort;
 			start += "')\"><";
 			start += "</a>";
@@ -51,6 +55,9 @@ public class PageNavigator {
 			String str = "<a href=\"#\" onclick=\"getPage";
 			str += "(" + i;
 			str += ","; 
+			str += "\'";
+			str += select;
+			str += "',"; 
 			str += "\'";
 			str += sort;
 			str += "\')\">";
@@ -62,6 +69,9 @@ public class PageNavigator {
 			String end = "<a href=\"#\" onclick=\"getPage";
 			end += "(" + (endNavi + 1);
 			end += ","; 
+			end += "\'";
+			end += select;
+			end += "',"; 
 			end += "\'";
 			end += sort;
 			end += "')\">>";

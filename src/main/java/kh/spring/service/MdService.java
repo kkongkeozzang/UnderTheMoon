@@ -28,12 +28,12 @@ public class MdService {
 		return mdDAO.selectAllNewSort();
 	}
 	
-	public int selectAllCount() {
-		return mdDAO.selectAllCount();
+	public int selectCount(String select) {
+		return mdDAO.selectCount(select);
 	}
 	
-	public List<MdDTO> selectByBound(int start, int end, String sort) {
-		return mdDAO.selectByBound(start, end, sort);
+	public List<MdDTO> selectByBound(int start, int end, String select, String sort) {
+		return mdDAO.selectByBound(start, end, select, sort);
 	}
 	
 }

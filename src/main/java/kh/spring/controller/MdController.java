@@ -28,9 +28,9 @@ public class MdController {
 		int cPage = 1;
 		int start = cPage*PageStatic.MD_COUNT_PER_PAGE-(PageStatic.MD_COUNT_PER_PAGE);
 		int end = cPage*PageStatic.MD_COUNT_PER_PAGE;
-		List<MdDTO> mds = mdService.selectByBound(start, end, "none");
-		int allMdCount = mdService.selectAllCount();
-		List<String> pageNavis = PageNavigator.getPageNavigator(allMdCount, 1, PageStatic.MD_COUNT_PER_PAGE, PageStatic.MD_NAVI_COUNT_PER_PAGE, "none");
+		List<MdDTO> mds = mdService.selectByBound(start, end, "all", "none");
+		int allMdCount = mdService.selectCount("all");
+		List<String> pageNavis = PageNavigator.getPageNavigator(allMdCount, 1, PageStatic.MD_COUNT_PER_PAGE, PageStatic.MD_NAVI_COUNT_PER_PAGE, "all", "none");
 		model.addAttribute("mds", mds);
 		model.addAttribute("allMdCount", allMdCount);
 		model.addAttribute("pageNavis", pageNavis);
@@ -40,14 +40,15 @@ public class MdController {
 	
 	@ResponseBody
 	@RequestMapping(value = "listPage", produces = "application/json")
-	public HashMap<String, Object> list(String currentPage, String sort) {
+	public HashMap<String, Object> list(String currentPage, String select, String sort) {
 		int cPage = Integer.parseInt(currentPage);
 		int start = cPage*PageStatic.MD_COUNT_PER_PAGE-(PageStatic.MD_COUNT_PER_PAGE-1);
 		int end = cPage*PageStatic.MD_COUNT_PER_PAGE;
 		List<MdDTO> mds = null;
-		mds = mdService.selectByBound(start, end, sort);
-		int allMdCount = mdService.selectAllCount();
-		List<String> pageNavis = PageNavigator.getPageNavigator(allMdCount, cPage, PageStatic.MD_COUNT_PER_PAGE, PageStatic.MD_NAVI_COUNT_PER_PAGE, sort);
+		mds = mdService.selectByBound(start, end, select, sort);
+		int allMdCount = mdService.selectCount(select);
+			
+		List<String> pageNavis = PageNavigator.getPageNavigator(allMdCount, cPage, PageStatic.MD_COUNT_PER_PAGE, PageStatic.MD_NAVI_COUNT_PER_PAGE, select, sort);
 		HashMap<String, Object> result = new HashMap<>();
 		result.put("mds", mds);
 		result.put("allMdCount",allMdCount);

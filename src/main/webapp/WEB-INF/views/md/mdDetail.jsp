@@ -8,7 +8,7 @@
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 
-<link rel="apple-touch-icon" href="assets/img/apple-icon.png">
+<link rel="apple-touch-icon" href="/resources/mdDetail/assets/img/apple-icon.png">
 <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.ico">
 
 <link rel="stylesheet" href="/resources/mdDetail/assets/css/bootstrap.min.css">
@@ -23,12 +23,26 @@
 <link rel="stylesheet" type="text/css" href="/resources/mdDetail/assets/css/slick.min.css">
 <link rel="stylesheet" type="text/css" href="/resources/mdDetail/assets/css/slick-theme.css">
 
-</head>
+<!-- jQuery UI -->
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
+<script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<style>
+.hiddenRow {
+    padding: 0 !important;
+}
+table tr th {
+	text-align:center;
+}
+</style>
 <script>
-$(document).ready(function(){
-	$(".tabs_div").shieldTabs();
-})
+	document.cookie = "safeCookie1=foo; SameSite=Lax"; 
+	document.cookie = "safeCookie2=foo"; 
+	document.cookie = "crossCookie=bar; SameSite=None; Secure";
 </script>
+</head>
 <body>
 
 
@@ -159,12 +173,82 @@ $(document).ready(function(){
                 </div>
 				</c:forEach>
             </div>
-
-
         </div>
     </section>
     <!-- End Article -->
+    
+    <div class="container">
+	    <div id="tabs">
+		  <ul>
+		    <li><a href="#fragment-1"><span>상품설명</span></a></li>
+		    <li><a href="#fragment-2"><span>상세정보</span></a></li>
+		    <li><a href="#fragment-3"><span>후기()</span></a></li>
+		    <li><a href="#fragment-4"><span>문의</span></a></li>
+		  </ul>
+		  <div id="fragment-1">
+		    <p>상품 설명이 들어갑니다.</p>
+		    <br><br><br><br><br><br><br><br><br><br>
+		    <p>상품 등록할 때 구현해야함 </p>
+		  </div>
+		  <div id="fragment-2">
+		  </div>
+			<div id="fragment-3">
+				<p>PRODUCT REVIEW</p>
+				<p>상품에 대해 문의를 남기는 공간입니다. 해당 게시판 성격과 다른 글은 사전동의 없이 담당 게시판으로 이동될 수 있습니다.</p>
+				<p>배송관련, 주문(취소/교환/환불)관련 문의 및 요청사항은 마이컬리 내 1:1 문의에 남겨주세요.</p>
+				<table class="table table-condensed table-striped">
+					<thead >
+						<tr >
+							<th style="width:5%;">번호</th>
+							<th style="width:60%">제목</th>
+							<th>작성자</th>
+							<th>작성일</th>
+							<th>도움</th>
+							<th>조회</th>
+						</tr>
+					</thead>
+	
+					<tbody>
+						<!-- 게시판 제목 부분 -->
+						<tr data-toggle="collapse" data-target="#demo1"
+							class="accordion-toggle">
+							<td></td>
+							<td>Carlos</td>
+							<td>Mathias</td>
+							<td>Leme</td>
+							<td>SP</td>
+							<td>new</td>
+						</tr>
+						<!-- 게시판 내용 부분 -->
+						<tr>
+							<td colspan="6" class="hiddenRow">
+							<div id="demo1" class="accordian-body collapse">
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							</div>
+						</tr>
+	
+					</tbody>
+				</table>
 
+
+
+
+			</div>
+			<div id="fragment-4">
+		  </div>
+		</div>
+	</div>
+	<script>
+		$("#tabs").tabs();
+	</script>
+	
+	
+	<!-- 임시 공백 푸터 -->
+	<div style="height:300px;"></div>
     <!-- Start Script -->
     <script src="/resources/mdDetail/assets/js/jquery-1.11.0.min.js"></script>
     <script src="/resources/mdDetail/assets/js/jquery-migrate-1.2.1.min.js"></script>

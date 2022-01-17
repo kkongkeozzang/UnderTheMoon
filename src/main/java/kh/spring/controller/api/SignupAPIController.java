@@ -14,7 +14,7 @@ import net.nurigo.java_sdk.exceptions.CoolsmsException;
 @RequestMapping("/signup/")
 public class SignupAPIController {
 	
-	public String confirmNumberCheck;
+	private String confirmNumberCheck;
 	
 	@ResponseBody
 	@RequestMapping("confirmPhoneProc")

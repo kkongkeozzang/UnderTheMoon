@@ -60,5 +60,19 @@ private final SqlSessionTemplate mybatis;
 		}
 	}
 	
+	public MdDTO selectMdDetailById(String md_id) {
+		return mybatis.selectOne("Md.selectMdDetailById", md_id);
+	}
+	
+	public List<MdDTO> selectSameRegionMdsExceptForSelectMd(String md_id) {
+		return mybatis.selectList("Md.selectSameRegionMdsExceptForSelectMd", md_id);
+	}
+	
+	
+	
 	
 }
+
+
+
+

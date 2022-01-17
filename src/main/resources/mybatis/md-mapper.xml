@@ -71,4 +71,16 @@
 		where rn between #{start} and #{end}
 	</select>
 	
+	<select id="selectMdDetailById" resultType="kh.spring.dto.MdDTO">
+		select * from md where md_id = #{md_id}
+	</select>
+	
+	<select id="selectSameRegionMdsExceptForSelectMd" resultType="kh.spring.dto.MdDTO">
+		select * from (select target.*, row_number() over(order by md_id desc) rn 
+		from (select * from md m where md_region = (select md_region from md where md_id = #{md_id}) and md_id != #{md_id} ) target) 
+		where rn between 1 and 12
+	</select>
+	
+	
+	
 </mapper>

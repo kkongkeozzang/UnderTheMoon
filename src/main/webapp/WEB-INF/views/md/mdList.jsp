@@ -20,6 +20,9 @@
 .region-sort li {
 	width:96px;
 }
+.product-item:hover { 
+	cursor: pointer; !important
+}
 </style>
 <script>
 <%--
@@ -28,7 +31,10 @@ sort (리뷰 많은 순 정렬, 최신 순 정렬) : reviewSort, newSort, none
 --%>
 $(document).ready(function(){
 	sortFunc("all", "none");
-	
+	$("body").on("click",".product-item", function(){
+		let md_id = $(this).find("#md_id").val();
+		location.href = "/md/detail/page?md_id=" + md_id;
+	})
 })
 function sortFunc(select, sort) {
 	if (select != "all") {
@@ -63,6 +69,7 @@ function sortFuncDetail(select, sort) {
 			str += "<div class='product-item'>";
 			str += "<a ><img  alt=''></a>";
 			str += "<div class='down-content'>";
+			str += "<input type=hidden id='md_id' value="+resp.mds[i].md_id+">"
 			str += "<a ><h4>"+resp.mds[i].md_name+"</h4></a>";
 			str += "<h6>"+resp.mds[i].md_price+"</h6>";
 			str += "<p>"+resp.mds[i].md_content+"</p>";
@@ -102,6 +109,7 @@ function getPage(pageNavi, select, sort) {
 			str += "<div class='product-item'>";
 			str += "<a><img alt=''></a>";
 			str += "<div class='down-content'>";
+			str += "<input type=hidden id='md_id' value="+resp.mds[i].md_id+">"
 			str += "<a><h4>"+resp.mds[i].md_name+"</h4></a>";
 			str += "<h6>"+resp.mds[i].md_price+"</h6>";
 			str += "<p>"+resp.mds[i].md_content+"</p>";
@@ -128,6 +136,7 @@ function getPage(pageNavi, select, sort) {
 		$("#pages").html(pageStr);
 	})
 }
+
 </script>
 </head>
 <body>
@@ -175,6 +184,7 @@ function getPage(pageNavi, select, sort) {
 	                      <div class="product-item">
 	                        <a ><img alt=""></a>
 	                        <div class="down-content">
+	                          <input type=hidden id="md_id" value=${md.md_id }>
 	                          <a><h4>${md.md_name }</h4></a>
 	                          <h6>${md.md_price }</h6>
 	                          <p>${md.md_content }</p>

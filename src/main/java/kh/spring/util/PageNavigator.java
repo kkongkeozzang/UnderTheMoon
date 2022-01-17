@@ -10,12 +10,6 @@ import kh.spring.dao.MdDAO;
 @Service
 public class PageNavigator {
 	
-	private final MdDAO mdDAO;
-	
-	public PageNavigator(MdDAO mdDAO) {
-		this.mdDAO = mdDAO;
-	}
-	
 	public static List<String> getPageNavigator(int recordTotalCount, int currentPage, int recordCountPerPage, int naviCountPerPage) {
 		int pageTotalCount = 0;
 		

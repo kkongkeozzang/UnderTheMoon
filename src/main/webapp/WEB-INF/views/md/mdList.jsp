@@ -13,6 +13,14 @@
 <link rel="stylesheet" href="/resources/mdList/assets/css/fontawesome.css">
 <link rel="stylesheet" href="/resources/mdList/assets/css/templatemo-sixteen.css">
 <link rel="stylesheet" href="/resources/mdList/assets/css/owl.css">
+<style>
+.region-sort {
+	border:1px solid black; !important
+}
+.region-sort li {
+	width:96px;
+}
+</style>
 <script>
 $(document).ready(function(){
 	reviewSort();
@@ -61,6 +69,7 @@ function newSort() {
 			type: "get",
 			data: {currentPage: 1}
 		}).done(function(resp){
+			console.log(resp);
 			let mdsSize = resp.mds.length;
 			let str = "";
 			for(let i = 0; i < mdsSize; i++) {
@@ -202,7 +211,7 @@ function getPageNewSort(pageNavi) {
 			str += "</div>";
 			str += "</div>";
 		}
-		$(".forEach").html(str);
+		$("#list-page").html(str);
 		
 		let pageStr = "";
 		for(let i = 0; i < naviSize; i++) {
@@ -219,6 +228,30 @@ function getPageNewSort(pageNavi) {
 	
     <div class="products">
       <div class="container">
+      	<div class="row region-sort">
+			<ul class="nav justify-content-between" style="flex:1 1 100%">
+				<li class="nav-item"><a class="nav-link" href="#">서울</a></li>
+				<li class="nav-item"><a class="nav-link" href="#">부산</a></li>
+				<li class="nav-item"><a class="nav-link" href="#">인천</a></li>
+				<li class="nav-item"><a class="nav-link" href="#">대전</a></li>
+				<li class="nav-item"><a class="nav-link" href="#">울산</a></li>
+			</ul>
+			<ul class="nav justify-content-between" style="flex:1 1 100%">
+				<li class="nav-item"><a class="nav-link" href="#">경기도</a></li>
+				<li class="nav-item"><a class="nav-link" href="#">강원도</a></li>
+				<li class="nav-item"><a class="nav-link" href="#">충청북도</a></li>
+				<li class="nav-item"><a class="nav-link" href="#">충청남도</a></li>
+				<li class="nav-item"><a class="nav-link" href="#">전라북도</a></li>
+				
+			</ul>
+			<ul class="nav justify-content-between" style="flex:1 1 100%">
+				<li class="nav-item"><a class="nav-link" href="#">전라남도</a></li>
+				<li class="nav-item"><a class="nav-link" href="#">경상북도</a></li>
+				<li class="nav-item"><a class="nav-link" href="#">경상남도</a></li>
+				<li class="nav-item"><a class="nav-link" href="#">제주도</a></li>
+				<li class="nav-item"></li>
+			</ul>
+		</div>
         <div class="row">
           <div class="col-md-12">
             <div class="filters">

@@ -32,15 +32,8 @@ public class MdService {
 		return mdDAO.selectAllCount();
 	}
 	
-	public List<MdDTO> selectByBound(int start, int end) {
-		return mdDAO.selectByBound(start, end);
+	public List<MdDTO> selectByBound(int start, int end, String sort) {
+		return mdDAO.selectByBound(start, end, sort);
 	}
 	
-	public List<MdDTO> selectByBoundReviewSort(int start, int end) {
-		return mdDAO.selectByBoundReviewSort(start, end);
-	}
-	
-	public List<MdDTO> selectByBoundNewSort(int start, int end) {
-		return mdDAO.selectByBoundNewSort(start, end);
-	}
 }

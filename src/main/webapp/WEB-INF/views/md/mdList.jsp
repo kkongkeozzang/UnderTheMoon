@@ -23,88 +23,62 @@
 </style>
 <script>
 $(document).ready(function(){
-	reviewSort();
-	newSort();
+	sortFunc("none");
+	
 })
-function reviewSort() {
+function sortFunc(sort) {
 	$("#review-sort").on("click",function(){
-		$.ajax({
-			url: "/md/reviewSort",
-			DataType: "json",
-			type: "get",
-			data: {currentPage: 1}
-		}).done(function(resp){
-			let mdsSize = resp.mds.length;
-			let str = "";
-			for(let i = 0;i < mdsSize; i++) {
-				str += "<div class='col-lg-4 col-md-4 all des'>";
-				str += "<div class='product-item'>";
-				str += "<a ><img  alt=''></a>";
-				str += "<div class='down-content'>";
-				str += "<a ><h4>"+resp.mds[i].md_name+"</h4></a>";
-				str += "<h6>"+resp.mds[i].md_price+"</h6>";
-				str += "<p>"+resp.mds[i].md_content+"</p>";
-				str += "<ul class='stars'>";
-				str += "<li><i class='fa fa-star'></i></li>";
-				str += "<li><i class='fa fa-star'></i></li>";
-				str += "<li><i class='fa fa-star'></i></li>";
-				str += "<li><i class='fa fa-star'></i></li>";
-				str += "<li><i class='fa fa-star'></i></li>";
-				str += "</ul>";
-				str += "<span>Reviews (12)</span>";
-				str += "</div>";
-				str += "</div>";
-				str += "</div>";
-			}
-			$("#list-page").html(str);
-			getPageReviewSort(resp.cPage);
-		})
-	})
-}
-function newSort() {
+		sortFuncDetail("reviewSort");
+	});
 	$("#new-sort").on("click",function(){
-		$.ajax({
-			url: "/md/newSort",
-			DataType: "json",
-			type: "get",
-			data: {currentPage: 1}
-		}).done(function(resp){
-			console.log(resp);
-			let mdsSize = resp.mds.length;
-			let str = "";
-			for(let i = 0; i < mdsSize; i++) {
-				str += "<div class='col-lg-4 col-md-4 all des'>";
-				str += "<div class='product-item'>";
-				str += "<a><img src='/resources/mdList/assets/images/${md.md_image }' alt=''></a>";
-				str += "<div class='down-content'>";
-				str += "<a><h4>"+resp.mds[i].md_name+"</h4></a>";
-				str += "<h6>"+resp.mds[i].md_price+"</h6>";
-				str += "<p>"+resp.mds[i].md_content+"</p>";
-				str += "<ul class='stars'>";
-				str += "<li><i class='fa fa-star'></i></li>";
-				str += "<li><i class='fa fa-star'></i></li>";
-				str += "<li><i class='fa fa-star'></i></li>";
-				str += "<li><i class='fa fa-star'></i></li>";
-				str += "<li><i class='fa fa-star'></i></li>";
-				str += "</ul>";
-				str += "<span>Reviews (12)</span>";
-				str += "</div>";
-				str += "</div>";
-				str += "</div>";
+		sortFuncDetail("newSort");
+	});
+}
+function sortFuncDetail(sort) {
+	$.ajax({
+		url: "/md/listPage",
+		DataType: "json",
+		type: "get",
+		data: {
+			currentPage: 1,
+			sort: sort
 			}
-			
-			$("#list-page").html(str);
-			getPageNewSort(resp.cPage);
-			
-		})
+	}).done(function(resp){
+		let mdsSize = resp.mds.length;
+		let str = "";
+		for(let i = 0;i < mdsSize; i++) {
+			str += "<div class='col-lg-4 col-md-4 all des'>";
+			str += "<div class='product-item'>";
+			str += "<a ><img  alt=''></a>";
+			str += "<div class='down-content'>";
+			str += "<a ><h4>"+resp.mds[i].md_name+"</h4></a>";
+			str += "<h6>"+resp.mds[i].md_price+"</h6>";
+			str += "<p>"+resp.mds[i].md_content+"</p>";
+			str += "<ul class='stars'>";
+			str += "<li><i class='fa fa-star'></i></li>";
+			str += "<li><i class='fa fa-star'></i></li>";
+			str += "<li><i class='fa fa-star'></i></li>";
+			str += "<li><i class='fa fa-star'></i></li>";
+			str += "<li><i class='fa fa-star'></i></li>";
+			str += "</ul>";
+			str += "<span>Reviews (12)</span>";
+			str += "</div>";
+			str += "</div>";
+			str += "</div>";
+		}
+		$("#list-page").html(str);
+		getPage(resp.cPage, sort);
 	})
 }
-function getPage(pageNavi) {
+function getPage(pageNavi, sort) {
 	$.ajax({
 		url: "/md/listPage",
 		type: "get",
 		dataType: "json",
-		data: {currentPage: pageNavi}
+		data: {
+			currentPage: pageNavi,
+			sort: sort
+			}
 	}).done(function(resp){
 		let mdsSize = resp.mds.length;
 		let naviSize = resp.pageNavis.length;
@@ -140,88 +114,7 @@ function getPage(pageNavi) {
 		$("#pages").html(pageStr);
 	})
 }
-function getPageReviewSort(pageNavi) {
-	$.ajax({
-		url: "/md/reviewSort",
-		post: "get",
-		dataType: "json",
-		data: {currentPage: pageNavi}
-	}).done(function(resp){
-		let mdsSize = resp.mds.length;
-		let naviSize = resp.pageNavis.length;
-		let str = "";
-		for(let i = 0; i < mdsSize; i++) {
-			str += "<div class='col-lg-4 col-md-4 all des'>";
-			str += "<div class='product-item'>";
-			str += "<a><img alt=''></a>";
-			str += "<div class='down-content'>";
-			str += "<a><h4>"+resp.mds[i].md_name+"</h4></a>";
-			str += "<h6>"+resp.mds[i].md_price+"</h6>";
-			str += "<p>"+resp.mds[i].md_content+"</p>";
-			str += "<ul class='stars'>";
-			str += "<li><i class='fa fa-star'></i></li>";
-			str += "<li><i class='fa fa-star'></i></li>";
-			str += "<li><i class='fa fa-star'></i></li>";
-			str += "<li><i class='fa fa-star'></i></li>";
-			str += "<li><i class='fa fa-star'></i></li>";
-			str += "</ul>";
-			str += "<span>Reviews (12)</span>";
-			str += "</div>";
-			str += "</div>";
-			str += "</div>";
-		}
-		$("#list-page").html(str);
-		
-		let pageStr = "";
-		for(let i = 0; i < naviSize; i++) {
-			pageStr += "<li>";
-			pageStr += resp.pageNavis[i];
-			pageStr += "</li>";
-		}
-		$("#pages").html(pageStr);
-	})
-}
-function getPageNewSort(pageNavi) {
-	$.ajax({
-		url: "/md/newSort",
-		post: "get",
-		dataType: "json",
-		data: {currentPage: pageNavi}
-	}).done(function(resp){
-		let mdsSize = resp.mds.length;
-		let naviSize = resp.pageNavis.length;
-		let str = "";
-		for(let i = 0; i < mdsSize; i++) {
-			str += "<div class='col-lg-4 col-md-4 all des'>";
-			str += "<div class='product-item'>";
-			str += "<a><img alt=''></a>";
-			str += "<div class='down-content'>";
-			str += "<a><h4>"+resp.mds[i].md_name+"</h4></a>";
-			str += "<h6>"+resp.mds[i].md_price+"</h6>";
-			str += "<p>"+resp.mds[i].md_content+"</p>";
-			str += "<ul class='stars'>";
-			str += "<li><i class='fa fa-star'></i></li>";
-			str += "<li><i class='fa fa-star'></i></li>";
-			str += "<li><i class='fa fa-star'></i></li>";
-			str += "<li><i class='fa fa-star'></i></li>";
-			str += "<li><i class='fa fa-star'></i></li>";
-			str += "</ul>";
-			str += "<span>Reviews (12)</span>";
-			str += "</div>";
-			str += "</div>";
-			str += "</div>";
-		}
-		$("#list-page").html(str);
-		
-		let pageStr = "";
-		for(let i = 0; i < naviSize; i++) {
-			pageStr += "<li>";
-			pageStr += resp.pageNavis[i];
-			pageStr += "</li>";
-		}
-		$("#pages").html(pageStr);
-	})
-}
+
 </script>
 </head>
 <body>

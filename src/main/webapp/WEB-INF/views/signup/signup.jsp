@@ -56,7 +56,7 @@
 			<div class="col-7">
                 <input type="text" class="form-control" id="member-email" name="member-email">
             </div>        	
-        </div>
+        </div> 
         <div class="form-group row">
 			<label class="col-form-label col-3">생년월일</label>
 			<div class="col-7">

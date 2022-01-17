@@ -19,18 +19,18 @@ public class SignupAPIController {
 	@ResponseBody
 	@RequestMapping("confirmPhoneProc")
 	  public String send(String phone) {
-	    String api_key = "NCSPMS8UO8AQKMZO"; //발급받은 key 입력
-	    String api_secret = "72I34KMDFTDSOLVTK8DY2ZYVZZPC7ZMM"; 
+	    String api_key = ""; //발급받은 key 입력
+	    String api_secret = ""; 
 	    Message coolsms = new Message(api_key, api_secret);
 
 	    int number = (int) (Math.random()*(9999 - 1000 + 1)+1000);
 	    String randomnumber = String.valueOf(number); //난수 생성
-
+ 
 	    System.out.println("done");
 	    // 4 params(to, from, type, text) are mandatory. must be filled
 	    HashMap<String, String> params = new HashMap<String, String>();
 	    params.put("to", phone);
-	    params.put("from", "01099776653"); //발신자 번호 입력
+	    params.put("from", ""); //발신자 번호 입력
 	    params.put("type", "SMS");
 	    params.put("text", randomnumber);
 	    params.put("app_version", "test app 1.2"); // application name and version

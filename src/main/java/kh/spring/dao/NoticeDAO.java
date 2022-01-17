@@ -63,4 +63,23 @@ public class NoticeDAO {
 		
 		return mybatis.selectList("Notice.selectByBound", map);
 	}
+	
+	public List<NoticeDTO> selectByKeyword(String select, String keyword){
+		
+		Map<String,String> map = new HashMap<>();
+		map.put("select", select);
+		map.put("keyword", keyword);
+		return mybatis.selectList("Notice.selectByKeyword", map);
+		
+	}
+	
+//	public void insertDummy() {
+//		Map<String,String> map = new HashMap<>();
+//		for (int i = 1; i < 146; i++) {
+//			map.put("title", "제목"+String.valueOf(i));
+//			map.put("content", "내용"+String.valueOf(i));
+//			map.put("member_id", String.valueOf(i));
+//			mybatis.insert("Notice.insertDummy", map);
+//		}
+//	}
 }

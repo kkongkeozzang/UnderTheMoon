@@ -35,9 +35,9 @@ public class NoticeController {
 	@RequestMapping("toNotice")
 	public String notice(int cpage, Model model) throws Exception {
 		
+//		service.insertDummy(); // 더미자료생성용도
 		int start = cpage * 10 - 9;
 		int end = cpage * 10;
-		
 		List<NoticeDTO> notices = service.selectByBound(start, end);
 		String pageNavi = service.getPageNavi(cpage);
 		model.addAttribute("notices", notices);
@@ -123,6 +123,22 @@ public class NoticeController {
 		int result = service.update(dto); // 게시판에 작성된 내용을 DB에 저장하는 부분
 		return "redirect:/notice/detail?notice_id="+dto.getNotice_id()+"&member_id="+dto.getMember_id()+"&cpage="+cpage;
 	}
+	
+	@RequestMapping("search") //검색기능
+	public String search(String select, String keyword, int cpage, Model model) {
+
+		int start = cpage * 10 - 9;
+		int end = cpage * 10;
+		
+		List<NoticeDTO> notices = service.selectByKeyword(select, keyword);
+		String pageNavi = service.getPageNavi(cpage);
+		model.addAttribute("notices", notices);
+		model.addAttribute("pageNavi", pageNavi);
+		model.addAttribute("cpage", cpage);
+	    return "/notice/noticeSearch";
+		
+	}
+	
 	
 	@ExceptionHandler(Exception.class)
 	public String exceptionHandler(Exception e) {

@@ -273,36 +273,37 @@ body {
 						<input type="hidden" value="${notices.notice_id}" name="notice_id">
 					</div>
 				</div>
-				<div class="row" style="border-top:1px solid black; margin:0px;">
-					<div class="col-sm-2" style="background-color:#DCDADA;">
+				<div class="row" style="border-top:1px solid black; margin:0px;height:30px;line-height:29px;">
+					<div class="col-sm-2" style="background-color:#B1D0E0;">
 						제목
 					</div>
 					<div class="col-sm-10"">
 						<div id=input-title name=title style="width: 100%;">${notices.notice_title}</div>
 					</div>
 				</div>
-				<div class="row" style="margin:0px;border-top:1px solid gray;border-bottom:1px solid gray;">
-					<div class="col-sm-2" style="background-color:#DCDADA;">
+				<div class="row" style="margin:0px;border-top:1px solid gray;border-bottom:1px solid gray;height:30px;line-height:28px;">
+					<div class="col-sm-2" style="background-color:#B1D0E0;">
 						작성자
 					</div>
 					<div class="col-sm-10">
 						<div id=input-title name=title style="width: 100%;">${username}</div>
 					</div>
 				</div>
-				<div class="row" style="border-bottom:1px solid gray; margin:0px;">
-					<div class="col-sm-2" style="background-color:#DCDADA;">
+				<div class="row" style="border-bottom:1px solid gray; margin:0px;height:30px;line-height:29px;">
+					<div class="col-sm-2" style="background-color:#B1D0E0;">
 						작성일
 					</div>
 					<div class="col-sm-2">
 						${notices.getFormedDate()}
 					</div>
-					<div class="col-sm-2" style="background-color:#DCDADA;">
+					<div class="col-sm-2" style="background-color:#B1D0E0;">
 						조회수
 					</div>
 					<div class="col-sm-6">
 						<div id=input-title name=title style="width: 100%;">${notices.notice_view_count}</div>
 					</div>
 				</div>
+				<br>
 				<div class="row">
 					<div class="col-sm-12">
 						<div id="contents" name="contents"
@@ -348,7 +349,7 @@ body {
 					</div>
 				</div>
 				<c:if test="${upDown.prevNum ne 0 }">
-				<div class="row" style="border-top:1px solid black; border-bottom:1px solid gray; margin:0px;">
+				<div class="row" style="border-top:1px solid black; border-bottom:1px solid gray; margin:0px;height:30px;line-height:30px;">
 					<div class="col-sm-2">
 						▲ 이전 글
 					</div>
@@ -358,7 +359,7 @@ body {
 				</div>
 				</c:if>
 				<c:if test="${upDown.nextNum ne 0 }">
-				<div class="row" style="border-bottom:1px solid black; margin:0px;">
+				<div class="row" style="border-bottom:1px solid black; margin:0px;height:30px;line-height:30px;">
 					<div class="col-sm-2">
 						▼ 다음 글
 					</div>

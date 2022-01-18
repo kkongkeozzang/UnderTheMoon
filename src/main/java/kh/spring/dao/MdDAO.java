@@ -67,6 +67,11 @@ private final SqlSessionTemplate mybatis;
 	public List<MdDTO> selectSameRegionMdsExceptForSelectMd(String md_id) {
 		return mybatis.selectList("Md.selectSameRegionMdsExceptForSelectMd", md_id);
 	}
+
+	public MdDTO selectMdById(Integer md_id) {
+		
+		return mybatis.selectOne("selectMdById",md_id);
+	}
 	
 	
 	

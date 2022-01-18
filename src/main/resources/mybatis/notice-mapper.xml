@@ -44,5 +44,30 @@
 	<update id="updateViewCount">
 		update notice set notice_view_count = notice_view_count + 1 where notice_id = #{notice_id}
 	</update>
-
+	
+	<select id="selectRecordCount" resultType="int">
+		select count(*) from notice
+	</select>
+	
+	<select id="selectByBound" resultType="kh.spring.dto.NoticeDTO">
+		select * from 
+		(select e.*, row_number() over(order by notice_id desc) as rn from 
+		((select notice_id,notice_title,notice_content,notice_write_date,notice_view_count,
+		member_id,(select member_username from member where notice.member_id=member.member_id) 
+		as member_username from notice order by notice_id) e))
+		where rn between #{start} and #{end}
+	</select>
+	
+	<select id="selectByKeyword" resultType="kh.spring.dto.NoticeDTO">
+		select * from
+		(select notice_id,notice_title,notice_content,notice_write_date,notice_view_count,member_id,
+		(select member_username from member where notice.member_id=member.member_id) as member_username 
+		from notice order by notice_id desc) e
+		where ${select} like '%'|| #{keyword} ||'%'
+	</select>
+	
+	<!-- <insert id="insertDummy">
+		insert into notice values(notice_id_seq.nextval, #{title}, #{content}, default, default, #{member_id})
+	</insert> -->
+	
 </mapper>

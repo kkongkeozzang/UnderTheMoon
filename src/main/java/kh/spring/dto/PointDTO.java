@@ -1,8 +1,11 @@
+
  package kh.spring.dto;
+
 
 import java.sql.Timestamp;
 
 public class PointDTO {
+
    
    private int point_id;
    private int point_used_saved;

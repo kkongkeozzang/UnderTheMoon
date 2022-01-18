@@ -27,3 +27,4 @@ public class PointDAO {
 		return mybatis.selectOne("Point.selectPointById",member_id);
 	}
 }
+

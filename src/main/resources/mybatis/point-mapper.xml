@@ -16,4 +16,5 @@
   <select id="selectPointById" resultType="int">
    		select sum(point_used_saved) from point where member_id = #{member_id}
   </select>
+
   </mapper>

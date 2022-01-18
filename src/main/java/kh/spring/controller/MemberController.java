@@ -6,20 +6,22 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import kh.spring.dto.MemberDTO;
-
+import kh.spring.dto.PointDTO;
 import kh.spring.service.MemberService;
-
-import org.springframework.web.bind.annotation.ResponseBody;
+import kh.spring.service.PointService;
 
 @Controller
 public class MemberController {
 	
 	private final MemberService memberService;
+	private final PointService pointService;
 	
-	public MemberController(MemberService memberService) {
+	public MemberController(MemberService memberService, PointService pointService) {
 		this.memberService = memberService;
+		this.pointService = pointService;
 	}
 
 	@RequestMapping("/login")
@@ -56,9 +58,18 @@ public class MemberController {
 	}
 	
 	@RequestMapping("member/signup")
-	public String signup(MemberDTO dto) throws Exception{
+	public String signup(MemberDTO dto, @RequestParam(value = "recommend_id", required=false, defaultValue="") String recommend_id
+			,@RequestParam(value = "event", required=false, defaultValue="") String event) throws Exception{
+		memberService.insertMember(dto); // 멤버
+		System.out.println(dto.getMember_id());
+		int result = memberService.idDuplCheck(recommend_id);
+		if(result == 1) {
+			pointService.insertRecommendMemberPoint(dto.getMember_id());
+		}
 		
-		memberService.insertMember(dto);
+		if(event.equals("월하합작")) {
+			pointService.insertEventMemberPoint(dto.getMember_id());
+		}
 		return "redirect:/";
 	}
 	

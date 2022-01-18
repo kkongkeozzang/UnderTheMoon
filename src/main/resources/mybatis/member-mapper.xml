@@ -27,6 +27,9 @@
   <insert id="insertMember">
   	insert into member values(member_id_seq.nextval,#{member_username},#{member_password},#{member_name},#{member_birth_date}
   	, #{member_phone}, #{member_zipcode}, #{member_address1}, #{member_address2}, default, '별', 'ROLE_USER', #{member_email})
+  	<selectKey resultType="integer" order="AFTER" keyProperty="member_id">
+  		select member_id_seq.currval from dual
+  	</selectKey>
   </insert>
 
   <update id="resetPassword">

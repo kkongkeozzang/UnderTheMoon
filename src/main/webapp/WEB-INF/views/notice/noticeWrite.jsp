@@ -234,16 +234,15 @@ body {
 					</div>
 					<div class="row">
 						<div class="col-sm-12" style="text-align: right">
-							<button type="button" id="boardList" class="btn btn-dark"
-								style="background-color: rgb(255, 111, 97);">목록으로</button>
+							<button type="button" id="board-list" class="btn btn-dark"
+								style="background-color: #406882;">목록으로</button>
 							<button class="btn btn-dark" type=button id="write"
-								style="background-color: rgb(255, 111, 97);">작성하기</button>
+								style="background-color: #406882;">작성하기</button>
 							<script>
-					$("#boardList").on("click",function(){
-						location.href="/notice/toNotice";
+					$("#board-list").on("click",function(){
+						location.href="javascript:history.back()";
 					})
 					$("#write").on("click",function(){
-						console.log($("#contents").val());
 						if($('.note-editable').html()==""){
 							alert("내용을 입력해주세요.");
 						}else if(textCnt > 1000){
@@ -251,7 +250,7 @@ body {
 						}else if($("#input-title").val()==""){
 							alert("제목을 입력해주세요.");
 						}else {
-							$("#frm").submit();					
+							$("#frm").submit();			
 						}
 					})
 				</script>
@@ -345,7 +344,7 @@ body {
 			}
 		}
 		
-		//태그제거용
+		// 태그제거용
 		function f_SkipTags_html(input, allowed) {
 			allowed = (((allowed || "") + "").toLowerCase().match(/<[a-z][a-z0-9]*>/g) || []).join(''); // making sure the allowed arg is a string containing only tags in lowercase (<a><b><c>)
 			var tags = /<\/?([a-z][a-z0-9]*)\b[^>]*>/gi,

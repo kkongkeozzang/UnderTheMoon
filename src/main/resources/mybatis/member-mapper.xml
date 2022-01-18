@@ -40,6 +40,10 @@
  		select count(*) from member where member_username = #{value}
   </select>
 
+  <select id="selectIdByUsername" resultType="Integer">
+  		select member_id from member where member_username = #{member_username}
+  </select>
+
   </mapper>
   
   

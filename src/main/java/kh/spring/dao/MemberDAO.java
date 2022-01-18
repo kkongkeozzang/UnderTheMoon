@@ -16,6 +16,7 @@ public class MemberDAO {
 	private final SqlSessionTemplate mybatis;
 	private final BCryptPasswordEncoder bCrptPasswordEncoder;
 	
+	
 	public MemberDAO(SqlSessionTemplate mybatis, BCryptPasswordEncoder bCrptPasswordEncoder) {
 		this.mybatis = mybatis;
 		this.bCrptPasswordEncoder = bCrptPasswordEncoder;

@@ -136,6 +136,21 @@ $(function(){
 	    	  $("#totalPrice").val(totalPrice_int-singleItemPriceInt);
 	     })
 	   })
+	   //주문서로 이동하는곳.
+	   $("#order").on("click",function(){
+			$.ajax({
+		  	  type: 'get',
+		        url:"/purchase/purchase",
+		        data: {
+		      	  member_username: $("#member_username").val(),
+		          order_detail_price: $("#totalPrice").val()
+		        }
+		     }).done(function(resp){
+		    	  
+		    		 document.location.href="/purchase/purchase";
+		    		
+		     })
+		   })
 	})
 </script>
 </head>

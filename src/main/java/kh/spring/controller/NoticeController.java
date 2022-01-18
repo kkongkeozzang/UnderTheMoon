@@ -134,7 +134,6 @@ public class NoticeController {
 
 		int start = cPage * PageStatic.NOTICE_COUNT_PER_PAGE-(PageStatic.NOTICE_COUNT_PER_PAGE - 1);
 		int end = cPage * PageStatic.NOTICE_COUNT_PER_PAGE;
-		System.out.println(select + ":" + keyword + ":" + start + ":" + end);
 		
 		List<NoticeDTO> notices = noticeService.selectByKeyword(start, end, select, keyword);
 		int allNoticeCount = noticeService.selectRecordCount(select, keyword);

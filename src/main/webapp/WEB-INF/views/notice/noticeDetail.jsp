@@ -326,13 +326,14 @@ body {
 							style="background-color: #406882;">목록으로</button>
 							
 						<script>
-							$(document).ready(function() {
-								console.log(document.referrer);
-							});
-						
 							$("#board-list").on("click",function(){
-// 								location.href="/notice/toNotice?cPage=${cPage}";
- 								location.href="javascript:history.back()";
+								if(document.referrer.split('/')[4].indexOf('search')>=0){
+									location.href="javascript:history.back()";
+								}else if(document.referrer.split('/')[4].indexOf('toNotice')>=0){
+									location.href="javascript:history.back()";
+								}else{
+	 								location.href="/notice/toNotice?cPage=${cPage}";									
+								}
 							});
 							
 							$("#delete").on("click", function(){

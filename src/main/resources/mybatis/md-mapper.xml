@@ -45,4 +45,8 @@
 		where rn between #{start} and #{end}
 	</select>
 	
+	<select id="selectMdById" resultType="kh.spring.dto.MdDTO">
+		select * from md where md_id = #{md_id}
+	</select>
+	
 </mapper>

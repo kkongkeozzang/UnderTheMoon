@@ -77,5 +77,10 @@ public class MemberDAO {
 		return mybatis.selectOne("Member.idDuplCheck", id);
 	}
 
+	public Integer selectIdByUsername(String member_username) {
+		
+		return mybatis.selectOne("Member.selectIdByUsername",member_username);
+	}
+
 	}
 

@@ -28,19 +28,20 @@ public class MdService {
 		return mdDAO.selectAllNewSort();
 	}
 	
-	public int selectAllCount() {
-		return mdDAO.selectAllCount();
+	public int selectCount(String select) {
+		return mdDAO.selectCount(select);
 	}
 	
-	public List<MdDTO> selectByBound(int start, int end) {
-		return mdDAO.selectByBound(start, end);
+	public List<MdDTO> selectByBound(int start, int end, String select, String sort) {
+		return mdDAO.selectByBound(start, end, select, sort);
 	}
 	
-	public List<MdDTO> selectByBoundReviewSort(int start, int end) {
-		return mdDAO.selectByBoundReviewSort(start, end);
+	public MdDTO selectMdDetailById(String md_id) {
+		return mdDAO.selectMdDetailById(md_id);
 	}
 	
-	public List<MdDTO> selectByBoundNewSort(int start, int end) {
-		return mdDAO.selectByBoundNewSort(start, end);
+	public List<MdDTO> selectSameRegionMdsExceptForSelectMd(String md_id) {
+		return mdDAO.selectSameRegionMdsExceptForSelectMd(md_id);
 	}
+	
 }

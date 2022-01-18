@@ -14,187 +14,299 @@
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <link rel="stylesheet" href="/resources/signup/css/signup.css">
 <script
-	src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+   src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 </head>
-<body>
-	<div class="signup-form">
-    <form action="/member/signup" method="post" class="form-horizontal">
-      	<div class="row">
-        	<div class="col-8 offset-4">
-				<h2>회원가입</h2>
-			</div>	
-      	</div>			
-        <div class="form-group row">
-			<label class="col-form-label col-3">아이디</label>
-			<div class="col-6">
-                <input type="text" class="form-control" id="member_username" name="member_username">
-            </div>
-     		<div class="col-3">
-     		 	<span id="idCheckResult"></span>
-     		</div>
-        </div>
-		<div class="form-group row">
-			<label class="col-form-label col-3">비밀번호</label>
-			<div class="col-7">
-                <input type="password" class="form-control" id="member_password" name="member_password">
-            </div>        	
-        </div>
-		<div class="form-group row" id="passwordCondition" style="display:none;">
-			<label class="col-form-label col-3"></label>
-			<div class="col-7" id="password-Condition">
+<style>
+.overlay {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.7);
+  transition: opacity 500ms;
+  visibility: hidden;
+  opacity: 0;
+}
+.overlay:target {
+  visibility: visible;
+  opacity: 1;
+}
 
-            </div>        	
+.popup {
+  margin: 70px auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 5px;
+  width: 30%;
+  position: relative;
+  transition: all 5s ease-in-out;
+}
+
+.popup h2 {
+  margin-top: 0;
+  color: #333;
+  font-family: Tahoma, Arial, sans-serif;
+}
+.popup .close {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  transition: all 200ms;
+  font-size: 30px;
+  font-weight: bold;
+  text-decoration: none;
+  color: #333;
+}
+.popup .close:hover {
+  color: #06D85F;
+}
+.popup .content {
+  max-height: 30%;
+  overflow: auto;
+}
+
+@media screen and (max-width: 700px){
+  .box{
+    width: 70%;
+  }
+  .popup{
+    width: 70%;
+  }
+}
+</style>
+<body>
+   <div class="signup-form">
+    <form action="/member/signup" method="post" class="form-horizontal">
+         <div class="row">
+           <div class="col-8 offset-4">
+            <h2>회원가입</h2>
+         </div>   
+         </div>         
+        <div class="form-group row">
+         <label class="col-form-label col-3">아이디</label>
+         <div class="col-6">
+                <input type="text" class="form-control" id="member-username" name="member_username">
+            </div>
+           <div class="col-3">
+               <span id="idCheckResult"></span>
+           </div>
         </div>
-		<div class="form-group row">
-			<label class="col-form-label col-3">비밀번호확인</label>
-			<div class="col-7">
-                <input type="password" class="form-control" id="member_confirm_password" name="member_confirm_password">             
-            </div>        	
+      <div class="form-group row">
+         <label class="col-form-label col-3">비밀번호</label>
+         <div class="col-7">
+                <input type="password" class="form-control" id="member-password" name="member_password">
+            <div id="pwCondition1" class="pwCondition">8자이상</div>
+               <div id="pwCondition2" class="pwCondition">8자이상</div>
+            </div>        
         </div>
-		<div class="form-group row">
-			<label class="col-form-label col-3">이름</label>
-			<div class="col-7">
-                <input type="text" class="form-control" id="member_name" name="member_name">
-            </div>        	
-        </div>		
-		<div class="form-group row">
-			<label class="col-form-label col-3">이메일</label>
-			<div class="col-7">
-                <input type="text" class="form-control" id="member_email" name="member_email">
-            </div>        	
+      <div class="form-group row">
+         <label class="col-form-label col-3">비밀번호확인</label>
+         <div class="col-7">
+                <input type="password" class="form-control" id="member-confirm-password" name="member_confirm_password">
+                <span id="pwConfirm"></span>
+            </div>           
+        </div>
+      <div class="form-group row">
+         <label class="col-form-label col-3">이름</label>
+         <div class="col-7">
+                <input type="text" class="form-control" id="member-name" name="member_name">
+            </div>           
+        </div>      
+      <div class="form-group row">
+         <label class="col-form-label col-3">이메일</label>
+         <div class="col-7">
+                <input type="text" class="form-control" id="member-email" name="member_email">
+            </div>           
+        </div> 
+        <div class="form-group row">
+         <label class="col-form-label col-3">생년월일</label>
+         <div class="col-7">
+                <input type="text" class="form-control" id="member-birth-date" name="member_birth_date">
+            </div>           
         </div>
         <div class="form-group row">
-			<label class="col-form-label col-3">생년월일</label>
-			<div class="col-7">
-                <input type="text" class="form-control" id="member_birth_date" name="member_birth_date">
-            </div>        	
-        </div>
-        <div class="form-group row">
-			<label class="col-form-label col-3">휴대폰</label>
-			<div class="col-5">
-                <input type="text" class="form-control" id="member_phone" name="member_phone">
+         <label class="col-form-label col-3">휴대폰</label>
+         <div class="col-5">
+                <input type="text" class="form-control" id="member-phone" name="member_phone">
             </div>
              <div class="col-4">
-            	<button type="button" class="btn btn-primary">인증받기</button>
-            </div>          	
+               <button type="button" class="btn btn-primary" id="member-confirm-send">인증받기</button>
+            </div>             
         </div>
          <div class="form-group row">
-			<label class="col-form-label col-3">인증번호</label>
-			<div class="col-5">
-                <input type="text" class="form-control" id="member_confirm_phone" name="member_confirm_phone">
+         <label class="col-form-label col-3">인증번호</label>
+         <div class="col-5">
+                <input type="text" class="form-control" id="member-confirm-phone" name="member_confirm_phone">
             </div>
              <div class="col-4">
-            	<button type="button" class="btn btn-primary">인증확인</button>
-            </div>          	
+               <button type="button" class="btn btn-primary" id="member-confirm-check">인증확인</button>
+            </div>             
         </div>
         <div class="form-group row">
-			<label class="col-form-label col-3">우편번호</label>
-			<div class="col-5">
+         <label class="col-form-label col-3">우편번호</label>
+         <div class="col-5">
                 <input type="text" class="form-control" id="postcode" name="member_zipcode" readonly>
             </div>
             <div class="col-4">
-            	<button type="button" class="btn btn-primary" id="addressSearch">주소검색</button>
-            </div>        	
+               <button type="button" class="btn btn-primary" id="addressSearch">주소검색</button>
+            </div>           
         </div>
         <div class="form-group row">
-			<label class="col-form-label col-3">상세주소1</label>
-			<div class="col-7">
+         <label class="col-form-label col-3">상세주소1</label>
+         <div class="col-7">
                 <input type="text" class="form-control" id="roadAddress" name="member_address1" readonly>
-            </div>        	
+            </div>           
         </div>
         <div class="form-group row">
-			<label class="col-form-label col-3">상세주소2</label>
-			<div class="col-7">
-                <input type="text" class="form-control" id="member_address2" name="member_address2">
-            </div>        	
+         <label class="col-form-label col-3">상세주소2</label>
+         <div class="col-7">
+                <input type="text" class="form-control" id="member-address2" name="member_address2">
+            </div>           
         </div>
         <div class="form-group row">
-			<label class="col-form-label col-3">추천인</label>
-			<div class="col-7">
-                <input type="text" class="form-control" id="member_id" name="member_id">
-            </div>        	
+         <label class="col-form-label col-3">추천인</label>
+         <div class="col-5">
+                <input type="text" class="form-control" id="recommend-id" name="recommend_id">
+            </div>
+            <div class="col-4">
+               <button type="button" class="btn btn-primary" id="recommend-member-check">추천인확인</button>
+            </div>           
         </div>
         <div class="form-group row">
-			<label class="col-form-label col-3">이벤트</label>
-			<div class="col-7">
+         <label class="col-form-label col-3">이벤트</label>
+         <div class="col-5">
                 <input type="text" class="form-control" id="event" name="event">
-            </div>        	
+            </div>
+            <div class="col-4">
+               <button type="button" class="btn btn-primary" id="event-check">이벤트확인</button>
+            </div>           
         </div>
         <div class="form-group row">
-			<div class="col-8 offset-4">
-				<p><label class="form-check-label"><input type="checkbox"> I accept the <a href="#">Terms of Use</a> &amp; <a href="#">Privacy Policy</a>.</label></p>
-				<button type="submit" id="submit" class="btn btn-primary btn-lg">가입하기</button>
-			</div>  
-		</div>		      
+         <div class="col-8 offset-4">
+            <p><label class="form-check-label"><input type="checkbox"> I accept the <a href="#popup1">Privacy Policy</a>.</label></p>
+            <button type="submit" id="submit" class="btn btn-primary btn-lg">가입하기</button>
+         </div>  
+      </div>            
     </form>
-	<div class="text-center">Already have an account? <a href="#">Login here</a></div>
+   <div class="text-center">Already have an account? <a href="#">Login here</a></div>
 </div>
 
-<script>
-	$("#submit").on("click",function(){
-		let regexId = /^[a-z]{1}[a-z\d]{5,13}$/;
-		let resultId = regexId.test($("#member_username").val());
-			if(resultId == false){
-    			alert("아이디 형식이 올바르지 않습니다. 다시 확인해주세요")
-    			return false;
-		}
-			
-		let regexPw = /^[a-zA-Z\d]{8,16}$/;
-		let resultPw = regexPw.test($("#member_password").val());
-			if(resultPw == false){
-			    alert("비밀번호 형식이 올바르지않습니다.")
-			    return false;
-			}
-		
-			if($("#member_password").val() != $("#member_confirm_password").val()){
-				 alert("비밀번호를 다시 확인 해주세요")
-			     return false;
-			}
-		
-		let regexName = /^[a-zA-Z가-힣]{1,8}$/
-		let resultName = regexName.test($("#member_name").val());
-			if(resultName == false){
-			      alert("이름이 올바른 형식이 아닙니다. 다시 확인해주세요.")
-			      return false;
-			     }
-		
-		let regexMail = /^[a-zA-Z\d]{1,}@[a-z]{1,}.com$/;
-		let resultMail = regexMail.test($("#member_email").val());
-			if(resultMail == false){
-			    alert("이메일을 다시 확인해주세요")
-			    return false;
-			}
-			
-		let regexBirth = /([0-9]{2}(0[1-9]|1[0-2])(0[1-9]|[1,2][0-9]|3[0,1]))/
-		let resultBirth = regexBirth.test($("#member_birth_date").val());
-		     if(resultBirth == false){
-		         alert("생년월일이 올바른 형식이 아닙니다.")
-		         return false;
-		     }
-		 
-		let regexPhone = /^010\d{4}\d{4}$/;
-		let resultPhone = regexPhone.test($("#member_phone").val());
-		     if(resultPhone == false){
-		         alert("휴대폰 번호가 올바르지않은 형식입니다.")
-		         return false;
-		     }
-		
-		let regexAddress1 = /^[가-힣\d]{1,}/;
-		let resultAddress1 = regexAddress1.test($("#roadAddress").val());
-		     if(resultAddress1 == false){
-		         alert("주소를 입력해주세요.")
-		         return false;
-		     }
-		
-		let regexAddress2 = /^[가-힣\d]{1,}/;
-		let resultAddress2 = regexAddress2.test($("#member_address2").val());
-		     if(resultAddress2 == false){
-		         alert("상세주소를 입력해주세요.")
-		         return false;
-		     }
-	})
-	
-	document.getElementById("addressSearch").onclick = function(){
+<div id="popup1" class="overlay">
+	<div class="popup">
+		<h2>이용약관</h2>
+		<a class="close" href="javascript:history.back()">&times;</a>
+		<div class="content">
+			제1조(목적)<br>
+			이 약관은 월하합작(전자상거래 사업자)가 운영하는<br>
+			인터넷사이트 월하합작에서 제공하는 전자상거래 관련 서비스를<br> 
+			이용함에 있어 월하합작과 이용자의 권리,의무 및 책임사항을 규정함을 목적으로 합니다.<br>
+			<br>
+			제2조(정의)<br>
+			① “몰”이란 OO 회사가 재화 또는 용역(이하 “재화 등”이라 함)을 이용자에게 제공하기 위하여 컴퓨터 등 정보통신설비를 이용하여 재화 등을 거래할 수 있도록 
+			설정한 가상의 영업장을 말하며, 아울러 사이버몰을 운영하는 사업자의 의미로도 사용합니다.<br>
+ 			② “이용자”란 “몰”에 접속하여 이 약관에 따라 “몰”이 제공하는 서비스를 받는 회원 및 비회원을 말합니다.<br>
+  			③ ‘회원’이라 함은 “몰”에 회원등록을 한 자로서, 계속적으로 “몰”이 제공하는 서비스를 이용할 수 있는 자를 말합니다.<br>
+ 			④ ‘비회원’이라 함은 회원에 가입하지 않고 “몰”이 제공하는 서비스를 이용하는 자를 말합니다. 										
+		</div>
+	</div>
+</div>
+<script> 
+
+
+   //아이디 유효성 검사, 중복 검사
+   
+   //비밀번호 유효성 검사
+   //focus 시 조건 띄우기
+   $("#member-password").on("click", function(){
+      $(".pwCondition").css("display","block");
+      
+   })
+   $("#member-password").on("blur", function(){
+      $(".pwCondition").css("display","none");
+      
+   })
+      
+   
+   
+   //입력값과 조건을 검사하기
+   $("#member-password").on("input", function(){
+      let regexPw = /^[a-zA-Z\d]{8,16}$/;
+      let resultPw = regexPw.test($("#member-password").val());
+
+      if(resultPw == true){
+         $("#pwCondition1").css("color","red");
+      }else{
+         $("#pwCondition1").css("color","blue");
+
+      }
+      
+   })
+   
+   
+   //생년월일 유효성 검사
+
+   //필수 입력값 유효성 검사
+   $("#submit").on("click",function(){
+      let regexId = /^[a-z]{1}[a-z\d]{5,13}$/;
+      let resultId = regexId.test($("#member-username").val());
+         if(resultId == false){
+             alert("아이디 형식이 올바르지 않습니다. 다시 확인해주세요")
+             return false;
+      }
+         
+      let regexPw = /^[a-zA-Z\d]{8,16}$/;
+      let resultPw = regexPw.test($("#member-password").val());
+         if(resultPw == false){
+             alert("비밀번호 형식이 올바르지않습니다.")
+             return false;
+         }
+      
+         if($("#member-password").val() != $("#member-confirm-password").val()){
+             alert("비밀번호를 다시 확인 해주세요")
+              return false;
+         }
+      
+      let regexName = /^[a-zA-Z가-힣]{1,8}$/
+      let resultName = regexName.test($("#member-name").val());
+         if(resultName == false){
+               alert("이름이 올바른 형식이 아닙니다. 다시 확인해주세요.")
+               return false;
+              }
+      
+      let regexMail = /^[a-zA-Z\d]{1,}@[a-z]{1,}.com$/;
+      let resultMail = regexMail.test($("#member-email").val());
+         if(resultMail == false){
+             alert("이메일을 다시 확인해주세요")
+             return false;
+         }
+         
+
+       
+      let regexPhone = /^010\d{4}\d{4}$/;
+      let resultPhone = regexPhone.test($("#member-phone").val());
+           if(resultPhone == false){
+               alert("휴대폰 번호가 올바르지않은 형식입니다.")
+               return false;
+           }
+      
+      let regexAddress1 = /^[가-힣\d]{1,}/;
+      let resultAddress1 = regexAddress1.test($("#roadAddress").val());
+           if(resultAddress1 == false){
+               alert("주소를 입력해주세요.")
+               return false;
+           }
+      
+      let regexAddress2 = /^[가-힣\d]{1,}/;
+      let resultAddress2 = regexAddress2.test($("#member-address2").val());
+           if(resultAddress2 == false){
+               alert("상세주소를 입력해주세요.")
+               return false;
+           }
+           
+   })
+   
+   document.getElementById("addressSearch").onclick = function(){
         new daum.Postcode({
             oncomplete: function(data) {                                 
                 document.getElementById('postcode').value = data.zonecode;
@@ -202,69 +314,115 @@
             }            
         }).open();
     }
-	
-	$(function(){
-		$("#member_username").on("blur",function(){
-			$.ajax({
-				url:"member/idDuplCheck",
-				data:{id:$("#member_username").val()}
-			}).done(function(resp){
-				if(resp == "1"){
-					$("#idCheckResult").css("color","red");
-					$("#idCheckResult").text("이미 사용중인 ID입니다.");
-					$("#member_username").val("");
-					$("#member_username").focus();
-				}else{
-					$("#idCheckResult").css("color","green");
-					$("#idCheckResult").text("사용 가능한 ID 입니다.");
-				}
-			});
-		})
-	})
-	
-	$("#member_password").on("click",function(){
-		$("#passwordCondition").css("display","show");
-	})
-	
-	
-	
-	
-	
-	
-	let result = document.getElementById("password-Condition");
-	
-	document.getElementById("member_confirm_password").oninput = function() {
-	      let pw1 = $("#member_password").val();
-	      let pw2 = $("#member_confirm_password").val();
-	      $("#passwordCondition").css("display","inline")
-	      if (pw1 != pw2) {
-	         result.innerHTML = "패스워드가 일치하지않습니다"
+   
+   $(function(){
+      $("#member-username").on("blur",function(){
+         $.ajax({
+            url:"member/idDuplCheck",
+            data:{id:$("#member-username").val()}
+         }).done(function(resp){
+            if(resp == "1"){
+               $("#idCheckResult").css("color","red");
+               $("#idCheckResult").text("이미 사용중인 ID입니다.");
+               $("#member-username").val("");
+               $("#member-username").focus();
+            }else{
+               $("#idCheckResult").css("color","green");
+               $("#idCheckResult").text("사용 가능한 ID 입니다.");
+            }
+         });
+      })
+   })
+   
+   document.getElementById("member-confirm-phone").oninput = function() {
+         let pw1 = $("#member-password").val();
+         let pw2 = $("#member-confirm-phone").val();
+         if (pw1 != pw2) {
+            result.innerHTML = "패스워드가 일치하지않습니다"
 
-	      }else if (pw1 ==""){
-	         result.innerHTML = ""
-	      } else if (pw2 ==""){
-	         result.innerHTML = ""
-	      }else {
-	         result.innerHTML = "패스워드가 일치합니다."
-	      }
+         }else if (pw1 ==""){
+            result.innerHTML = ""
+         } else if (pw2 ==""){
+            result.innerHTML = ""
+         }else {
+            result.innerHTML = "패스워드가 일치합니다."
+         }
+      }
+   
+      document.getElementById("member-password").oninput = function() {
+         let pw1 = $("#member-password").val();
+         let pw2 = $("#member-confirm-phone").val();
+         if (pw1 != pw2) {
+            result.innerHTML = "패스워드가 일치하지않습니다"
+
+         } else if (pw1 ==""){
+            result.innerHTML = ""
+         } else if (pw2 ==""){
+            result.innerHTML = ""
+         }else  {
+            result.innerHTML = "패스워드가 일치합니다."
+         }
+      }
+      
+   //휴대폰 번호 인증 API 시작
+   //생성된 인증번호를 저장할 전역변수 선언
+   var confirmNumber ="";
+   
+   $(function(){
+      $("#member-confirm-send").on("click",function(){
+         $.ajax({
+            url:"signup/confirmPhoneProc",
+            data:{phone:$("#member-phone").val()}
+         }).done(function(randomNumber){
+            console.log(randomNumber); //인증번호 확인을 위한 코드 추후 삭제
+            confirmNumber = randomNumber; //생성된 인증번호를 비교하기 위해 가져온 뒤, 변수에 저장
+         })
+      })
+      }
+   )
+   
+   // 새로생긴거
+   $(function(){
+      $("#member-confirm-check").on("click", function(){   
+         $.ajax({
+            url:"signup/confirmNumberProc",
+            data:{number:$("#member-confirm-phone").val()}
+         }).done(function(result){   
+            if($("#member-confirm-phone").val() == confirmNumber){ //사용자가 입력한 인증번호와 생성된 인증번호를 비교
+                  alert("휴대폰 인증에 성공했습니다.");
+               console.log("성공"); 
+            }else{
+               console.log("f");
+            }})   
+      })
+   })
+   
+   $(function(){
+      $("#recommend-member-check").on("click",function(){
+         $.ajax({
+            url:"member/idDuplCheck",
+            data:{id:$("#recommend-id").val()}
+         }).done(function(resp){
+            if(resp == "1"){
+               if(confirm("추천가능한 아이디입니다. 추천하시겠습니까? (확인 시 변경 불가능)"))
+            	   $("#recommend-id").attr("readonly",true);
+            }else{
+               alert("존재하지않는 아이디입니다.")
+            }
+         });
+      })
+   })
+   
+   $("#event-check").on("click",function(){
+	   if($("#event").val() == "월하합작"){
+		   alert("이벤트 정답입니다!")
+		   $("#event").attr("readonly",true);
+	   }else{
+		   alert("이벤트 정답이 아닙니다. 현재 진행중인 이벤트를 확인해주세요.")
 	   }
-	
-	   document.getElementById("member_password").oninput = function() {
-	      let pw1 = $("#member_password").val();
-	      let pw2 = $("#member_confirm_password").val();
-	      if (pw1 != pw2) {
-	         result.innerHTML = "패스워드가 일치하지않습니다"
 
-	      } else if (pw1 ==""){
-	         result.innerHTML = ""
-	      } else if (pw2 ==""){
-	         result.innerHTML = ""
-	      }else  {
-	         result.innerHTML = "패스워드가 일치합니다."
-	      }
-	   }
-	   
-
+   })
+     
 </script>
 </body>
 </html>

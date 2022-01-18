@@ -326,6 +326,10 @@ body {
 							style="background-color: #406882;">목록으로</button>
 							
 						<script>
+							$(document).ready(function() {
+								console.log(document.referrer);
+							});
+						
 							$("#board-list").on("click",function(){
 // 								location.href="/notice/toNotice?cPage=${cPage}";
  								location.href="javascript:history.back()";
@@ -345,8 +349,7 @@ body {
 								location.href="/notice/toUpdate?notice_id=${notices.notice_id}&cPage=${cPage}";
 							});
 							
-							</script>
-						
+						</script>
 					</div>
 				</div>
 				<c:if test="${upDown.prevNum ne 0 }">

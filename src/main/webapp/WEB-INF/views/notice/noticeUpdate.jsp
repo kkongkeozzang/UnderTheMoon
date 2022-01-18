@@ -230,7 +230,7 @@ body {
 							<script>
                 				autosize($("textarea"));
         			        </script>
-                	<div class="contentCnt">(0 / 1000)</div>
+                	<sup>(<span id="nowByte">0</span>/3000bytes)</sup>
 						</div>
 					</div>
 					<div class="row">
@@ -250,8 +250,8 @@ body {
 					$("#update").on("click",function(){
 						if($('.note-editable').html()==""){
 							alert("내용을 입력해주세요.");
-						}else if(textCnt > 1000){
-							alert("글자 수를 확인해주세요.(최대 1000자)");
+						}else if(totalByte > maxByte){
+							alert("바이트 수를 확인해주세요.(최대 3000bytes)");
 						}else if($("#input-title").val()==""){
 							alert("제목을 입력해주세요.");
 						}else {
@@ -273,7 +273,7 @@ body {
 		
 		$(document).ready(function() {
 			$('#summernote').summernote({  // summernote 에디터 설정 코드
-			  height: 535, // 에디터 높이
+			  height: 500, // 에디터 높이
 			  disableResizeEditor: true, // 에디터 사이즈 조절 금지
 			  lang: "ko-KR", // 에디터 한글 설정
 			  placeholder: '내용을 입력하세요',	//placeholder 설정
@@ -283,7 +283,7 @@ body {
 						  sendFile(files[i], this);}  
 					},
 					onChange:function(contents, editable){ //텍스트 글자수 및 이미지등록개수
-						setContentsLength(contents, 0);
+						fn_checkByte(contents);
 					}			
 			  },
 			  focus : true, // 에디터에 커서 이동 (input창의 autofocus라고 생각하시면 됩니다.)
@@ -332,49 +332,32 @@ body {
 				}
 			});
 		}
-		var textCnt = 0; //총 글자수
-		//글자수 체크 //태그와 줄바꿈, 공백을 제거하고 텍스트 글자수만 가져옵니다.		
-		function setContentsLength(str, index) {
-			
-			var maxCnt = 1000; //최대 글자수
-			var editorText = f_SkipTags_html(str); //에디터에서 태그를 삭제하고 내용만 가져오기
-			editorText = editorText.replace(/\s/gi,""); //줄바꿈 제거
-			/* editorText = editorText.replace(/&nbsp;/gi, ""); //공백제거 */
-			
-			textCnt = editorText.length; // 줄바꿈, 공백제거한 현재 글자 수
-			if(maxCnt > 0) {
-				$(document).ready(function() { //글 1000글자 입력 제한 코드
-		 		    $('.note-editable').on('keyup', function() { //글 1000글자 입력 제한 코드
-		 		        $('.contentCnt').html("(" + textCnt +" / 1000)");  // 현재 글자 수 표시
-		 		    });
-		 		});
-			}
-		}
-		
-		//태그제거용
-		function f_SkipTags_html(input, allowed) {
-			allowed = (((allowed || "") + "").toLowerCase().match(/<[a-z][a-z0-9]*>/g) || []).join(''); // making sure the allowed arg is a string containing only tags in lowercase (<a><b><c>)
-			var tags = /<\/?([a-z][a-z0-9]*)\b[^>]*>/gi,
-			commentsAndPhpTags = /<!--[\s\S]*?-->|<\?(?:php)?[\s\S]*?\?>/gi;
-			return input.replace(commentsAndPhpTags, '').replace(tags, function ($0, $1) {
-				return allowed.indexOf('<' + $1.toLowerCase() + '>') > -1 ? $0 : '';
-			});
-		}
-		
-		//참고 코드
-// 		$(document).ready(function() { //글 1000글자 입력 제한 코드
-// 		    $('.note-editable > p').on('keyup', function() { //글 1000글자 입력 제한 코드
-// 		        $('.contentCnt').html("(" + $(this).val().length +" / 1000)");
-// 		        if($(this).val().length > 1000) {
-// 		            $(this).val($(this).val().substring(0, 1000));
-// 		            $('.contentCnt').html("(1000 / 1000)");
-// 		        }
-//				if(textCnt > 1000) {
-// 		 			$('.note-editable').html(editorText.substring(0, 1000));
-// 		 		    $('.contentCnt').html("(1000 / 1000)");
-// 		 		}
-// 		    });
-// 		});
+		function fn_checkByte(obj){
+			maxByte = 3000; //최대 3000바이트
+		    const text_val = obj; //입력한 문자
+		    const text_len = text_val.length; //입력한 문자수
+		    
+		    totalByte = 0; // 입력한 바이트수		    
+		    for(let i=0; i<text_len; i++){
+		    	const each_char = text_val.charAt(i);
+		        const uni_char = escape(each_char) //유니코드 형식으로 변환
+		        if(uni_char.length>4){
+		        	// 한글 : 2Byte
+		            totalByte += 2;
+		        }else{
+		        	// 영문,숫자,특수문자 : 1Byte
+		            totalByte += 1;
+		        }
+		    }
+		    
+		    if(totalByte>maxByte){
+	        	document.getElementById("nowByte").innerText = totalByte;
+	            document.getElementById("nowByte").style.color = "red";
+	        }else{
+	        	document.getElementById("nowByte").innerText = totalByte;
+	            document.getElementById("nowByte").style.color = "green";
+	        }
+	    }
 
 	</script>
 	</div>

@@ -36,11 +36,135 @@
 table tr th {
 	text-align:center;
 }
+ul.pages {
+	margin-top: 30px;
+    text-align: center;
+}
+ul.pages li a {
+	width: 44px;
+	height: 44px;
+	display: inline-block;
+	line-height: 42px;
+	border: 1px solid #eee;
+	font-size: 15px;
+	font-weight: 700;
+	color: #121212;
+	transition: all .3s;
+}
+a {
+	text-decoration: none!important;
+}
+ul {
+	padding: 0;
+    margin: 0;
+	list-style: none;
+    display: block;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    padding-inline-start: 40px
+}
+ul.pages li {
+	display:inline-block!important;
+}
 </style>
 <script>
-	document.cookie = "safeCookie1=foo; SameSite=Lax"; 
-	document.cookie = "safeCookie2=foo"; 
-	document.cookie = "crossCookie=bar; SameSite=None; Secure";
+$(document).ready(function(){
+	sortFunc("all", "none");
+	$("body").on("click",".product-item", function(){
+		let md_id = $(this).find("#md_id").val();
+		location.href = "/md/detail/page?md_id=" + md_id;
+	})
+})
+function sortFunc(select, sort) {
+	if (select != "all") {
+		select = $(this).html();
+	}
+	$("#review-sort").on("click",function(){
+		sortFuncDetail(select, "reviewSort");
+	});
+	$("#new-sort").on("click",function(){
+		sortFuncDetail(select, "newSort");
+	});
+	$(".nav-item").on("click",function(){
+		select = $(this).html();
+		sortFuncDetail(select, "none");
+	})
+}
+function sortFuncDetail(select, sort) {
+	$.ajax({
+		url: "/md/listPage",
+		DataType: "json",
+		type: "get",
+		data: {
+			currentPage: 1,
+			select: select,
+			sort: sort
+			}
+	}).done(function(resp){
+		let mdsSize = resp.mds.length;
+		let str = "";
+		for(let i = 0;i < mdsSize; i++) {
+			str += "<div class='col-lg-4 col-md-4 all des'>";
+			str += "<div class='product-item'>";
+			str += "<a ><img  alt=''></a>";
+			str += "<div class='down-content'>";
+			str += "<input type=hidden id='md_id' value="+resp.mds[i].md_id+">"
+			str += "<a ><h4>"+resp.mds[i].md_name+"</h4></a>";
+			str += "<h6>"+resp.mds[i].md_price+"</h6>";
+			str += "<p>"+resp.mds[i].md_content+"</p>";
+			str += "<ul class='stars'>";
+			str += "<li><i class='fa fa-star'></i></li>";
+			str += "<li><i class='fa fa-star'></i></li>";
+			str += "<li><i class='fa fa-star'></i></li>";
+			str += "<li><i class='fa fa-star'></i></li>";
+			str += "<li><i class='fa fa-star'></i></li>";
+			str += "</ul>";
+			str += "<span>Reviews (12)</span>";
+			str += "</div>";
+			str += "</div>";
+			str += "</div>";
+		}
+		$("#list-page").html(str);
+		getPage(resp.cPage, select, sort);
+		$("#count").html("총 " + resp.allMdCount + " 개");
+	})
+}
+function getPage(pageNavi, select, sort) {
+	$.ajax({
+		url: "/md/detail/review/rest/board/"+$("#md_id").val()+"/"+sort+"/"+pageNavi,
+		type: "get",
+		dataType: "json"
+	}).done(function(resp){
+		console.log(resp);
+		let reviesSize = resp.reviews.length;
+		let naviSize = resp.pageNavis.length;
+		let str = "";
+		if(reviesSize > 0) {
+			for(let i = 0; i < reviesSize; i++) {
+				str += "<tr data-toggle='collapse' data-target='#"+resp.reviews[i].md_review_id+"' class='accordion-toggle'>";
+				str += "<td style='width:5%;'>"+resp.reviews[i].md_review_id+"</td>";
+				str += "<td style='width:60%'>"+resp.reviews[i].md_review_title+"</td>";
+				str += "<td>"+ resp.reviews[i].member_username +"</td>";
+				str += "<td>"+ resp.reviews[i].formedDate +"</td>";
+				str += "<td>"+ resp.reviews[i].md_review_like+"</td>";
+				str += "<td>"+ resp.reviews[i].md_review_view_count +"</td>";
+				str += "</tr>";
+				
+			}
+		
+			$("#review-board").html(str);	
+			let pageStr = "";
+			for(let i = 0; i < naviSize; i++) {
+				pageStr += "<li>";
+				pageStr += resp.pageNavis[i];
+				pageStr += "</li>";
+			}
+			$("#pages").html(pageStr);
+	}
+})
+}
 </script>
 </head>
 <body>
@@ -61,7 +185,7 @@ table tr th {
                 <div class="col-lg-7 mt-5">
                     <div class="card">
                         <div class="card-body">
-                        	<input type="hidden" value="${mdDetails.md_id }">
+                        	<input type="hidden" id="md_id" value="${mdDetails.md_id }">
                             <h1 class="h2">${mdDetails.md_name }</h1>
                             <p class="h3 py-2">${mdDetails.md_price }</p>
                             <ul class="list-inline">
@@ -182,7 +306,7 @@ table tr th {
 		  <ul>
 		    <li><a href="#fragment-1"><span>상품설명</span></a></li>
 		    <li><a href="#fragment-2"><span>상세정보</span></a></li>
-		    <li><a href="#fragment-3"><span>후기()</span></a></li>
+		    <li><a href="#fragment-3"><span>후기(${allMdReviewCount})</span></a></li>
 		    <li><a href="#fragment-4"><span>문의</span></a></li>
 		  </ul>
 		  <div id="fragment-1">
@@ -194,9 +318,14 @@ table tr th {
 		  </div>
 			<div id="fragment-3">
 				<p>PRODUCT REVIEW</p>
-				<p>상품에 대해 문의를 남기는 공간입니다. 해당 게시판 성격과 다른 글은 사전동의 없이 담당 게시판으로 이동될 수 있습니다.</p>
-				<p>배송관련, 주문(취소/교환/환불)관련 문의 및 요청사항은 마이컬리 내 1:1 문의에 남겨주세요.</p>
-				<table class="table table-condensed table-striped">
+				<p>상품에 대한 후기를 남기는 공간입니다. 해당 게시판 성격과 다른 글은 사전동의 없이 담당 게시판으로 이동될 수 있습니다.</p>
+				<p>배송관련, 주문(취소/교환/환불)관련 문의 및 요청사항은 마이페이지 내 1:1 문의에 남겨주세요.</p>
+				<select style="float:right">
+				<option>최근등록순</option>
+				<option>좋아요많은순</option>
+				<option>조회많은순</option>
+				</select>
+				<table class="table table-condensed table-striped " id="review-box">
 					<thead >
 						<tr >
 							<th style="width:5%;">번호</th>
@@ -208,12 +337,12 @@ table tr th {
 						</tr>
 					</thead>
 	
-					<tbody>
+					<tbody id="review-board">
 						<!-- 게시판 제목 부분 -->
 						<tr data-toggle="collapse" data-target="#demo1"
 							class="accordion-toggle">
-							<td></td>
-							<td>Carlos</td>
+							<td style="width:5%;">1</td>
+							<td style="width:60%">Carlos</td>
 							<td>Mathias</td>
 							<td>Leme</td>
 							<td>SP</td>
@@ -230,20 +359,108 @@ table tr th {
 							<br>
 							</div>
 						</tr>
+					</tbody>
+				</table>
+				<button>후기 쓰기</button>
+				<div id="page-box">
+				<ul class="pages" id="pages"></ul>
+				</div>
+				<div id="fragment-4">
+				<p>PRODUCT Q & A</p>
+				<p>상품에 대한 문의를 남기는 공간입니다. 해당 게시판 성격과 다른 글은 사전동의 없이 담당 게시판으로 이동될 수 있습니다.</p>
+				<p>배송관련, 주문(취소/교환/환불)관련 문의 및 요청사항은 마이페이지 내 1:1 문의에 남겨주세요.</p>
+				
+				<table class="table table-condensed table-striped">
+					<thead >
+						<tr >
+							<th style="width:5%;">번호</th>
+							<th style="width:60%">제목</th>
+							<th>작성자</th>
+							<th>작성일</th>
+							<th>도움</th>
+							<th>조회</th>
+						</tr>
+					</thead>
+	
+					<tbody id="">
+						<!-- 게시판 제목 부분 -->
+						<tr data-toggle="collapse" data-target="#qna1"
+							class="accordion-toggle">
+							<td style="width:5%;">1</td>
+							<td style="width:60%">Carlos</td>
+							<td>Mathias</td>
+							<td>Leme</td>
+							<td>SP</td>
+							<td>new</td>
+						</tr>
+						<!-- 게시판 내용 부분 -->
+						<tr>
+							<td colspan="6" class="hiddenRow">
+							<div id="qna1" class="accordian-body collapse">
+							<br>
+							<br>
+							<br>
+							<br>
+							<br>
+							</div>
+						</tr>
 	
 					</tbody>
 				</table>
-
-
-
-
-			</div>
-			<div id="fragment-4">
+				
+				
+				
 		  </div>
 		</div>
 	</div>
 	<script>
-		$("#tabs").tabs();
+		$('#tabs').tabs({
+            activate: function(event ,ui){
+                let selectTab = ui.newTab.index();
+                console.log(selectTab);
+                if(selectTab == 2) {
+                	$.ajax({
+            			url:"/md/detail/review/rest/board/"+$("#md_id").val()+"/all/1",
+            			type:"get",
+            			dataType:"json"
+            		}).done(function(resp){
+            			console.log(resp);
+            			let reviesSize = resp.reviews.length;
+            			let naviSize = resp.pageNavis.length;
+        				let str = "";
+            			if(reviesSize > 0) {
+            				for(let i = 0; i < reviesSize; i++) {
+	            				str += "<tr data-toggle='collapse' data-target='#"+resp.reviews[i].md_review_id+"' class='accordion-toggle'>";
+	            				str += "<td style='width:5%;'>"+resp.reviews[i].md_review_id+"</td>";
+	            				str += "<td style='width:60%'>"+resp.reviews[i].md_review_title+"</td>";
+	            				str += "<td>"+ resp.reviews[i].member_username +"</td>";
+	            				str += "<td>"+ resp.reviews[i].formedDate +"</td>";
+	            				str += "<td>"+ resp.reviews[i].md_review_like+"</td>";
+	            				str += "<td>"+ resp.reviews[i].md_review_view_count +"</td>";
+	            				str += "</tr>";
+	            				
+            				}
+            			
+            				$("#review-board").html(str);	
+            				let pageStr = "";
+            				for(let i = 0; i < naviSize; i++) {
+            					pageStr += "<li>";
+            					pageStr += resp.pageNavis[i];
+            					pageStr += "</li>";
+            				}
+            				$("#pages").html(pageStr);
+            				
+            				
+            				
+            			} else {
+            				
+            			}
+            		})
+                }
+	        }
+		});
+
+		
 	</script>
 	
 	

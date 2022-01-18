@@ -116,8 +116,6 @@ body {
 
 $(function(){
 	
-
-
 	let username = $("#username").val();
 	
     $("#findPassword").on("click",function(){

@@ -47,6 +47,97 @@
 	
 }
 </style>
+<script>
+
+$(function(){
+	
+	
+	$("body").on("click",".delete",function(){
+		
+		let cart_id = $(this).closest(".cart-unit").find(".cart_id").val();
+		
+		let totalPrice = $("#totalPrice").val();
+		let totalPrice_int = Number(totalPrice);
+		
+		let cart_price = $(this).closest(".cart-unit").find(".cart_price").html();
+	    	let cart_price_int = Number(cart_price);
+	    	
+	    	 $(this).closest(".cart-unit").remove();
+	    	 
+		$.ajax({
+	  	  type: 'delete',
+	        url:"/cart/rest/deleteCart/"+cart_id,
+	        dataType:"json"
+	     }).done(function(resp){
+	    	
+	    	 
+	    	  alert("선택하신 상품이 삭제되었습니다.")  
+	    	  $("#totalPrice").attr('value', totalPrice_int-cart_price_int);
+	     })
+	   })
+	   
+	  $(".plus").on("click",function(){
+		  
+		  let cart_id = $(this).closest(".cart-unit").find(".cart_id").val();
+		
+		  let totalPrice = $("#totalPrice").val();
+			let totalPrice_int = Number(totalPrice);
+		  
+			let cart_price = $(this).closest(".cart-unit").find(".cart_price").html();
+	    	let cart_price_int = Number(cart_price);
+	    	
+	     let item_count = $(this).closest(".cart-unit").find(".count").val();
+	     	let item_count_int = Number(item_count);
+	    
+	     let singleItemPrice = cart_price_int/item_count_int;
+	     	let singleItemPriceInt = Number(singleItemPrice);
+	     	
+	     	 $(this).closest(".cart-unit").find(".count").attr('value', item_count_int+1);
+	     	 $(this).closest(".cart-unit").find(".cart_price").text(cart_price_int+singleItemPriceInt);
+	    
+		$.ajax({
+	  	  type: 'patch',
+	        url:'/cart/rest/addItemCount/'+cart_id,
+	        dataType:"json"
+	     }).done(function(resp){
+	    	
+	    	  $("#totalPrice").val(totalPrice_int+singleItemPriceInt);
+	     })
+	   })
+	   
+	   $(".minus").on("click",function(){
+		   
+		   let cart_id = $(this).closest(".cart-unit").find(".cart_id").val();
+		
+		   let totalPrice = $("#totalPrice").val();
+			let totalPrice_int = Number(totalPrice);
+		   
+			let cart_price = $(this).closest(".cart-unit").find(".cart_price").html();
+	    	let cart_price_int = Number(cart_price);;
+	    	
+	    	let item_count = $(this).closest(".cart-unit").find(".count").val();
+	     	let item_count_int = Number(item_count);
+	    
+	     let singleItemPrice = cart_price_int/item_count_int;
+	     	let singleItemPriceInt = Number(singleItemPrice);
+	     	if(item_count_int<2){
+				   alert("최소주문은 1개입니다.");
+				   return false;
+			   }else{
+	     	 $(this).closest(".cart-unit").find(".count").attr('value', item_count_int-1);
+	    	 $(this).closest(".cart-unit").find(".cart_price").text(cart_price_int-singleItemPriceInt);
+		   }
+		$.ajax({
+	  	  type: 'patch',
+	        url:"/cart/rest/subtractItemCount/"+cart_id,
+	        dataType:"json"
+	     }).done(function(resp){
+	    	
+	    	  $("#totalPrice").val(totalPrice_int-singleItemPriceInt);
+	     })
+	   })
+	})
+</script>
 </head>
 <body>
 <div class="container">
@@ -54,42 +145,47 @@
     				<thead>
 						<tr>
 							<th style="width:50%">상품</th>
+							 
+							<th style="width:8%"></th>
+							<th style="width:22%" class="text-center">수량</th>
 							<th style="width:10%">가격</th>
-							<th style="width:8%">수량</th>
-							<th style="width:22%" class="text-center"></th>
-							<th style="width:10%"></th>
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
+					 <c:forEach var="cart" items="${cartDTO }">
+						<tr class="cart-unit">
 							<td data-th="Product">
 								<div class="row">
-									<div class="col-sm-2 hidden-xs"><img src="http://placehold.it/100x100" alt="..." class="img-responsive"/></div>
+									<div class="col-sm-2 hidden-xs"><img src="${cart.cart_image}" alt="..." class="img-responsive"/></div>
 									<div class="col-sm-10">
-										<h4 class="nomargin">Product 1</h4>
-										<p>Quis aute iure reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Lorem ipsum dolor sit amet.</p>
+										<h4 id="item" class="nomargin">${cart.cart_item} </h4>
 									</div>
 								</div>
 							</td>
-							<td data-th="Price">$1.99</td>
+							<td data-th="Price"></td>
 							<td data-th="Quantity">
-								<input type="number" class="form-control text-center" value="1">
+								<button class="plus" type ="button">+</button>
+									 <input type="hidden" class="cart_id" value="${cart.cart_id}">
+									<input type="number" class="count form-control text-center" value="${cart.cart_item_count}" readonly>
+								<button class="minus" type="button">-</button>
 							</td>
-							<td data-th="Subtotal" class="text-center">1.99</td>
+							<td data-th="Subtotal" class="cart_price text-center">${cart.cart_price}</td>
 							<td class="actions" data-th="">
 								<button class="btn btn-info btn-sm"><i class="fa fa-refresh"></i></button>
-								<button class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i></button>								
+								<button class="delete btn btn-danger btn-sm"><i class="fa fa-trash-o"></i></button>								
 							</td>
 						</tr>
+						</c:forEach>
 					</tbody>
+					
 					<tfoot>
 						<tr class="visible-xs">
 							<td class="text-center"><strong>Total 1.99</strong></td>
 						</tr>
 						<tr>
-							<td><a href="#" class="btn btn-warning"><i class="fa fa-angle-left"></i> Continue Shopping</a></td>
+							<td><a href="#" class="btn btn-warning"><i class="fa fa-angle-left"></i> 쇼핑계속하기</a></td>
 							<td colspan="2" class="hidden-xs"></td>
-							<td class="hidden-xs text-center"><strong>Total $1.99</strong></td>
+							<td class="hidden-xs text-center">Total <input type="text" id="totalPrice" value="${ totalPrice}" readonly> </td>
 							<td><a href="#" class="btn btn-success btn-block">주문하기 <i class="fa fa-angle-right"></i></a></td>
 						</tr>
 					</tfoot>

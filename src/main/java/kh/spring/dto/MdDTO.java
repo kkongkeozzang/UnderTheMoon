@@ -7,14 +7,15 @@ public class MdDTO {
 	private String md_content;
 	private int md_price;
 	private String md_category;
-	private int md_adv;
+	private int md_abv;
 	private String md_image;
 	
 	public MdDTO() {
 		super();
+		// TODO Auto-generated constructor stub
 	}
 	public MdDTO(int md_id, String md_region, String md_name, String md_content, int md_price, String md_category,
-			int md_adv, String md_image) {
+			int md_abv, String md_image) {
 		super();
 		this.md_id = md_id;
 		this.md_region = md_region;
@@ -22,7 +23,7 @@ public class MdDTO {
 		this.md_content = md_content;
 		this.md_price = md_price;
 		this.md_category = md_category;
-		this.md_adv = md_adv;
+		this.md_abv = md_abv;
 		this.md_image = md_image;
 	}
 	public int getMd_id() {
@@ -61,11 +62,11 @@ public class MdDTO {
 	public void setMd_category(String md_category) {
 		this.md_category = md_category;
 	}
-	public int getMd_adv() {
-		return md_adv;
+	public int getMd_abv() {
+		return md_abv;
 	}
-	public void setMd_adv(int md_adv) {
-		this.md_adv = md_adv;
+	public void setMd_abv(int md_abv) {
+		this.md_abv = md_abv;
 	}
 	public String getMd_image() {
 		return md_image;
@@ -73,6 +74,7 @@ public class MdDTO {
 	public void setMd_image(String md_image) {
 		this.md_image = md_image;
 	}
+	
 	
 	
 }

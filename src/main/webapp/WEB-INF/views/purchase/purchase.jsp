@@ -170,7 +170,7 @@ $(function(){
 						</tr>
 					</thead>
 					<tbody>
-					 <c:forEach var="cart" items="${cartList }">
+					 <c:forEach var="cart" items="${carts }">
 						<tr class="cart-unit">
 							<td data-th="Product">
 								<div class="row">
@@ -209,11 +209,11 @@ $(function(){
 				
 				<div class="form-group">
 					    <label for="address">배송지:</label>
-					    <input id="roadAddress" type="text" class="form-control" value="${memberDTO.member_address1}" id="address" readonly>
+					    <input id="roadAddress" type="text" class="form-control" value="${member.member_address1}" id="address" readonly>
 					  </div>
 					  <div class="form-group">
 					    <label for="address2">상세주소:</label>
-					    <input type="text" class="form-control" value="${memberDTO.member_address2}" id="address2">
+					    <input type="text" class="form-control" value="${member.member_address2}" id="address2">
 					  </div>
 					<button id="addressSearch" type="button" class="btn btn-primary">주소검색</button>
 					

@@ -47,29 +47,29 @@ public class PurchaseController {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal(); 
 		String username = ((UserDetails)principal).getUsername();
 		//회원정보.
-		MemberDTO memberDTO = memberService.selectByUsername(username);
+		MemberDTO member = memberService.selectByUsername(username);
 		//장바구니 아이템 정보.
-		List<CartDTO> cartDTO = cartService.selectByMemberId(username);
+		List<CartDTO> carts = cartService.selectByMemberId(username);
 		//쿠폰정보.
-		List<CouponDTO> couponDTO = couponService.selectAllByMemberId(username).get();
+		List<CouponDTO> coupons = couponService.selectAllByMemberId(username).get();
 		//적립금정보.
 		int pointSum = pointService.selectPointById(username).get();
 		
 		//구매 총금액
 		int totalPrice = 0;
 		
-		for(CartDTO cart :cartDTO) {
+		for(CartDTO cart :carts) {
 			totalPrice += cart.getCart_price();
 		}
 		
-		System.out.println(memberDTO+" "+cartDTO+" "+couponDTO+" "+pointSum+" "+totalPrice);
+		System.out.println(member+" "+carts+" "+coupons+" "+pointSum+" "+totalPrice);
 		
 		System.out.println(totalPrice);
-		model.addAttribute("cartList", cartDTO);
+		model.addAttribute("carts", carts);
 		model.addAttribute("totalPrice",totalPrice);
-		model.addAttribute("couponList", couponDTO);
+		model.addAttribute("coupons", coupons);
 		model.addAttribute("pointSum", pointSum);
-		model.addAttribute("memberDTO", memberDTO);
+		model.addAttribute("member", member);
 		
 			
 		return "/purchase/purchase";

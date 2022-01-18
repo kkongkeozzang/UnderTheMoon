@@ -13,8 +13,12 @@ public class PointService {
 	public PointService(PointDAO pointDAO) {
 		this.pointDAO = pointDAO;
 	}
+
+	public Integer insertRecommendMemberPoint(Integer id) {
+		return pointDAO.insertRecommendMemberPoint(id);
+	}
 	
-	public Integer insertMemberPoint(PointDTO dto) {
-		return pointDAO.insertMemberPoint(dto);
+	public Integer insertEventMemberPoint(Integer id) {
+		return pointDAO.insertEventMemberPoint(id);
 	}
 }

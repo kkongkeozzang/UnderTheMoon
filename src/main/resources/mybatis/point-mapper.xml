@@ -4,9 +4,13 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
   <mapper namespace ="Point">
+ 
+  <insert id="insertRecommendMemberPoint">
+  	insert into point values(point_id_seq.nextval,'1000','추천인 입력',default,#{value})
+  </insert>
   
-  <insert id="insertMemberPoint">
-  	insert into point values(point_id_seq.nextval,#{point_used_saved},#{#point_event},default,member_id_seq.currval)
+  <insert id="insertEventMemberPoint">
+  	insert into point values(point_id_seq.nextval,'2000','이벤트 입력',default,#{value})
   </insert>
   
   </mapper>

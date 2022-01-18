@@ -13,10 +13,12 @@ public class PointDAO {
 	public PointDAO(SqlSessionTemplate mybatis) {
 		this.mybatis = mybatis;
 	}
+		
+	public Integer insertRecommendMemberPoint(Integer id) {
+		return mybatis.insert("Point.insertRecommendMemberPoint",id);
+	}
 	
-	public Integer insertMemberPoint(PointDTO dto) {
-		
-		return mybatis.insert("Point.insertMemberPoint",dto);
-		
+	public Integer insertEventMemberPoint(Integer id) {
+		return mybatis.insert("Point.insertEventMemberPoint",id);
 	}
 }

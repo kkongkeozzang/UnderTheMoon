@@ -46,6 +46,8 @@ public class MemberService {
 
 	
 	public int insertMember(MemberDTO dto) {
+		String password = dto.getMember_password();		
+		dto.setMember_password(bCrptPasswordEncoder.encode(password));
 		return memberDAO.insertMember(dto);
 	}
 

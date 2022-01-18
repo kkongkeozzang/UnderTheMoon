@@ -24,12 +24,16 @@
 		select count(*) from md
 	</select>
 	
-	<select id="selectByBound" resultType="kh.spring.dto.MdDTO">
-		select * from (select md.*, row_number() over(order by md_id desc) rn from md)
+	<select id="selectRegionCount" resultType="int">
+		select count(*) from md where md_region = #{select}
+	</select>
+	
+	<select id="selectAllByBound" resultType="kh.spring.dto.MdDTO">
+		select * from (select md.*, row_number() over(order by md_id) rn from md)
 		where rn between #{start} and #{end}
 	</select>
 	
-	<select id="selectByBoundReviewSort" resultType="kh.spring.dto.MdDTO">
+	<select id="selectAllByBoundReviewSort" resultType="kh.spring.dto.MdDTO">
 		select * from 
         (select review_sort.*, row_number() 
         over
@@ -40,13 +44,45 @@
 	    order by review_count desc, m2.md_id desc) review_sort) where rn between #{start} and #{end} order by rn
 	</select>
 	
-	<select id="selectByBoundNewSort" resultType="kh.spring.dto.MdDTO">
+	<select id="selectAllByBoundNewSort" resultType="kh.spring.dto.MdDTO">
 		select * from (select md.*, row_number() over(order by md_id desc) rn from md) 
 		where rn between #{start} and #{end}
 	</select>
 	
-	<select id="selectMdById" resultType="kh.spring.dto.MdDTO">
+	<select id="selectRegionByBound" resultType="kh.spring.dto.MdDTO">
+		select * from (select region.*, row_number() over(order by md_id) rn 
+		from (select * from md where md_region = #{select}) region)
+		where rn between #{start} and #{end}
+	</select>
+	
+	<select id="selectRegionByBoundReviewSort" resultType="kh.spring.dto.MdDTO">
+		select * from 
+        (select review_sort.*, row_number() 
+        over
+        (order by review_count desc) rn 
+        from (select nvl(review_count,0) review_count, m2.* from md m2 left outer join 
+	    (select m.md_id, count(*) review_count from md m join md_review r on r.MD_ID = m.MD_ID group by m.md_id) a 
+	    on m2.md_id = a.md_id where m2.md_region = #{select}
+	    order by review_count desc, m2.md_id desc) review_sort) where rn between #{start} and #{end} order by rn
+	</select>
+	
+	<select id="selectRegionByBoundNewSort" resultType="kh.spring.dto.MdDTO">
+		select * from (select md.*, row_number() over(order by md_id desc) rn from md where md_region = #{select}) 
+		where rn between #{start} and #{end}
+	</select>
+	
+	<select id="selectMdDetailById" resultType="kh.spring.dto.MdDTO">
 		select * from md where md_id = #{md_id}
 	</select>
+	
+	<select id="selectSameRegionMdsExceptForSelectMd" resultType="kh.spring.dto.MdDTO">
+		select * from (select target.*, row_number() over(order by md_id desc) rn 
+		from (select * from md m where md_region = (select md_region from md where md_id = #{md_id}) and md_id != #{md_id} ) target) 
+		where rn between 1 and 12
+	</select>
+	
+	<!-- <select id="selectMdById" resultType="kh.spring.dto.MdDTO">
+		select * from md where md_id = #{md_id}
+	</select> -->
 	
 </mapper>

@@ -214,7 +214,7 @@ body {
 		<!-- 게시판 박스 -->
 		<div class="card mb-3 col-xl-6 col-md-12">
 			<!-- 게시글 등록 박스 -->
-			<form action="/notice/update?cpage=${cpage}" method="post" id="frmDetail">
+			<form action="/notice/update?cPage=${cPage}" method="post" id="frmDetail">
 				<div class="container mb-4 mt-4">
 					<div class="row" style="padding-bottom: 5px;">
 						<div class="col-sm-12"> 
@@ -243,7 +243,7 @@ body {
 					
 					$("#cancel").on("click",function(){
 						if(confirm("정말 취소하시겠습니까?")){
-							location.href="/notice/detail?notice_id=${notices.notice_id}&member_id=${notices.member_id}&cpage=${cpage}";
+							location.href="/notice/detail?notice_id=${notices.notice_id}&member_id=${notices.member_id}&cPage=${cPage}";
 						}
 					});
 					

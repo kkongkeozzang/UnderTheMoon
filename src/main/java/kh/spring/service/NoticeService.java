@@ -83,11 +83,11 @@ public class NoticeService {
 		if(endNavi == pageTotalCount) {needNext = false;}
 		
 		String pageNavi = "";
-		if(needPrev) {pageNavi += "<a href='/notice/toNotice?cpage="+(startNavi-1)+"'><button type='button' class='btn btn-outline-primary' style='background-color:#406882;color:white;'><</button></a> ";}
+		if(needPrev) {pageNavi += "<a href='/notice/toNotice?cPage="+(startNavi-1)+"'><button type='button' class='btn btn-outline-primary' style='background-color:#406882;color:white;'><</button></a> ";}
 		for(int i = startNavi; i <= endNavi; i++) {
-			pageNavi += "<a href='/notice/toNotice?cpage="+i+"'><button type='button' class='btn btn-outline-primary' style='background-color:#406882;color:white;'>" + i + "</button></a> ";
+			pageNavi += "<a href='/notice/toNotice?cPage="+i+"'><button type='button' class='btn btn-outline-primary' style='background-color:#406882;color:white;'>" + i + "</button></a> ";
 		}
-		if(needNext) {pageNavi += "<a href='/notice/toNotice?cpage="+(endNavi+1)+"'><button type='button' class='btn btn-outline-primary' style='background-color:#406882;color:white;'>></button></a>";}
+		if(needNext) {pageNavi += "<a href='/notice/toNotice?cPage="+(endNavi+1)+"'><button type='button' class='btn btn-outline-primary' style='background-color:#406882;color:white;'>></button></a>";}
 		
 		return pageNavi;
 	}

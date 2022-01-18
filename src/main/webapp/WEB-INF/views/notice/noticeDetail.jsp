@@ -327,7 +327,7 @@ body {
 							
 						<script>
 							$("#board-list").on("click",function(){
-								location.href="/notice/toNotice?cpage=${cpage}";
+								location.href="/notice/toNotice?cPage=${cPage}";
 							});
 							
 							$("#delete").on("click", function(){
@@ -335,13 +335,13 @@ body {
 // 		                			if($("#member_id").val()=="admin"){
 		                			 location.href="/notice/delete?notice_id="+${notices.notice_id};
 // 		                			}else{
-// 		                				location.href="/delete.board?cpage=${cpage}&seq=${notices.notice_id}";
+// 		                				location.href="/delete.board?cPage=${cPage}&seq=${notices.notice_id}";
 // 		                			}
 		                		}
 		                	});
 							
 							$("#update").on("click", function(){
-								location.href="/notice/toUpdate?notice_id=${notices.notice_id}&cpage=${cpage}";
+								location.href="/notice/toUpdate?notice_id=${notices.notice_id}&cPage=${cPage}";
 							});
 							
 							</script>
@@ -354,7 +354,7 @@ body {
 						▲ 이전 글
 					</div>
 					<div class="col-sm-10">
-						<a href="/notice/detail?notice_id=${upDown.prevNum}&member_id=${upDown.prevMember}&cpage=${cpage}"><div style="width: 100%;">${upDown.prevTitle}</div></a>
+						<a href="/notice/detail?notice_id=${upDown.prevNum}&member_id=${upDown.prevMember}&cPage=${cPage}"><div style="width: 100%;">${upDown.prevTitle}</div></a>
 					</div>
 				</div>
 				</c:if>
@@ -364,7 +364,7 @@ body {
 						▼ 다음 글
 					</div>
 					<div class="col-sm-10">
-						<a href="/notice/detail?notice_id=${upDown.nextNum}&member_id=${upDown.nextMember}&cpage=${cpage}"><div style="width: 100%;">${upDown.nextTitle}</div></a>
+						<a href="/notice/detail?notice_id=${upDown.nextNum}&member_id=${upDown.nextMember}&cPage=${cPage}"><div style="width: 100%;">${upDown.nextTitle}</div></a>
 					</div>
 				</div>
 				</c:if>

@@ -33,21 +33,21 @@ public class NoticeController {
 	}
 	
 	@RequestMapping("toNotice")
-	public String notice(int cpage, Model model) throws Exception {
+	public String notice(int cPage, Model model) throws Exception {
 		
 //		service.insertDummy(); // 더미자료생성용도
-		int start = cpage * 10 - 9;
-		int end = cpage * 10;
+		int start = cPage * 10 - 9;
+		int end = cPage * 10;
 		List<NoticeDTO> notices = service.selectByBound(start, end);
-		String pageNavi = service.getPageNavi(cpage);
+		String pageNavi = service.getPageNavi(cPage);
 		model.addAttribute("notices", notices);
 		model.addAttribute("pageNavi", pageNavi);
-		model.addAttribute("cpage", cpage);
+		model.addAttribute("cPage", cPage);
 	    return "/notice/noticeList";
 	}
 	
 	@RequestMapping("detail")
-	public String selectById(int notice_id, int member_id, Model model, int cpage) {
+	public String selectById(int notice_id, int member_id, Model model, int cPage) {
 		NoticeDTO notices = service.selectById(notice_id);
 		int viewCount = service.updateViewCount(notice_id);
 		NoticeDTO selectUpDown = service.selectUpDown(notice_id);
@@ -55,7 +55,7 @@ public class NoticeController {
 		model.addAttribute("notices", notices);
 		model.addAttribute("username", username);
 		model.addAttribute("upDown", selectUpDown);
-		model.addAttribute("cpage", cpage);
+		model.addAttribute("cPage", cPage);
 		return "/notice/noticeDetail";
 	}
 		
@@ -67,7 +67,7 @@ public class NoticeController {
 	@RequestMapping("insert")
 	public String insert(NoticeDTO dto) {
 		int result = service.insert(dto); // 게시판에 작성된 내용을 DB에 저장하는 부분
-		return "redirect:/notice/toNotice?cpage=1";
+		return "redirect:/notice/toNotice?cPage=1";
 	}
 	
 	@RequestMapping(value="/uploadSummernoteImageFile", produces = "application/json; charset=utf8")
@@ -107,34 +107,34 @@ public class NoticeController {
 	@RequestMapping("delete")
 	public String delete(int notice_id) {
 		int result = service.delete(notice_id); // 게시판에 작성된 내용을 DB에 저장하는 부분
-		return "redirect:/notice/toNotice?cpage=1";
+		return "redirect:/notice/toNotice?cPage=1";
 	}
 	
 	@RequestMapping("toUpdate")
-	public String toUpdate(int notice_id, int cpage, Model model) {
+	public String toUpdate(int notice_id, int cPage, Model model) {
 		NoticeDTO notices = service.selectById(notice_id);
 		model.addAttribute("notices", notices);
-		model.addAttribute("cpage", cpage);
+		model.addAttribute("cPage", cPage);
 		return "/notice/noticeUpdate";
 	}
 	
 	@RequestMapping("update")
-	public String update(NoticeDTO dto, int cpage) {
+	public String update(NoticeDTO dto, int cPage) {
 		int result = service.update(dto); // 게시판에 작성된 내용을 DB에 저장하는 부분
-		return "redirect:/notice/detail?notice_id="+dto.getNotice_id()+"&member_id="+dto.getMember_id()+"&cpage="+cpage;
+		return "redirect:/notice/detail?notice_id="+dto.getNotice_id()+"&member_id="+dto.getMember_id()+"&cPage="+cPage;
 	}
 	
 	@RequestMapping("search") //검색기능
-	public String search(String select, String keyword, int cpage, Model model) {
+	public String search(String select, String keyword, int cPage, Model model) {
 
-		int start = cpage * 10 - 9;
-		int end = cpage * 10;
+		int start = cPage * 10 - 9;
+		int end = cPage * 10;
 		
 		List<NoticeDTO> notices = service.selectByKeyword(select, keyword);
-		String pageNavi = service.getPageNavi(cpage);
+		String pageNavi = service.getPageNavi(cPage);
 		model.addAttribute("notices", notices);
 		model.addAttribute("pageNavi", pageNavi);
-		model.addAttribute("cpage", cpage);
+		model.addAttribute("cPage", cPage);
 	    return "/notice/noticeSearch";
 		
 	}

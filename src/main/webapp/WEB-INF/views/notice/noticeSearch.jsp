@@ -198,7 +198,7 @@ select {
 						<div class="col-2 d-none d-md-block pl-3" align=center style="padding-left:0px;">${notices.notice_id }</div>
 						<%-- 웹버전 title --%>
 						<div class="col-4 d-none d-md-block" align=center>
-							<a href="/notice/detail?notice_id=${notices.notice_id}&member_id=${notices.member_id}&cpage=${cpage}"
+							<a href="/notice/detail?notice_id=${notices.notice_id}&member_id=${notices.member_id}&cPage=${cPage}"
 								class="text-big" data-abc="true">${notices.notice_title }</a>
 							<div class="text-muted small mt-1 d-md-none">${notices.getFormedDate() }
 								&nbsp;·&nbsp; by ${notices.member_username }</div>
@@ -216,7 +216,7 @@ select {
 						<div class="col-2 d-md-none pl-2">${notices.notice_id }</div>
 						<!--모바일버전 title,작성자,날짜-->
 						<div class="col-8 d-md-none pl-2">
-							<a href="/detail.board?cpage=${cpage }&notice_id=${notices.notice_id}"
+							<a href="/detail.board?cPage=${cPage }&notice_id=${notices.notice_id}"
 								class="text-big" data-abc="true">${notices.notice_title }</a>
 							<div class="text-muted small mt-1 d-md-none">${notices.getFormedDate() }
 								&nbsp;·&nbsp;by ${notices.member_username }</div>
@@ -286,14 +286,14 @@ select {
 	         			let searchEvent = function(){
 	         				let select = $(".select").val();
 	         				let keyword = $(".input-search").val();
-	         				location.href="/notice/search?cpage=1&select="+select+"&keyword="+keyword;
+	         				location.href="/notice/search?cPage=1&select="+select+"&keyword="+keyword;
 	         			};
 	         			$(".btn-search").on("click",searchEvent);
 	         			$(".input-search").on("keyup",function(key){
 	         				if(key.keyCode==13){
 	         					let select = $(".select").val();
 		         				let keyword = $(".input-search").val();
-		         				location.href="/notice/search?cpage=1&select="+select+"&keyword="+keyword;
+		         				location.href="/notice/search?cPage=1&select="+select+"&keyword="+keyword;
 	         				}
 	         			})	
 	         		</script>

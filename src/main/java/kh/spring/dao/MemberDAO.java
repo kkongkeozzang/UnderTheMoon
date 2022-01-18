@@ -67,8 +67,12 @@ public class MemberDAO {
 	public Integer selectIdByUsername(String member_username) {
 		
 		return mybatis.selectOne("Member.selectIdByUsername",member_username);
-	}
 
 	}
+
+
+	}
+
+
 
 

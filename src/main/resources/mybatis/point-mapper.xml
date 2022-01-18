@@ -6,11 +6,15 @@
   <mapper namespace ="Point">
  
   <insert id="insertRecommendMemberPoint">
-  	insert into point values(point_id_seq.nextval,'1000','추천인 입력',default,#{value})
+     insert into point values(point_id_seq.nextval,'1000','추천인 입력',default,#{value})
   </insert>
   
   <insert id="insertEventMemberPoint">
-  	insert into point values(point_id_seq.nextval,'2000','이벤트 입력',default,#{value})
+     insert into point values(point_id_seq.nextval,'2000','이벤트 입력',default,#{value})
   </insert>
   
+  <select id="selectPointById" resultType="int">
+   		select sum(point_used_saved) from point where member_id = #{member_id}
+  </select>
+
   </mapper>

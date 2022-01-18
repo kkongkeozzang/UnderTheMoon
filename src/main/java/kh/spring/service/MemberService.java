@@ -63,6 +63,11 @@ public class MemberService {
 	
 	public int idDuplCheck(String id) {
 		return memberDAO.idDuplCheck(id);
+	}
+
+	public MemberDTO selectByUsername(String username) {
+		
+		return memberDAO.selectByUsername(username);
 	} 
 
 }

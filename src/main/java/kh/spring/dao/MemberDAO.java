@@ -14,8 +14,8 @@ public class MemberDAO {
 
 	private final SqlSessionTemplate mybatis;
 
-
 	public MemberDAO(SqlSessionTemplate mybatis) {
+
 		this.mybatis = mybatis;
 	}
 

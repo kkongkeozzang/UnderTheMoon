@@ -71,8 +71,8 @@ public class MemberDAO {
 	}
 
 
-	}
 
+	}
 
 
 

@@ -274,40 +274,40 @@ body {
 					</div>
 				</div>
 				<div class="row" style="border-top:1px solid black; margin:0px;height:30px;line-height:29px;">
-					<div class="col-sm-2" style="background-color:#B1D0E0;">
+					<div class="col-xs-12 col-sm-2" style="background-color:#B1D0E0;">
 						제목
 					</div>
-					<div class="col-sm-10"">
-						<div id=input-title name=title style="width: 100%;">${notices.notice_title}</div>
+					<div class="col-xs-12 col-sm-10" id=input-title name=title style="width: 100%;">
+						${notices.notice_title}
 					</div>
 				</div>
 				<div class="row" style="margin:0px;border-top:1px solid gray;border-bottom:1px solid gray;height:30px;line-height:28px;">
-					<div class="col-sm-2" style="background-color:#B1D0E0;">
+					<div class="col-xs-12 col-sm-2" style="background-color:#B1D0E0;">
 						작성자
 					</div>
-					<div class="col-sm-10">
-						<div id=input-title name=title style="width: 100%;">${username}</div>
+					<div class="col-xs-12 col-sm-10" id=input-title name=title style="width: 100%;">
+						${username}
 					</div>
 				</div>
 				<div class="row" style="border-bottom:1px solid gray; margin:0px;height:30px;line-height:29px;">
-					<div class="col-sm-2" style="background-color:#B1D0E0;">
+					<div class="col-xs-12 col-sm-2" style="background-color:#B1D0E0;">
 						작성일
 					</div>
-					<div class="col-sm-2">
+					<div class="col-xs-12 col-sm-2">
 						${notices.getFormedDate()}
 					</div>
-					<div class="col-sm-2" style="background-color:#B1D0E0;">
+					<div class="col-xs-12 col-sm-2" style="background-color:#B1D0E0;">
 						조회수
 					</div>
-					<div class="col-sm-6">
+					<div class="col-xs-12 col-sm-6">
 						<div id=input-title name=title style="width: 100%;">${notices.notice_view_count}</div>
 					</div>
 				</div>
 				<br>
 				<div class="row">
-					<div class="col-sm-12">
-						<div id="contents" name="contents"
-							style="min-height: 200px; overflow: auto;">${notices.notice_content}</div>
+					<div class="col-sm-12" id="contents" name="contents"
+							style="min-height: 200px; overflow: auto;">
+						${notices.notice_content}
 					</div>
 				</div>
 				<div class="row">
@@ -327,7 +327,8 @@ body {
 							
 						<script>
 							$("#board-list").on("click",function(){
-								location.href="/notice/toNotice?cPage=${cPage}";
+// 								location.href="/notice/toNotice?cPage=${cPage}";
+ 								location.href="javascript:history.back()";
 							});
 							
 							$("#delete").on("click", function(){
@@ -350,20 +351,20 @@ body {
 				</div>
 				<c:if test="${upDown.prevNum ne 0 }">
 				<div class="row" style="border-top:1px solid black; border-bottom:1px solid gray; margin:0px;height:30px;line-height:30px;">
-					<div class="col-sm-2">
+					<div class="col-xs-12 col-sm-2">
 						▲ 이전 글
 					</div>
-					<div class="col-sm-10">
+					<div class="col-xs-12 col-sm-10">
 						<a href="/notice/detail?notice_id=${upDown.prevNum}&member_id=${upDown.prevMember}&cPage=${cPage}"><div style="width: 100%;">${upDown.prevTitle}</div></a>
 					</div>
 				</div>
 				</c:if>
 				<c:if test="${upDown.nextNum ne 0 }">
 				<div class="row" style="border-bottom:1px solid black; margin:0px;height:30px;line-height:30px;">
-					<div class="col-sm-2">
+					<div class="col-xs-12 col-sm-2">
 						▼ 다음 글
 					</div>
-					<div class="col-sm-10">
+					<div class="col-xs-12 col-sm-10">
 						<a href="/notice/detail?notice_id=${upDown.nextNum}&member_id=${upDown.nextMember}&cPage=${cPage}"><div style="width: 100%;">${upDown.nextTitle}</div></a>
 					</div>
 				</div>

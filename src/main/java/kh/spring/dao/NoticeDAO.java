@@ -22,6 +22,17 @@ public class NoticeDAO {
 		return mybatis.selectList("Notice.selectAll");
 	}
 	
+	public int selectRecordCount() {
+		return mybatis.selectOne("Notice.selectRecordCount");
+	}
+	
+	public int selectRecordCount(String select, String keyword) {
+		Map<String, String> map = new HashMap<>();
+		map.put("select", select);
+		map.put("keyword", keyword);
+		return mybatis.selectOne("Notice.selectKeywordCount",map);
+	}
+	
 	public NoticeDTO selectById(int notice_id) {
 		return mybatis.selectOne("Notice.selectById", notice_id);
 	}
@@ -51,10 +62,6 @@ public class NoticeDAO {
 		return mybatis.update("Notice.updateViewCount", notice_id);
 	}
 	
-	public int selectRecordCount() {
-		return mybatis.selectOne("Notice.selectRecordCount");
-	}
-	
 	public List<NoticeDTO> selectByBound(int start, int end) {
 		
 		Map<String, String> map = new HashMap<>();
@@ -64,11 +71,13 @@ public class NoticeDAO {
 		return mybatis.selectList("Notice.selectByBound", map);
 	}
 	
-	public List<NoticeDTO> selectByKeyword(String select, String keyword){
+	public List<NoticeDTO> selectByKeyword(int start, int end, String select, String keyword){
 		
 		Map<String,String> map = new HashMap<>();
 		map.put("select", select);
 		map.put("keyword", keyword);
+		map.put("start", String.valueOf(start));
+		map.put("end", String.valueOf(end));
 		return mybatis.selectList("Notice.selectByKeyword", map);
 		
 	}

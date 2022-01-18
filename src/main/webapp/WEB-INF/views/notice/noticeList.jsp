@@ -216,7 +216,7 @@ select {
 						<div class="col-2 d-md-none pl-2">${notices.notice_id }</div>
 						<!--모바일버전 title,작성자,날짜-->
 						<div class="col-8 d-md-none pl-2">
-							<a href="/detail.board?cPage=${cPage }&notice_id=${notices.notice_id}"
+							<a href="/notice/detail?notice_id=${notices.notice_id}&member_id=${notices.member_id}&cPage=${cPage}"
 								class="text-big" data-abc="true">${notices.notice_title }</a>
 							<div class="text-muted small mt-1 d-md-none">${notices.getFormedDate() }
 								&nbsp;·&nbsp;by ${notices.member_username }</div>
@@ -295,7 +295,8 @@ select {
 		         				let keyword = $(".input-search").val();
 		         				location.href="/notice/search?cPage=1&select="+select+"&keyword="+keyword;
 	         				}
-	         			})	
+	         			})
+
 	         		</script>
 					</div>
 				</div>

@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>${dto.notice_title}</title>
+<title>${notices.notice_title}</title>
 <link
 	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
 	rel="stylesheet" />
@@ -269,82 +269,79 @@ body {
 								</ul>
 							</div>
 						</div>
-						<input type="hidden" value="${dto.member_id}" name="member_id">
-						<input type="hidden" value="${dto.notice_id}" name="notice_id">
+						<input type="hidden" value="${notices.member_id}" name="member_id">
+						<input type="hidden" value="${notices.notice_id}" name="notice_id">
 					</div>
 				</div>
-				<div class="row" style="border-top:1px solid black; margin:0px;">
-					<div class="col-sm-2" style="background-color:#DCDADA;">
+				<div class="row" style="border-top:1px solid black; margin:0px;height:30px;line-height:29px;">
+					<div class="col-sm-2" style="background-color:#B1D0E0;">
 						제목
 					</div>
 					<div class="col-sm-10"">
-						<div id=input-title name=title style="width: 100%;">${dto.notice_title}</div>
+						<div id=input-title name=title style="width: 100%;">${notices.notice_title}</div>
 					</div>
 				</div>
-				<div class="row" style="margin:0px;border-top:1px solid gray;border-bottom:1px solid gray;">
-					<div class="col-sm-2" style="background-color:#DCDADA;">
+				<div class="row" style="margin:0px;border-top:1px solid gray;border-bottom:1px solid gray;height:30px;line-height:28px;">
+					<div class="col-sm-2" style="background-color:#B1D0E0;">
 						작성자
 					</div>
 					<div class="col-sm-10">
 						<div id=input-title name=title style="width: 100%;">${username}</div>
 					</div>
 				</div>
-				<div class="row" style="border-bottom:1px solid gray; margin:0px;">
-					<div class="col-sm-2" style="background-color:#DCDADA;">
+				<div class="row" style="border-bottom:1px solid gray; margin:0px;height:30px;line-height:29px;">
+					<div class="col-sm-2" style="background-color:#B1D0E0;">
 						작성일
 					</div>
 					<div class="col-sm-2">
-						${dto.getFormedDate()}
+						${notices.getFormedDate()}
 					</div>
-					<div class="col-sm-2" style="background-color:#DCDADA;">
+					<div class="col-sm-2" style="background-color:#B1D0E0;">
 						조회수
 					</div>
 					<div class="col-sm-6">
-						<div id=input-title name=title style="width: 100%;">${dto.notice_view_count}</div>
+						<div id=input-title name=title style="width: 100%;">${notices.notice_view_count}</div>
 					</div>
 				</div>
+				<br>
 				<div class="row">
 					<div class="col-sm-12">
 						<div id="contents" name="contents"
-							style="min-height: 200px; overflow: auto;">${dto.notice_content}</div>
+							style="min-height: 200px; overflow: auto;">${notices.notice_content}</div>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-sm-12" style="text-align: right; margin-top:15px;margin-bottom:15px;">
-						<%-- <c:if test="${loginID==dto.member_id}"> --%>
+						<%-- <c:if test="${loginID==notices.member_id}"> --%>
 							<button type="button" class="btn btn-dark" id="update"
-								style="background-color: rgb(255, 111, 97);">수정하기</button>
+								style="background-color: #406882;">수정하기</button>
 							<button type="button" class="btn btn-dark" id="delete"
-								style="background-color: rgb(255, 111, 97);">삭제하기</button>
-							<button type="button" class="btn btn-dark" id="modDone"
-								style="background-color: rgb(255, 111, 97); display: none;">수정완료</button>
-							<button type="button" class="btn btn-dark" id="cancel"
-								style="background-color: rgb(255, 111, 97); display: none;">취소</button>
+								style="background-color: #406882;">삭제하기</button>
 						<%-- </c:if> --%>
 						<c:if test="${loginID=='admin'}">
 							<button type="button" class="btn btn-dark" id="del"
-								style="background-color: rgb(255, 111, 97);">삭제하기</button>
+								style="background-color: #406882;">삭제하기</button>
 						</c:if>
-						<button type="button" id="boardList" class="btn btn-dark"
-							style="background-color: rgb(255, 111, 97);">목록으로</button>
+						<button type="button" id="board-list" class="btn btn-dark"
+							style="background-color: #406882;">목록으로</button>
 							
 						<script>
-							$("#boardList").on("click",function(){
-								location.href="/notice/toNotice";
+							$("#board-list").on("click",function(){
+								location.href="/notice/toNotice?cpage=${cpage}";
 							});
 							
 							$("#delete").on("click", function(){
 		                		if(confirm("정말 삭제하시겠습니까? \r\n되돌릴 수 없습니다.")) {
 // 		                			if($("#member_id").val()=="admin"){
-		                			 location.href="/notice/delete?notice_id="+${dto.notice_id};
+		                			 location.href="/notice/delete?notice_id="+${notices.notice_id};
 // 		                			}else{
-// 		                				location.href="/delete.board?cpage=${cpage}&seq=${dto.notice_id}";
+// 		                				location.href="/delete.board?cpage=${cpage}&seq=${notices.notice_id}";
 // 		                			}
 		                		}
 		                	});
 							
 							$("#update").on("click", function(){
-								location.href="/notice/toUpdate?notice_id="+${dto.notice_id};
+								location.href="/notice/toUpdate?notice_id=${notices.notice_id}&cpage=${cpage}";
 							});
 							
 							</script>
@@ -352,22 +349,22 @@ body {
 					</div>
 				</div>
 				<c:if test="${upDown.prevNum ne 0 }">
-				<div class="row" style="border-top:1px solid black; border-bottom:1px solid gray; margin:0px;">
+				<div class="row" style="border-top:1px solid black; border-bottom:1px solid gray; margin:0px;height:30px;line-height:30px;">
 					<div class="col-sm-2">
 						▲ 이전 글
 					</div>
 					<div class="col-sm-10">
-						<a href="/notice/detail?notice_id=${upDown.prevNum}&member_id=${upDown.prevMember}"><div style="width: 100%;">${upDown.prevTitle}</div></a>
+						<a href="/notice/detail?notice_id=${upDown.prevNum}&member_id=${upDown.prevMember}&cpage=${cpage}"><div style="width: 100%;">${upDown.prevTitle}</div></a>
 					</div>
 				</div>
 				</c:if>
 				<c:if test="${upDown.nextNum ne 0 }">
-				<div class="row" style="border-bottom:1px solid black; margin:0px;">
+				<div class="row" style="border-bottom:1px solid black; margin:0px;height:30px;line-height:30px;">
 					<div class="col-sm-2">
 						▼ 다음 글
 					</div>
 					<div class="col-sm-10">
-						<a href="/notice/detail?notice_id=${upDown.nextNum}&member_id=${upDown.nextMember}"><div style="width: 100%;">${upDown.nextTitle}</div></a>
+						<a href="/notice/detail?notice_id=${upDown.nextNum}&member_id=${upDown.nextMember}&cpage=${cpage}"><div style="width: 100%;">${upDown.nextTitle}</div></a>
 					</div>
 				</div>
 				</c:if>
@@ -375,150 +372,6 @@ body {
 			
 		</div>
 			<hr>
-			
-			<!-- 댓글 보여주기 -->
-			<%-- <c:if test="${fn:length(cList)!=0}">
-				<c:forEach var="cdto" items="${cList }">
-					<form
-						action='/modifyCmt.board?cseq=${cdto.seq }&cpage=${cpage }&seq=${seq}'
-						method="post" class="frm-cmt">
-						<div class="container mb-4">
-							<div class="row" style="padding-bottom: 5px;">
-								<div class="col-sm-12">
-									<div class="row profile-detail">
-										<div class="col profile-box">
-											<div class="img-box"
-												style="height: 100%; display: inline-block">
-												<img id="profile" class="img-profile"
-													style="width: 50px; height: 50px;"
-													src="/profile.file?writer=${cdto.writer }" alt="">
-											</div>
-											<ul
-												class="meta list list-unstyled profile-detail d-flex mb-0 ml-2">
-												<li class="name mt-0" style="color: rgba(255, 111, 97);">${cdto.profileName}</li>
-												<li class="label" style="margin: 0; padding: 0">${cdto.member }</li>
-											</ul>
-											<ul
-												class="meta list list-unstyled profile-detail d-flex mb-0"
-												style="margin-left: auto; justify-content: flex-end;">
-												<li class="label" style="margin: 0; padding: 0">${cdto.detailDate}</li>
-											</ul>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="row">
-								<div class="col-sm-12">
-									<textarea class="contents" cols rows name="contents-cmt"
-										readonly style="height: auto;">${cdto.contents}</textarea>
-									<script>
-                			autosize($("textArea"));
-			                </script>
-								</div>
-							</div>
-							<div class="row">
-								<div class="col-sm-12" style="text-align: right">
-									<c:if test="${loginID==cdto.writer}">
-										<button type="button" class="btn btn-dark modCmt"
-											style="background-color: rgb(255, 111, 97);">수정</button>
-										<button class="btn btn-dark modCmtOk"
-											style="background-color: rgb(255, 111, 97); display: none;">완료</button>
-										<button type="button" class="btn btn-dark modCmtCancel"
-											style="background-color: rgb(255, 111, 97); display: none;">취소</button>
-										<button type="button" class="btn btn-dark delCmt"
-											style="background-color: rgb(255, 111, 97);">삭제</button>
-										<input id=hidden-cseq type=hidden value=${cdto.seq }>
-									</c:if>
-									<c:if test="${loginID=='kkanbu'}">
-										<button type="button" class="btn btn-dark delCmt"
-											style="background-color: rgb(255, 111, 97);">삭제</button>
-										<input id=hidden-cseq type=hidden value=${cdto.seq }>
-									</c:if>
-								</div>
-							</div>
-						</div>
-					</form>
-				</c:forEach>
-			</c:if> --%>
-			<%-- <script>
-   	$(".card").on("click",".modCmt",function(){
-   		$(this).css("display","none");
-   		$(this).next().next().next().css("display","none");
-   		$(this).next().css("display","inline-block");
-   		$(this).next().next().css("display","inline-block");
-   		// 기존 내용 백업
-    	bkContentsCmt = $(this).closest(".frm-cmt").find("textarea").val();
-   		$(this).closest(".frm-cmt").find("textarea").removeAttr("readonly");
-   		$(this).closest(".frm-cmt").find("textarea").focus();
-   	});
-   	$(".card").on("click",".modCmtCancel",function(){
-   		$(this).closest(".frm-cmt").find("textarea").val(bkContentsCmt);
-   		$(this).closest(".frm-cmt").find("textarea").attr("readonly","");
-   		$(this).prev().prev().css("display","inline-block");
-   		$(this).next().css("display","inline-block");
-   		$(this).prev().css("display","none");
-   		$(this).css("display","none");
-   	});
-   	$(".card").on("click",".delCmt",function(){
-   		if(confirm("정말 삭제하시겠습니까?")){
-   			$(this).closest(".frm-cmt").remove();
-   			let cseq = $(this).next().val();
-   			location.href="/delCmt.board?cseq="+cseq+"&cpage=${cpage }&seq=${seq}";
-   		}
-   	});
-   	$(".card").on("click","modCmtOk",function(){
-   	})
-	</script>
-			<!-- 댓글 작성 칸 -->
-			<hr>
-			<form action='/doneCmt.board?cpage=${cpage }&seq=${seq}'
-				method="post" id="frm-cmt">
-				<div class="container mb-4">
-					<div class="row" style="padding-bottom: 5px;">
-						<div class="col-sm-12">
-							<div class="row profile-detail">
-								<div class="col profile-box mb-2 ">
-									<div class="img-box"
-										style="height: 100%; display: inline-block">
-										<img id="profile" class="img-profile"
-											style="width: 50px; height: 50px;"
-											src="/profile.file?writer=${loginID }" alt="">
-									</div>
-									<ul
-										class="meta list list-unstyled profile-detail d-flex mb-0 ml-2">
-										<li class="name mt-0" style="color: rgba(255, 111, 97);">${loginName}</li>
-										<li class="label" style="margin: 0; padding: 0">${loginMember }</li>
-									</ul>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-sm-12">
-							<textarea id="contents-cmt" cols=170 rows=4 name="contents-cmt"></textarea>
-							<script>
-            	autosize($("textArea"));
-                </script>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-sm-12" style="text-align: right">
-							<button type=button class="btn btn-dark" id="writeCmt"
-								style="background-color: rgb(255, 111, 97);">등록</button>
-							<script>
-            $("#writeCmt").on("click",function(){
-            	if($("#contents-cmt").val()==""){
-            		alert("내용을 입력해주세요.");
-            	}else{
-            		$("#frm-cmt").submit();
-            	}
-            })
-            </script>
-						</div>
-					</div>
-				</div>
-			</form>--%>
-
 	</div>
 </body>
 </html>

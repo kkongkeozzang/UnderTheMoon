@@ -347,11 +347,7 @@ body {
 							
 							$("#delete").on("click", function(){
 		                		if(confirm("정말 삭제하시겠습니까? \r\n되돌릴 수 없습니다.")) {
-// 		                			if($("#member_id").val()=="admin"){
 		                			 location.href="/notice/delete?notice_id="+${notices.notice_id};
-// 		                			}else{
-// 		                				location.href="/delete.board?cPage=${cPage}&seq=${notices.notice_id}";
-// 		                			}
 		                		}
 		                	});
 							
@@ -385,10 +381,9 @@ body {
 					</div>
 				</div>
 				</c:if>
-			</div>
-			
+			</div>	
 		</div>
-			<hr>
+		<hr>
 	</div>
 </body>
 </html>

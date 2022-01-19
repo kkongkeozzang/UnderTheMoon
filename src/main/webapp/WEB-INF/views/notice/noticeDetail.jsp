@@ -275,6 +275,8 @@ body {
 						</div>
 						<input type="hidden" value="${notices.member_id}" name="member_id">
 						<input type="hidden" value="${notices.notice_id}" name="notice_id">
+						<input type="hidden" value="${username}" id="username">
+						<input type="hidden" value="${principal.username}" id="principal.username">
 					</div>
 				</div>
 				<div class="row" style="border-top:1px solid black; margin:0px;height:30px;line-height:29px;">
@@ -316,15 +318,22 @@ body {
 				</div>
 				<div class="row">
 					<div class="col-sm-12" style="text-align: right; margin-top:15px;margin-bottom:15px;">
-						<c:if test="${username eq currname }">
-							<button type="button" class="btn btn-dark" id="update"
-								style="background-color: #406882;">수정하기</button>
-							<button type="button" class="btn btn-dark" id="delete"
-								style="background-color: #406882;">삭제하기</button>
-						</c:if>
-						<button type="button" id="board-list" class="btn btn-dark"
-							style="background-color: #406882;">목록으로</button>
-							
+						<c:choose>
+							<c:when test="${username == principal.username }">
+								<button type="button" class="btn btn-dark" id="update"
+									style="background-color: #406882;">수정하기</button>
+								<button type="button" class="btn btn-dark" id="delete"
+									style="background-color: #406882;">삭제하기</button>
+							</c:when>
+							<c:otherwise>
+								<sec:authorize access="hasRole('ROLE_ADMIN')">
+									<button type="button" class="btn btn-dark" id="delete"
+										style="background-color: #406882;">삭제하기</button>
+								</sec:authorize>
+							</c:otherwise>
+						</c:choose>
+							<button type="button" id="board-list" class="btn btn-dark"
+								style="background-color: #406882;">목록으로</button>
 						<script>
 							$("#board-list").on("click",function(){
 								if(document.referrer.split('/')[4].indexOf('search')>=0){
@@ -350,6 +359,9 @@ body {
 								location.href="/notice/toUpdate?notice_id=${notices.notice_id}&cPage=${cPage}";
 							});
 							
+							username = $("#username").val();
+							principal.username = ("#principal.username").val();
+							
 						</script>
 					</div>
 				</div>
@@ -373,13 +385,6 @@ body {
 					</div>
 				</div>
 				</c:if>
-				<script>
-				$(document).ready(function() {
-					console.log("${principal.username }");
-					console.log("${username}");
-					
-				})
-				</script>
 			</div>
 			
 		</div>

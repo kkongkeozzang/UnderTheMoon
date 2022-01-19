@@ -57,11 +57,9 @@ public class NoticeController {
 		int viewCount = noticeService.updateViewCount(notice_id);
 		NoticeDTO selectUpDown = noticeService.selectUpDown(notice_id);
 		String username = noticeService.selectUsername(member_id);
-		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		String currname = ((UserDetails)principal).getUsername();
 		model.addAttribute("notices", notices);
 		model.addAttribute("username", username);
-		model.addAttribute("currname", currname);
+
 		model.addAttribute("upDown", selectUpDown);
 		model.addAttribute("cPage", cPage);
 		return "/notice/noticeDetail";

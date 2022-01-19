@@ -166,12 +166,8 @@ function getPage(pageNavi, select, sort) {
                 <div class="col-lg-7 mt-5">
                     <div class="card">
                         <div class="card-body">
-<<<<<<< HEAD
-                        	<input type="hidden" id="md_id" value="${mdDetails.md_id }">
-=======
                         	<input id="md_id" type="hidden" value="${mdDetails.md_id }">
                         	<input id="member_username" type=hidden value=${principal.username }>
->>>>>>> 87751adc92bf46d7172ad07fd0cecac6591cee32
                             <h1 class="h2">${mdDetails.md_name }</h1>
                             <p class="h3 py-2">${mdDetails.md_price }</p>
                             <ul class="list-inline">

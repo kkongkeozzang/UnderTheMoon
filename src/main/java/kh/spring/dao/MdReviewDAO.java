@@ -27,13 +27,14 @@ public class MdReviewDAO {
 			return mybatis.selectList("MdReview.selectAllByBoundByMdIdViewSort",map);
 		} else if(sort.equals("likeSort")) {
 			return mybatis.selectList("MdReview.selectAllByBoundByMdIdLikeSort",map);
-		} else {
-			return mybatis.selectList("MdReview.selectAllByBoundByMdId", map);
+		} else if(sort.equals("question")){
+			return mybatis.selectList("MdReview.selectAllQuestionByBoundByMdId",map);
 		}
+		return mybatis.selectList("MdReview.selectAllByBoundByMdId", map);
 	}
 	
 	public int selectCount(String md_id) {
 		return mybatis.selectOne("MdReview.selectCount",md_id);
 	}
-	
+		
 }

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -145,10 +146,11 @@ select {
 	color: black;
 }
 </style>
+<sec:authorize access="isAuthenticated()">
+    <sec:authentication property="principal" var="principal"/>
+</sec:authorize>
 </head>
 <body>
-	<!-- 메인 네비바 -->
-	<%-- <jsp:include page="/header.jsp" flush="false" /> --%>
 
 	<!-- 타이틀  -->
 	<div class="container-fluid mt-100">
@@ -241,6 +243,7 @@ select {
 							<option value="notice_content">내용</option>
 						</select>
 						<input type="text" placeholder="Search..." class="input-search" style="width: 66%; height: 100%;">
+						<input id="member_username" type=hidden value=${principal.username }>
 					</div>
 					<div class="col-4 pl-0">
 						<button type="button"
@@ -248,12 +251,14 @@ select {
 							style="background-color: #406882; border-color: #406882;">
 							검색하기</button>
 					</div>
-					<div class="col-4" style="text-align: right;padding-right:0px;">
-						<button type="button"
-							class="btn-write btn btn-shadow btn-wide btn-primary"
-							style="background-color: #406882; border-color: #406882;">
-							글 쓰기</button>
-					</div>
+					<sec:authorize access="hasRole('ROLE_ADMIN')">
+						<div class="col-4" style="text-align: right;padding-right:0px;">
+							<button type="button"
+								class="btn-write btn btn-shadow btn-wide btn-primary"
+								style="background-color: #406882; border-color: #406882;">
+								글 쓰기</button>
+						</div>
+					</sec:authorize>
 				</div>
 			</div>
 

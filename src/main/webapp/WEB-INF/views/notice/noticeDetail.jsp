@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -244,6 +245,9 @@ body {
 	cursor: pointer
 }
 </style>
+<sec:authorize access="isAuthenticated()">
+    <sec:authentication property="principal" var="principal"/>
+</sec:authorize>
 </head>
 <body>
 
@@ -312,14 +316,10 @@ body {
 				</div>
 				<div class="row">
 					<div class="col-sm-12" style="text-align: right; margin-top:15px;margin-bottom:15px;">
-						<%-- <c:if test="${loginID==notices.member_id}"> --%>
+						<c:if test="${principal.username } == 'admin'">
 							<button type="button" class="btn btn-dark" id="update"
 								style="background-color: #406882;">수정하기</button>
 							<button type="button" class="btn btn-dark" id="delete"
-								style="background-color: #406882;">삭제하기</button>
-						<%-- </c:if> --%>
-						<c:if test="${loginID=='admin'}">
-							<button type="button" class="btn btn-dark" id="del"
 								style="background-color: #406882;">삭제하기</button>
 						</c:if>
 						<button type="button" id="board-list" class="btn btn-dark"

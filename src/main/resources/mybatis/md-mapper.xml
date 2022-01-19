@@ -81,8 +81,8 @@
 		where rn between 1 and 12
 	</select>
 	
-	<select id="selectMdById" resultType="kh.spring.dto.MdDTO">
+	<!-- <select id="selectMdById" resultType="kh.spring.dto.MdDTO">
 		select * from md where md_id = #{md_id}
-	</select>
+	</select> -->
 	
 </mapper>

@@ -13,7 +13,6 @@
 	<a href="/notice/toNotice?cPage=1">공지사항</a>
 	<a href="/login">로그인..</a>
 	<a href="/signup">회원가입</a>
-	<a href="/mdDetailTemp">Temporary 상품상세페이지..</a>
 	<a href="/cart/cart">장바구니..</a>
 
 </body>

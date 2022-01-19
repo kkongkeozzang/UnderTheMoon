@@ -23,7 +23,8 @@ public class CartAPIController {
 	}
 	
 	@PostMapping("addToCart")
-	public ResponseEntity<Integer> addToCart(String member_username,Integer md_id, int cart_item_count){
+	public ResponseEntity<Integer> addToCart(String member_username,Integer md_id, Integer cart_item_count){
+		
 		
 		Integer result = cartService.addToCart(member_username,md_id,cart_item_count);
 		

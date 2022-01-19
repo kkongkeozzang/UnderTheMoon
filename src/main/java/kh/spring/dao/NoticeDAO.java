@@ -78,6 +78,7 @@ public class NoticeDAO {
 		map.put("keyword", keyword);
 		map.put("start", String.valueOf(start));
 		map.put("end", String.valueOf(end));
+
 		return mybatis.selectList("Notice.selectByKeyword", map);
 		
 	}

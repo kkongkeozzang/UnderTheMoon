@@ -37,6 +37,7 @@ public class NoticeController {
 	}
 	
 	@RequestMapping("toNotice")
+
 	public String notice(Model model, int cPage) throws Exception {
 //		service.insertDummy(); // 더미자료생성용도
 		int start = cPage * PageStatic.NOTICE_COUNT_PER_PAGE-(PageStatic.NOTICE_COUNT_PER_PAGE - 1);

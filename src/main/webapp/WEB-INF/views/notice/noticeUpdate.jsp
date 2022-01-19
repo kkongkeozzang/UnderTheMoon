@@ -365,7 +365,6 @@ body {
 		function fn_checkByte_update(obj){
 			maxByte = 4000; //최대 4000바이트
 		    const text_val = $(".note-editable").html(); //입력한 문자
-		    console.log(text_val);
 		    const text_len = text_val.length; //입력한 문자수
 		    
 		    totalByte = 0; // 입력한 바이트수		    

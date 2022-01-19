@@ -4,12 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-public class TempMdDetailController {
+@RequestMapping("/purchaseDetail/")
+public class PurchaseDetailController {
 
-	
-	@RequestMapping("/mdDetailTemp")
-	public String home() {
-		
-		return "/md/tempMdDetail";
-	}
 }

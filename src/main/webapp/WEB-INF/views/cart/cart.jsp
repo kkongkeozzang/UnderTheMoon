@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -136,8 +137,26 @@ $(function(){
 	    	  $("#totalPrice").val(totalPrice_int-singleItemPriceInt);
 	     })
 	   })
+	   //주문서로 이동하는곳.
+	   $("#order").on("click",function(){
+			$.ajax({
+		  	  type: 'get',
+		        url:"/purchase/purchase",
+		        data: {
+		      	  member_username: $("#member_username").val(),
+		          order_detail_price: $("#totalPrice").val()
+		        }
+		     }).done(function(resp){
+		    	  
+		    		 document.location.href="/purchase/purchase";
+		    		
+		     })
+		   })
 	})
 </script>
+<sec:authorize access="isAuthenticated()">
+    <sec:authentication property="principal" var="principal"/>
+</sec:authorize>
 </head>
 <body>
 <div class="container">
@@ -166,6 +185,7 @@ $(function(){
 							<td data-th="Quantity">
 								<button class="plus" type ="button">+</button>
 									 <input type="hidden" class="cart_id" value="${cart.cart_id}">
+									 <input id="member_username" type=hidden value=${principal.username }>
 									<input type="number" class="count form-control text-center" value="${cart.cart_item_count}" readonly>
 								<button class="minus" type="button">-</button>
 							</td>
@@ -180,13 +200,13 @@ $(function(){
 					
 					<tfoot>
 						<tr class="visible-xs">
-							<td class="text-center"><strong>Total 1.99</strong></td>
+							
 						</tr>
 						<tr>
 							<td><a href="#" class="btn btn-warning"><i class="fa fa-angle-left"></i> 쇼핑계속하기</a></td>
 							<td colspan="2" class="hidden-xs"></td>
 							<td class="hidden-xs text-center">Total <input type="text" id="totalPrice" value="${ totalPrice}" readonly> </td>
-							<td><a href="#" class="btn btn-success btn-block">주문하기 <i class="fa fa-angle-right"></i></a></td>
+							<td><a href="#" id="order" class="btn btn-success btn-block">주문하기 <i class="fa fa-angle-right"></i></a></td>
 						</tr>
 					</tfoot>
 				</table>

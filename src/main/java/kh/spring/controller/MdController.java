@@ -44,8 +44,7 @@ public class MdController {
 		int cPage = Integer.parseInt(currentPage);
 		int start = cPage*PageStatic.MD_COUNT_PER_PAGE-(PageStatic.MD_COUNT_PER_PAGE-1);
 		int end = cPage*PageStatic.MD_COUNT_PER_PAGE;
-		List<MdDTO> mds = null;
-		mds = mdService.selectByBound(start, end, select, sort);
+		List<MdDTO> mds = mdService.selectByBound(start, end, select, sort);
 		int allMdCount = mdService.selectCount(select);
 			
 		List<String> pageNavis = PageNavigator.getPageNavigator(allMdCount, cPage, PageStatic.MD_COUNT_PER_PAGE, PageStatic.MD_NAVI_COUNT_PER_PAGE, select, sort);

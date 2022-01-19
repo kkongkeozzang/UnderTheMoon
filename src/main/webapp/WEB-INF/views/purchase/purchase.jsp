@@ -11,6 +11,7 @@
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <style>
 .table>tbody>tr>td, .table>tfoot>tr>td{
     vertical-align: middle;
@@ -136,6 +137,23 @@ $(function(){
 	    	  $("#totalPrice").val(totalPrice_int-singleItemPriceInt);
 	     })
 	   })
+	   //주문서로 이동하는곳.
+	   $("#order").on("click",function(){
+			$.ajax({
+		  	  type: 'get',
+		        url:"/purchase/purchase",
+		        data: {
+		      	  member_username: $("#member_username").val(),
+		          order_detail_price: $("#totalPrice").val()
+		        }
+		     }).done(function(resp){
+		    	  
+		    		 document.location.href="/purchase/purchase";
+		    		
+		     })
+		   })
+		   
+		  
 	})
 </script>
 </head>
@@ -152,7 +170,7 @@ $(function(){
 						</tr>
 					</thead>
 					<tbody>
-					 <c:forEach var="cart" items="${cartDTO }">
+					 <c:forEach var="cart" items="${carts }">
 						<tr class="cart-unit">
 							<td data-th="Product">
 								<div class="row">
@@ -176,11 +194,9 @@ $(function(){
 							</td>
 						</tr>
 						</c:forEach>
-					</tbody>
-					
+					</tbody>	
 					<tfoot>
 						<tr class="visible-xs">
-							<td class="text-center"><strong>Total 1.99</strong></td>
 						</tr>
 						<tr>
 							<td><a href="#" class="btn btn-warning"><i class="fa fa-angle-left"></i> 쇼핑계속하기</a></td>
@@ -190,6 +206,29 @@ $(function(){
 						</tr>
 					</tfoot>
 				</table>
+				
+				<div class="form-group">
+					    <label for="address">배송지:</label>
+					    <input id="roadAddress" type="text" class="form-control" value="${member.member_address1}" id="address" readonly>
+					  </div>
+					  <div class="form-group">
+					    <label for="address2">상세주소:</label>
+					    <input type="text" class="form-control" value="${member.member_address2}" id="address2">
+					  </div>
+					<button id="addressSearch" type="button" class="btn btn-primary">주소검색</button>
+					
+					
 </div>
 </body>
+
+					<script>
+					 document.getElementById("addressSearch").onclick = function(){
+					        new daum.Postcode({
+					            oncomplete: function(data) {                                 
+					                /* document.getElementById('postcode').value = data.zonecode; */
+					                document.getElementById("roadAddress").value = data.roadAddress;                   
+					            }            
+					        }).open();
+					    }
+					</script>
 </html>

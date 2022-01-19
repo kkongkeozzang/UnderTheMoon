@@ -218,7 +218,7 @@ body {
 				<div class="container mb-4 mt-4">
 					<div class="row" style="padding-bottom: 5px;">
 						<div class="col-sm-12">
-							<input type="hidden" name=member_id value=1> 
+							<input type="hidden" name=member_id value=${member_id}> 
 							<input type=text id=input-title name=notice_title placeholder="제목을 작성하세요" style="width: 100%;">
 						</div>
 					</div>
@@ -330,7 +330,6 @@ body {
 			});
 		}
 		
-<<<<<<< HEAD
 		function fn_checkByte(obj){
 			maxByte = 4000; //최대 4000바이트
 		    const text_val = obj //입력한 문자
@@ -357,17 +356,6 @@ body {
 	            document.getElementById("nowByte").style.color = "green";
 	        }
 	    }
-=======
-		// 태그제거용
-		function f_SkipTags_html(input, allowed) {
-			allowed = (((allowed || "") + "").toLowerCase().match(/<[a-z][a-z0-9]*>/g) || []).join(''); // making sure the allowed arg is a string containing only tags in lowercase (<a><b><c>)
-			var tags = /<\/?([a-z][a-z0-9]*)\b[^>]*>/gi,
-			commentsAndPhpTags = /<!--[\s\S]*?-->|<\?(?:php)?[\s\S]*?\?>/gi;
-			return input.replace(commentsAndPhpTags, '').replace(tags, function ($0, $1) {
-				return allowed.indexOf('<' + $1.toLowerCase() + '>') > -1 ? $0 : '';
-			});
-		}
->>>>>>> 87751adc92bf46d7172ad07fd0cecac6591cee32
 		
 		function fn_checkByte_update(obj){
 			maxByte = 4000; //최대 4000바이트

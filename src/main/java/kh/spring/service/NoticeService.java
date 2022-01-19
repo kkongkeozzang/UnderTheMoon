@@ -64,6 +64,10 @@ public class NoticeService {
 		return noticeDAO.selectByKeyword(start, end, select, keyword);
 	}
 	
+	public int selectMemberId(String username) {
+		return noticeDAO.selectMemberId(username);
+	}
+	
 //	public void insertDummy() {
 //		dao.insertDummy();
 //	}

@@ -83,6 +83,10 @@ public class NoticeDAO {
 		
 	}
 	
+	public int selectMemberId(String username) {
+		return mybatis.selectOne("Notice.selectMemberId", username);
+	}
+	
 //	public void insertDummy() {
 //		Map<String,String> map = new HashMap<>();
 //		for (int i = 1; i < 146; i++) {

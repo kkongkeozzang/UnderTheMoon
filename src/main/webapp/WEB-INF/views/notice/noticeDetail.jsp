@@ -289,7 +289,7 @@ body {
 					<div class="col-xs-12 col-sm-2" style="background-color:#B1D0E0;">
 						작성자
 					</div>
-					<div class="col-xs-12 col-sm-10" id=input-title name=title style="width: 100%;">
+					<div class="col-xs-12 col-sm-10" id=input-title name=username style="width: 100%;">
 						${username}
 					</div>
 				</div>
@@ -316,7 +316,7 @@ body {
 				</div>
 				<div class="row">
 					<div class="col-sm-12" style="text-align: right; margin-top:15px;margin-bottom:15px;">
-						<c:if test="${principal.username } == 'admin'">
+						<c:if test="${username eq currname }">
 							<button type="button" class="btn btn-dark" id="update"
 								style="background-color: #406882;">수정하기</button>
 							<button type="button" class="btn btn-dark" id="delete"
@@ -373,6 +373,13 @@ body {
 					</div>
 				</div>
 				</c:if>
+				<script>
+				$(document).ready(function() {
+					console.log("${principal.username }");
+					console.log("${username}");
+					
+				})
+				</script>
 			</div>
 			
 		</div>

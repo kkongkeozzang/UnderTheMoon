@@ -3,13 +3,14 @@ package kh.spring.controller;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.io.FileUtils;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -20,7 +21,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.JsonObject;
 
-import kh.spring.dto.MdDTO;
 import kh.spring.dto.NoticeDTO;
 import kh.spring.service.NoticeService;
 import kh.spring.util.PageNavigator;
@@ -57,15 +57,23 @@ public class NoticeController {
 		int viewCount = noticeService.updateViewCount(notice_id);
 		NoticeDTO selectUpDown = noticeService.selectUpDown(notice_id);
 		String username = noticeService.selectUsername(member_id);
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String currname = ((UserDetails)principal).getUsername();
 		model.addAttribute("notices", notices);
 		model.addAttribute("username", username);
+		model.addAttribute("currname", currname);
 		model.addAttribute("upDown", selectUpDown);
 		model.addAttribute("cPage", cPage);
 		return "/notice/noticeDetail";
 	}
 		
 	@RequestMapping("toWrite")
-	public String toWrite() {
+	public String toWrite(Model model) {
+		//로그인된 아이디
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String username = ((UserDetails)principal).getUsername();
+		int result = noticeService.selectMemberId(username);
+		model.addAttribute("member_id", result);
 		return "/notice/noticeWrite";
 	}
 	

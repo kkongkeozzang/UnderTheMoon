@@ -259,6 +259,14 @@ select {
 								글 쓰기</button>
 						</div>
 					</sec:authorize>
+					<sec:authorize access="hasRole('ROLE_SELLER')">
+						<div class="col-4" style="text-align: right;padding-right:0px;">
+							<button type="button"
+								class="btn-write btn btn-shadow btn-wide btn-primary"
+								style="background-color: #406882; border-color: #406882;">
+								글 쓰기</button>
+						</div>
+					</sec:authorize>
 				</div>
 			</div>
 
@@ -279,11 +287,18 @@ select {
 							검색하기</button>
 					</div>
 					<div class="col-3" style="text-align: right;">
-
+					<sec:authorize access="hasRole('ROLE_ADMIN')">
 						<button type="button" id="done"
 							class="btn btn-shadow btn-wide btn-primary btn-write"
 							style="background-color: #406882; border-color: #406882;">
 							글쓰기</button>
+					</sec:authorize>
+					<sec:authorize access="hasRole('ROLE_SELLER')">
+						<button type="button" id="done"
+							class="btn btn-shadow btn-wide btn-primary btn-write"
+							style="background-color: #406882; border-color: #406882;">
+							글쓰기</button>
+					</sec:authorize>
 						<script>
 	         			$(".btn-write").on("click",function(){
 	         				location.href="/notice/toWrite";

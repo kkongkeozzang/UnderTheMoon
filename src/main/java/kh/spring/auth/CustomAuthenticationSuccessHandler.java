@@ -11,18 +11,15 @@ import org.springframework.security.web.authentication.SavedRequestAwareAuthenti
 
 
 public class CustomAuthenticationSuccessHandler extends SavedRequestAwareAuthenticationSuccessHandler {
-
+	
+	
 	@Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, 
         Authentication authentication) throws ServletException, IOException {
-        
-		
-		
-		
-		
 		response.sendRedirect("/");
     }
 
-
+	
+	
 
 }

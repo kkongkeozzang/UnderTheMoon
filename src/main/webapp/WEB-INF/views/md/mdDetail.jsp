@@ -81,22 +81,27 @@ document.cookie = "safeCookie2=foo";
 document.cookie = "crossCookie=bar; SameSite=None; Secure";
 $(document).ready(function(){
 	$("body").on("click",".review-title",function(){
+		let md_review_id = $(this).find(".md_review_id").html();
 		$(this).next().toggleClass("hide-toggle");
 		$(this).parent("#review-board").find(".review-content").not($(this).next()).addClass("hide-toggle");
+		viewCount(md_review_id, $(this).find(".md_review_view_count"));
 	})
 	$("body").on("click",".inqry-title",function(){
  		$(this).next().toggleClass("hide-toggle");
      	$(this).parent("#inqry-board").find(".inqry-content").not($(this).next()).addClass("hide-toggle");
     })
 })
-function addViewCount(md_review_id) {
+function viewCount(md_review_id, target) {
 	$.ajax({
-		url:"/md/detail/review/rest/"+md_review_id,
+		url:"/md/detail/review/rest/board/"+md_review_id,
 		dataType:"json",
 		type:"get"
+	}).done(function(resp){
+		if(resp != "null") {
+			target.html(resp);
+		} 
 	})
 }
-
 function getPage(pageNavi, select, sort) {
 	if(sort == "question") {
 		$.ajax({
@@ -104,7 +109,6 @@ function getPage(pageNavi, select, sort) {
 			type:"get",
 			dataType:"json"
 		}).done(function(resp){
-			console.log(resp);
 			let inqrysSize = resp.inqrys.length;
 			let naviSize = resp.pageNavis.length;
 			let str = "";
@@ -159,12 +163,12 @@ function getPage(pageNavi, select, sort) {
 			if(reviesSize > 0) {
 				for(let i = 0; i < reviesSize; i++) {
 					str += "<tr class='review-title'>";
-					str += "<td style='width:5%;'>"+resp.reviews[i].md_review_id+"</td>";
+					str += "<td style='width:5%;' class='md_review_id'>"+resp.reviews[i].md_review_id+"</td>";
 					str += "<td style='width:60%'>"+resp.reviews[i].md_review_title+"</td>";
 					str += "<td>"+ resp.reviews[i].member_username +"</td>";
 					str += "<td>"+ resp.reviews[i].formedDate +"</td>";
 					str += "<td>"+ resp.reviews[i].md_review_like+"</td>";
-					str += "<td>"+ resp.reviews[i].md_review_view_count +"</td>";
+					str += "<td class='md_review_view_count'>"+ resp.reviews[i].md_review_view_count +"</td>";
 					str += "</td>";
 					str += "</tr>";
 					
@@ -448,12 +452,12 @@ function getPage(pageNavi, select, sort) {
             				for(let i = 0; i < reviewsSize; i++) {
             					
 	            				str += "<tr class='review-title'>";
-	            				str += "<td style='width:5%;'>"+resp.reviews[i].md_review_id+"</td>";
+	            				str += "<td style='width:5%;' class='md_review_id'>"+resp.reviews[i].md_review_id+"</td>";
 	            				str += "<td style='width:60%'>"+resp.reviews[i].md_review_title+"</td>";
 	            				str += "<td>"+ resp.reviews[i].member_username +"</td>";
 	            				str += "<td>"+ resp.reviews[i].formedDate +"</td>";
 	            				str += "<td>"+ resp.reviews[i].md_review_like+"</td>";
-	            				str += "<td>"+ resp.reviews[i].md_review_view_count +"</td>";
+	            				str += "<td class='md_review_view_count'>"+ resp.reviews[i].md_review_view_count +"</td>";
 	            				str += "</td>";
 	            				str += "</tr>";
 	            				
@@ -489,12 +493,12 @@ function getPage(pageNavi, select, sort) {
        	            			if(reviewsSize > 0) {
        	            				for(let i = 0; i < reviewsSize; i++) {
        	            					str += "<tr class='review-title'>";
-       		            				str += "<td style='width:5%;'>"+resp.reviews[i].md_review_id+"</td>";
+       		            				str += "<td style='width:5%;' class='md_review_id'>"+resp.reviews[i].md_review_id+"</td>";
        		            				str += "<td style='width:60%'>"+resp.reviews[i].md_review_title+"</td>";
        		            				str += "<td>"+ resp.reviews[i].member_username +"</td>";
        		            				str += "<td>"+ resp.reviews[i].formedDate +"</td>";
        		            				str += "<td>"+ resp.reviews[i].md_review_like+"</td>";
-       		            				str += "<td>"+ resp.reviews[i].md_review_view_count +"</td>";
+       		            				str += "<td class='md_review_view_count'>"+ resp.reviews[i].md_review_view_count +"</td>";
        		            				str += "</td>";
        		            				str += "</tr>";
        		            				

@@ -25,10 +25,12 @@ public class CartService {
 		this.mdDAO = mdDAO;
 	}
 	
-	public Integer addToCart(String member_username, Integer md_id, int cart_item_count) {
+	public Integer addToCart(String member_username, Integer md_id, Integer cart_item_count) {
 		
 		Integer member_id = memberDAO.selectIdByUsername(member_username);
-		MdDTO md = mdDAO.selectMdById(md_id);
+	
+		MdDTO md = mdDAO.selectMdDetailById(String.valueOf(md_id));
+		
 		Integer result = cartDAO.insertIntoCart(member_id,md_id,cart_item_count,md);
 		
 		return result;

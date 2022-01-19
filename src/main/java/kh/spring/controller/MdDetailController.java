@@ -21,6 +21,7 @@ private final MdService mdService;
 	
 	@RequestMapping(value = "page")
 	public String detail(String md_id, Model model) {
+		
 		MdDTO mdDetails = mdService.selectMdDetailById(md_id);
 		List<MdDTO> relatedMds = mdService.selectSameRegionMdsExceptForSelectMd(md_id);
 		model.addAttribute("relatedMds", relatedMds);

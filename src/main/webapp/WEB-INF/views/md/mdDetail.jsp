@@ -166,7 +166,6 @@ function getPage(pageNavi, select, sort) {
                 <div class="col-lg-7 mt-5">
                     <div class="card">
                         <div class="card-body">
-                        	<input type="hidden" id="md_id" value="${mdDetails.md_id }">
                         	<input id="md_id" type="hidden" value="${mdDetails.md_id }">
                         	<input id="member_username" type=hidden value=${principal.username }>
                             <h1 class="h2">${mdDetails.md_name }</h1>

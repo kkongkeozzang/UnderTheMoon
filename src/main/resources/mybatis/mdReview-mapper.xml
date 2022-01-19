@@ -30,6 +30,8 @@
 		select count(*) from md_review where md_id = #{value}
 	</select>
 	
-	
+	<update id="viewCount">
+		update 
+	</update>
 	
 </mapper>

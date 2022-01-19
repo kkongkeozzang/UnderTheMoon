@@ -34,5 +34,9 @@ public class MdReviewDAO {
 	public int selectCount(String md_id) {
 		return mybatis.selectOne("MdReview.selectCount",md_id);
 	}
+	
+	public int addViewCount(String md_review_id) {
+		return mybatis.update("MdReview.addViewCount",md_review_id);
+	}
 		
 }

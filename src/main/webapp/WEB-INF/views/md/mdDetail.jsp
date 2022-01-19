@@ -89,7 +89,13 @@ $(document).ready(function(){
      	$(this).parent("#inqry-board").find(".inqry-content").not($(this).next()).addClass("hide-toggle");
     })
 })
-
+function addViewCount(md_review_id) {
+	$.ajax({
+		url:"/md/detail/review/rest/"+md_review_id,
+		dataType:"json",
+		type:"get"
+	})
+}
 
 function getPage(pageNavi, select, sort) {
 	if(sort == "question") {

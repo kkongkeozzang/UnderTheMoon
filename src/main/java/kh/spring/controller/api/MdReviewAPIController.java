@@ -42,7 +42,11 @@ public class MdReviewAPIController {
 		return new ResponseEntity<>(result,HttpStatus.OK);
 	}
 	
-	
+	@GetMapping(value="board/{md_review_id}", produces = "application/json")
+	public ResponseEntity<String> addViewCount(@PathVariable String md_review_id) {
+		
+		return new ResponseEntity<>(HttpStatus.OK);
+	}
 	
 }
 

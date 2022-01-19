@@ -49,6 +49,12 @@
 		select count(*) from notice
 	</select>
 	
+	<select id="selectKeywordCount" resultType="int">
+		select count(*) from (select notice_id,notice_title,notice_content,notice_write_date,notice_view_count,
+		member_id,(select member_username from member where notice.member_id=member.member_id) 
+		as member_username from notice order by notice_id) where ${select} like '%'|| #{keyword} ||'%'
+	</select>
+	
 	<select id="selectByBound" resultType="kh.spring.dto.NoticeDTO">
 		select * from 
 		(select e.*, row_number() over(order by notice_id desc) as rn from 
@@ -60,10 +66,21 @@
 	
 	<select id="selectByKeyword" resultType="kh.spring.dto.NoticeDTO">
 		select * from
+		(select e.*, row_number() over(order by notice_id desc) as rn from
 		(select notice_id,notice_title,notice_content,notice_write_date,notice_view_count,member_id,
-		(select member_username from member where notice.member_id=member.member_id) as member_username 
+		(select member_username from member where notice.member_id=member.member_id) as member_username
 		from notice order by notice_id desc) e
-		where ${select} like '%'|| #{keyword} ||'%'
+		<trim prefix = "where">
+			<if test="#{keyword}!=''">
+				${select} like '%'||#{keyword}||'%'
+			</if>
+		</trim>
+		)
+		where rn between #{start} and #{end}
+	</select>
+	
+	<select id="selectMemberId" resultType="int">
+		select * from member where member_username = #{username}
 	</select>
 	
 	<!-- <insert id="insertDummy">

@@ -82,6 +82,52 @@ public class PageNavigator {
 		return pageNavi;
 	}
 	
-
-	
+public static String getPageNavigator(int recordTotalCount, int currentPage, int recordCountPerPage, int naviCountPerPage, String option, String select, String keyword) {
+		
+		int pageTotalCount = 0;
+		
+		if(recordTotalCount % recordCountPerPage == 0) {
+			pageTotalCount = recordTotalCount / recordCountPerPage;
+		} else {
+			pageTotalCount = recordTotalCount / recordCountPerPage + 1;
+		}
+		
+		if (currentPage < 1) {
+			currentPage = 1;
+		} else if (currentPage > pageTotalCount) {
+			currentPage = pageTotalCount;
+		}
+		
+		int startNavi = (currentPage-1)/naviCountPerPage * naviCountPerPage + 1;
+		int endNavi = startNavi + (naviCountPerPage-1);
+		
+		if(endNavi > pageTotalCount) {
+			endNavi = pageTotalCount;
+		}
+		
+		boolean needPrev = true;
+		boolean needNext = true;
+		
+		if(startNavi == 1) {needPrev = false;}
+		if(endNavi == pageTotalCount) {needNext = false;}
+		
+		String pageNavi = "";
+		if(option.equals("all")) {
+			if(needPrev) {pageNavi += "<a href='/notice/toNotice?cPage="+(startNavi-1)+"'><button type='button' class='btn btn-outline-primary' style='background-color:#406882;color:white;'><</button></a> ";}
+			for (int i = startNavi; i <= endNavi; i++) {
+				pageNavi += "<a href='/notice/toNotice?cPage="+i+"'><button type='button' class='btn btn-outline-primary' style='background-color:#406882;color:white;'>" + i + "</button></a> ";
+			}
+			if(needNext) {pageNavi += "<a href='/notice/toNotice?cPage="+(endNavi+1)+"'><button type='button' class='btn btn-outline-primary' style='background-color:#406882;color:white;'>></button></a>";}
+		}else if(option.equals("search")) {
+			if(needPrev) {pageNavi += "<a href='/notice/search?select="+select+"&keyword="+keyword+"&cPage="+(startNavi-1)+"'><button type='button' class='btn btn-outline-primary' style='background-color:#406882;color:white;'><</button></a> ";}
+			for (int i = startNavi; i <= endNavi; i++) {
+				pageNavi += "<a href='/notice/search?select="+select+"&keyword="+keyword+"&cPage="+i+"'><button type='button' class='btn btn-outline-primary' style='background-color:#406882;color:white;'>" + i + "</button></a> ";
+			}
+			if(needNext) {pageNavi += "<a href='/notice/search?select="+select+"&keyword="+keyword+"&cPage="+(endNavi+1)+"'><button type='button' class='btn btn-outline-primary' style='background-color:#406882;color:white;'>></button></a>";}
+		}else {
+			pageNavi = "네비게이터를 찾을 수 없습니다.";
+		}
+		
+		return pageNavi;
+	}
 }

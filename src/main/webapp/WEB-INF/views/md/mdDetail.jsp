@@ -28,7 +28,6 @@
 <script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <style>
 .hiddenRow {
     padding: 0 !important;
@@ -320,10 +319,10 @@ function getPage(pageNavi, select, sort) {
 				<p>PRODUCT REVIEW</p>
 				<p>상품에 대한 후기를 남기는 공간입니다. 해당 게시판 성격과 다른 글은 사전동의 없이 담당 게시판으로 이동될 수 있습니다.</p>
 				<p>배송관련, 주문(취소/교환/환불)관련 문의 및 요청사항은 마이페이지 내 1:1 문의에 남겨주세요.</p>
-				<select style="float:right">
-				<option>최근등록순</option>
-				<option>좋아요많은순</option>
-				<option>조회많은순</option>
+				<select id="sort-box" style="float:right">
+				<option value="newSort">최근등록순</option>
+				<option value="likeSort">좋아요많은순</option>
+				<option value="viewSort">조회많은순</option>
 				</select>
 				<table class="table table-condensed table-striped " id="review-box">
 					<thead >
@@ -341,12 +340,7 @@ function getPage(pageNavi, select, sort) {
 						<!-- 게시판 제목 부분 -->
 						<tr data-toggle="collapse" data-target="#demo1"
 							class="accordion-toggle">
-							<td style="width:5%;">1</td>
-							<td style="width:60%">Carlos</td>
-							<td>Mathias</td>
-							<td>Leme</td>
-							<td>SP</td>
-							<td>new</td>
+							<td colspan="6" style="text-align:center">등록된 후기가 없습니다.</td>
 						</tr>
 						<!-- 게시판 내용 부분 -->
 						<tr>
@@ -386,12 +380,7 @@ function getPage(pageNavi, select, sort) {
 						<!-- 게시판 제목 부분 -->
 						<tr data-toggle="collapse" data-target="#qna1"
 							class="accordion-toggle">
-							<td style="width:5%;">1</td>
-							<td style="width:60%">Carlos</td>
-							<td>Mathias</td>
-							<td>Leme</td>
-							<td>SP</td>
-							<td>new</td>
+							<td colspan="6" style="text-align:center">등록된 후기가 없습니다.</td>
 						</tr>
 						<!-- 게시판 내용 부분 -->
 						<tr>
@@ -413,6 +402,7 @@ function getPage(pageNavi, select, sort) {
 		  </div>
 		</div>
 	</div>
+	</div>
 	<script>
 		$('#tabs').tabs({
             activate: function(event ,ui){
@@ -424,7 +414,6 @@ function getPage(pageNavi, select, sort) {
             			type:"get",
             			dataType:"json"
             		}).done(function(resp){
-            			console.log(resp);
             			let reviesSize = resp.reviews.length;
             			let naviSize = resp.pageNavis.length;
         				let str = "";
@@ -449,13 +438,44 @@ function getPage(pageNavi, select, sort) {
             					pageStr += "</li>";
             				}
             				$("#pages").html(pageStr);
-            				
-            				
-            				
-            			} else {
-            				
-            			}
+            			} 
+            			$("body").on("change","#sort-box",function(){
+            				let selectSort = this.value;
+       						$.ajax({
+       							url:"/md/detail/review/rest/board/"+$("#md_id").val()+"/"+selectSort+"/1",
+       							type:"get",
+       							dataType:"json"
+       						}).done(function(resp){
+       							let reviesSize = resp.reviews.length;
+       	            			let naviSize = resp.pageNavis.length;
+       	        				let str = "";
+       	            			if(reviesSize > 0) {
+       	            				for(let i = 0; i < reviesSize; i++) {
+       		            				str += "<tr data-toggle='collapse' data-target='#"+resp.reviews[i].md_review_id+"' class='accordion-toggle'>";
+       		            				str += "<td style='width:5%;'>"+resp.reviews[i].md_review_id+"</td>";
+       		            				str += "<td style='width:60%'>"+resp.reviews[i].md_review_title+"</td>";
+       		            				str += "<td>"+ resp.reviews[i].member_username +"</td>";
+       		            				str += "<td>"+ resp.reviews[i].formedDate +"</td>";
+       		            				str += "<td>"+ resp.reviews[i].md_review_like+"</td>";
+       		            				str += "<td>"+ resp.reviews[i].md_review_view_count +"</td>";
+       		            				str += "</tr>";
+       		            				
+       	            				}
+       	            			
+       	            				$("#review-board").html(str);	
+       	            				let pageStr = "";
+       	            				for(let i = 0; i < naviSize; i++) {
+       	            					pageStr += "<li>";
+       	            					pageStr += resp.pageNavis[i];
+       	            					pageStr += "</li>";
+       	            				}
+       	            				$("#pages").html(pageStr);
+       	            			} 
+       						})
+            			})
+            			
             		})
+            		
                 }
 	        }
 		});

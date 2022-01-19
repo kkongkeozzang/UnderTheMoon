@@ -33,7 +33,8 @@ public class MdReviewAPIController {
 		int cPage = Integer.parseInt(currentPage);
 		int start = cPage*PageStatic.MD_REVIEW_COUNT_PER_PAGE-(PageStatic.MD_REVIEW_COUNT_PER_PAGE-1);
 		int end = cPage*PageStatic.MD_REVIEW_COUNT_PER_PAGE;
-		List<MdReviewDTO> reviews = mdReviewService.selectAllByBoundByMdId(md_id, start, end, "none");
+		List<MdReviewDTO> reviews = mdReviewService.selectAllByBoundByMdId(md_id, start, end, sort);
+		List<MdReviewDTO> temp = mdReviewService.selectAllByBoundByMdId(md_id, start, end, "viewSort");
 		int allMdReviewCount = mdReviewService.selectCount(md_id);
 		List<String> pageNavis = PageNavigator.getPageNavigator(allMdReviewCount, cPage, PageStatic.MD_COUNT_PER_PAGE, PageStatic.MD_NAVI_COUNT_PER_PAGE, "all", sort);
 		Map<String,Object> result = new HashMap<>();

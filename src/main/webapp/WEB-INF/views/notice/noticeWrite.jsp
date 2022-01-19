@@ -229,7 +229,7 @@ body {
 							<script>
                 				autosize($("textarea"));
         			        </script>
-        			<sup>(<span id="nowByte">0</span>/3000bytes)</sup>
+        			<sup>(<span id="nowByte">0</span>/4000bytes)</sup>
 						</div>
 					</div>
 					<div class="row">
@@ -247,7 +247,7 @@ body {
 						if($('.note-editable').html()==""){
 							alert("내용을 입력해주세요.");
 						}else if(totalByte > maxByte){
-							alert("바이트 수를 확인해주세요.(최대 3000bytes)");
+							alert("바이트 수를 확인해주세요.(최대 4000bytes)");
 						}else if($("#input-title").val()==""){
 							alert("제목을 입력해주세요.");
 						}else {
@@ -278,7 +278,10 @@ body {
 					},
 					onChange:function(contents, editable){ //텍스트 글자수 및 이미지등록개수
 						fn_checkByte(contents);
-					}			
+					},
+					onInit: function(contents, editable) {
+						fn_checkByte_update(contents);
+					}
 			  },
 			  focus : true, // 에디터에 커서 이동 (input창의 autofocus라고 생각하시면 됩니다.)
 			  toolbar: [
@@ -328,8 +331,8 @@ body {
 		}
 		
 		function fn_checkByte(obj){
-			maxByte = 3000; //최대 3000바이트
-		    const text_val = obj; //입력한 문자
+			maxByte = 4000; //최대 4000바이트
+		    const text_val = $(".note-editable").html //입력한 문자
 		    const text_len = text_val.length; //입력한 문자수
 		    
 		    totalByte = 0; // 입력한 바이트수		    
@@ -337,8 +340,36 @@ body {
 		    	const each_char = text_val.charAt(i);
 		        const uni_char = escape(each_char) //유니코드 형식으로 변환
 		        if(uni_char.length>4){
-		        	// 한글 : 2Byte
-		            totalByte += 2;
+		        	// 한글 : 3Byte
+		            totalByte += 3;
+		        }else{
+		        	// 영문,숫자,특수문자 : 1Byte
+		            totalByte += 1;
+		        }
+		    }
+		    
+		    if(totalByte>maxByte){
+	        	document.getElementById("nowByte").innerText = totalByte;
+	            document.getElementById("nowByte").style.color = "red";
+	        }else{
+	        	document.getElementById("nowByte").innerText = totalByte;
+	            document.getElementById("nowByte").style.color = "green";
+	        }
+	    }
+		
+		function fn_checkByte_update(obj){
+			maxByte = 4000; //최대 4000바이트
+		    const text_val = $(".note-editable").html(); //입력한 문자
+		    console.log(text_val);
+		    const text_len = text_val.length; //입력한 문자수
+		    
+		    totalByte = 0; // 입력한 바이트수		    
+		    for(let i=0; i<text_len; i++){
+		    	const each_char = text_val.charAt(i);
+		        const uni_char = escape(each_char) //유니코드 형식으로 변환
+		        if(uni_char.length>4){
+		        	// 한글 : 3Byte
+		            totalByte += 3;
 		        }else{
 		        	// 영문,숫자,특수문자 : 1Byte
 		            totalByte += 1;

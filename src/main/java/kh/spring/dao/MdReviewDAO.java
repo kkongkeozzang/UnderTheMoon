@@ -27,9 +27,7 @@ public class MdReviewDAO {
 			return mybatis.selectList("MdReview.selectAllByBoundByMdIdViewSort",map);
 		} else if(sort.equals("likeSort")) {
 			return mybatis.selectList("MdReview.selectAllByBoundByMdIdLikeSort",map);
-		} else if(sort.equals("question")){
-			return mybatis.selectList("MdReview.selectAllQuestionByBoundByMdId",map);
-		}
+		} 
 		return mybatis.selectList("MdReview.selectAllByBoundByMdId", map);
 	}
 	

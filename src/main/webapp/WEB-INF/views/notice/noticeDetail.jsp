@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -244,6 +245,9 @@ body {
 	cursor: pointer
 }
 </style>
+<sec:authorize access="isAuthenticated()">
+    <sec:authentication property="principal" var="principal"/>
+</sec:authorize>
 </head>
 <body>
 
@@ -271,107 +275,127 @@ body {
 						</div>
 						<input type="hidden" value="${notices.member_id}" name="member_id">
 						<input type="hidden" value="${notices.notice_id}" name="notice_id">
+						<input type="hidden" value="${username}" id="username">
+						<input type="hidden" value="${principal.username}" id="principal.username">
 					</div>
 				</div>
 				<div class="row" style="border-top:1px solid black; margin:0px;height:30px;line-height:29px;">
-					<div class="col-sm-2" style="background-color:#B1D0E0;">
+					<div class="col-xs-12 col-sm-2" style="background-color:#B1D0E0;">
 						제목
 					</div>
-					<div class="col-sm-10"">
-						<div id=input-title name=title style="width: 100%;">${notices.notice_title}</div>
+					<div class="col-xs-12 col-sm-10" id=input-title name=title style="width: 100%;">
+						${notices.notice_title}
 					</div>
 				</div>
 				<div class="row" style="margin:0px;border-top:1px solid gray;border-bottom:1px solid gray;height:30px;line-height:28px;">
-					<div class="col-sm-2" style="background-color:#B1D0E0;">
+					<div class="col-xs-12 col-sm-2" style="background-color:#B1D0E0;">
 						작성자
 					</div>
-					<div class="col-sm-10">
-						<div id=input-title name=title style="width: 100%;">${username}</div>
+					<div class="col-xs-12 col-sm-10" id=input-title name=username style="width: 100%;">
+						${username}
 					</div>
 				</div>
 				<div class="row" style="border-bottom:1px solid gray; margin:0px;height:30px;line-height:29px;">
-					<div class="col-sm-2" style="background-color:#B1D0E0;">
+					<div class="col-xs-12 col-sm-2" style="background-color:#B1D0E0;">
 						작성일
 					</div>
-					<div class="col-sm-2">
+					<div class="col-xs-12 col-sm-2">
 						${notices.getFormedDate()}
 					</div>
-					<div class="col-sm-2" style="background-color:#B1D0E0;">
+					<div class="col-xs-12 col-sm-2" style="background-color:#B1D0E0;">
 						조회수
 					</div>
-					<div class="col-sm-6">
+					<div class="col-xs-12 col-sm-6">
 						<div id=input-title name=title style="width: 100%;">${notices.notice_view_count}</div>
 					</div>
 				</div>
 				<br>
 				<div class="row">
-					<div class="col-sm-12">
-						<div id="contents" name="contents"
-							style="min-height: 200px; overflow: auto;">${notices.notice_content}</div>
+					<div class="col-sm-12" id="contents" name="contents"
+							style="min-height: 200px; overflow: auto;">
+						${notices.notice_content}
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-sm-12" style="text-align: right; margin-top:15px;margin-bottom:15px;">
-						<%-- <c:if test="${loginID==notices.member_id}"> --%>
-							<button type="button" class="btn btn-dark" id="update"
-								style="background-color: #406882;">수정하기</button>
-							<button type="button" class="btn btn-dark" id="delete"
-								style="background-color: #406882;">삭제하기</button>
-						<%-- </c:if> --%>
-						<c:if test="${loginID=='admin'}">
-							<button type="button" class="btn btn-dark" id="del"
-								style="background-color: #406882;">삭제하기</button>
-						</c:if>
-						<button type="button" id="board-list" class="btn btn-dark"
-							style="background-color: #406882;">목록으로</button>
-							
+						<c:choose>
+							<c:when test="${username == principal.username }">
+								<button type="button" class="btn btn-dark" id="update"
+									style="background-color: #406882;">수정하기</button>
+								<button type="button" class="btn btn-dark" id="delete"
+									style="background-color: #406882;">삭제하기</button>
+							</c:when>
+							<c:otherwise>
+								<sec:authorize access="hasRole('ROLE_ADMIN')">
+									<button type="button" class="btn btn-dark" id="delete"
+										style="background-color: #406882;">삭제하기</button>
+								</sec:authorize>
+							</c:otherwise>
+						</c:choose>
+							<button type="button" id="board-list" class="btn btn-dark"
+								style="background-color: #406882;">목록으로</button>
 						<script>
 							$("#board-list").on("click",function(){
-								location.href="/notice/toNotice?cpage=${cpage}";
+								if(document.referrer.split('/')[4].indexOf('search')>=0){
+									location.href="javascript:history.back()";
+								}else if(document.referrer.split('/')[4].indexOf('toNotice')>=0){
+									location.href="javascript:history.back()";
+								}else{
+	 								location.href="/notice/toNotice?cPage=${cPage}";									
+								}
 							});
 							
 							$("#delete").on("click", function(){
 		                		if(confirm("정말 삭제하시겠습니까? \r\n되돌릴 수 없습니다.")) {
-// 		                			if($("#member_id").val()=="admin"){
 		                			 location.href="/notice/delete?notice_id="+${notices.notice_id};
-// 		                			}else{
-// 		                				location.href="/delete.board?cpage=${cpage}&seq=${notices.notice_id}";
-// 		                			}
 		                		}
 		                	});
 							
 							$("#update").on("click", function(){
-								location.href="/notice/toUpdate?notice_id=${notices.notice_id}&cpage=${cpage}";
+								location.href="/notice/toUpdate?notice_id=${notices.notice_id}&cPage=${cPage}";
 							});
 							
-							</script>
-						
+							username = $("#username").val();
+							principal.username = ("#principal.username").val();
+							
+						</script>
 					</div>
 				</div>
 				<c:if test="${upDown.prevNum ne 0 }">
 				<div class="row" style="border-top:1px solid black; border-bottom:1px solid gray; margin:0px;height:30px;line-height:30px;">
-					<div class="col-sm-2">
+					<div class="col-xs-12 col-sm-2">
 						▲ 이전 글
 					</div>
-					<div class="col-sm-10">
-						<a href="/notice/detail?notice_id=${upDown.prevNum}&member_id=${upDown.prevMember}&cpage=${cpage}"><div style="width: 100%;">${upDown.prevTitle}</div></a>
+					<div class="col-xs-12 col-sm-10">
+						<a href="/notice/detail?notice_id=${upDown.prevNum}&member_id=${upDown.prevMember}&cPage=${cPage}"><div style="width: 100%;">${upDown.prevTitle}</div></a>
 					</div>
 				</div>
 				</c:if>
 				<c:if test="${upDown.nextNum ne 0 }">
 				<div class="row" style="border-bottom:1px solid black; margin:0px;height:30px;line-height:30px;">
-					<div class="col-sm-2">
+					<div class="col-xs-12 col-sm-2">
 						▼ 다음 글
 					</div>
-					<div class="col-sm-10">
-						<a href="/notice/detail?notice_id=${upDown.nextNum}&member_id=${upDown.nextMember}&cpage=${cpage}"><div style="width: 100%;">${upDown.nextTitle}</div></a>
+					<div class="col-xs-12 col-sm-10">
+						<a href="/notice/detail?notice_id=${upDown.nextNum}&member_id=${upDown.nextMember}&cPage=${cPage}"><div style="width: 100%;">${upDown.nextTitle}</div></a>
 					</div>
 				</div>
 				</c:if>
+<<<<<<< HEAD
+			</div>	
+=======
+				<script>
+				$(document).ready(function() {
+					console.log("${principal.username }");
+					console.log("${username}");
+					
+				})
+				</script>
 			</div>
 			
+>>>>>>> adc60cc202dcfcecb32d5ddf31efcb4e13d1d407
 		</div>
-			<hr>
+		<hr>
 	</div>
 </body>
 </html>

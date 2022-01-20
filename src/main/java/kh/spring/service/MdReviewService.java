@@ -24,4 +24,12 @@ public class MdReviewService {
 		return mdReviewDAO.selectCount(md_id);
 	}
 	
+	public int mdReviewViewCountUp(String md_review_id) {
+		return mdReviewDAO.mdReviewViewCountUp(md_review_id);
+	}
+	
+	public int selectMdReviewViewCount(String md_review_id) {
+		return mdReviewDAO.selectMdReviewViewCount(md_review_id);
+	}
+	
 }

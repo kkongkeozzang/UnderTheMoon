@@ -20,4 +20,28 @@ public class CouponDAO {
 		
 		return mybatis.selectList("Coupon.selectAllByMemberId",member_id);
 	}
+	
+	public int selectByMemberIdCountCoupon(Integer id) {
+		return mybatis.selectOne("Coupon.selectByMemberIdCountCoupon", id);
+	}
+	
+	public Integer insertSignUpEventDelivery(Integer id) {
+		
+		return mybatis.insert("Coupon.insertSignUpEventDelivery",id);
+	}
+	
+	public Integer insertSignUpEventDiscount(Integer id) {
+		
+		return mybatis.insert("Coupon.insertSignUpEventDiscount",id);
+	}
+	
+	public Integer insertStarGradeDelivery(Integer id) {
+		
+		return mybatis.insert("Coupon.insertStarGradeDelivery",id);
+	}
+	
+	public Integer insertStarGradeDiscount(Integer id) {
+		
+		return mybatis.insert("Coupon.insertStarGradeDiscount",id);
+	}
 }

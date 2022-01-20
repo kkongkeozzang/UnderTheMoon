@@ -8,4 +8,24 @@
   <select id="selectAllByMemberId" resultType="kh.spring.dto.CouponDTO">
   		select * from coupon where member_id = #{member_id} and coupon_used_yn = 'Y' and coupon_valid_date > TO_CHAR(sysdate,'YY/MM/DD')
   </select>
+  
+  <select id="selectByMemberIdCountCoupon" resultType="int">
+  	select count(*) from coupon where member_id = #{value}
+  </select>
+  
+  <insert id="insertSignUpEventDelivery">
+  	insert into coupon values(coupon_id_seq.nextval,'웰컴 배송비 쿠폰',2500,'회원가입이벤트','무제한','N',sysdate,#{value})
+  </insert>
+  
+  <insert id="insertSignUpEventDiscount">
+  	insert into coupon values(coupon_id_seq.nextval,'웰컴 할인 쿠폰',10000,'회원가입이벤트','무제한','N',sysdate,#{value})
+  </insert>
+  
+  <insert id="insertStarGradeDelivery">
+  	insert into coupon values(coupon_id_seq.nextval,'별 등급 배송비 쿠폰',2500,'등급쿠폰','무제한','N',sysdate,#{value})
+  </insert>
+  
+  <insert id="insertStarGradeDiscount">
+  	insert into coupon values(coupon_id_seq.nextval,'별 등급 할인 쿠폰',5000,'등급쿠폰','무제한','N',sysdate,#{value})
+  </insert>	
   </mapper>

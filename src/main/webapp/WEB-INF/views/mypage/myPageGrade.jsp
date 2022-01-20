@@ -162,6 +162,7 @@
 											</tr>
 											<tr>
 												<th class="grade-list" style="text-align:center">등급 이름</th>
+												<th class="grade-list" style="text-align:center">쿠폰</th>
 												<th class="grade-list" style="text-align:center">적립율</th>
 												<th class="grade-list" style="text-align:center">등급 달성 조건</th>                                                 
 											</tr>
@@ -170,6 +171,17 @@
 											<c:forEach var="gradeDTO" items="${gradeList }">
 											<tr>												
 												<td class="grade-list" style="text-align:center">${gradeDTO.grade_name}</td>
+												<c:choose>
+													<c:when test="${gradeDTO.grade_name == '별'}">
+														<td class="grade-list" style="text-align:center">무료배송 쿠폰1개, 5000원 할인쿠폰 1개</td>
+													</c:when>
+													<c:when test="${gradeDTO.grade_name == '달'}">
+														<td class="grade-list" style="text-align:center">무료배송 쿠폰3개, 10000원 할인쿠폰 1개</td>
+													</c:when>
+													<c:when test="${gradeDTO.grade_name == '해'}">
+														<td class="grade-list" style="text-align:center">무료배송 쿠폰5개, 50000원 할인쿠폰 1개</td>
+													</c:when>
+												</c:choose>
 												<td class="grade-list" style="text-align:center"><fmt:formatNumber value="${gradeDTO.grade_percent}" type="percent"/></td>												
 												<td class="grade-list" style="text-align:center"><fmt:formatNumber value="${gradeDTO.grade_target}" type="number"/>원</td>
 											</tr>

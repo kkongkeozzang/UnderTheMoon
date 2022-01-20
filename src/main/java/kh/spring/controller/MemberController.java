@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kh.spring.dto.MemberDTO;
-import kh.spring.dto.PointDTO;
+import kh.spring.service.CouponService;
 import kh.spring.service.MemberService;
 import kh.spring.service.PointService;
 
@@ -18,10 +18,12 @@ public class MemberController {
 	
 	private final MemberService memberService;
 	private final PointService pointService;
+	private final CouponService couponService;
 	
-	public MemberController(MemberService memberService, PointService pointService) {
+	public MemberController(MemberService memberService, PointService pointService, CouponService couponService) {
 		this.memberService = memberService;
 		this.pointService = pointService;
+		this.couponService = couponService;
 	}
 
 	@RequestMapping("/login")
@@ -62,6 +64,10 @@ public class MemberController {
 			,@RequestParam(value = "event", required=false, defaultValue="") String event) throws Exception{
 		memberService.insertMember(dto); // 멤버
 		System.out.println(dto.getMember_id());
+		couponService.insertSignUpEventDelivery(dto.getMember_id());
+		couponService.insertSignUpEventDiscount(dto.getMember_id());
+		couponService.insertStarGradeDelivery(dto.getMember_id());
+		couponService.insertStarGradeDiscount(dto.getMember_id());
 		int result = memberService.idDuplCheck(recommend_id);
 		if(result == 1) {
 			pointService.insertRecommendMemberPoint(dto.getMember_id());

@@ -58,7 +58,7 @@ public class BootpayObject {
         get.setHeader("Accept-Charset", "utf-8");
         URI uri = new URIBuilder(get.getURI()).addParameters(nameValuePairList).build();
         get.setURI(uri);
-        return get;
+        return get;	
     }
 
     public HttpPost httpPost(String url, StringEntity entity) {

@@ -14,6 +14,7 @@
 	<a href="/login">로그인..</a>
 	<a href="/signup">회원가입</a>
 	<a href="/cart/cart">장바구니..</a>
+	<a href="/faq/toFAQ">자주하는질문</a>
 	<a href="/mypage/myPageList">마이페이지</a>
 </body>
 </html>

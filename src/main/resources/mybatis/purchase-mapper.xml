@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace ="Purchase">
+  
+  		<insert id="insertPurchase">
+  		
+	  		<selectKey resultType="Integer" order="BEFORE" keyProperty="delivery_id">
+						SELECT delivery_id_seq.currval FROM dual  
+			</selectKey>
+  			insert into purchase values(purchase_id_seq.nextval,#{member_id},sysdate,#{delivery_id},#{purchase_amount},#{purchase_delivery_fee},#{purchase_used_point},#{purchase_coupon},#{purchase_payment},#{purchase_method})
+  		
+  		</insert>
+  
+  
+  		<select id="selectIdById" resultType="Integer">
+  			select purchase_id from purchase where delivery_id = #{delivery_id}
+  		</select>
+  		
+  		<delete id="deleteById">
+  			delete from purchase where purchase_id = #{purchase_id}
+  		</delete>
+  </mapper>

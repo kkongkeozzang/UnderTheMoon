@@ -14,8 +14,10 @@
 	   <context:component-scan base-package="kh.spring.auth"/> 
 	     <context:component-scan base-package="kh.spring.dao"/> 
 <beans:bean class="org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler" /> 
-
 	
+	<!-- SuccessHandler 생성 코드 -->
+	<beans:bean id="customAuthenticationSuccessHandler" class="kh.spring.auth.CustomAuthenticationSuccessHandler">
+	</beans:bean>
 
 	<authentication-manager>
             <authentication-provider user-service-ref="principalDetailsService" >
@@ -28,8 +30,9 @@
 
 	<http auto-config="true" use-expressions="true">
         	<csrf disabled="true"/>
-        	
+        	<intercept-url pattern="/member/resetPasswordProc" access="isAuthenticated()" />
         	<intercept-url pattern="/cart/**" access="isAuthenticated()" />
+        	<intercept-url pattern="/purchase/**" access="isAuthenticated()" />
         	<intercept-url pattern="/admin/**" access="hasRole('ADMIN')" />	
         	<intercept-url pattern="/seller/**" access="hasRole('SELLER')" />	
           	<intercept-url pattern="/**" access="permitAll" /> 
@@ -42,6 +45,7 @@
         	password-parameter="member_password"
         	default-target-url="/"
         	authentication-failure-url="/login?error=true"
+        	authentication-success-handler-ref="customAuthenticationSuccessHandler"
         	/>
         	<logout logout-url="/logout"
         	logout-success-url="/"/> 

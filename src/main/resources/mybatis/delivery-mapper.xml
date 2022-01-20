@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace ="Delivery">
+  		<insert id="insertDelivery" parameterType="kh.spring.dto.DeliveryDTO">
+  		
+  			<selectKey keyProperty="delivery_id" resultType="int" order="BEFORE"> 
+  					SELECT delivery_id_seq.nextval FROM dual 
+  			</selectKey>
+  		
+  			insert into delivery values(#{delivery_id},#{member_id},#{delivery_address1},#{delivery_address2},#{delivery_recipient},#{delivery_phone})
+  			
+  			
+  		
+  		</insert>
+  		
+  		<delete id="deleteById">
+  			delete from delivery where delivery_id = #{delivery_id}
+  		</delete>
+  		
+  </mapper>
+  
+  

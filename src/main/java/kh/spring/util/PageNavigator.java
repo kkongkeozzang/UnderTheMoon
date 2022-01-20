@@ -39,7 +39,7 @@ public class PageNavigator {
 		
 		List<String> pageNavi = new ArrayList<>();
 		if(needPrev) {
-			String start = "<a href=\"#\" onclick=\"getPage";
+			String start = "<a href=\"javascript:void(0);\" onclick=\"getPage";
 			start += "(" + (startNavi - 1);
 			start += ","; 
 			start += "\'";
@@ -52,7 +52,7 @@ public class PageNavigator {
 			pageNavi.add(start);
 		}
 		for (int i = startNavi; i <= endNavi; i++) {
-			String str = "<a href=\"#\" onclick=\"getPage";
+			String str = "<a href=\"javascript:void(0);\" onclick=\"getPage";
 			str += "(" + i;
 			str += ","; 
 			str += "\'";
@@ -66,7 +66,7 @@ public class PageNavigator {
 			pageNavi.add(str);
 		}
 		if(needNext) {
-			String end = "<a href=\"#\" onclick=\"getPage";
+			String end = "<a href=\"javascript:void(0);\" onclick=\"getPage";
 			end += "(" + (endNavi + 1);
 			end += ","; 
 			end += "\'";
@@ -81,4 +81,7 @@ public class PageNavigator {
 		
 		return pageNavi;
 	}
+	
+
+	
 }

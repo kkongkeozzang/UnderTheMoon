@@ -50,4 +50,20 @@ public class CouponService {
 	public Integer insertStarGradeDiscount(Integer id) {
 		return couponDAO.insertStarGradeDiscount(id);
 	}
+	
+	public Integer insertMoonGradeDelivery(Integer id) {
+		return couponDAO.insertMoonGradeDelivery(id);
+	}
+	
+	public Integer insertMoonGradeDiscount(Integer id) {
+		return couponDAO.insertMoonGradeDiscount(id);
+	}
+	
+	public Integer insertSunGradeDelivery(Integer id) {
+		return couponDAO.insertSunGradeDelivery(id);
+	}
+	
+	public Integer insertSunGradeDiscount(Integer id) {
+		return couponDAO.insertSunGradeDiscount(id);
+	}
 }

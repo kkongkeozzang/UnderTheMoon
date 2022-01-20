@@ -27,5 +27,23 @@
   
   <insert id="insertStarGradeDiscount">
   	insert into coupon values(coupon_id_seq.nextval,'별 등급 할인 쿠폰',5000,'등급쿠폰','무제한','N',sysdate,#{value})
-  </insert>	
+  </insert>
+  
+  <insert id="insertMoonGradeDelivery">
+  	insert into coupon values(coupon_id_seq.nextval,'달 등급 배송비 쿠폰',2500,'등급쿠폰','무제한','N',sysdate,#{value})
+  </insert>
+  
+  <insert id="insertMoonGradeDiscount">
+  	insert into coupon values(coupon_id_seq.nextval,'달 등급 할인 쿠폰',10000,'등급쿠폰','무제한','N',sysdate,#{value})
+  </insert>
+  
+  <insert id="insertSunGradeDelivery">
+  	insert into coupon values(coupon_id_seq.nextval,'해 등급 배송비 쿠폰',2500,'등급쿠폰','무제한','N',sysdate,#{value})
+  </insert>
+  
+  <insert id="insertSunGradeDiscount">
+  	insert into coupon values(coupon_id_seq.nextval,'해 등급 할인 쿠폰',50000,'등급쿠폰','무제한','N',sysdate,#{value})
+  </insert>
+  
+  	
   </mapper>

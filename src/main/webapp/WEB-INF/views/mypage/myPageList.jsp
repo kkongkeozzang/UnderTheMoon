@@ -43,9 +43,9 @@
 									<div class="card-body" align=center>
 										<div class="d-flex">										
 											<div class="detail">
-                                                <h6 class="detail-title-one">~회원님</h6>
-												<button type="button" class="btn btn-light" id="all-grade">전체등급 보기</button>
-												<button type="button" class="btn btn-light" id="next-month-grade">다음 달 예상등급 보기</button>
+                                                <h6 class="detail-title-one">${memberDTO.member_username }회원님</h6>
+												<button type="button" class="btn btn-light" id="all-grade">나의등급 보기</button>
+												<input type="hidden" name="member_id" value="${memberDTO.member_id }">
 											</div>
 										</div>
 									</div>

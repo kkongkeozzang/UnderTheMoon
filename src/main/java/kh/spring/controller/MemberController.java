@@ -72,7 +72,7 @@ public class MemberController {
 		if(result == 1) {
 			pointService.insertRecommendMemberPoint(dto.getMember_id());
 		}
-		
+
 		if(event.equals("월하합작")) {
 			pointService.insertEventMemberPoint(dto.getMember_id());
 		}

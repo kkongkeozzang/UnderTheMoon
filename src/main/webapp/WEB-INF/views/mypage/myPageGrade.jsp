@@ -44,9 +44,9 @@
 									<div class="card-body" align=center>
 										<div class="d-flex">										
 											<div class="detail">
-                                                <h6 class="detail-title-one">~회원님</h6>
-												<button type="button" class="btn btn-light">전체등급 보기</button>
-												<button type="button" class="btn btn-light">다음 달 예상등급 보기</button>
+                                                <h6 class="detail-title-one">${memberDTO.member_username }회원님</h6>
+												<button type="button" class="btn btn-light" id="all-grade">나의등급 보기</button>
+												<input type="hidden" value="${memberDTO.member_id }">
 											</div>
 										</div>
 									</div>
@@ -133,7 +133,7 @@
 											</div>
 											<div class="detail">
 												<h6 class="detail-title">나의 현재 등급</h6>
-												<p class="detail-detail"><span>별</span></p>
+												<p class="detail-detail"><span>${memberDTO.grade_name}</span></p>
 											</div>
 										</div>
 									</div>
@@ -142,11 +142,31 @@
 							<div class="col-12 col-lg-6">
 								<div class="card shadow-none border radius-15">
 									<div class="card-body" align=center>
-										<div class="d-flex">
-											
+										<div class="d-flex">										
 											<div class="detail">
-												<h6 class="detail-title">누적 구매 금액</h6>
-												<p class="detail-detail"><span>1000원</span></p>
+												<c:choose> 											
+													<c:when test="${empty purchasePayment}">
+														<h6 class="detail-title">누적 구매 금액 : 0 원 </h6>	
+														<p class="detail-detail"><span>다음 등급까지 : 500,000 원</span></p>													
+													</c:when>
+													<c:when test="${not empty purchasePayment}">
+														<h6 class="detail-title">누적 구매 금액 : <fmt:formatNumber value="${purchasePayment }" type="number"/> 원 </h6>
+														<p class="detail-detail">
+														<span>다음 등급까지 :
+														<c:choose>
+															<c:when test="${purchasePayment lt 500000 }"> 
+																<fmt:formatNumber value="${500000 - purchasePayment }" type="number"/> 원
+															</c:when>																
+															<c:when test="${500000 lt purchasePayment and purchasePayment lt 1000000 }">
+																<fmt:formatNumber value="${1000000 - purchasePayment }" type="number"/> 원
+															</c:when>
+															<c:otherwise>
+																최고 등급 달성
+															</c:otherwise>																
+														</c:choose>
+														</span></p>
+													</c:when>
+												</c:choose>
 											</div>
 										</div>
 									</div>

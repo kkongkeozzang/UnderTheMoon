@@ -44,4 +44,24 @@ public class CouponDAO {
 		
 		return mybatis.insert("Coupon.insertStarGradeDiscount",id);
 	}
+	
+	public Integer insertMoonGradeDelivery(Integer id) {
+		
+		return mybatis.insert("Coupon.insertMoonGradeDelivery",id);
+	}
+	
+	public Integer insertMoonGradeDiscount(Integer id) {
+		
+		return mybatis.insert("Coupon.insertMoonGradeDiscount",id);
+	}
+	
+	public Integer insertSunGradeDelivery(Integer id) {
+		
+		return mybatis.insert("Coupon.insertSunGradeDelivery",id);
+	}
+	
+	public Integer insertSunGradeDiscount(Integer id) {
+		
+		return mybatis.insert("Coupon.insertSunGradeDelivery",id);
+	}
 }

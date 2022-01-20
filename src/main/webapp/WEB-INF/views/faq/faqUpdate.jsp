@@ -207,26 +207,41 @@ body {
 	<!-- 타이틀  -->
 	<div class="container-fluid mt-100">
 		<div id="board-title">
-			<span><h3>공지사항</h3></span>
+			<span><h3>자주묻는질문</h3></span>
 		</div>
 		<br>
 
 		<!-- 게시판 박스 -->
 		<div class="card mb-3 col-xl-6 col-md-12">
 			<!-- 게시글 등록 박스 -->
-			<form action="/notice/update?cPage=${cPage}" method="post" id="frmDetail">
+			<form action="/faq/update?cPage=${cPage}" method="post" id="frmDetail">
 				<div class="container mb-4 mt-4">
-					<div class="row" style="padding-bottom: 5px;">
-						<div class="col-sm-12"> 
-							<input type="hidden" value="${notices.member_id}" name="member_id">
-							<input type="hidden" value="${notices.notice_id}" name="notice_id">
-							<input type=text id=input-title name=notice_title placeholder="제목을 작성하세요 (최대 30자)" maxlength=30 style="width: 100%;" value='${notices.notice_title }'>
+					<div class="row" style="padding-bottom: 5px; margin:0px;">
+						<select class="select" name="faq_category" style="margin-bottom:5px;">
+							<option value="">-카테고리 선택-</option>
+							<option value="회원">회원</option>
+							<option value="서비스 이용">서비스 이용</option>
+							<option value="주문/결제">주문/결제</option>
+							<option value="상품">상품</option>
+							<option value="이벤트/쿠폰/적립금">이벤트/쿠폰/적립금</option>>
+							<option value="취소/교환/환불">취소/교환/환불</option>>
+						</select>
+						<script>
+						$(document).ready(function(){
+							$('select[name=faq_category]').val('${faqs.faq_category }').prop("selected",true);
+						});
+						</script>						
+						<br>
+						<div class="col-sm-12" style="padding:0px;"> 
+							<input type="hidden" value="${faqs.member_id}" name="member_id">
+							<input type="hidden" value="${faqs.faq_id}" name="faq_id">
+							<input type=text id=input-title name=faq_title placeholder="제목을 작성하세요 (최대 30자)" style="width: 100%;" value='${faqs.faq_title }' maxlength=30>
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-sm-12">
-							<textarea name="notice_content" id="summernote"
-								style="min-height: 200px; overflow: auto" maxlength="1000">${notices.notice_content }</textarea>
+							<textarea name="faq_content" id="summernote"
+								style="min-height: 200px; overflow: auto" maxlength="1000">${faqs.faq_content }</textarea>
 							<script>
                 				autosize($("textarea"));
         			        </script>
@@ -243,13 +258,15 @@ body {
 					
 					$("#cancel").on("click",function(){
 						if(confirm("정말 취소하시겠습니까?")){
-							location.href="/notice/detail?notice_id=${notices.notice_id}&member_id=${notices.member_id}&cPage=${cPage}";
+							location.href="/faq/toFaq?cPage=${cPage}";
 						}
 					});
 					
 					$("#update").on("click",function(){
 						if($('.note-editable').html()==""){
 							alert("내용을 입력해주세요.");
+						}else if($('.select').val()==""){
+							alert("카테고리를 선택해주세요.");
 						}else if(totalByte > maxByte){
 							alert("바이트 수를 확인해주세요.(최대 4000bytes)");
 						}else if($("#input-title").val()==""){

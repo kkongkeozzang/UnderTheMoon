@@ -381,19 +381,7 @@ body {
 					</div>
 				</div>
 				</c:if>
-<<<<<<< HEAD
 			</div>	
-=======
-				<script>
-				$(document).ready(function() {
-					console.log("${principal.username }");
-					console.log("${username}");
-					
-				})
-				</script>
-			</div>
-			
->>>>>>> adc60cc202dcfcecb32d5ddf31efcb4e13d1d407
 		</div>
 		<hr>
 	</div>

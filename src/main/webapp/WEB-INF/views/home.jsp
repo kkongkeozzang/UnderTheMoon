@@ -10,11 +10,10 @@
 </head>
 <body>
 	<a href="/md/list">상품 리스트</a>
-	<a href="/notice/toNotice"><button>Board</button></a>
+	<a href="/notice/toNotice?cPage=1">공지사항</a>
 	<a href="/login">로그인..</a>
 	<a href="/signup">회원가입</a>
-	
 	<a href="/cart/cart">장바구니..</a>
-
+	<a href="/faq/toFAQ">자주하는질문</a>
 </body>
 </html>

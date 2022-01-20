@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>글 쓰기</title>
+<title>글 수정</title>
 <link
 	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
 	rel="stylesheet" />
@@ -214,44 +214,44 @@ body {
 		<!-- 게시판 박스 -->
 		<div class="card mb-3 col-xl-6 col-md-12">
 			<!-- 게시글 등록 박스 -->
-			<form action="/notice/update" method="post" id="frmDetail">
+			<form action="/notice/update?cPage=${cPage}" method="post" id="frmDetail">
 				<div class="container mb-4 mt-4">
 					<div class="row" style="padding-bottom: 5px;">
 						<div class="col-sm-12"> 
-							<input type="hidden" value="${dto.member_id}" name="member_id">
-							<input type="hidden" value="${dto.notice_id}" name="notice_id">
-							<input type=text id=input-title name=notice_title placeholder="제목을 작성하세요" style="width: 100%;" value='${dto.notice_title }'>
+							<input type="hidden" value="${notices.member_id}" name="member_id">
+							<input type="hidden" value="${notices.notice_id}" name="notice_id">
+							<input type=text id=input-title name=notice_title placeholder="제목을 작성하세요" style="width: 100%;" value='${notices.notice_title }'>
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-sm-12">
 							<textarea name="notice_content" id="summernote"
-								style="min-height: 200px; overflow: auto" maxlength="1000">${dto.notice_content }</textarea>
+								style="min-height: 200px; overflow: auto" maxlength="1000">${notices.notice_content }</textarea>
 							<script>
                 				autosize($("textarea"));
         			        </script>
-                	<div class="contentCnt">(0 / 1000)</div>
+                	<sup>(<span id="nowByte">0</span>/4000bytes)</sup>
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-sm-12" style="text-align: right">
 							<button type="button" id="update" class="btn btn-dark"
-								style="background-color: rgb(255, 111, 97);">수정완료</button>
+								style="background-color: #406882;">수정완료</button>
 							<button class="btn btn-dark" type=button id="cancel"
-								style="background-color: rgb(255, 111, 97);">취소</button>
+								style="background-color: #406882;">취소</button>
 					<script>
 					
 					$("#cancel").on("click",function(){
 						if(confirm("정말 취소하시겠습니까?")){
-							location.href="/notice/detail?notice_id=${dto.notice_id}&member_id=${dto.member_id}";
+							location.href="/notice/detail?notice_id=${notices.notice_id}&member_id=${notices.member_id}&cPage=${cPage}";
 						}
 					});
 					
 					$("#update").on("click",function(){
 						if($('.note-editable').html()==""){
 							alert("내용을 입력해주세요.");
-						}else if(textCnt > 1000){
-							alert("글자 수를 확인해주세요.(최대 1000자)");
+						}else if(totalByte > maxByte){
+							alert("바이트 수를 확인해주세요.(최대 4000bytes)");
 						}else if($("#input-title").val()==""){
 							alert("제목을 입력해주세요.");
 						}else {
@@ -270,10 +270,9 @@ body {
 		<br>
 
 		<script>
-		
 		$(document).ready(function() {
 			$('#summernote').summernote({  // summernote 에디터 설정 코드
-			  height: 535, // 에디터 높이
+			  height: 500, // 에디터 높이
 			  disableResizeEditor: true, // 에디터 사이즈 조절 금지
 			  lang: "ko-KR", // 에디터 한글 설정
 			  placeholder: '내용을 입력하세요',	//placeholder 설정
@@ -283,8 +282,11 @@ body {
 						  sendFile(files[i], this);}  
 					},
 					onChange:function(contents, editable){ //텍스트 글자수 및 이미지등록개수
-						setContentsLength(contents, 0);
-					}			
+						fn_checkByte(contents);
+					},
+					onInit: function(contents, editable) {
+						fn_checkByte_update(contents);
+					}
 			  },
 			  focus : true, // 에디터에 커서 이동 (input창의 autofocus라고 생각하시면 됩니다.)
 			  toolbar: [
@@ -332,49 +334,60 @@ body {
 				}
 			});
 		}
-		var textCnt = 0; //총 글자수
-		//글자수 체크 //태그와 줄바꿈, 공백을 제거하고 텍스트 글자수만 가져옵니다.		
-		function setContentsLength(str, index) {
-			
-			var maxCnt = 1000; //최대 글자수
-			var editorText = f_SkipTags_html(str); //에디터에서 태그를 삭제하고 내용만 가져오기
-			editorText = editorText.replace(/\s/gi,""); //줄바꿈 제거
-			/* editorText = editorText.replace(/&nbsp;/gi, ""); //공백제거 */
-			
-			textCnt = editorText.length; // 줄바꿈, 공백제거한 현재 글자 수
-			if(maxCnt > 0) {
-				$(document).ready(function() { //글 1000글자 입력 제한 코드
-		 		    $('.note-editable').on('keyup', function() { //글 1000글자 입력 제한 코드
-		 		        $('.contentCnt').html("(" + textCnt +" / 1000)");  // 현재 글자 수 표시
-		 		    });
-		 		});
-			}
-		}
 		
-		//태그제거용
-		function f_SkipTags_html(input, allowed) {
-			allowed = (((allowed || "") + "").toLowerCase().match(/<[a-z][a-z0-9]*>/g) || []).join(''); // making sure the allowed arg is a string containing only tags in lowercase (<a><b><c>)
-			var tags = /<\/?([a-z][a-z0-9]*)\b[^>]*>/gi,
-			commentsAndPhpTags = /<!--[\s\S]*?-->|<\?(?:php)?[\s\S]*?\?>/gi;
-			return input.replace(commentsAndPhpTags, '').replace(tags, function ($0, $1) {
-				return allowed.indexOf('<' + $1.toLowerCase() + '>') > -1 ? $0 : '';
-			});
-		}
+		function fn_checkByte(obj){
+			maxByte = 4000; //최대 4000바이트
+		    const text_val = obj; //입력한 문자
+		    const text_len = text_val.length; //입력한 문자수
+		    
+		    totalByte = 0; // 입력한 바이트수		    
+		    for(let i=0; i<text_len; i++){
+		    	const each_char = text_val.charAt(i);
+		        const uni_char = escape(each_char) //유니코드 형식으로 변환
+		        if(uni_char.length>4){
+		        	// 한글 : 3Byte
+		            totalByte += 3;
+		        }else{
+		        	// 영문,숫자,특수문자 : 1Byte
+		            totalByte += 1;
+		        }
+		    }
+		    
+		    if(totalByte>maxByte){
+	        	document.getElementById("nowByte").innerText = totalByte;
+	            document.getElementById("nowByte").style.color = "red";
+	        }else{
+	        	document.getElementById("nowByte").innerText = totalByte;
+	            document.getElementById("nowByte").style.color = "green";
+	        }
+	    }
 		
-		//참고 코드
-// 		$(document).ready(function() { //글 1000글자 입력 제한 코드
-// 		    $('.note-editable > p').on('keyup', function() { //글 1000글자 입력 제한 코드
-// 		        $('.contentCnt').html("(" + $(this).val().length +" / 1000)");
-// 		        if($(this).val().length > 1000) {
-// 		            $(this).val($(this).val().substring(0, 1000));
-// 		            $('.contentCnt').html("(1000 / 1000)");
-// 		        }
-//				if(textCnt > 1000) {
-// 		 			$('.note-editable').html(editorText.substring(0, 1000));
-// 		 		    $('.contentCnt').html("(1000 / 1000)");
-// 		 		}
-// 		    });
-// 		});
+		function fn_checkByte_update(obj){
+			maxByte = 4000; //최대 4000바이트
+		    const text_val = $(".note-editable").html(); //입력한 문자
+		    const text_len = text_val.length; //입력한 문자수
+		    
+		    totalByte = 0; // 입력한 바이트수		    
+		    for(let i=0; i<text_len; i++){
+		    	const each_char = text_val.charAt(i);
+		        const uni_char = escape(each_char) //유니코드 형식으로 변환
+		        if(uni_char.length>4){
+		        	// 한글 : 3Byte
+		            totalByte += 3;
+		        }else{
+		        	// 영문,숫자,특수문자 : 1Byte
+		            totalByte += 1;
+		        }
+		    }
+		    
+		    if(totalByte>maxByte){
+	        	document.getElementById("nowByte").innerText = totalByte;
+	            document.getElementById("nowByte").style.color = "red";
+	        }else{
+	        	document.getElementById("nowByte").innerText = totalByte;
+	            document.getElementById("nowByte").style.color = "green";
+	        }
+	    }
 
 	</script>
 	</div>

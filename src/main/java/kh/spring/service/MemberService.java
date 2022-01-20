@@ -38,14 +38,16 @@ public class MemberService {
 	public Optional<Integer> selectByUsernameAndPhone(String member_username, String member_phone) {
 		
 		Integer result = memberDAO.selectByUsernameAndPhone(member_username,member_phone);
-		System.out.println(result);
+		
 		Optional<Integer> op = Optional.ofNullable(result);
-		System.out.println(op);
+		
 		return op;
 	}
 
 	
 	public int insertMember(MemberDTO dto) {
+		String password = dto.getMember_password();		
+		dto.setMember_password(bCrptPasswordEncoder.encode(password));
 		return memberDAO.insertMember(dto);
 	}
 
@@ -61,6 +63,11 @@ public class MemberService {
 	
 	public int idDuplCheck(String id) {
 		return memberDAO.idDuplCheck(id);
+	}
+
+	public MemberDTO selectByUsername(String username) {
+		
+		return memberDAO.selectByUsername(username);
 	} 
 
 }

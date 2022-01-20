@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -111,7 +112,7 @@ body {
 }
 
 a {
-	color: #E91E63;
+	color: #406882;
 	text-decoration: none !important;
 	background-color: transparent
 }
@@ -145,10 +146,11 @@ select {
 	color: black;
 }
 </style>
+<sec:authorize access="isAuthenticated()">
+    <sec:authentication property="principal" var="principal"/>
+</sec:authorize>
 </head>
 <body>
-	<!-- 메인 네비바 -->
-	<%-- <jsp:include page="/header.jsp" flush="false" /> --%>
 
 	<!-- 타이틀  -->
 	<div class="container-fluid mt-100">
@@ -162,7 +164,7 @@ select {
 
 			<!-- 분류 네비 -->
 			<div class="card-header pl-0 pr-0"
-				style="justify-content: space-around; background-color: rgba(255, 111, 97); color: white;">
+				style="justify-content: space-around; background-color: #406882; color: white;">
 				<div class="row no-gutters w-100 align-items-center"
 					style="justify-content: space-around">
 					<div class="col-2 d-none d-md-block" style="text-align: center;">번호</div>
@@ -187,7 +189,7 @@ select {
         		$(".noSearch").css("display","none");
         	}
        	</script>
-			<c:forEach var="dto" items="${notices}">
+			<c:forEach var="notices" items="${notices}">
 
 
 				<div class="card-body py-3 " style="justify-content: space-around; margin:0px;">
@@ -195,42 +197,32 @@ select {
 						style="justify-content: space-around">
 
 						<%-- 웹버전 seq --%>
-						<div class="col-2 d-none d-md-block pl-3" align=center style="padding-left:0px;">${dto.notice_id }</div>
+						<div class="col-2 d-none d-md-block pl-3" align=center style="padding-left:0px;">${notices.notice_id }</div>
 						<%-- 웹버전 title --%>
 						<div class="col-4 d-none d-md-block" align=center>
-							<a href="/notice/detail?notice_id=${dto.notice_id}&member_id=${dto.member_id}"
-								class="text-big" data-abc="true">${dto.notice_title }</a>
-								
-							<%-- <div class="text-muted small mt-1 d-md-none">${dto.detailDate }
-								&nbsp;·&nbsp; by ${dto.profileName }</div> --%>
+							<a href="/notice/detail?notice_id=${notices.notice_id}&member_id=${notices.member_id}&cPage=${cPage}"
+								class="text-big" data-abc="true">${notices.notice_title }</a>
+							<div class="text-muted small mt-1 d-md-none">${notices.getFormedDate() }
+								&nbsp;·&nbsp; by ${notices.member_username }</div>
 						</div>
 						<%-- 웹버전 조회수, 작성자, 날짜 --%>
 						<div class="d-none d-md-block col-6">
 							<div class="row no-gutters align-items-center">
-								<div class="col-4" style="text-align: center;">${dto.member_username }</div>
-								<div class="col-4" style="text-align: center;">${dto.getFormedDate()}</div>
-								<div class="col-4" style="text-align: center;">${dto.notice_view_count }</div>
-								
-								<%-- <div class="media pl-4 col-8 align-items-center">
-									<img src="/profile.file?writer=${dto.member_id }" alt=""
-										class="d-block ui-w-30 rounded-circle">
-									<div class="media-body flex-truncate ml-2">
-										<div class="line-height-1 text-truncate">${dto.notice_write_date }</div>
-									</div>
-								</div> --%>
-								
+								<div class="col-4" style="text-align: center;">${notices.member_username }</div>
+								<div class="col-4" style="text-align: center;">${notices.getFormedDate()}</div>
+								<div class="col-4" style="text-align: center;">${notices.notice_view_count }</div>					
 							</div>
 						</div>
 
-<%-- 						모바일버전 seq
-						<div class="col-2 d-md-none pl-2">${dto.seq }</div>
-						모바일버전 title,작성자,날짜
+						<!--모바일버전 seq -->
+						<div class="col-2 d-md-none pl-2">${notices.notice_id }</div>
+						<!--모바일버전 title,작성자,날짜-->
 						<div class="col-8 d-md-none pl-2">
-							<a href="/detail.board?cpage=${cpage }&seq=${dto.seq}"
-								class="text-big" data-abc="true">${dto.title }</a>
-							<div class="text-muted small mt-1 d-md-none">${dto.detailDate }
-								&nbsp;·&nbsp;by ${dto.profileName }</div>
-						</div> --%>
+							<a href="/notice/detail?notice_id=${notices.notice_id}&member_id=${notices.member_id}&cPage=${cPage}"
+								class="text-big" data-abc="true">${notices.notice_title }</a>
+							<div class="text-muted small mt-1 d-md-none">${notices.getFormedDate() }
+								&nbsp;·&nbsp;by ${notices.member_username }</div>
+						</div>
 
 					</div>
 				</div>
@@ -238,79 +230,75 @@ select {
 				<hr class="m-0">
 			</c:forEach>
 		</div>
-
-
-
-		<%-- 
-        <!-- 게시판 내용들 -->
-        <div class="card-body py-3">
-            <div class="row no-gutters align-items-center">
-                <div class="col pl-3"> <a href="javascript:void(0)" class="text-big" data-abc="true">제목제목글제목</a>
-                    <div class="text-muted small mt-1 d-md-none">2021.12.08 &nbsp;·&nbsp; <a href="javascript:void(0)" class="text-muted" data-abc="true">홍길동</a></div>
-                </div>
-                <div class="d-none d-md-block col-4">
-                    <div class="row no-gutters align-items-center" >
-                        <div class="col-4" style="text-align:center;">12</div>
-                        <div class="media col-8 align-items-center"> <img src="https://res.cloudinary.com/dxfq3iotg/image/upload/v1574583246/AAA/2.jpg" alt="" class="d-block ui-w-30 rounded-circle">
-                            <div class="media-body flex-truncate ml-2">
-                                <div class="line-height-1 text-truncate">1 day ago</div> <a href="javascript:void(0)" class="text-muted small text-truncate" data-abc="true">by Tim cook</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <hr class="m-0">
-    	--%>
+		<div align=center style="margin-bottom:15px;"><span>${pageNavi}</span></div>
 
 		<!-- 글쓰기 & 검색 라인 -->
 		<div class="row search-bar" style="justify-content: space-around;">
 			<div class="col-xl-8 col-md-12 d-none d-md-block">
 				<div class="row">
-					<div class="col-4">
-						<select class="select"><option value="title">제목</option>
-							<option value="name_cp">작성자</option>
-							<option value="contents">내용</option></select><input type="text"
-							placeholder="Search..." class="input-search"
-							style="width: 70%; height: 100%;">
+					<div class="col-4" style="padding-left:0px;">
+						<select class="select">
+							<option value="notice_title">제목</option>
+							<option value="member_username">작성자</option>
+							<option value="notice_content">내용</option>
+						</select>
+						<input type="text" placeholder="Search..." class="input-search" style="width: 66%; height: 100%;">
+						<input id="member_username" type=hidden value=${principal.username }>
 					</div>
 					<div class="col-4 pl-0">
 						<button type="button"
 							class="btn btn-shadow btn-wide btn-primary btn-search"
-							style="background-color: rgb(255, 111, 97); border-color: rgb(255, 111, 97);">
+							style="background-color: #406882; border-color: #406882;">
 							검색하기</button>
 					</div>
-					<div class="col-4" style="text-align: right;">
-						<button type="button"
-							class="btn-write btn btn-shadow btn-wide btn-primary"
-							style="background-color: rgb(255, 111, 97); border-color: rgb(255, 111, 97);">
-							글 쓰기</button>
-					</div>
+					<sec:authorize access="hasRole('ROLE_ADMIN')">
+						<div class="col-4" style="text-align: right;padding-right:0px;">
+							<button type="button"
+								class="btn-write btn btn-shadow btn-wide btn-primary"
+								style="background-color: #406882; border-color: #406882;">
+								글 쓰기</button>
+						</div>
+					</sec:authorize>
+					<sec:authorize access="hasRole('ROLE_SELLER')">
+						<div class="col-4" style="text-align: right;padding-right:0px;">
+							<button type="button"
+								class="btn-write btn btn-shadow btn-wide btn-primary"
+								style="background-color: #406882; border-color: #406882;">
+								글 쓰기</button>
+						</div>
+					</sec:authorize>
 				</div>
 			</div>
 
 			<div class="d-md-none">
 				<div class="row">
 					<div class="col-5">
-						<select class="select"><option value="title">제목</option>
-							<option value="name_cp">작성자</option>
-							<option value="contents">내용</option></select><input type="text"
-							placeholder="Search..." class="input-search"
-							style="width: 70%; height: 100%;">
+						<select class="select">
+							<option value="notice_title">제목</option>
+							<option value="member_username">작성자</option>
+							<option value="notice_content">내용</option>
+						</select>
+						<input type="text" placeholder="Search..." class="input-search" style="width: 66%; height: 100%;">
 					</div>
 					<div class="col-4 pl-0">
 						<button type="button"
 							class="btn btn-shadow btn-wide btn-primary btn-search"
-							style="background-color: rgb(255, 111, 97); border-color: rgb(255, 111, 97);">
+							style="background-color: #406882; border-color: #406882;">
 							검색하기</button>
 					</div>
 					<div class="col-3" style="text-align: right;">
-
+					<sec:authorize access="hasRole('ROLE_ADMIN')">
 						<button type="button" id="done"
 							class="btn btn-shadow btn-wide btn-primary btn-write"
-							style="background-color: rgb(255, 111, 97); border-color: rgb(255, 111, 97);">
+							style="background-color: #406882; border-color: #406882;">
 							글쓰기</button>
+					</sec:authorize>
+					<sec:authorize access="hasRole('ROLE_SELLER')">
+						<button type="button" id="done"
+							class="btn btn-shadow btn-wide btn-primary btn-write"
+							style="background-color: #406882; border-color: #406882;">
+							글쓰기</button>
+					</sec:authorize>
 						<script>
 	         			$(".btn-write").on("click",function(){
 	         				location.href="/notice/toWrite";
@@ -318,42 +306,22 @@ select {
 	         			let searchEvent = function(){
 	         				let select = $(".select").val();
 	         				let keyword = $(".input-search").val();
-	         				location.href="/search.board?cpage=1&select="+select+"&keyword="+keyword;
+	         				location.href="/notice/search?cPage=1&select="+select+"&keyword="+keyword;
 	         			};
 	         			$(".btn-search").on("click",searchEvent);
 	         			$(".input-search").on("keyup",function(key){
 	         				if(key.keyCode==13){
 	         					let select = $(".select").val();
 		         				let keyword = $(".input-search").val();
-		         				location.href="/search.board?cpage=1&select="+select+"&keyword="+keyword;
+		         				location.href="/notice/search?cPage=1&select="+select+"&keyword="+keyword;
 	         				}
 	         			})
-	         			
+
 	         		</script>
 					</div>
 				</div>
 			</div>
-
-
 		</div>
-
-		<br> ${navi }
-
-		<%-- 
-    <!-- 페이지 네비 -->
-    <nav>
-        <ul class="pagination mb-5 justify-content-center">
-            <li class="page-item disabled"><a class="page-link" href="javascript:void(0)" data-abc="true">«</a></li>
-            <li class="page-item active"><a class="page-link" href="javascript:void(0)" data-abc="true">1</a></li>
-            <li class="page-item"><a class="page-link" href="javascript:void(0)" data-abc="true">2</a></li>
-            <li class="page-item"><a class="page-link" href="javascript:void(0)" data-abc="true">3</a></li>
-            <li class="page-item"><a class="page-link" href="javascript:void(0)" data-abc="true">»</a></li>
-        </ul>
-    </nav>
-    --%>
-		<!-- 푸터 -->
-		<%-- <jsp:include page="/footer.jsp" flush="false" /> --%>
 	</div>
-
 </body>
 </html>

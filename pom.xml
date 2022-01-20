@@ -129,6 +129,12 @@
         	<version>2.8.9</version>
         </dependency>
 
+		<!-- 결제모듈 related -->
+		<dependency>
+	    	<groupId>org.apache.httpcomponents</groupId>
+	    	<artifactId>httpclient</artifactId>
+	    	<version>LATEST</version>
+		</dependency>
  
 		<!-- Database Related -->
 		<dependency>

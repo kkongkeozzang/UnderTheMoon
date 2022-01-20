@@ -15,7 +15,7 @@ public class MemberDAO {
 	private final SqlSessionTemplate mybatis;
 
 	public MemberDAO(SqlSessionTemplate mybatis) {
-
+		
 		this.mybatis = mybatis;
 	}
 
@@ -70,8 +70,15 @@ public class MemberDAO {
 
 	}
 
+	public int updateGradeMoon(String member_username) {
+		
+		return mybatis.update("Member.updateGradeMoon",member_username);		
+	}
 
-
+	public int updateGradeSun(String member_username) {
+		
+		return mybatis.update("Member.updateGradeSun",member_username);		
+	}
 	}
 
 

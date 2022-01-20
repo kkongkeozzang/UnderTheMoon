@@ -294,7 +294,7 @@ $(function(){
 					 }) 
 					 
 					 //쿠폰사용액계산..
-					  $("body").on("change","coupon",function(){
+					  $("body").on("change","#coupon",function(){
 						   
 						 let totalPrice = $("#amount").val();
 						 let totalPrice_int = Number(totalPrice);
@@ -310,8 +310,9 @@ $(function(){
 					 }) 
 					 
 				//결제API
-				$("#purchase").on("click",function(){
+				$("body").on("click","#purchase",function(){
 						 
+						/* 배송지정보. */
 						 var deliveryDTO = {
 								 member_id: ${member.member_id},
 								 delivery_address1: $("#roadAddress").val(),
@@ -319,7 +320,7 @@ $(function(){
 								 delivery_recipient: $("#recipient").val(),
 								 delivery_phone: $("#recipient_phone").val()
 						 };
-						 
+						/*  주문정보. */
 						 var purchaseDTO = {
 								 
 								 	member_id: ${member.member_id},
@@ -330,9 +331,19 @@ $(function(){
 									purchase_payment: $("#totalPrice").val(),
 									purchase_method: 'card'
 						 };
-						 
+						
+						var purchaseDetailDTO = {
+								
+								purchase_id: $(this).closest(".cart-unit").find(".count"),
+								md_id:  $(this).closest(".cart-unit").find(".count"),
+								purchase_detail_quantity: $(this).closest(".cart-unit").find(".count"),
+								purchase_detail_price: $(this).closest(".cart-unit").find(".count") ,
+						};
+						 //배송지 정보 배열.
 						var arr = [deliveryDTO,purchaseDTO];
 						
+						
+						 
 						let order_id = 0;
 						let delivery_id = 0;
 						 

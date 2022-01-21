@@ -174,13 +174,13 @@ $(function(){
 						</tr>
 					</thead>
 					<tbody>
-					 <c:forEach var="cart" items="${carts }" varStatus="status">
+					 <c:forEach var="cart" items="${carts }">
 						<tr class="cart-unit">
 							<td data-th="Product">
 								<div class="row">
 									<div class="col-sm-2 hidden-xs"><img src="${cart.cart_image}" alt="..." class="img-responsive"/></div>
 									<div class="col-sm-10">
-										<h4 id="item" class="cart-item nomargin">${cart.cart_item}</h4>
+										<h4 id="item" class="cart-item nomargin">${cart.cart_item} </h4>
 									</div>
 								</div>
 							</td>
@@ -188,7 +188,6 @@ $(function(){
 							<td data-th="Quantity">
 								<button class="plus" type ="button">+</button>
 									 <input type="hidden" class="cart_id" value="${cart.cart_id}">
-									  <input type="hidden" class="md_id" value="${cart.md_id}">
 									<input type="number" class="count form-control text-center" value="${cart.cart_item_count}" readonly>
 								<button class="minus" type="button">-</button>
 							</td>
@@ -295,7 +294,6 @@ $(function(){
 					 }) 
 					 
 					 //쿠폰사용액계산..
-
 					  $("body").on("change","#coupon",function(){
 						   
 						 let totalPrice = $("#amount").val();
@@ -312,10 +310,8 @@ $(function(){
 					 }) 
 					 
 				//결제API
-
 				$("body").on("click","#purchase",function(){
 						 
-						/* 배송지정보. */
 						 var deliveryDTO = {
 								 member_id: ${member.member_id},
 								 delivery_address1: $("#roadAddress").val(),
@@ -323,9 +319,7 @@ $(function(){
 								 delivery_recipient: $("#recipient").val(),
 								 delivery_phone: $("#recipient_phone").val()
 						 };
-
-						/*  주문정보. */
-
+						 
 						 var purchaseDTO = {
 								 
 								 	member_id: ${member.member_id},
@@ -336,15 +330,12 @@ $(function(){
 									purchase_payment: $("#totalPrice").val(),
 									purchase_method: 'card'
 						 };
-
-						
-						 //배송지 정보 배열.
+						 
 						var arr = [deliveryDTO,purchaseDTO];
-						var purchaseDetailDTO = {};
+						
 						let order_id = 0;
 						let delivery_id = 0;
 						 
-						//배송지정보, 주문정보 db에 저장.
 						 $.ajax({
 						  	  type: 'post',
 						        url:'/purchase/rest/insertPurchase/',
@@ -356,7 +347,7 @@ $(function(){
 						        	
 						        	delivery_id = resp;
 						        	
-						        	//주문 id 가져옴.
+						        	
 						        	$.ajax({
 						  		  	  type: 'get',
 						  		        url:"/purchase/rest/selectId/"+delivery_id,
@@ -364,23 +355,10 @@ $(function(){
 						  		     }).done(function(resp){
 						  		    	  
 						  		    	 order_id = resp;
-						  		    	 //주문상세정보 배열.
-						  		    	 var purchaseDetailDTO = []; 
 						  		    	 
-						  		    	 <c:forEach var="cart" items="${carts }">
-						  		  			purchaseDetailDTO.push({
-												
-												purchase_id: order_id,
-												md_id: ${cart.md_id},
-												 purchase_detail_quantity: ${cart.cart_item_count},
-												 purchase_detail_price: ${cart.cart_price}
-										 })
-										 	
-						  		 		 </c:forEach> 
-						  		  		   
-						  		    	 //결제api 실행.
+						  		    	
+						  		    	 
 						  		    	 BootPay.request({
-						  		    		 	
 												price: document.getElementById("totalPrice").value, //실제 결제되는 가격
 												application_id: "61e73d6de38c3000217b806f",
 												name: document.getElementById("item").innerHTML + '외', //결제창에서 보여질 이름
@@ -408,36 +386,39 @@ $(function(){
 												
 											}).error(function (data) {
 												//결제 진행시 에러가 발생하면 수행됩니다.
-												 $.ajax({
-										  		  	  type: 'delete',
-										  		        url:"/purchase/rest/deleteId/"+delivery_id+"/"+order_id,
-										  		      async: false,
-										  		     })
 												console.log(data);
 											}).cancel(function (data) {
 												//결제가 취소되면 수행됩니다.
-												 $.ajax({
-										  		  	  type: 'delete',
-										  		        url:"/purchase/rest/deleteId/"+delivery_id+"/"+order_id,
-										  		      async: false,
-										  		     })
+												$.ajax({
+												  	  type: 'delete',
+												        url:'/purchase/rest/deleteId/'+delivery_id+"/"+order_id,
+												        contentType:"application/json;charset=utf-8",
+												        dataType:"json",
+												        async: false     
+												})
+												console.log(data);
+											}).ready(function (data) {
+												// 가상계좌 입금 계좌번호가 발급되면 호출되는 함수입니다.
 												console.log(data);
 											}).close(function (data) {
 											    // 결제창이 닫힐때 수행됩니다. (성공,실패,취소에 상관없이 모두 수행됨)
+											    
 											    console.log(data);
 											}).done(function (data) {
 												//결제가 정상적으로 완료되면 수행됩니다
 												//비즈니스 로직을 수행하기 전에 결제 유효성 검증을 하시길 추천합니다.
-												/* location.replace("pay/confirm?receipt_id="+data.receipt_id); */
-												alert(data.receipt_id);
-												
 												$.ajax({
-													  		  	  type: 'get',
-													  		        url:"/purchase/pay/confirm/"+data.receipt_id,
-													  		      async: false,
-													  		     }).done(function(resp){
-													  		    	location.href("/");
-													  		     })
+												  	  type: 'post',
+												        url:'/purchaseDetail/rest/insertPurchaseDetail/',
+												        data: JSON.stringify(purchaseDetailDTO),
+												        contentType:"application/json;charset=utf-8",
+												        dataType:"json",
+												        async: false,
+												        success : function(resp){
+												        	
+												        }
+												        
+												})
 												console.log(data);
 											});
 

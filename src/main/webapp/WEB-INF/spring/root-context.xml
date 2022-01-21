@@ -7,10 +7,12 @@
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
 	<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource">
+
 		<property name="driverClassName" value="${spring.datasource.driverClassName}" />
 	    <property name="url" value="${spring.datasource.url}" />
 	    <property name="username" value="${spring.datasource.username}" />
 	    <property name="password" value="${spring.datasource.password}" />
+
 		<property name="initialSize" value="5"/>
 	</bean>
 	

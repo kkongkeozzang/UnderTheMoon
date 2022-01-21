@@ -22,4 +22,8 @@
   		<delete id="deleteById">
   			delete from purchase where purchase_id = #{purchase_id}
   		</delete>
+  		
+  		<select id="findId" resultType="kh.spring.dto.PurchaseDTO">
+  			select * from purchase where purchase_id = #{orderId}
+  		</select>
   </mapper>

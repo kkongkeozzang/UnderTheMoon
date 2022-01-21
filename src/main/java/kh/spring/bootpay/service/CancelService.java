@@ -14,7 +14,7 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClientBuilder;
 
 public class CancelService {
-    static public HttpResponse receiptCancel(BootpayObject bootpay, Cancel cancel) throws Exception {
+    static public HttpResponse receiptCancel(BootpayObject bootpay, kh.spring.bootpay.model.request.Cancel cancel) throws Exception {
         if(bootpay.token == null || bootpay.token.isEmpty()) throw new Exception("token 값이 비어있습니다.");
         if(cancel.receiptId == null || cancel.receiptId.isEmpty()) throw new Exception("receiptId 값을 입력해주세요.");
 

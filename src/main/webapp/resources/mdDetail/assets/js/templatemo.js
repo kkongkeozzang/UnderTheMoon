@@ -30,16 +30,16 @@ $(document).ready(function() {
       return false;
     });
     $('#btn-minus').click(function(){
-      var val = $("#var-value").html();
+      var val = $("#cart_item_count").html();
       val = (val=='1')?val:val-1;
-      $("#var-value").html(val);
+      $("#cart_item_count").html(val);
       $("#product-quanity").val(val);
       return false;
     });
     $('#btn-plus').click(function(){
-      var val = $("#var-value").html();
+      var val = $("#cart_item_count").html();
       val++;
-      $("#var-value").html(val);
+      $("#cart_item_count").html(val);
       $("#product-quanity").val(val);
       return false;
     });

@@ -33,4 +33,11 @@ private final SqlSessionTemplate mybatis;
 		
 		return mybatis.delete("Purchase.deleteById",order_id);
 	}
+
+	public PurchaseDTO findId(long orderId) {
+		
+		return mybatis.selectOne("Purchase.findId",orderId);
+	}
+
+	
 }

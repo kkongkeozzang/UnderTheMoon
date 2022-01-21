@@ -1,19 +1,31 @@
 package kh.spring.bootpay;
 
 
+
+
+
+
+
+import java.util.HashMap;
+
 import org.apache.http.HttpResponse;
 
-import kh.spring.bootpay.request.Cancel;
-import kh.spring.bootpay.request.Payload;
-import kh.spring.bootpay.request.Subscribe;
-import kh.spring.bootpay.request.SubscribePayload;
-import kh.spring.bootpay.request.UserToken;
+
+import kh.spring.bootpay.model.request.Cancel;
+import kh.spring.bootpay.model.request.Payload;
+import kh.spring.bootpay.model.request.Subscribe;
+import kh.spring.bootpay.model.request.SubscribePayload;
+import kh.spring.bootpay.model.request.UserToken;
+import kh.spring.bootpay.model.response.ResDefault;
 import kh.spring.bootpay.service.BillingService;
 import kh.spring.bootpay.service.CancelService;
 import kh.spring.bootpay.service.EasyService;
 import kh.spring.bootpay.service.LinkService;
 import kh.spring.bootpay.service.SubmitService;
+import kh.spring.bootpay.service.TokenService;
 import kh.spring.bootpay.service.VerificationService;
+
+import java.util.HashMap;
 
 public class Bootpay extends BootpayObject {
     public Bootpay() { }
@@ -26,21 +38,26 @@ public class Bootpay extends BootpayObject {
         super(rest_application_id, private_key, devMode);
     }
 
+    //token
+    public ResDefault<HashMap<String, Object>> getAccessToken() throws Exception {
+        return TokenService.getAccessToken(this);
+    }
+
     //billing
-    public HttpResponse getBillingKey(Subscribe subscribeBilling) throws Exception {
-        return BillingService.getBillingKey(this, subscribeBilling);
+    public ResDefault<HashMap<String, Object>> getBillingKey(Subscribe subscribeBilling) throws Exception {
+        return (ResDefault<HashMap<String, Object>>) BillingService.getBillingKey(this, subscribeBilling);
     }
-    public HttpResponse requestSubscribe(SubscribePayload payload) throws Exception {
-        return BillingService.requestSubscribe(this, payload);
+    public ResDefault<HashMap<String, Object>> requestSubscribe(SubscribePayload payload) throws Exception {
+        return (ResDefault<HashMap<String, Object>>) BillingService.requestSubscribe(this, payload);
     }
-    public HttpResponse reserveSubscribe(SubscribePayload payload) throws Exception {
-        return BillingService.reserveSubscribe(this, payload);
+    public ResDefault<HashMap<String, Object>> reserveSubscribe(SubscribePayload payload) throws Exception {
+        return (ResDefault<HashMap<String, Object>>) BillingService.reserveSubscribe(this, payload);
     }
-    public HttpResponse reserveCancelSubscribe(String reserve_id) throws Exception {
-        return BillingService.reserveCancelSubscribe(this, reserve_id);
+    public ResDefault<HashMap<String, Object>> reserveCancelSubscribe(String reserve_id) throws Exception {
+        return (ResDefault<HashMap<String, Object>>) BillingService.reserveCancelSubscribe(this, reserve_id);
     }
-    public HttpResponse destroyBillingKey(String billing_key) throws Exception {
-        return BillingService.destroyBillingKey(this, billing_key);
+    public ResDefault<HashMap<String, Object>> destroyBillingKey(String billing_key) throws Exception {
+        return (ResDefault<HashMap<String, Object>>) BillingService.destroyBillingKey(this, billing_key);
     }
 
     //cancel
@@ -49,12 +66,12 @@ public class Bootpay extends BootpayObject {
     }
 
     //easy
-    public HttpResponse getUserToken(UserToken userToken) throws Exception {
+    public HttpResponse getUserToken(kh.spring.bootpay.request.UserToken userToken) throws Exception {
         return EasyService.getUserToken(this, userToken);
     }
 
     //link
-    public HttpResponse requestLink(Payload payload) throws Exception {
+    public HttpResponse requestLink(kh.spring.bootpay.request.Payload payload) throws Exception {
         return LinkService.requestLink(this, payload);
     }
 
@@ -64,10 +81,10 @@ public class Bootpay extends BootpayObject {
     }
 
     //veriy
-    public HttpResponse verify(String receiptId) throws Exception {
-        return VerificationService.verify(this, receiptId);
+    public ResDefault<HashMap<String, Object>> verify(String receiptId) throws Exception {
+        return (ResDefault<HashMap<String, Object>>) VerificationService.verify(this, receiptId);
     }
-    public HttpResponse certificate(String receiptId) throws Exception {
-        return VerificationService.certificate(this, receiptId);
+    public ResDefault<HashMap<String, Object>> certificate(String receiptId) throws Exception {
+        return (ResDefault<HashMap<String, Object>>) VerificationService.certificate(this, receiptId);
     }
 }

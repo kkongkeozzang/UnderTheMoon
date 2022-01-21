@@ -2,8 +2,7 @@ package kh.spring.bootpay;
 
 import com.google.gson.Gson;
 
-import kh.spring.bootpay.request.Token;
-import kh.spring.bootpay.response.ResToken;
+import kh.spring.bootpay.model.request.Token;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpResponse;
@@ -87,24 +86,25 @@ public class BootpayObject {
         return put;
     }
 
-    public HttpResponse getAccessToken() throws Exception {
-        if(this.application_id == null || this.application_id.isEmpty()) throw new Exception("application_id 값이 비어있습니다.");
-        if(this.private_key == null || this.private_key.isEmpty()) throw new Exception("private_key 값이 비어있습니다.");
-
-        Token token = new Token();
-        token.application_id = this.application_id;
-        token.private_key = this.private_key;
-
-        HttpClient client = HttpClientBuilder.create().build();
-        HttpPost post = httpPost("request/token.json", new StringEntity(new Gson().toJson(token), "UTF-8"));
-
-        HttpResponse res = client.execute(post);
-        String str = IOUtils.toString(res.getEntity().getContent(), "UTF-8");
-        ResToken resToken = new Gson().fromJson(str, ResToken.class);
-
-        if(resToken.status == 200)
-            this.token = resToken.data.token;
-
-        return res;
-    }
+//    public HttpResponse getAccessToken() throws Exception {
+//        if(this.application_id == null || this.application_id.isEmpty()) throw new Exception("application_id 값이 비어있습니다.");
+//        if(this.private_key == null || this.private_key.isEmpty()) throw new Exception("private_key 값이 비어있습니다.");
+//
+//        Token token = new Token();
+//        token.application_id = this.application_id;
+//        token.private_key = this.private_key;
+//
+//        HttpClient client = HttpClientBuilder.create().build();
+//        HttpPost post = httpPost("request/token.json", new StringEntity(new Gson().toJson(token), "UTF-8"));
+//
+//        HttpResponse res = client.execute(post);
+//        String str = IOUtils.toString(res.getEntity().getContent(), "UTF-8");
+//        ResToken resToken = new Gson().fromJson(str, ResToken.class);
+//
+//        System.out.println(str);
+//        if(resToken.status == 200)
+//            this.token = resToken.data.token;
+//
+//        return res;
+//    }
 }

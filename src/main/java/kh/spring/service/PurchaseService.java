@@ -32,4 +32,16 @@ public class PurchaseService {
 		return purchaseDAO.deleteById(order_id);
 	}
 
+	public PurchaseDTO findId(long orderId) {
+		
+		return purchaseDAO.findId(orderId);
+	}
+
+	public void completeOrder(long orderId) {
+		PurchaseDTO purchaseDTO = purchaseDAO.findId(orderId);
+		purchaseDTO.completeOrder();
+		
+	}
+
+
 }

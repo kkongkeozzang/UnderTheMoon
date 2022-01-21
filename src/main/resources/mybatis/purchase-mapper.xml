@@ -23,7 +23,13 @@
   			delete from purchase where purchase_id = #{purchase_id}
   		</delete>
   		
+
+  		<select id="findId" resultType="kh.spring.dto.PurchaseDTO">
+  			select * from purchase where purchase_id = #{orderId}
+
+		</select>
   		<select id="selectByIdSumPurchasePayment" resultType="integer">
   			select sum(purchase_payment) from purchase where member_id = #{value}
+
   		</select>
   </mapper>

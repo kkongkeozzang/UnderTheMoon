@@ -2,6 +2,8 @@ package kh.spring.dto;
 
 import java.sql.Timestamp;
 
+import kh.spring.util.OrderStatus;
+
 public class PurchaseDTO {
 
 	private Integer purchase_id;
@@ -33,6 +35,9 @@ public class PurchaseDTO {
 		this.purchase_method = purchase_method;
 	}
 
+    @SuppressWarnings("unused")
+	private OrderStatus orderStatus;
+	
 	public Integer getPurchase_id() {
 		return purchase_id;
 	}
@@ -111,6 +116,11 @@ public class PurchaseDTO {
 
 	public void setPurchase_method(String purchase_method) {
 		this.purchase_method = purchase_method;
+	}
+
+	public void completeOrder() {
+		  this.orderStatus = OrderStatus.COMP;
+		
 	}
 
 	

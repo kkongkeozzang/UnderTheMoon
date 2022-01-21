@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import kh.spring.dto.MdDTO;
 import kh.spring.service.MdReviewService;
 import kh.spring.service.MdService;
+import kh.spring.util.PageStatic;
 
 @Controller
 @RequestMapping("/md/detail/")
@@ -59,11 +60,14 @@ private final MdReviewService mdReviewService;
 			// 쿠키 내용을 split 해서 linkedList로 담기
 			LinkedList<String> mdIds = new LinkedList<>();
 			String[] temp = oldCookie.getValue().split("/");
-			for(String mdId : temp) {
-				mdIds.add(mdId);
+			// 5개가 넘으면 최근 순으로 자르기
+			int limit = temp.length;
+			if(limit > PageStatic.RECENTLY_MD_VIEW_COOKIE_LIMIT) {
+				limit = PageStatic.RECENTLY_MD_VIEW_COOKIE_LIMIT;
 			}
-			
-			
+			for(int i = 0; i < limit; i++) {
+				mdIds.add(temp[i]);
+			}
 			// 쿠키에 해당 상품 번호가 들어있는지 확인
 			int index = mdIds.indexOf(md_id);  // 해당 번호의 인덱스
 			// 안들어있으면(-1) 맨 처음에 해당 번호 넣어주기

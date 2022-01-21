@@ -219,7 +219,7 @@ body {
 					<div class="row" style="padding-bottom: 5px;">
 						<div class="col-sm-12">
 							<input type="hidden" name=member_id value=${member_id}> 
-							<input type=text id=input-title name=notice_title placeholder="제목을 작성하세요" style="width: 100%;">
+							<input type=text id=input-title name=notice_title placeholder="제목을 작성하세요 (최대 30자)" style="width: 100%;" maxlength=30>
 						</div>
 					</div>
 					<div class="row">

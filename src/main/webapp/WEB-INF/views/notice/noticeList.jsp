@@ -183,52 +183,52 @@ select {
 					</div>
 				</div>
 			</div>
-			<div class="card-body noSearch" align=center style="font-size: 30px;">${noSearch }</div>
-			<script>
-        	if(${boardList.size()!=0}){
-        		$(".noSearch").css("display","none");
-        	}
-       	</script>
-			<c:forEach var="notices" items="${notices}">
-
-
-				<div class="card-body py-3 " style="justify-content: space-around; margin:0px;">
-					<div class="row no-gutters align-items-center"
-						style="justify-content: space-around">
-
-						<%-- 웹버전 seq --%>
-						<div class="col-2 d-none d-md-block pl-3" align=center style="padding-left:0px;">${notices.notice_id }</div>
-						<%-- 웹버전 title --%>
-						<div class="col-4 d-none d-md-block" align=center>
-							<a href="/notice/detail?notice_id=${notices.notice_id}&member_id=${notices.member_id}&cPage=${cPage}"
-								class="text-big" data-abc="true">${notices.notice_title }</a>
-							<div class="text-muted small mt-1 d-md-none">${notices.getFormedDate() }
-								&nbsp;·&nbsp; by ${notices.member_username }</div>
-						</div>
-						<%-- 웹버전 조회수, 작성자, 날짜 --%>
-						<div class="d-none d-md-block col-6">
-							<div class="row no-gutters align-items-center">
-								<div class="col-4" style="text-align: center;">${notices.member_username }</div>
-								<div class="col-4" style="text-align: center;">${notices.getFormedDate()}</div>
-								<div class="col-4" style="text-align: center;">${notices.notice_view_count }</div>					
+			
+       		<c:choose>
+				<c:when test="${empty notices }">
+					<div style="text-align: center; line-height: 100px;">작성된 글이 없습니다.</div>
+				</c:when>
+				<c:otherwise>
+				<c:forEach var="notices" items="${notices}">
+					<div class="card-body py-3 " style="justify-content: space-around; margin:0px;">
+						<div class="row no-gutters align-items-center"
+							style="justify-content: space-around">
+	
+							<%-- 웹버전 seq --%>
+							<div class="col-2 d-none d-md-block" align=center style="padding-left:0px;">${notices.notice_id }</div>
+							<%-- 웹버전 title --%>
+							<div class="col-4 d-none d-md-block" align=center>
+								<a href="/notice/detail?notice_id=${notices.notice_id}&member_id=${notices.member_id}&cPage=${cPage}"
+									class="text-big" data-abc="true">${notices.notice_title }</a>
+								<div class="text-muted small mt-1 d-md-none">${notices.getFormedDate() }
+									&nbsp;·&nbsp; by ${notices.member_username }</div>
 							</div>
+							<%-- 웹버전 조회수, 작성자, 날짜 --%>
+							<div class="d-none d-md-block col-6">
+								<div class="row no-gutters align-items-center">
+									<div class="col-4" style="text-align: center;">${notices.member_username }</div>
+									<div class="col-4" style="text-align: center;">${notices.getFormedDate()}</div>
+									<div class="col-4" style="text-align: center;">${notices.notice_view_count }</div>					
+								</div>
+							</div>
+	
+							<!--모바일버전 seq -->
+							<div class="col-2 d-md-none pl-2">${notices.notice_id }</div>
+							<!--모바일버전 title,작성자,날짜-->
+							<div class="col-8 d-md-none pl-2">
+								<a href="/notice/detail?notice_id=${notices.notice_id}&member_id=${notices.member_id}&cPage=${cPage}"
+									class="text-big" data-abc="true">${notices.notice_title }</a>
+								<div class="text-muted small mt-1 d-md-none">${notices.getFormedDate() }
+									&nbsp;·&nbsp;by ${notices.member_username }</div>
+							</div>
+	
 						</div>
-
-						<!--모바일버전 seq -->
-						<div class="col-2 d-md-none pl-2">${notices.notice_id }</div>
-						<!--모바일버전 title,작성자,날짜-->
-						<div class="col-8 d-md-none pl-2">
-							<a href="/notice/detail?notice_id=${notices.notice_id}&member_id=${notices.member_id}&cPage=${cPage}"
-								class="text-big" data-abc="true">${notices.notice_title }</a>
-							<div class="text-muted small mt-1 d-md-none">${notices.getFormedDate() }
-								&nbsp;·&nbsp;by ${notices.member_username }</div>
-						</div>
-
 					</div>
-				</div>
-
-				<hr class="m-0">
-			</c:forEach>
+	
+					<hr class="m-0">
+				</c:forEach>
+				</c:otherwise>
+			</c:choose>
 		</div>
 		<div align=center style="margin-bottom:15px;"><span>${pageNavi}</span></div>
 
@@ -252,14 +252,6 @@ select {
 							검색하기</button>
 					</div>
 					<sec:authorize access="hasRole('ROLE_ADMIN')">
-						<div class="col-4" style="text-align: right;padding-right:0px;">
-							<button type="button"
-								class="btn-write btn btn-shadow btn-wide btn-primary"
-								style="background-color: #406882; border-color: #406882;">
-								글 쓰기</button>
-						</div>
-					</sec:authorize>
-					<sec:authorize access="hasRole('ROLE_SELLER')">
 						<div class="col-4" style="text-align: right;padding-right:0px;">
 							<button type="button"
 								class="btn-write btn btn-shadow btn-wide btn-primary"

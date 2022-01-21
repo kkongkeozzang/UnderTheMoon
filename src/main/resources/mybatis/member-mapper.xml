@@ -44,6 +44,13 @@
   		select member_id from member where member_username = #{member_username}
   </select>
 
+  <update id="updateGradeMoon">
+  	update member set grade_name = '달' where member_username = #{member_username}
+  </update>
+  
+  <update id="updateGradeSun">
+  	update member set grade_name = '해' where member_username = #{member_username}
+  </update>
   </mapper>
   
   

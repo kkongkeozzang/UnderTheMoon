@@ -44,7 +44,7 @@ public class NoticeController {
 		int end = cPage * PageStatic.NOTICE_COUNT_PER_PAGE;
 		List<NoticeDTO> notices = noticeService.selectByBound(start, end);
 		int allNoticeCount = noticeService.selectRecordCount();
-		String pageNavi = PageNavigator.getPageNavigator(allNoticeCount, cPage, PageStatic.NOTICE_COUNT_PER_PAGE, PageStatic.NOTICE_NAVI_COUNT_PER_PAGE, "all" ,"","");
+		String pageNavi = PageNavigator.getPageNavigator(allNoticeCount, cPage, PageStatic.NOTICE_COUNT_PER_PAGE, PageStatic.NOTICE_NAVI_COUNT_PER_PAGE, "notice", "all" ,"","");
 		model.addAttribute("notices", notices);
 		model.addAttribute("pageNavi", pageNavi);
 		model.addAttribute("cPage", cPage);
@@ -144,7 +144,7 @@ public class NoticeController {
 		
 		List<NoticeDTO> notices = noticeService.selectByKeyword(start, end, select, keyword);
 		int allNoticeCount = noticeService.selectRecordCount(select, keyword);
-		String pageNavi = PageNavigator.getPageNavigator(allNoticeCount, cPage, PageStatic.NOTICE_COUNT_PER_PAGE, PageStatic.NOTICE_NAVI_COUNT_PER_PAGE, "search",select,keyword);
+		String pageNavi = PageNavigator.getPageNavigator(allNoticeCount, cPage, PageStatic.NOTICE_COUNT_PER_PAGE, PageStatic.NOTICE_NAVI_COUNT_PER_PAGE, "notice", "search",select,keyword);
 		model.addAttribute("notices", notices);
 		model.addAttribute("pageNavi", pageNavi);
 		model.addAttribute("cPage", cPage);

@@ -6,7 +6,7 @@ import java.sql.Timestamp;
 
 public class PointDTO {
 
-   
+	  
    private int point_id;
    private int point_used_saved;
    private String point_event;

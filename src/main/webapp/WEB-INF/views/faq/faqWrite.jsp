@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>글 수정</title>
+<title>글 쓰기</title>
 <link
 	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
 	rel="stylesheet" />
@@ -207,57 +207,63 @@ body {
 	<!-- 타이틀  -->
 	<div class="container-fluid mt-100">
 		<div id="board-title">
-			<span><h3>공지사항</h3></span>
+			<span><h3>자주묻는질문</h3></span>
 		</div>
 		<br>
 
 		<!-- 게시판 박스 -->
 		<div class="card mb-3 col-xl-6 col-md-12">
 			<!-- 게시글 등록 박스 -->
-			<form action="/notice/update?cPage=${cPage}" method="post" id="frmDetail">
+			<form action="/faq/insert" method="post" id="frm">
 				<div class="container mb-4 mt-4">
-					<div class="row" style="padding-bottom: 5px;">
-						<div class="col-sm-12"> 
-							<input type="hidden" value="${notices.member_id}" name="member_id">
-							<input type="hidden" value="${notices.notice_id}" name="notice_id">
-							<input type=text id=input-title name=notice_title placeholder="제목을 작성하세요 (최대 30자)" maxlength=30 style="width: 100%;" value='${notices.notice_title }'>
+					<div class="row" style="padding-bottom: 5px; margin:0px;">
+						<select class="select" name="faq_category" style="margin-bottom:5px;">
+							<option value="">-카테고리 선택-</option>
+							<option value="회원">회원</option>
+							<option value="서비스 이용">서비스 이용</option>
+							<option value="주문/결제">주문/결제</option>
+							<option value="상품">상품</option>
+							<option value="이벤트/쿠폰/적립금">이벤트/쿠폰/적립금</option>>
+							<option value="취소/교환/환불">취소/교환/환불</option>>
+						</select>
+						<br>
+						<div class="col-sm-12" style="padding:0px;">
+							<input type="hidden" name=member_id value=${member_id}> 
+							<input type=text id=input-title name=faq_title placeholder="제목을 작성하세요 (최대 30자)" style="width: 100%;" maxlength=30>
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-sm-12">
-							<textarea name="notice_content" id="summernote"
-								style="min-height: 200px; overflow: auto" maxlength="1000">${notices.notice_content }</textarea>
+							<textarea name="faq_content" id="summernote"
+								style="min-height: 200px; overflow: auto" onkeyup="fn_checkByte(this)"></textarea>
 							<script>
                 				autosize($("textarea"));
         			        </script>
-                	<sup>(<span id="nowByte">0</span>/4000bytes)</sup>
+        			<sup>(<span id="nowByte">0</span>/4000bytes)</sup>
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-sm-12" style="text-align: right">
-							<button type="button" id="update" class="btn btn-dark"
-								style="background-color: #406882;">수정완료</button>
-							<button class="btn btn-dark" type=button id="cancel"
-								style="background-color: #406882;">취소</button>
-					<script>
+							<button type="button" id="board-list" class="btn btn-dark"
+								style="background-color: #406882;">목록으로</button>
+							<button class="btn btn-dark" type=button id="write"
+								style="background-color: #406882;">작성하기</button>
+							<script>
+					$("#board-list").on("click",function(){
+						location.href="javascript:history.back()";
+					})
 					
-					$("#cancel").on("click",function(){
-						if(confirm("정말 취소하시겠습니까?")){
-							location.href="/notice/detail?notice_id=${notices.notice_id}&member_id=${notices.member_id}&cPage=${cPage}";
-						}
-					});
-					
-					$("#update").on("click",function(){
+					$("#write").on("click",function(){
 						if($('.note-editable').html()==""){
 							alert("내용을 입력해주세요.");
+						}else if($('.select').val()==""){
+							alert("카테고리를 선택해주세요.");
 						}else if(totalByte > maxByte){
 							alert("바이트 수를 확인해주세요.(최대 4000bytes)");
 						}else if($("#input-title").val()==""){
 							alert("제목을 입력해주세요.");
 						}else {
-							if(confirm("이대로 수정하시겠습니까?")){
-								$("#frmDetail").submit();
-							}				
+							$("#frm").submit();			
 						}
 					})
 				</script>
@@ -270,6 +276,7 @@ body {
 		<br>
 
 		<script>
+		
 		$(document).ready(function() {
 			$('#summernote').summernote({  // summernote 에디터 설정 코드
 			  height: 500, // 에디터 높이
@@ -324,7 +331,7 @@ body {
 			$.ajax({ // ajax를 통해 파일 업로드 처리
 				data : data,
 				type : "POST",
-				url : "/notice/uploadSummernoteImageFile",
+				url : "/faq/uploadSummernoteImageFile",
 				cache : false,
 				enctype : 'multipart/form-data',
 				contentType : false,
@@ -337,7 +344,7 @@ body {
 		
 		function fn_checkByte(obj){
 			maxByte = 4000; //최대 4000바이트
-		    const text_val = obj; //입력한 문자
+		    const text_val = obj //입력한 문자
 		    const text_len = text_val.length; //입력한 문자수
 		    
 		    totalByte = 0; // 입력한 바이트수		    

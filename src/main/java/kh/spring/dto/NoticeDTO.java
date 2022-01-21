@@ -120,7 +120,7 @@ public class NoticeDTO {
     }
     
     public String getFormedDate() {
-    	SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
+    	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
     	return sdf.format(this.notice_write_date.getTime());
     }
 }

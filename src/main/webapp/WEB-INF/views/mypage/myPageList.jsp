@@ -122,7 +122,8 @@
 					<div class="card-body">						
 
 							<div class="drive-wrapper drive-list-view">
-							
+
+								<div class="table-responsive drive-items-table-wrapper">
 									<table class="table">
 										<thead>
 											<tr>
@@ -139,6 +140,7 @@
 														
 										</tbody>
 									</table>
+
 									<div class="card shadow-none border radius-15">
 									<div class="row">									
 										<div class="col-sm-12" id="purchase-name">춘식이 무드등											
@@ -157,6 +159,7 @@
 									</div>									
 									</div>
 									<br>															
+
 							</div>						
 					</div>
 				</div>
@@ -165,11 +168,12 @@
 	</div>
 	</div>
 	</div>
+	</div>
+	</div>
 <script>
 	$("#all-grade").on("click",function(){
 		location="/mypage/myPageGrade"
 	})
 </script>
-</div>
 </body>
 </html>

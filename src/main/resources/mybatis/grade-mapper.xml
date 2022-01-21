@@ -8,5 +8,5 @@
  	<select id="selectAll" resultType="kh.spring.dto.GradeDTO">
  		select * from grade
  	</select>
- 	
+
  </mapper>

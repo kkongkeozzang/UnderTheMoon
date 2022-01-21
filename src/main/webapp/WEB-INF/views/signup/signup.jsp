@@ -270,14 +270,14 @@
 
 	//필수 입력값 유효성 검사
 	$("#submit").on("click",function(){
-		let regexId = /^[a-zA-Z가-힣]{1,8}$/
+		let regexId = /^[a-z]{1}[a-z\d]{5,13}$/;
 		let resultId = regexId.test($("#member-username").val());
 			if(resultId == false){
     			alert("아이디는 필수 입력사항입니다.")
     			return false;
 		}
 			
-		let regexPw = /^[a-zA-Z가-힣]{1,8}$/;
+		let regexPw = /^(?=.*[a-zA-Z])((?=.*\d)(?=.*\W)).{8,16}$/;
 		let resultPw = regexPw.test($("#member-password").val());
 			if(resultPw == false){
 			    alert("비밀번호는 필수 입력사항입니다.")

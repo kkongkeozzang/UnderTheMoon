@@ -5,6 +5,35 @@ TemplateMo 546 Sixteen Clothing
 https://templatemo.com/tm-546-sixteen-clothing
 
 */
+
+/* 최근 본 상품 CSS */
+	
+#recently-md-view-box {
+	position:absolute;width:90px;top:50%;margin-top:-50px;right:10px;
+	border:1px solid black;
+}
+
+#recently-md-view-title{
+	text-align:center;
+}
+	
+
+
+/* 이벤트박스 CSS */
+#event-box {
+	height:500px;
+	border: 1px solid black;
+}
+
+.slick-prev:before {
+	color:black;
+}
+
+.slick-prev:before, .slick-next:before {
+	color:black;
+}
+
+
 body {
   font-family: 'Poppins', sans-serif;
   overflow-x: hidden;

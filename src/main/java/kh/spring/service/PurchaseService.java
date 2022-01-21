@@ -32,4 +32,8 @@ public class PurchaseService {
 		return purchaseDAO.deleteById(order_id);
 	}
 
+	public Integer selectByIdSumPurchasePayment(Integer id) {
+		
+		return purchaseDAO.selectByIdSumPurchasePayment(id);
+	}
 }

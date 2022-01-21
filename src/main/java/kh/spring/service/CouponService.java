@@ -30,5 +30,40 @@ public class CouponService {
 		
 		return op;
 	}
+	
+	public int selectByMemberIdCountCoupon(Integer id) {
+		return couponDAO.selectByMemberIdCountCoupon(id);
+	}
+	
+	public Integer insertSignUpEventDelivery(Integer id) {
+		return couponDAO.insertSignUpEventDelivery(id);
+	}
 
+	public Integer insertSignUpEventDiscount(Integer id) {
+		return couponDAO.insertSignUpEventDiscount(id);
+	}
+	
+	public Integer insertStarGradeDelivery(Integer id) {
+		return couponDAO.insertStarGradeDelivery(id);
+	}
+	
+	public Integer insertStarGradeDiscount(Integer id) {
+		return couponDAO.insertStarGradeDiscount(id);
+	}
+	
+	public Integer insertMoonGradeDelivery(Integer id) {
+		return couponDAO.insertMoonGradeDelivery(id);
+	}
+	
+	public Integer insertMoonGradeDiscount(Integer id) {
+		return couponDAO.insertMoonGradeDiscount(id);
+	}
+	
+	public Integer insertSunGradeDelivery(Integer id) {
+		return couponDAO.insertSunGradeDelivery(id);
+	}
+	
+	public Integer insertSunGradeDiscount(Integer id) {
+		return couponDAO.insertSunGradeDiscount(id);
+	}
 }

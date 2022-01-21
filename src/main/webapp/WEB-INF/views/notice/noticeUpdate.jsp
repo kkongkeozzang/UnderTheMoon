@@ -220,7 +220,7 @@ body {
 						<div class="col-sm-12"> 
 							<input type="hidden" value="${notices.member_id}" name="member_id">
 							<input type="hidden" value="${notices.notice_id}" name="notice_id">
-							<input type=text id=input-title name=notice_title placeholder="제목을 작성하세요" style="width: 100%;" value='${notices.notice_title }'>
+							<input type=text id=input-title name=notice_title placeholder="제목을 작성하세요 (최대 30자)" maxlength=30 style="width: 100%;" value='${notices.notice_title }'>
 						</div>
 					</div>
 					<div class="row">

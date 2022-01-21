@@ -33,4 +33,9 @@ private final SqlSessionTemplate mybatis;
 		
 		return mybatis.delete("Purchase.deleteById",order_id);
 	}
+	
+	public Integer selectByIdSumPurchasePayment(Integer id) {
+		
+		return mybatis.selectOne("Purchase.selectByIdSumPurchasePayment",id);
+	}
 }

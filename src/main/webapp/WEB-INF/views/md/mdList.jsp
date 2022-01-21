@@ -40,6 +40,9 @@ $(document).ready(function(){
 	sortFunc("all", "none");
 	$("body").on("click",".product-item", function(){
 		let md_id = $(this).find("#md_id").val();
+		$.ajax({
+			url:""
+		})
 		location.href = "/md/detail/page?md_id=" + md_id;
 	})
 	var currentPosition = parseInt($("#recently-md-view-box").css("top"));

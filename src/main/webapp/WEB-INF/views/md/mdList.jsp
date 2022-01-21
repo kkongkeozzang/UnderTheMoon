@@ -23,6 +23,13 @@
 .product-item:hover { 
 	cursor: pointer; !important
 }
+.img-box img {
+	width:100%;
+	height:100px;
+}
+.md-img-box img {
+	height:350px;
+}
 </style>
 <script>
 <%--
@@ -35,6 +42,11 @@ $(document).ready(function(){
 		let md_id = $(this).find("#md_id").val();
 		location.href = "/md/detail/page?md_id=" + md_id;
 	})
+	var currentPosition = parseInt($("#recently-md-view-box").css("top"));
+	$(window).scroll(function() {
+	    var position = $(window).scrollTop(); 
+	    $("#recently-md-view-box").stop().animate({"top":position+currentPosition+"px"},1000);
+	});
 })
 function sortFunc(select, sort) {
 	if (select != "all") {
@@ -141,8 +153,56 @@ function getPage(pageNavi, select, sort) {
 </head>
 <body>
 	
+	<div id="recently-md-view-box">
+			<div id="recently-md-view-title">최근본상품</div>
+			<div id="recently-md-view-content">
+			
+			</div>
+			<script src="/resources/mdDetail/assets/js/slick.min.js"></script>
+			<script>
+			<c:forEach var="mdImg" items="${recentlyMdViewImgs}">
+				$("#recently-md-view-content").append("${mdImg}");
+			</c:forEach>
+			
+			$("#recently-md-view-content").slick({
+				infinite: false,  //무한 반복 옵션
+	            arrows: true,  // 옆으로 이동하는 화살표 표시 여부
+	            slidesToShow: 1,  // 한 화면에 보여질 컨텐츠 개수
+	            slidesToScroll: 1,  //스크롤 한번에 움직일 컨텐츠 개수
+	            dots: false,  // 스크롤바 아래 점으로 페이지네이션 여부
+	            draggable : true,  //드래그 가능 여부
+	            vertical : true,
+	            responsive: [{  // 반응형 웹 구현 옵션
+	                    breakpoint: 1024,  //화면 사이즈 
+	                    settings: {
+	                    	//위에 옵션이 디폴트 , 여기에 추가하면 그걸로 변경
+	                        slidesToShow: 3,
+	                        slidesToScroll: 3
+	                    }
+	                },
+	                {
+	                    breakpoint: 600,
+	                    settings: {
+	                        slidesToShow: 2,
+	                        slidesToScroll: 3
+	                    }
+	                },
+	                {
+	                    breakpoint: 480,
+	                    settings: {
+	                        slidesToShow: 2,
+	                        slidesToScroll: 3
+	                    }
+	                }
+	            ]
+			});
+			</script>
+		</div>
+	
+	
     <div class="products">
       <div class="container">
+      <div id="event-box"></div>
       	<div class="row region-sort">
 			<ul class="nav justify-content-between" style="flex:1 1 100%">
 				<li class="nav-item">서울</li>

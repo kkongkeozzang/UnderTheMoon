@@ -161,6 +161,7 @@ function getPage(pageNavi, select, sort) {
 </script>
 </head>
 <body>
+	
 	<div id="recently-md-view-box">
 			<div id="recently-md-view-title">최근본상품</div>
 			<div id="recently-md-view-content">
@@ -206,6 +207,7 @@ function getPage(pageNavi, select, sort) {
 			});
 			</script>
 		</div>
+	
 	
     <div class="products">
       <div class="container">

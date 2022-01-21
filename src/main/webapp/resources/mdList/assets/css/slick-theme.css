@@ -2,7 +2,7 @@
 /* Slider */
 .slick-loading .slick-list
 {
-    background: #fff url('../img/ajax-loader.gif') center center no-repeat;
+    background: #fff url('/resources/mdDetail/assets/img/ajax-loader.gif') center center no-repeat;
 }
 
 /* Icons */
@@ -12,11 +12,11 @@
     font-weight: normal;
     font-style: normal;
 
-    src: url('../webfonts/slick.eot');
-    src: url('../webfonts/slick.eot?#iefix') format('embedded-opentype'),
-         url('../webfonts/slick.woff') format('woff'),
-         url('../webfonts/slick.ttf') format('truetype'),
-         url('../webfonts/slick.svg#slick') format('svg');
+    src: url('/resources/mdDetail/assets/webfonts/slick.eot');
+    src: url('/resources/mdDetail/assets/webfonts/slick.eot?#iefix') format('embedded-opentype'),
+         url('/resources/mdDetail/assets/webfonts/slick.woff') format('woff'),
+         url('/resources/mdDetail/assets/webfonts/slick.ttf') format('truetype'),
+         url('/resources/mdDetail/assets/webfonts/slick.svg#slick') format('svg');
 }
 /* Arrows */
 .slick-prev,
@@ -64,6 +64,23 @@
 .slick-next.slick-disabled:before
 {
     opacity: .25;
+    position:relative;
+}
+
+.slick-prev.slick-disabled:before
+{
+    opacity: .25;
+    position:relative;
+    top: 70px;
+    left: 48px;
+}
+
+.slick-next.slick-disabled:before
+{
+    opacity: .25;
+    position:relative;
+    top: 70px;
+    right:48px;
 }
 
 .slick-prev:before,
@@ -74,7 +91,7 @@
     line-height: 1;
 
     opacity: .75;
-    color: white;
+    color: black;
 
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -92,6 +109,9 @@
 .slick-prev:before
 {
     content: '←';
+    position: relative;
+    top: 70px;
+    left: 48px;
 }
 [dir='rtl'] .slick-prev:before
 {
@@ -110,6 +130,10 @@
 .slick-next:before
 {
     content: '→';
+    position: relative;
+    top: 70px;
+    right:48px;
+    
 }
 [dir='rtl'] .slick-next:before
 {

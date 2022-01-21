@@ -381,7 +381,7 @@ body {
 					</div>
 				</div>
 				</c:if>
-			</div>	
+			</div>
 		</div>
 		<hr>
 	</div>

@@ -28,10 +28,22 @@ public class CartService {
 	public Integer addToCart(String member_username, Integer md_id, Integer cart_item_count) {
 		
 		Integer member_id = memberDAO.selectIdByUsername(member_username);
-	
 		MdDTO md = mdDAO.selectMdDetailById(String.valueOf(md_id));
 		
-		Integer result = cartDAO.insertIntoCart(member_id,md_id,cart_item_count,md);
+		Integer result = 0;
+		// 기존 존재하는 cart 레코드 가져오기
+		List<CartDTO> cartMds = cartDAO.selectMdByMdId(md_id);
+		if(cartMds.size() == 0) {  
+			// 없다면 생성
+			result = cartDAO.insertIntoCart(member_id,md_id,cart_item_count,md);
+		} else {
+			// 있다면 수량과 가격 업데이트
+			
+			int cart_price = (cart_item_count+cartMds.get(0).getCart_item_count()) * md.getMd_price();
+			result = cartDAO.updateCartMdQuantityAndPrice(cart_item_count, cartMds.get(0).getMd_id(), cart_price);
+		}
+		
+		
 		
 		return result;
 	}

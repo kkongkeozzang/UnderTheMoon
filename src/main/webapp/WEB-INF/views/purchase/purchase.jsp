@@ -12,6 +12,7 @@
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script src="https://cdn.bootpay.co.kr/js/bootpay-3.3.2.min.js" type="application/javascript"></script> 
 <style>
 .table>tbody>tr>td, .table>tfoot>tr>td{
     vertical-align: middle;
@@ -159,11 +160,14 @@ $(function(){
 </head>
 <body>
 <div class="container">
+		<div>
+			<input type="hidden" id="amount" value="${totalPrice}">
+		</div>
+
 	<table id="cart" class="table table-hover table-condensed">
     				<thead>
 						<tr>
 							<th style="width:50%">상품</th>
-							 
 							<th style="width:8%"></th>
 							<th style="width:22%" class="text-center">수량</th>
 							<th style="width:10%">가격</th>
@@ -176,7 +180,7 @@ $(function(){
 								<div class="row">
 									<div class="col-sm-2 hidden-xs"><img src="${cart.cart_image}" alt="..." class="img-responsive"/></div>
 									<div class="col-sm-10">
-										<h4 id="item" class="nomargin">${cart.cart_item} </h4>
+										<h4 id="item" class="cart-item nomargin">${cart.cart_item} </h4>
 									</div>
 								</div>
 							</td>
@@ -198,30 +202,53 @@ $(function(){
 					<tfoot>
 						<tr class="visible-xs">
 						</tr>
-						<tr>
-							<td><a href="#" class="btn btn-warning"><i class="fa fa-angle-left"></i> 쇼핑계속하기</a></td>
-							<td colspan="2" class="hidden-xs"></td>
-							<td class="hidden-xs text-center">Total <input type="text" id="totalPrice" value="${ totalPrice}" readonly> </td>
-							<td><a href="#" class="btn btn-success btn-block">주문하기 <i class="fa fa-angle-right"></i></a></td>
-						</tr>
 					</tfoot>
 				</table>
 				
 				<div class="form-group">
+				
+						<label for="recipient">받는사람 이름:</label>
+					    <input id="recipient" type="text" class="form-control" value="${member.member_name}"  readonly>
+					  </div>
+					    <label for="recipient_phone">받는사람 번호:</label>
+					    <input id="recipient_phone" type="text" class="form-control" value="${member.member_phone}"  readonly>
+					  </div>
+				<div class="form-group">
 					    <label for="address">배송지:</label>
-					    <input id="roadAddress" type="text" class="form-control" value="${member.member_address1}" id="address" readonly>
+					    <input id="roadAddress" type="text" class="form-control" value="${member.member_address1}" readonly>
 					  </div>
 					  <div class="form-group">
 					    <label for="address2">상세주소:</label>
-					    <input type="text" class="form-control" value="${member.member_address2}" id="address2">
-					  </div>
-					<button id="addressSearch" type="button" class="btn btn-primary">주소검색</button>
+					    <input id="roadAddress2" type="text" class="form-control" value="${member.member_address2}" >
+				</div>
+					<div id="select-container">
+					<button id="addressSearch" type="button" class="btn btn-primary">주소검색</button><br><br>
+					
+						 <select id="coupon" class="form-select" >
+							 <c:forEach var="coupon" items="${coupons }">
+							  <option >${coupon.coupon_discount_rate }</option>
+							  </c:forEach>
+						</select><br><br>
+					</div>	
+						  <label for="point" class="mr-sm-2">적립금: ${ pointSum}</label>
+						  <input type="text" id="point-input" class="form-control mb-2 mr-sm-2" value=0 id="pointSum">
+						  <button id="point-btn"type="button" class="btn btn-primary mb-2">적립금전체사용</button><br><br>
+						  
+						<table>
+						  <tr>
+							<td><a href="#" class="btn btn-warning"><i class="fa fa-angle-left"></i> 쇼핑계속하기</a></td>
+							<td colspan="2" class="hidden-xs"></td>
+							<td class="hidden-xs text-center">Total <input type="text" id="totalPrice" value="${ totalPrice}" readonly> </td>
+							<td><a href="#" id="purchase" class="btn btn-success btn-block">결제하기 <i class="fa fa-angle-right"></i></a></td>
+						</tr>
+						</table>
 					
 					
-</div>
+			</div>
 </body>
 
 					<script>
+					//주소 api
 					 document.getElementById("addressSearch").onclick = function(){
 					        new daum.Postcode({
 					            oncomplete: function(data) {                                 
@@ -230,5 +257,163 @@ $(function(){
 					            }            
 					        }).open();
 					    }
-					</script>
+					 //적립금 전체사용.
+					 $("#point-btn").on("click",function(){
+						 
+						/*  $("#pointSum").attr('value', ${pointSum}); */
+						 $("#point-input").val(${pointSum}); 
+						 
+					 })
+					 //적립금 직접입력..
+					$("#point-input").on("blur",function(){
+						 
+						 let pointSum = $("#point-input").val();
+							let pointSum_int = Number(pointSum);
+							
+						let totalPrice = $("#totalPrice").val();
+							let totalPrice_int = Number(totalPrice);
+						
+							if(pointSum_int<=${pointSum}){
+							
+						 $("#totalPrice").val(totalPrice_int-pointSum_int); 
+						 
+						}else{
+							$("#point-input").val(${pointSum}); 
+						}
+					 }) 
+					 //적립금전체사용..
+					 $("#point-btn").on("click",function(){
+						 
+						 let pointSum = $("#point-input").val();
+							let pointSum_int = Number(pointSum);
+							
+						let totalPrice = $("#totalPrice").val();
+							let totalPrice_int = Number(totalPrice);
+							
+						 $("#totalPrice").val(totalPrice_int-pointSum_int); 
+					 }) 
+					 
+					 //쿠폰사용액계산..
+					  $("body").on("change","coupon",function(){
+						   
+						 let totalPrice = $("#amount").val();
+						 let totalPrice_int = Number(totalPrice);
+						 console.log(totalPrice_int);
+						 
+						/*  let coupon = $("#coupon").value(); */
+						 let coupon = $(this).closest("#select-container").find("#coupon").val()
+						 let coupon_int = Number(coupon);
+						 console.log(coupon_int);
+						 
+						 $("#totalPrice").val(totalPrice_int-(totalPrice_int*(coupon_int/100))); 
+									
+					 }) 
+					 
+				//결제API
+				$("#purchase").on("click",function(){
+						 
+						 var deliveryDTO = {
+								 member_id: ${member.member_id},
+								 delivery_address1: $("#roadAddress").val(),
+								 delivery_address2: $("#roadAddress2").val(),
+								 delivery_recipient: $("#recipient").val(),
+								 delivery_phone: $("#recipient_phone").val()
+						 };
+						 
+						 var purchaseDTO = {
+								 
+								 	member_id: ${member.member_id},
+									purchase_amount: ${ totalPrice},
+									purchase_delivery_fee: '3000',
+									purchase_used_point: $("#point-input").val(),
+									purchase_coupon: $("#coupon option:selected").val(),
+									purchase_payment: $("#totalPrice").val(),
+									purchase_method: 'card'
+						 };
+						 
+						var arr = [deliveryDTO,purchaseDTO];
+						
+						let order_id = 0;
+						let delivery_id = 0;
+						 
+						 $.ajax({
+						  	  type: 'post',
+						        url:'/purchase/rest/insertPurchase/',
+						        data: JSON.stringify(arr),
+						        contentType:"application/json;charset=utf-8",
+						        dataType:"json",
+						        async: false,
+						        success : function(resp){
+						        	
+						        	delivery_id = resp;
+						        	
+						        	$.ajax({
+						  		  	  type: 'get',
+						  		        url:"/purchase/rest/selectId/"+delivery_id,
+						  		      async: false,
+						  		     }).done(function(resp){
+						  		    	  
+						  		    	 order_id = resp;
+						  		    	 
+						  		    	 BootPay.request({
+												price: document.getElementById("totalPrice").value, //실제 결제되는 가격
+												application_id: "61e73d6de38c3000217b806f",
+												name: document.getElementById("item").innerHTML + '외', //결제창에서 보여질 이름
+												pg: 'nicepay',
+												method: 'card', //결제수단, 입력하지 않으면 결제수단 선택부터 화면이 시작합니다.
+												show_agree_window: 0, // 부트페이 정보 동의 창 보이기 여부
+												/* items: [
+													{
+														item_name: '나는 아이템', //상품명
+														qty: 1, //수량
+														unique: '123', //해당 상품을 구분짓는 primary key
+														price: 1000, //상품 단가
+														cat1: 'TOP', // 대표 상품의 카테고리 상, 50글자 이내
+														cat2: '티셔츠', // 대표 상품의 카테고리 중, 50글자 이내
+														cat3: '라운드 티', // 대표상품의 카테고리 하, 50글자 이내
+													}
+												],
+												user_info: {
+													username: ${member.member_username},
+													email: ${member.member_email},
+													addr: ${member.member_address1}+${member.member_address2},
+													phone: ${member.member_phone}
+												}, */
+												order_id: order_id, //고유 주문번호로, 생성하신 값을 보내주셔야 합니다.
+												
+											}).error(function (data) {
+												//결제 진행시 에러가 발생하면 수행됩니다.
+												console.log(data);
+											}).cancel(function (data) {
+												//결제가 취소되면 수행됩니다.
+												console.log(data);
+											}).ready(function (data) {
+												// 가상계좌 입금 계좌번호가 발급되면 호출되는 함수입니다.
+												console.log(data);
+											}).close(function (data) {
+											    // 결제창이 닫힐때 수행됩니다. (성공,실패,취소에 상관없이 모두 수행됨)
+											    $.ajax({
+										  		  	  type: 'delete',
+										  		        url:"/purchase/rest/deleteId/"+delivery_id+"/"+order_id,
+										  		      async: false,
+										  		     })
+											    console.log(data);
+											}).done(function (data) {
+												//결제가 정상적으로 완료되면 수행됩니다
+												//비즈니스 로직을 수행하기 전에 결제 유효성 검증을 하시길 추천합니다.
+												console.log(data);
+											});
+
+						  		    		
+						  		     })
+						        }
+						     })
+									 	
+						 
+						 
+					
+				 })
+				</script>
+
+					
 </html>

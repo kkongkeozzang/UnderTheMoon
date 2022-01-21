@@ -68,6 +68,16 @@ public class MemberService {
 	public MemberDTO selectByUsername(String username) {
 		
 		return memberDAO.selectByUsername(username);
-	} 
+	}
+	
+	public int updateGradeMoon(String member_username) {
+		
+		return memberDAO.updateGradeMoon(member_username);
+	}
+	
+	public int updateGradeSun(String member_username) {
+		
+		return memberDAO.updateGradeSun(member_username);
+	}
 
 }

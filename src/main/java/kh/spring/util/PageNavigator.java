@@ -39,7 +39,7 @@ public class PageNavigator {
 		
 		List<String> pageNavi = new ArrayList<>();
 		if(needPrev) {
-			String start = "<a href=\"#\" onclick=\"getPage";
+			String start = "<a href=\"javascript:void(0);\" onclick=\"getPage";
 			start += "(" + (startNavi - 1);
 			start += ","; 
 			start += "\'";
@@ -52,7 +52,7 @@ public class PageNavigator {
 			pageNavi.add(start);
 		}
 		for (int i = startNavi; i <= endNavi; i++) {
-			String str = "<a href=\"#\" onclick=\"getPage";
+			String str = "<a href=\"javascript:void(0);\" onclick=\"getPage";
 			str += "(" + i;
 			str += ","; 
 			str += "\'";
@@ -66,7 +66,7 @@ public class PageNavigator {
 			pageNavi.add(str);
 		}
 		if(needNext) {
-			String end = "<a href=\"#\" onclick=\"getPage";
+			String end = "<a href=\"javascript:void(0);\" onclick=\"getPage";
 			end += "(" + (endNavi + 1);
 			end += ","; 
 			end += "\'";
@@ -79,6 +79,75 @@ public class PageNavigator {
 			pageNavi.add(end);
 		}
 		
+		return pageNavi;
+	}
+	
+public static String getPageNavigator(int recordTotalCount, int currentPage, int recordCountPerPage, int naviCountPerPage, String board, String option, String select, String keyword) {
+		
+		int pageTotalCount = 0;
+		
+		if(recordTotalCount % recordCountPerPage == 0) {
+			pageTotalCount = recordTotalCount / recordCountPerPage;
+		} else {
+			pageTotalCount = recordTotalCount / recordCountPerPage + 1;
+		}
+		
+		if (currentPage < 1) {
+			currentPage = 1;
+		} else if (currentPage > pageTotalCount) {
+			currentPage = pageTotalCount;
+		}
+		
+		int startNavi = (currentPage-1)/naviCountPerPage * naviCountPerPage + 1;
+		int endNavi = startNavi + (naviCountPerPage-1);
+		
+		if(endNavi > pageTotalCount) {
+			endNavi = pageTotalCount;
+		}
+		
+		boolean needPrev = true;
+		boolean needNext = true;
+		
+		if(startNavi == 1) {needPrev = false;}
+		if(endNavi == pageTotalCount) {needNext = false;}
+		
+		String pageNavi = "";
+		if(board.equals("notice")) {
+			if(option.equals("all")) {
+				if(needPrev) {pageNavi += "<a href='/notice/toNotice?cPage="+(startNavi-1)+"'><button type='button' class='btn btn-outline-primary' style='background-color:#406882;color:white;'><</button></a> ";}
+				for (int i = startNavi; i <= endNavi; i++) {
+					pageNavi += "<a href='/notice/toNotice?cPage="+i+"'><button type='button' class='btn btn-outline-primary' style='background-color:#406882;color:white;'>" + i + "</button></a> ";
+				}
+				if(needNext) {pageNavi += "<a href='/notice/toNotice?cPage="+(endNavi+1)+"'><button type='button' class='btn btn-outline-primary' style='background-color:#406882;color:white;'>></button></a>";}
+			}else if(option.equals("search")) {
+				if(needPrev) {pageNavi += "<a href='/notice/search?select="+select+"&keyword="+keyword+"&cPage="+(startNavi-1)+"'><button type='button' class='btn btn-outline-primary' style='background-color:#406882;color:white;'><</button></a> ";}
+				for (int i = startNavi; i <= endNavi; i++) {
+					pageNavi += "<a href='/notice/search?select="+select+"&keyword="+keyword+"&cPage="+i+"'><button type='button' class='btn btn-outline-primary' style='background-color:#406882;color:white;'>" + i + "</button></a> ";
+				}
+				if(needNext) {pageNavi += "<a href='/notice/search?select="+select+"&keyword="+keyword+"&cPage="+(endNavi+1)+"'><button type='button' class='btn btn-outline-primary' style='background-color:#406882;color:white;'>></button></a>";}
+			}else {
+				pageNavi = "네비게이터를 찾을 수 없습니다.";
+			}
+		}else if(board.equals("faq")){
+			if(option.equals("all")) {
+				if(needPrev) {pageNavi += "<a href='/faq/toFaq?cPage="+(startNavi-1)+"'><button type='button' class='btn btn-outline-primary' style='background-color:#406882;color:white;'><</button></a> ";}
+				for (int i = startNavi; i <= endNavi; i++) {
+					pageNavi += "<a href='/faq/toFaq?cPage="+i+"'><button type='button' class='btn btn-outline-primary' style='background-color:#406882;color:white;'>" + i + "</button></a> ";
+				}
+				if(needNext) {pageNavi += "<a href='/faq/toFaq?cPage="+(endNavi+1)+"'><button type='button' class='btn btn-outline-primary' style='background-color:#406882;color:white;'>></button></a>";}
+			}else if(option.equals("search")) {
+				if(needPrev) {pageNavi += "<a href='/faq/search?select="+select+"&keyword="+keyword+"&cPage="+(startNavi-1)+"'><button type='button' class='btn btn-outline-primary' style='background-color:#406882;color:white;'><</button></a> ";}
+				for (int i = startNavi; i <= endNavi; i++) {
+					pageNavi += "<a href='/faq/search?select="+select+"&keyword="+keyword+"&cPage="+i+"'><button type='button' class='btn btn-outline-primary' style='background-color:#406882;color:white;'>" + i + "</button></a> ";
+				}
+				if(needNext) {pageNavi += "<a href='/faq/search?select="+select+"&keyword="+keyword+"&cPage="+(endNavi+1)+"'><button type='button' class='btn btn-outline-primary' style='background-color:#406882;color:white;'>></button></a>";}
+			}else {
+				pageNavi = "네비게이터를 찾을 수 없습니다.";
+			}
+		}else {
+			pageNavi = "네비게이터를 찾을 수 없습니다.";
+		}
+
 		return pageNavi;
 	}
 }

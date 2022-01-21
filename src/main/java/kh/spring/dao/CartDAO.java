@@ -31,6 +31,17 @@ private final SqlSessionTemplate mybatis;
 		return mybatis.insert("Cart.insertIntoCart",map);
 		
 	}
+	
+	public Integer updateCartMdQuantityAndPrice(int cart_item_count, int cart_id, int cart_price) {
+		
+		HashMap<String,String> map = new HashMap<>();
+		map.put("cart_item_count", String.valueOf(cart_item_count));
+		map.put("cart_id",  String.valueOf(cart_id));
+		map.put("cart_price",  String.valueOf(cart_price));
+		
+		return mybatis.insert("Cart.updateCartMdQuantityAndPrice",map);
+		
+	}
 
 	public List<CartDTO> selectByMemberId(String username) {
 		
@@ -53,5 +64,12 @@ private final SqlSessionTemplate mybatis;
 		
 		return mybatis.update("Cart.subtractItemCount",cart_id);
 	}
+	
+	public List<CartDTO> selectMdByMdId(Integer md_id) {
+		
+		return mybatis.selectList("Cart.selectMdByMdId", md_id);
+	}
+	
+	
 
 }

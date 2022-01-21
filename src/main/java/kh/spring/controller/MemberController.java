@@ -6,20 +6,24 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import kh.spring.dto.MemberDTO;
-
+import kh.spring.service.CouponService;
 import kh.spring.service.MemberService;
-
-import org.springframework.web.bind.annotation.ResponseBody;
+import kh.spring.service.PointService;
 
 @Controller
 public class MemberController {
 	
 	private final MemberService memberService;
+	private final PointService pointService;
+	private final CouponService couponService;
 	
-	public MemberController(MemberService memberService) {
+	public MemberController(MemberService memberService, PointService pointService, CouponService couponService) {
 		this.memberService = memberService;
+		this.pointService = pointService;
+		this.couponService = couponService;
 	}
 
 	@RequestMapping("/login")
@@ -56,9 +60,22 @@ public class MemberController {
 	}
 	
 	@RequestMapping("member/signup")
-	public String signup(MemberDTO dto) throws Exception{
-		
-		memberService.insertMember(dto);
+	public String signup(MemberDTO dto, @RequestParam(value = "recommend_id", required=false, defaultValue="") String recommend_id
+			,@RequestParam(value = "event", required=false, defaultValue="") String event) throws Exception{
+		memberService.insertMember(dto); // 멤버
+		System.out.println(dto.getMember_id());
+		couponService.insertSignUpEventDelivery(dto.getMember_id());
+		couponService.insertSignUpEventDiscount(dto.getMember_id());
+		couponService.insertStarGradeDelivery(dto.getMember_id());
+		couponService.insertStarGradeDiscount(dto.getMember_id());
+		int result = memberService.idDuplCheck(recommend_id);
+		if(result == 1) {
+			pointService.insertRecommendMemberPoint(dto.getMember_id());
+		}
+
+		if(event.equals("월하합작")) {
+			pointService.insertEventMemberPoint(dto.getMember_id());
+		}
 		return "redirect:/";
 	}
 	

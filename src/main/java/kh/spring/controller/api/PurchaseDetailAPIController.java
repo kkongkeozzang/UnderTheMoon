@@ -12,8 +12,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.module.SimpleModule;
 
 import kh.spring.dto.PurchaseDetailDTO;
 import kh.spring.service.PurchaseDetailService;
@@ -32,6 +34,8 @@ public class PurchaseDetailAPIController {
 	public ResponseEntity<Integer> insertPurchaseDetail(@RequestBody List<Map<String,String>> objects) throws IOException{
 			
 			ObjectMapper mapper = new ObjectMapper();
+			SimpleModule module = new SimpleModule();
+			mapper.registerModule(module);
 			mapper.enable(DeserializationFeature.ACCEPT_EMPTY_STRING_AS_NULL_OBJECT);
 			mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
 			
@@ -47,11 +51,10 @@ public class PurchaseDetailAPIController {
 			for(int i = 0; i < objects.size(); i++) {
 				mdListTemp.add(mapper.writerWithDefaultPrettyPrinter().writeValueAsString((mdList.get(i))));
 			}
+			System.out.println("ok");
+			System.out.println(mdListTemp.get(0)+" "+mdListTemp.get(1));
 			
-//			for(int i = 0; i < objects.size(); i++) {
-//				String dataString = new String(mdListTemp.get(i).toString());
-//				dataString = dataString.replaceAll("\\\\", "");
-//			}
+//			List<PurchaseDetailDTO> purchseDetailList = mapper.readValue(mdListTemp, new TypeReference<List<PurchaseDetailDTO>>(){});
 			
 			List<PurchaseDetailDTO> purchseDetailList = new ArrayList<>();
 			
@@ -64,7 +67,7 @@ public class PurchaseDetailAPIController {
 			System.out.println(purchseDetailList.get(0)+" "+purchseDetailList.get(1));
 			int result = purchaseDetailService.insertPurchaseDetails(purchseDetailList);
 			
-		return new ResponseEntity<Integer>(result,HttpStatus.OK);
+		return new ResponseEntity<Integer>(1,HttpStatus.OK);
 		
 	}
 }

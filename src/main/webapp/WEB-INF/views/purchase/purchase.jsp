@@ -180,7 +180,7 @@ $(function(){
 								<div class="row">
 									<div class="col-sm-2 hidden-xs"><img src="${cart.cart_image}" alt="..." class="img-responsive"/></div>
 									<div class="col-sm-10">
-										<h4 id="item" class="cart-item nomargin">${cart.cart_item} </h4>
+										<h4 id="item" class="cart-item nomargin">${cart.cart_item}${cart.md_id} </h4>
 									</div>
 								</div>
 							</td>
@@ -356,7 +356,26 @@ $(function(){
 						  		    	  
 						  		    	 order_id = resp;
 						  		    	 
-						  		    	
+										 var purchaseDetailDTO = [];
+										
+										<c:forEach var="cart" items="${carts}">
+										    purchaseDetailDTO.push({
+												purchase_id: order_id,
+												md_id: ${cart.md_id},
+												purchase_detail_quantity: ${cart.cart_item_count},
+												purchase_detail_price: ${cart.cart_price},
+												purchase_detail_purchased: 'N',
+												purchase_detail_cancel_order: 'N',
+												purchase_detail_exchange: 'N',
+												purchase_detail_refund: 'N',
+												purchase_detail_cencel_sale: 'N', 
+												purchase_detail_result: 'N',
+												purchase_detail_delivery_date: 'sysdate'
+											})
+										</c:forEach>
+												 
+										 	console.log(purchaseDetailDTO);  
+						  		    	 
 						  		    	 
 						  		    	 BootPay.request({
 												price: document.getElementById("totalPrice").value, //실제 결제되는 가격
@@ -410,7 +429,9 @@ $(function(){
 												$.ajax({
 												  	  type: 'post',
 												        url:'/purchaseDetail/rest/insertPurchaseDetail/',
-												        data: JSON.stringify(purchaseDetailDTO),
+												        data: {
+												        	objects: JSON.stringify(purchaseDetailDTO)
+												        	},
 												        contentType:"application/json;charset=utf-8",
 												        dataType:"json",
 												        async: false,

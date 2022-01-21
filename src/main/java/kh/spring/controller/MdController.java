@@ -1,7 +1,12 @@
 package kh.spring.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,17 +29,43 @@ public class MdController {
 	}
 	
 	@RequestMapping("list")
-	public String list(Model model) {
+	public String list(Model model, HttpServletRequest request, HttpServletResponse response) {
 		int cPage = 1;
 		int start = cPage*PageStatic.MD_COUNT_PER_PAGE-(PageStatic.MD_COUNT_PER_PAGE);
 		int end = cPage*PageStatic.MD_COUNT_PER_PAGE;
 		List<MdDTO> mds = mdService.selectByBound(start, end, "all", "none");
 		int allMdCount = mdService.selectCount("all");
 		List<String> pageNavis = PageNavigator.getPageNavigator(allMdCount, 1, PageStatic.MD_COUNT_PER_PAGE, PageStatic.MD_NAVI_COUNT_PER_PAGE, "all", "none");
+		// 최근 본 상품 html 리스트 전송
+		Cookie[] cookies = request.getCookies();
+		List<String> mdImgs = new ArrayList<>();
+		if(cookies != null) {
+			for (Cookie cookie : cookies) {
+				if (cookie.getName().equals("mdView")) {
+					String[] temp = cookie.getValue().split("/");
+					for(String md_id : temp) {
+						String str = "";
+						str += "<div class=\'img-box\'>";
+						str += "<a href='";
+						str += "/md/rest/";
+						str += md_id;
+						str += "'>";
+						str += "<img src=\'";
+						str += "/mdImage/"; // 외부 경로 설정
+						str += mdService.selectMdDetailById(md_id).getMd_image();
+						str += "\'>";
+						str += "</a>";
+						str += "</div>";
+						mdImgs.add(str);
+					}
+				}
+			}
+		}
 		model.addAttribute("mds", mds);
 		model.addAttribute("allMdCount", allMdCount);
 		model.addAttribute("pageNavis", pageNavis);
 		model.addAttribute("cPage",cPage);
+		model.addAttribute("mdImgs",mdImgs);
 		return "/md/mdList";
 	}
 	

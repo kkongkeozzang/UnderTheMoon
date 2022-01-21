@@ -65,7 +65,6 @@ private final MdReviewService mdReviewService;
 			
 			
 			// 쿠키에 해당 상품 번호가 들어있는지 확인
-			System.out.println(mdIds.toString());
 			int index = mdIds.indexOf(md_id);  // 해당 번호의 인덱스
 			// 안들어있으면(-1) 맨 처음에 해당 번호 넣어주기
 			if (index == -1) {
@@ -78,7 +77,6 @@ private final MdReviewService mdReviewService;
 			
 			// String 값으로 이어주기
 			String updateCookieValue = mdIds.stream().collect(Collectors.joining("/"));
-			System.out.println(updateCookieValue);
 			// 쿠키값 업데이트
 			oldCookie.setValue(updateCookieValue);
 			oldCookie.setPath("/");

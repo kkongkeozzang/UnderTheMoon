@@ -13,12 +13,18 @@
 <link rel="stylesheet" href="/resources/mdList/assets/css/fontawesome.css">
 <link rel="stylesheet" href="/resources/mdList/assets/css/templatemo-sixteen.css">
 <link rel="stylesheet" href="/resources/mdList/assets/css/owl.css">
+<!-- Slick -->
+<link rel="stylesheet" type="text/css" href="/resources/mdDetail/assets/css/slick.min.css">
+<link rel="stylesheet" type="text/css" href="/resources/mdList/assets/css/slick-theme.css">
 <style>
 .region-sort {
 	border:1px solid black; !important
 }
 .region-sort li {
 	width:96px;
+}
+.product-item img{ 
+	height:300px; !important
 }
 .product-item:hover { 
 	cursor: pointer; !important
@@ -161,9 +167,9 @@ function getPage(pageNavi, select, sort) {
 			<div id="recently-md-view-content">
 			
 			</div>
-			<script src="/resources/mdDetail/assets/js/slick.min.js"></script>
+			<script src="/resources/mdList/assets/js/slick.min.js"></script>
 			<script>
-			<c:forEach var="mdImg" items="${recentlyMdViewImgs}">
+			<c:forEach var="mdImg" items="${mdImgs}">
 				$("#recently-md-view-content").append("${mdImg}");
 			</c:forEach>
 			
@@ -245,7 +251,7 @@ function getPage(pageNavi, select, sort) {
                 	<c:forEach var="md" items="${mds }">
 	                    <div class="col-lg-4 col-md-4 all des">
 	                      <div class="product-item">
-	                        <a ><img alt=""></a>
+	                        <a ><img src="/mdImage/${md.md_image}" alt=""></a>
 	                        <div class="down-content">
 	                          <input type=hidden id="md_id" value=${md.md_id }>
 	                          <a><h4>${md.md_name }</h4></a>

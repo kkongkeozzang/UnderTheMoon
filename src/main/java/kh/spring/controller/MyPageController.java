@@ -1,5 +1,6 @@
 package kh.spring.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -52,9 +53,6 @@ public class MyPageController {
 		if(purchasePayment == null) {
 			purchasePayment = 0;
 		}
-		System.out.println(purchasePayment);
-		System.out.println(memberDTO.getGrade_name());
-		System.out.println(username);
 		if(purchasePayment >= 500000 && purchasePayment < 1000000 && memberDTO.getGrade_name().equals("별")) {
 			memberService.updateGradeMoon(username);
 			for(int i=0; i<3; i++) {

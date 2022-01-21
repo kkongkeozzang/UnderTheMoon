@@ -111,6 +111,7 @@ body {
 	justify-content: center;
 }
 
+
 .img-profile {
 	border-radius: 70%;
 	width: 100%;
@@ -178,4 +179,8 @@ body {
 }
 ul{
 	list-style:none;
+}
+
+.purchase-list{
+	border: 1px solid black;
 }

@@ -19,4 +19,5 @@ public class GradeService {
 	public List<GradeDTO> selectAll(){
 		return gradeDAO.selectAll();
 	}
+	
 }

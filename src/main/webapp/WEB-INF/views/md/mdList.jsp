@@ -161,7 +161,6 @@ function getPage(pageNavi, select, sort) {
 </script>
 </head>
 <body>
-	
 	<div id="recently-md-view-box">
 			<div id="recently-md-view-title">최근본상품</div>
 			<div id="recently-md-view-content">
@@ -207,7 +206,6 @@ function getPage(pageNavi, select, sort) {
 			});
 			</script>
 		</div>
-	
 	
     <div class="products">
       <div class="container">
@@ -270,39 +268,6 @@ function getPage(pageNavi, select, sort) {
 	                    </div>
                    	</c:forEach>
                 </div>
-              <%--
-              <script>
-              	$("#review-sort").on("click",function(){
-              		location.href="/md/reviewSort";
-              	})
-              	$("#new-sort").on("click",function(){
-              		location.href="/md/newSort";
-              	})
-              </script>
-              --%>
-                <%-- 
-               	<!-- 상품 정보 리스트 가져오기 -->
-                	<c:forEach var="md" items="${mds }">
-	                    <div class="col-lg-4 col-md-4 all des">
-	                      <div class="product-item">
-	                        <a href="#"><img src="/resources/mdList/assets/images/${md.md_image }" alt=""></a>
-	                        <div class="down-content">
-	                          <a href="#"><h4>${md.md_name }</h4></a>
-	                          <h6>${md.md_price }</h6>
-	                          <p>${md.md_content }</p>
-	                          <ul class="stars">
-	                            <li><i class="fa fa-star"></i></li>
-	                            <li><i class="fa fa-star"></i></li>
-	                            <li><i class="fa fa-star"></i></li>
-	                            <li><i class="fa fa-star"></i></li>
-	                            <li><i class="fa fa-star"></i></li>
-	                          </ul>
-	                          <span>Reviews (12)</span>
-	                        </div>
-	                      </div>
-	                    </div>
-                   	</c:forEach>
-				--%>
                 </div>
             </div>
           </div>
@@ -311,13 +276,6 @@ function getPage(pageNavi, select, sort) {
             <c:forEach var="pageNavi" items="${ pageNavis}">
             	<li>${pageNavi}</li>
             </c:forEach>
-            <%-- 
-              <li><a href="#">1</a></li>
-              <li class="active"><a href="#">2</a></li>
-              <li><a href="#">3</a></li>
-              <li><a href="#">4</a></li>
-              <li><a href="#"><i class="fa fa-angle-double-right"></i></a></li>
-              --%>
             </ul>
           </div>
         </div>

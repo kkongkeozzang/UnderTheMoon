@@ -47,7 +47,7 @@ public class MdController {
 						String str = "";
 						str += "<div class=\'img-box\'>";
 						str += "<a href='";
-						str += "/md/rest/";
+						str += "/md/detail/page?md_id=";
 						str += md_id;
 						str += "'>";
 						str += "<img src=\'";

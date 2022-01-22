@@ -17,4 +17,7 @@
    		select sum(point_used_saved) from point where member_id = #{member_id}
   </select>
 
+  <select id="selectPointListById" resultType="kh.spring.dto.PointDTO">
+  	select * from point where member_id = #{member_id}
+  </select>
   </mapper>

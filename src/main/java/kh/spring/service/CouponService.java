@@ -66,4 +66,12 @@ public class CouponService {
 	public Integer insertSunGradeDiscount(Integer id) {
 		return couponDAO.insertSunGradeDiscount(id);
 	}
+	
+	public List<CouponDTO> selectCouponListById(Integer member_id) {
+		return couponDAO.selectCouponListById(member_id);		
+	}
+	
+	public int selectCouponPossibleById(Integer member_id) {
+		return couponDAO.selectCouponPossibleById(member_id);
+	}
 }

@@ -1,12 +1,14 @@
 package kh.spring.service;
 
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
 import kh.spring.dao.MemberDAO;
 import kh.spring.dao.PointDAO;
+import kh.spring.dto.PointDTO;
 
 @Service
 public class PointService {
@@ -36,6 +38,11 @@ public class PointService {
 	   Optional<Integer> op = Optional.ofNullable(result);
 	   
 	   return op;
+   }
+   
+   public List<PointDTO> selectPointListById(Integer member_id) {
+	   
+	   return pointDAO.selectPointListById(member_id);
    }
 
 }

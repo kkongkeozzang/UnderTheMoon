@@ -45,5 +45,11 @@
   	insert into coupon values(coupon_id_seq.nextval,'해 등급 할인 쿠폰',50000,'등급쿠폰','무제한','N',sysdate,#{value})
   </insert>
   
-  	
+  <select id="selectCouponListById" resultType="kh.spring.dto.CouponDTO">
+  	select * from coupon where member_id = #{member_id}
+  </select>
+  
+  <select id="selectCouponPossibleById" resultType="int">
+  	select count(*) from coupon where member_id = #{member_id} and coupon_used_yn = 'N'
+  </select>	
   </mapper>

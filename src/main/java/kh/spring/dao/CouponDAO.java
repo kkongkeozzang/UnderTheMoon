@@ -64,4 +64,14 @@ public class CouponDAO {
 		
 		return mybatis.insert("Coupon.insertSunGradeDelivery",id);
 	}
+	
+	public List<CouponDTO> selectCouponListById(Integer member_id) {
+		
+		return mybatis.selectList("Coupon.selectCouponListById", member_id);
+	}
+	
+	public int selectCouponPossibleById(Integer member_id) {
+		
+		return mybatis.selectOne("Coupon.selectCouponPossibleById", member_id);
+	}
 }

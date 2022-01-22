@@ -6,14 +6,19 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import kh.spring.dto.NoticeDTO;
-import kh.spring.util.PageNavigator;
-import kh.spring.util.PageStatic;
+import kh.spring.dto.GradeDTO;
+import kh.spring.service.SellerService;
 
 @RequestMapping("/seller/")
 @Controller
 public class SellerController {
-
+	
+	private final SellerService sellerService;
+	
+	public SellerController(SellerService sellerService) {
+		this.sellerService = sellerService;
+	}
+	
 	@RequestMapping("sellerOffice")
 	public String sellerOffice() throws Exception {
 //		service.insertDummy(); // 더미자료생성용도
@@ -25,7 +30,31 @@ public class SellerController {
 //		model.addAttribute("notices", notices);
 //		model.addAttribute("pageNavi", pageNavi);
 //		model.addAttribute("cPage", cPage);
-	    return "/seller/sidebar";
+	    return "/seller/sellerDashboard";
 	}
 	
+	@RequestMapping("grade")
+	public String sellerGrade(Model model) throws Exception {
+		List<GradeDTO> grades = sellerService.selectAllGrade();
+		model.addAttribute("grades", grades);
+	    return "/seller/sellerGrade";
+	}
+	
+	@RequestMapping("insertGrade")
+	public String insertGrade(GradeDTO grades) throws Exception {
+		int result = sellerService.insertGrade(grades);
+	    return "redirect:/seller/grade";
+	}
+	
+	@RequestMapping("deleteGrade")
+	public String deleteGrade(String grade_name) throws Exception {
+		int result = sellerService.deleteGrade(grade_name);
+	    return "redirect:/seller/grade";
+	}
+	
+	@RequestMapping("updateGrade")
+	public String updateGrade(GradeDTO grades) throws Exception {
+		int result = sellerService.updateGrade(grades);
+	    return "redirect:/seller/grade";
+	}
 }

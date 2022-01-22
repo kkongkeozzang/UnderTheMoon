@@ -15,9 +15,12 @@ local.properties
 .loadpath
 .recommenders
 
+<<<<<<< HEAD
 # ignore api key static class
 ApiKey.java
 
+=======
+>>>>>>> 7bcc12960f785dc35bfdbe6559eb2e636f2a5ae2
 # ignore properties file
 config.properties
 

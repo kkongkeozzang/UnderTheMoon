@@ -379,7 +379,7 @@ $(function(){
 						  		    	 
 						  		    	 BootPay.request({
 												price: document.getElementById("totalPrice").value, //실제 결제되는 가격
-												application_id: "61e73d6de38c3000217b806f",
+												application_id: "61eab9c3e38c3000227b8107",
 												name: document.getElementById("item").innerHTML + '외', //결제창에서 보여질 이름
 												pg: 'nicepay',
 												method: 'card', //결제수단, 입력하지 않으면 결제수단 선택부터 화면이 시작합니다.
@@ -426,6 +426,7 @@ $(function(){
 											}).done(function (data) {
 												//결제가 정상적으로 완료되면 수행됩니다
 												//비즈니스 로직을 수행하기 전에 결제 유효성 검증을 하시길 추천합니다.
+												location.replace("/pay/confirm?receipt_id="+data.receipt_id);
 												$.ajax({
 												  	  type: 'post',
 												        url:'/purchaseDetail/rest/insertPurchaseDetail/',

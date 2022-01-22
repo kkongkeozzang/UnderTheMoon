@@ -1,7 +1,8 @@
 package kh.spring.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class BootPayOrderDto {
 
 	private int status;
@@ -70,13 +71,15 @@ public class BootPayOrderDto {
 	}
 
 
-
+	@JsonIgnoreProperties(ignoreUnknown = true)
 	public class Data{
         private int status;
         private String receipt_id;
         private String order_id;
         private String name;
         private int price;
+        
+        public Data() {};
 		public Data(int status, String receipt_id, String order_id, String name, int price) {
 			super();
 			this.status = status;

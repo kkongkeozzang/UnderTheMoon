@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import kh.spring.dto.BootPayOrderDto;
+import kh.spring.dto.BootPayOrderDTO;
 import kh.spring.dto.BootpayApiDTO;
 import kh.spring.dto.PurchaseDTO;
 import kh.spring.dto.request.Cancel;
@@ -33,7 +33,7 @@ public class BootpayController {
 		//첫번째 매개변수에 REST Application ID, 두번째 매개변수에 인증키 (Private Key)
 		BootpayApiDTO api = new BootpayApiDTO(ApiKey.BOOT_PAY_APPLICATION_ID,ApiKey.BOOT_PAY_PRIVATE_KEY);   
 		String bootpay_check = "";
-		BootPayOrderDto dto = null;
+		BootPayOrderDTO dto = null;
 		
 		// 부트페이 인증 토큰 발급
 		api.getAccessToken();
@@ -47,7 +47,7 @@ public class BootpayController {
     	    System.out.println("bootpay_check : " + bootpay_check);
     	    
     	    ObjectMapper objectMapper = new ObjectMapper();
-    	    dto = objectMapper.readValue(bootpay_check, BootPayOrderDto.class);
+    	    dto = objectMapper.readValue(bootpay_check, BootPayOrderDTO.class);
     	
 	    	// orderId = purchase_id
 	    	long orderId = Long.parseLong(dto.getData().getOrder_id());

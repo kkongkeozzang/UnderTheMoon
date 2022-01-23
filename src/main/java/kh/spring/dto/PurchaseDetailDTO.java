@@ -1,5 +1,8 @@
 package kh.spring.dto;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+@JsonDeserialize
 public class PurchaseDetailDTO {
 	
 	private Integer purchase_detail_id;
@@ -18,12 +21,11 @@ public class PurchaseDetailDTO {
 	public PurchaseDetailDTO() {}
 
 
-	public PurchaseDetailDTO(Integer purchase_detail_id, Integer purchase_id, Integer md_id,
+	public PurchaseDetailDTO( Integer purchase_id, Integer md_id,
 			Integer purchase_detail_quantity, char purchase_detail_purchased, char purchase_detail_cancel_order,
 			char purchase_detail_exchange, char purchase_detail_refund, char purchase_detail_cancel_sale,
 			char purchase_detail_result, char purchase_detail_delivery_date) {
 		super();
-		this.purchase_detail_id = purchase_detail_id;
 		this.purchase_id = purchase_id;
 		this.md_id = md_id;
 		this.purchase_detail_quantity = purchase_detail_quantity;

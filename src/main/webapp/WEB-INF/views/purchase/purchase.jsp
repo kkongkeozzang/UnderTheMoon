@@ -180,7 +180,7 @@ $(function(){
 								<div class="row">
 									<div class="col-sm-2 hidden-xs"><img src="${cart.cart_image}" alt="..." class="img-responsive"/></div>
 									<div class="col-sm-10">
-										<h4 id="item" class="cart-item nomargin">${cart.cart_item} </h4>
+										<h4 id="item" class="cart-item nomargin">${cart.cart_item}${cart.md_id} </h4>
 									</div>
 								</div>
 							</td>
@@ -294,7 +294,7 @@ $(function(){
 					 }) 
 					 
 					 //쿠폰사용액계산..
-					  $("body").on("change","coupon",function(){
+					  $("body").on("change","#coupon",function(){
 						   
 						 let totalPrice = $("#amount").val();
 						 let totalPrice_int = Number(totalPrice);
@@ -310,7 +310,7 @@ $(function(){
 					 }) 
 					 
 				//결제API
-				$("#purchase").on("click",function(){
+				$("body").on("click","#purchase",function(){
 						 
 						 var deliveryDTO = {
 								 member_id: ${member.member_id},
@@ -347,6 +347,7 @@ $(function(){
 						        	
 						        	delivery_id = resp;
 						        	
+						        	
 						        	$.ajax({
 						  		  	  type: 'get',
 						  		        url:"/purchase/rest/selectId/"+delivery_id,
@@ -354,6 +355,27 @@ $(function(){
 						  		     }).done(function(resp){
 						  		    	  
 						  		    	 order_id = resp;
+						  		    	 
+										 var purchaseDetailDTO = [];
+										
+										<c:forEach var="cart" items="${carts}">
+										    purchaseDetailDTO.push({
+												purchase_id: order_id,
+												md_id: ${cart.md_id},
+												purchase_detail_quantity: ${cart.cart_item_count},
+												purchase_detail_price: ${cart.cart_price},
+												purchase_detail_purchased: 'N',
+												purchase_detail_cancel_order: 'N',
+												purchase_detail_exchange: 'N',
+												purchase_detail_refund: 'N',
+												purchase_detail_cencel_sale: 'N', 
+												purchase_detail_result: 'N',
+												purchase_detail_delivery_date: 'sysdate'
+											})
+										</c:forEach>
+												 
+										 	console.log(purchaseDetailDTO);  
+						  		    	 
 						  		    	 
 						  		    	 BootPay.request({
 												price: document.getElementById("totalPrice").value, //실제 결제되는 가격
@@ -386,21 +408,38 @@ $(function(){
 												console.log(data);
 											}).cancel(function (data) {
 												//결제가 취소되면 수행됩니다.
+												$.ajax({
+												  	  type: 'delete',
+												        url:'/purchase/rest/deleteId/'+delivery_id+"/"+order_id,
+												        contentType:"application/json;charset=utf-8",
+												        dataType:"json",
+												        async: false     
+												})
 												console.log(data);
 											}).ready(function (data) {
 												// 가상계좌 입금 계좌번호가 발급되면 호출되는 함수입니다.
 												console.log(data);
 											}).close(function (data) {
 											    // 결제창이 닫힐때 수행됩니다. (성공,실패,취소에 상관없이 모두 수행됨)
-											    $.ajax({
-										  		  	  type: 'delete',
-										  		        url:"/purchase/rest/deleteId/"+delivery_id+"/"+order_id,
-										  		      async: false,
-										  		     })
+											    
 											    console.log(data);
 											}).done(function (data) {
 												//결제가 정상적으로 완료되면 수행됩니다
 												//비즈니스 로직을 수행하기 전에 결제 유효성 검증을 하시길 추천합니다.
+												$.ajax({
+												  	  type: 'post',
+												        url:'/purchaseDetail/rest/insertPurchaseDetail/',
+												        data: {
+												        	objects: JSON.stringify(purchaseDetailDTO)
+												        	},
+												        contentType:"application/json;charset=utf-8",
+												        dataType:"json",
+												        async: false,
+												        success : function(resp){
+												        	
+												        }
+												        
+												})
 												console.log(data);
 											});
 

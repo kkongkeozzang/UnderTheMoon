@@ -28,7 +28,6 @@ public class MdReviewAPIController {
 	
 	private final MdReviewService mdReviewService;
 	
-	@Autowired
 	public MdReviewAPIController(MdReviewService mdReviewService) {
 		this.mdReviewService = mdReviewService;
 	}

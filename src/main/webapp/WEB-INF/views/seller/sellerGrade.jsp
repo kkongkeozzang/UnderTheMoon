@@ -302,8 +302,8 @@
                                         <tr>
                                         <form action="/seller/updateGrade" method="post" id="upgrade${grades.grade_name}">
                                             <td>${grades.grade_name}<input type=hidden value=${grades.grade_name } name=grade_name>
-                                            <td><input type=text value=${grades.grade_percent } id="grade_percent${grades.grade_name}" name=grade_percent style="border:none;" readonly>
-                                            <td><input type=text value=${grades.grade_target } id="grade_target${grades.grade_name}" name=grade_target style="border:none;" readonly>
+                                            <td style="font-size:0em;color: white;">${grades.grade_percent }<input type=text value=${grades.grade_percent } id="grade_percent${grades.grade_name}" name=grade_percent style="font-size:medium;color:black;border:none;" readonly>
+                                            <td style="font-size:0em;color: white;">${grades.grade_target }<input type=text value=${grades.grade_target } id="grade_target${grades.grade_name}" name=grade_target style="font-size:medium;color:black;border:none;" readonly>
                                             <td>
                                            	<a onclick="del(this);" val="${grades.grade_name}" id="del${grades.grade_name}" class="btn btn-danger btn-icon-split">
 		                                        <span class="icon text-white-50">
@@ -355,13 +355,27 @@
                                 			$("#input-new").css("display","none");	
                             			}
                             		})
+                            		
                             		$("#insert").on("click",function(){
-                            			if($("#grade_name").val() == "") {
-                            				alert("등급이름을 입력해주세요!");
-                            			}else if($("#grade_percent").val() == "") {
-                            				alert("적립률을 입력해주세요!");
-                            			}else if($("#grade_target").val() == "") {
-                            				alert("달성기준을 입력해주세요!");
+                            			
+                                		let gradeName = $("#grade_name").val();
+                                		let nameRegex = /^[a-zA-Zㄱ-ㅎ가-힣]+$/;
+                                		
+                                		let gradePercent = $("#grade_percent").val();
+                                		let percentRegex = /^0\.[0-9]+$/;
+                                		
+                                		let gradeTarget = $("#grade_target").val();
+                                		let targetRegex = /^[0-9]+$/;
+                                		
+                            			if(!nameRegex.test(gradeName)) {
+                            				alert("등급이름을 확인해주세요!(문자만 입력하세요. 예)해, 달, 별)");
+                            				return false;
+                            			}else if(!percentRegex.test(gradePercent)) {
+                            				alert("적립률을 확인해주세요!(소숫점으로만 입력하세요. 예)0.1, 0.05)");
+                            				return false;
+                            			}else if(!targetRegex.test(gradeTarget)) {
+                            				alert("달성기준을 확인해주세요!(숫자만 입력하세요 예)100000)");
+                            				return false;
                             			}else{
                             				if(confirm("정말로 입력하시겠습니까?")){
                             					$("#submit-grade").submit();
@@ -377,8 +391,8 @@
                             		
                             		function modify(element){
                             			let value = element.getAttribute("val");
-                            			bkPercent = $("#grade_percent"+value).val();
-                            			bkTarget = $("#grade_target"+value).val();
+                            			eval("bkPercent" + value + "=" + $("#grade_percent"+value).val());
+                            			eval("bkTarget" + value + "=" + $("#grade_target"+value).val());
 
                             			$("#del"+value).css("display","none");
                             			$("#mod"+value).css("display","none");
@@ -393,8 +407,8 @@
                             		function cancelMod(element){
                             			let value = element.getAttribute("val");
                             			if(confirm("수정을 취소하시겠습니까?")){
-                            				$("#grade_percent"+value).val(bkPercent);
-                                			$("#grade_target"+value).val(bkTarget);
+                            				$("#grade_percent"+value).val(eval("bkPercent"+value));
+                                			$("#grade_target"+value).val(eval("bkTarget"+value));
                             				$("#del"+value).css("display","inline-block");
                                 			$("#mod"+value).css("display","inline-block");
                                 			$("#update"+value).css("display","none");
@@ -408,8 +422,23 @@
                             		
                             		function update(element) {
                             			let value = element.getAttribute("val");
-                            			if(confirm("정말 수정하시겠습니까?")){
-                            				$("#upgrade"+value).submit();
+                                		
+                                		let gradePercent = $("#grade_percent"+value).val();
+                                		let percentRegex = /^0\.[0-9]+$/;
+                                		
+                                		let gradeTarget = $("#grade_target"+value).val();
+                                		let targetRegex = /^[0-9]+$/;
+                                		
+                            			if(!percentRegex.test(gradePercent)) {
+                            				alert("적립률을 확인해주세요!(소숫점으로만 입력하세요. 예)0.1, 0.05)");
+                            				return false;
+                            			}else if(!targetRegex.test(gradeTarget)) {
+                            				alert("달성기준을 확인해주세요!(숫자만 입력하세요 예)100000)");
+                            				return false;
+                            			}else{
+                            				if(confirm("정말로 수정하시겠습니까?")){
+                            					$("#upgrade"+value).submit();
+                            				}
                             			}
                             		}
                             	</script>

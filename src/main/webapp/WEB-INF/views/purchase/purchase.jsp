@@ -13,6 +13,7 @@
 <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="https://cdn.bootpay.co.kr/js/bootpay-3.3.2.min.js" type="application/javascript"></script> 
+<link rel="stylesheet" href="/resources/purchase/css/purchase.css">
 <style>
 .table>tbody>tr>td, .table>tfoot>tr>td{
     vertical-align: middle;
@@ -245,6 +246,30 @@ $(function(){
 					
 					
 			</div>
+			<input id="agree" type="checkbox"><a href="#popup1">정보수집ㆍ이용</a> 동의(필수)
+			<div id="popup1" class="overlay">
+			   <div class="popup">
+			      <h2>정보수집ㆍ이용</h2>
+			      <a class="close" href="javascript:history.back()">&times;</a>
+			      <div class="content" style="text-align:center">
+			     	 <br>
+			     	 <b>개인정보 판매자 제공에 동의합니다.</b><br>
+			         제공받는 자:"월하합작"<br>
+			         판매자와 구매자 사이의 원활한 거래 진행, 상품의 배송을 위한 배송지 확인, 고객상담 및 불만처리 등명<br> 
+			         정보:구매자 정보 (이름, 전화번호, 주소)<br>
+			         수취인 정보 (이름, 전화번호, 주소)<br>
+			         보유기간:발송완료 후 90일<br>
+			         <b>구매자의 정보수집ㆍ이용에 동의합니다.</b><br>
+			         제공받는 자:관할 세무서장<br>
+			         목적:주류 통신판매기록부 관리 및 국세청 신고<br>
+			         정보:구매자 정보(이름,주소,생년월일(본인인증 정보를 이용함),주문상품,수량,주문금액)<br>
+			         보유기간:회원 탈퇴 시까지<br>
+			         단, 관계법령의 규정에 따라 보존한 의무가 있으며 해당 기간동안 보존
+			         <p style="color:red;"><b>※ 동의하지 않으실 경우 구매가 제한됩니다.</b></p>
+			      </div>
+			   </div>
+			</div>
+			
 </body>
 
 					<script>
@@ -311,8 +336,14 @@ $(function(){
 					 
 				//결제API
 				$("body").on("click","#purchase",function(){
-						 
-						 var deliveryDTO = {
+					
+					// 정보 동의 안하면 결제 진행 막기
+					if($("#agree").is(":checked") == false){
+					    alert("결제 진행을 위해 정보수집ㆍ이용 동의에 체크해주세요.")
+					    return false;
+					    
+					} else {
+						var deliveryDTO = {
 								 member_id: ${member.member_id},
 								 delivery_address1: $("#roadAddress").val(),
 								 delivery_address2: $("#roadAddress2").val(),
@@ -379,7 +410,7 @@ $(function(){
 						  		    	 
 						  		    	 BootPay.request({
 												price: document.getElementById("totalPrice").value, //실제 결제되는 가격
-												application_id: "61e73d6de38c3000217b806f",
+												application_id: "61eab9c3e38c3000227b8107",
 												name: document.getElementById("item").innerHTML + '외', //결제창에서 보여질 이름
 												pg: 'nicepay',
 												method: 'card', //결제수단, 입력하지 않으면 결제수단 선택부터 화면이 시작합니다.
@@ -426,6 +457,7 @@ $(function(){
 											}).done(function (data) {
 												//결제가 정상적으로 완료되면 수행됩니다
 												//비즈니스 로직을 수행하기 전에 결제 유효성 검증을 하시길 추천합니다.
+												location.replace("/pay/confirm?receipt_id="+data.receipt_id);
 												$.ajax({
 												  	  type: 'post',
 												        url:'/purchaseDetail/rest/insertPurchaseDetail/',
@@ -447,6 +479,9 @@ $(function(){
 						  		     })
 						        }
 						     })
+					}
+						 
+						 
 									 	
 						 
 						 

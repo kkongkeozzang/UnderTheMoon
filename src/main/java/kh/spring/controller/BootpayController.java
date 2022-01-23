@@ -58,7 +58,7 @@ public class BootpayController {
     		
 			// 결제 완료
 			purchaseService.completeOrder(orderId);
-			return "/"; // (임시) 마이페이지 주문 완료 페이지로 이동
+			return "redirect:/"; // (임시) 마이페이지 주문 완료 페이지로 이동
 			
     	} else {
     		

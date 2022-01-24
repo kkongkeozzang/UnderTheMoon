@@ -50,7 +50,7 @@ public class PurchaseAPIController {
 			
 			DeliveryDTO deliveryDTO = mapper.readValue(delivery, DeliveryDTO.class);
 			PurchaseDTO purchaseDTO = mapper.readValue(purchase, PurchaseDTO.class);
-
+			
 			Integer delivery_id = deliveryService.insertDelivery(deliveryDTO);
 			purchaseService.insertPurchase(purchaseDTO);
 			

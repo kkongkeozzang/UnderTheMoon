@@ -166,6 +166,7 @@ $(function(){
 		</div>
 
 	<table id="cart" class="table table-hover table-condensed">
+    				<!-- 테이블컬럼. -->
     				<thead>
 						<tr>
 							<th style="width:50%">상품</th>
@@ -174,6 +175,7 @@ $(function(){
 							<th style="width:10%">가격</th>
 						</tr>
 					</thead>
+					<!-- 장바구니 상품 시작. -->
 					<tbody>
 					 <c:forEach var="cart" items="${carts }">
 						<tr class="cart-unit">
@@ -200,53 +202,47 @@ $(function(){
 							</td>
 						</tr>
 						</c:forEach>
-					</tbody>	
-					<tfoot>
-						<tr class="visible-xs">
-						</tr>
-					</tfoot>
+					</tbody>
+					<!-- 장바구니 상품 끝.. -->	
 				</table>
-				
+				<!-- 사용자정보 및 배송지. -->
 				<div class="form-group">
-				
 						<label for="recipient">받는사람 이름:</label>
 					    <input id="recipient" type="text" class="form-control" value="${member.member_name}"  readonly>
-					  </div>
+				</div>
+				<div class="form-group">
 					    <label for="recipient_phone">받는사람 번호:</label>
 					    <input id="recipient_phone" type="text" class="form-control" value="${member.member_phone}"  readonly>
-					  </div>
+				</div>
 				<div class="form-group">
 					    <label for="address">배송지:</label>
 					    <input id="roadAddress" type="text" class="form-control" value="${member.member_address1}" readonly>
-					  </div>
-					  <div class="form-group">
+				</div>
+			    <div class="form-group">
 					    <label for="address2">상세주소:</label>
 					    <input id="roadAddress2" type="text" class="form-control" value="${member.member_address2}" >
+					    <button id="addressSearch" type="button" class="btn btn-primary">주소검색</button><br><br>
 				</div>
+			<!-- 사용자정보 및 배송지끝.. -->
+			
+			<!-- 쿠폰선택자. -->
 					<div id="select-container">
-					<button id="addressSearch" type="button" class="btn btn-primary">주소검색</button><br><br>
-					
 						 <select id="coupon" class="form-select" >
 							 <c:forEach var="coupon" items="${coupons }">
-							  <option >${coupon.coupon_discount_rate }</option>
+							  <option >${coupon.coupon_name} ${coupon.coupon_discount_rate }</option>
 							  </c:forEach>
 						</select><br><br>
 					</div>	
+			<!-- 쿠폰선택자. -->
+			
+			<!-- 전릭금.선택자. -->
 						  <label for="point" class="mr-sm-2">적립금: ${ pointSum}</label>
 						  <input type="text" id="point-input" class="form-control mb-2 mr-sm-2" value=0 id="pointSum">
 						  <button id="point-btn"type="button" class="btn btn-primary mb-2">적립금전체사용</button><br><br>
-						  
-						<table>
-						  <tr>
-							<td><a href="#" class="btn btn-warning"><i class="fa fa-angle-left"></i> 쇼핑계속하기</a></td>
-							<td colspan="2" class="hidden-xs"></td>
-							<td class="hidden-xs text-center">Total <input type="text" id="totalPrice" value="${ totalPrice}" readonly> </td>
-							<td><a href="#" id="purchase" class="btn btn-success btn-block">결제하기 <i class="fa fa-angle-right"></i></a></td>
-						</tr>
-						</table>
-					
-					
-			</div>
+			<!-- 전릭금.선택자. -->		
+			
+			<!-- 정보동의창. -->
+			
 			<input id="agree" type="checkbox"><a href="#popup1">정보수집ㆍ이용</a> 동의(필수)
 			<div id="popup1" class="overlay">
 			   <div class="popup">
@@ -270,6 +266,21 @@ $(function(){
 			      </div>
 			   </div>
 			</div>
+			<!-- 정보동의창. -->
+			
+			<!-- 최종결제및 가격. -->	  
+						<table>
+						  <tr>
+							<td><a href="#" class="btn btn-warning"><i class="fa fa-angle-left"></i> 쇼핑계속하기</a></td>
+							<td colspan="2" class="hidden-xs"></td>
+							<td class="hidden-xs text-center">Total <input type="text" id="totalPrice" value="${ totalPrice}" readonly> </td>
+							<td><a href="#" id="purchase" class="btn btn-success btn-block">결제하기 <i class="fa fa-angle-right"></i></a></td>
+						</tr>
+						</table>	
+			<!-- 최종결제및 가격. -->
+		 	
+		 	</div> 
+		 	<!-- 컨테이너. -->
 			
 </body>
 
@@ -340,12 +351,15 @@ $(function(){
 					
 					// 정보 동의 안하면 결제 진행 막기
 					if($("#agree").is(":checked") == false){
-					    alert("결제 진행을 위해 정보수집ㆍ이용 동의에 체크해주세요.")
+					    alert("결제 진행을 위해 정보수집ㆍ이용 동의에 체크해주세요.");
 					    return false;
-					    
+					// 상세주소가 null이면 경고 띄우기
+					} else if($("#roadAddress2").val() == "") {
+						alert("상세 주소를 입력해주세요.");
+						return false;
 					} else {
+						console.log($("#roadAddress2").val());
 						var deliveryDTO = {
-
 								 member_id: ${member.member_id},
 								 delivery_address1: $("#roadAddress").val(),
 								 delivery_address2: $("#roadAddress2").val(),
@@ -457,7 +471,6 @@ $(function(){
 											}).done(function (data) {
 												//결제가 정상적으로 완료되면 수행됩니다
 												//비즈니스 로직을 수행하기 전에 결제 유효성 검증을 하시길 추천합니다.
-
 												$.ajax({
 												  	  type: 'post',
 												        url:'/purchaseDetail/rest/insertPurchaseDetail/',
@@ -488,6 +501,7 @@ $(function(){
 						        }
 						     })
 					}
+
 						 
 						 
 									 	

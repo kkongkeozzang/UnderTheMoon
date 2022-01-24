@@ -16,7 +16,6 @@ import kh.spring.dto.request.Cancel;
 import kh.spring.service.PurchaseService;
 import kh.spring.util.ApiKey;
 
-
 @Controller
 @RequestMapping("/pay/")
 public class BootpayController {

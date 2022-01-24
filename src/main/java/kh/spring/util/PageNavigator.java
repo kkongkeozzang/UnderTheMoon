@@ -125,8 +125,6 @@ public class PageNavigator {
 					pageNavi += "<a href='/notice/search?select="+select+"&keyword="+keyword+"&cPage="+i+"'><button type='button' class='btn btn-outline-primary' style='background-color:#406882;color:white;'>" + i + "</button></a> ";
 				}
 				if(needNext) {pageNavi += "<a href='/notice/search?select="+select+"&keyword="+keyword+"&cPage="+(endNavi+1)+"'><button type='button' class='btn btn-outline-primary' style='background-color:#406882;color:white;'>></button></a>";}
-			}else {
-				pageNavi = "네비게이터를 찾을 수 없습니다.";
 			}
 		}else if(board.equals("faq")){
 			if(option.equals("all")) {
@@ -141,8 +139,6 @@ public class PageNavigator {
 					pageNavi += "<a href='/faq/search?select="+select+"&keyword="+keyword+"&cPage="+i+"'><button type='button' class='btn btn-outline-primary' style='background-color:#406882;color:white;'>" + i + "</button></a> ";
 				}
 				if(needNext) {pageNavi += "<a href='/faq/search?select="+select+"&keyword="+keyword+"&cPage="+(endNavi+1)+"'><button type='button' class='btn btn-outline-primary' style='background-color:#406882;color:white;'>></button></a>";}
-			}else {
-				pageNavi = "네비게이터를 찾을 수 없습니다.";
 			}
 		}else if(board.equals("coupon")) {
 			if(option.equals("all")) {
@@ -152,8 +148,7 @@ public class PageNavigator {
 				}
 				if(needNext) {pageNavi += "<a href='/mypage/myPageCoupon?cPage="+(endNavi+1)+"'><button type='button' class='btn btn-outline-primary' style='background-color:#406882;color:white;float:center;'>></button></a>";}
 			}
-		}else {
-			pageNavi = "네비게이터를 찾을 수 없습니다.";
+
 		}
 
 		return pageNavi;

@@ -24,7 +24,7 @@ public class PointDAO {
       return mybatis.insert("Point.insertEventMemberPoint",id);
    }
 
-	public int selectPointById(Integer member_id) {
+	public Integer selectPointById(Integer member_id) {
 		
 		return mybatis.selectOne("Point.selectPointById",member_id);
 	}

@@ -16,5 +16,6 @@
 	<a href="/cart/cart">장바구니..</a>
 	<a href="/faq/toFaq?cPage=1">자주하는질문</a>
 	<a href="/mypage/myPageList">마이페이지</a>
+	<a href="/seller/sellerOffice">판매자</a>
 </body>
 </html>

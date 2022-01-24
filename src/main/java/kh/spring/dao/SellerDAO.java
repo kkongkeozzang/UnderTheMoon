@@ -31,4 +31,8 @@ private final SqlSessionTemplate mybatis;
 	public int updateGrade(GradeDTO grades) {
 		return mybatis.update("Seller.updateGrade", grades);
 	}
+	
+	public int checkGrade(String grade_name) {
+		return mybatis.selectOne("Seller.checkGrade", grade_name);
+	}
 }

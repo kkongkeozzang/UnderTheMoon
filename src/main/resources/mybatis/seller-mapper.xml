@@ -10,7 +10,7 @@
 	</select>
 	
 	<insert id="insertGrade">
-		insert into grade values(#{grade_name},#{grade_percent},#{grade_target})
+		insert into grade values(#{grade_name},#{grade_percent},#{grade_target},#{grade_coupon})
 	</insert>
 	
 	<delete id="deleteGrade">
@@ -18,8 +18,12 @@
 	</delete>
 	
 	<update id="updateGrade">
-		update grade set grade_percent = #{grade_percent}, grade_target = #{grade_target} where grade_name = #{grade_name}
+		update grade set grade_percent = #{grade_percent}, grade_target = #{grade_target}, grade_coupon = #{grade_coupon} where grade_name = #{grade_name}
 	</update>
+	
+	<select id="checkGrade" resultType="int">
+		select count(*) from grade where grade_name=#{grade_name}
+	</select>
 	
 <!-- 	<select id="selectById" resultType="kh.spring.dto.NoticeDTO"> -->
 <!-- 		select * from notice where notice_id = #{value} -->

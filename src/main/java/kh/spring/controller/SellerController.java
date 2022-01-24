@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import kh.spring.dto.GradeDTO;
 import kh.spring.service.SellerService;
@@ -56,5 +57,12 @@ public class SellerController {
 	public String updateGrade(GradeDTO grades) throws Exception {
 		int result = sellerService.updateGrade(grades);
 	    return "redirect:/seller/grade";
+	}
+	
+	@ResponseBody
+	@RequestMapping("checkGrade")
+	public String checkGrade(String grade_name, Model model) throws Exception {
+		String result = Integer.toString(sellerService.checkGrade(grade_name));
+	    return result;
 	}
 }

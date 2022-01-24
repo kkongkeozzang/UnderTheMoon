@@ -31,4 +31,8 @@ public class SellerService {
 	public int updateGrade(GradeDTO grades){
 		return sellerDAO.updateGrade(grades);
 	}
+	
+	public int checkGrade(String grade_name){
+		return sellerDAO.checkGrade(grade_name);
+	}
 }

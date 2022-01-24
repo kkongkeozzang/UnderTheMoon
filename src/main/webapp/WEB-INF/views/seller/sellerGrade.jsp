@@ -254,14 +254,35 @@
 	                            <form action="/seller/insertGrade" method="post" id=submit-grade>
 	                            	<table id=input-new style="display:none;">
 	                            		<tr>
-	                             			<td width=50%>등급이름<td width=50%><input type=text placeholder="예) '해','달','별'" id="grade_name" name="grade_name" maxLength=6>
+	                            			<th width=20%>항목
+	                            			<th width=30%>입력
+	                            			<th width=50%>
+	                            		</tr>
+	                            		<tr>
+	                             			<td>등급이름
+	                             			<td><input type=text placeholder="예) '해','달','별'" id="grade_name" name="grade_name" maxLength=6>
+<!-- 	                             			<input type=button value="중복확인" id=check> -->
+	                             			<td>
+	                             			<a href="#" class="btn btn-secondary btn-icon-split" id=check>
+		                                        <span class="icon text-white-50">
+		                                            <i class="fas fa-arrow-right"></i>
+		                                        </span>
+		                                        <span class="text">중복확인</span>
+		                                    </a>
+	                             			<span id="checkGrade"></span>
 	                             		</tr>
 	                             		<tr>
-				                            <td>적립률<td><input type=text placeholder="예) '0.05','0.07','0.1'" id="grade_percent" name="grade_percent" maxLength=10>
+				                            <td>적립률
+				                            <td><input type=text placeholder="예) '0.05','0.07','0.1'" id="grade_percent" name="grade_percent" maxLength=10>
 				                        </tr>
 				                        <tr>
-				                            <td>달성기준<td><input type=text placeholder="예) '0','500000','1000000'" id="grade_target" name="grade_target" maxLength=10>
+				                            <td>달성기준
+				                            <td><input type=text placeholder="예) '0','500000','1000000'" id="grade_target" name="grade_target" maxLength=10>
 				                            
+				                        </tr>
+				                       	<tr>
+				                            <td>등급혜택
+				                            <td><input type=text placeholder="예) '무료배송 쿠폰1개, 5000원 할인쿠폰 1개'" id="grade_coupon" name="grade_coupon" maxLength=50>
 				                        </tr>
 	                            	</table>
                             	<br>
@@ -291,9 +312,10 @@
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                     	<tr>
-                                            <th width=25%>등급이름</th>
-                                            <th width=25%>적립률</th>
-                                            <th width=25%>달성기준</th>
+                                            <th width=15%>등급이름</th>
+                                            <th width=15%>적립률</th>
+                                            <th width=15%>달성기준</th>
+                                            <th width=30%>등급혜택</th>
                                             <th width=25%>관리</th>
                                         </tr>
                                     </thead>
@@ -302,8 +324,9 @@
                                         <tr>
                                         <form action="/seller/updateGrade" method="post" id="upgrade${grades.grade_name}">
                                             <td>${grades.grade_name}<input type=hidden value=${grades.grade_name } name=grade_name>
-                                            <td style="font-size:0em;color: white;">${grades.grade_percent }<input type=text value=${grades.grade_percent } id="grade_percent${grades.grade_name}" name=grade_percent style="font-size:medium;color:black;border:none;"  maxLength=10 readonly>
-                                            <td style="font-size:0em;color: white;">${grades.grade_target }<input type=text value=${grades.grade_target } id="grade_target${grades.grade_name}" name=grade_target style="font-size:medium;color:black;border:none;"  maxLength=10 readonly>
+                                            <td style="font-size:0em;color: white;">${grades.grade_percent }<input type=text value='${grades.grade_percent }' id="grade_percent${grades.grade_name}" name=grade_percent style="font-size:medium;color:black;border:none;width:100%;height:100%;overflow:auto;"  maxLength=10 readonly>
+                                            <td style="font-size:0em;color: white;">${grades.grade_target }<input type=text value='${grades.grade_target }' id="grade_target${grades.grade_name}" name=grade_target style="font-size:medium;color:black;border:none;width:100%;height:100%;overflow:auto;"  maxLength=10 readonly>
+                                            <td style="font-size:0em;color: white;">${grades.grade_coupon }<input type=text value='${grades.grade_coupon }' id="grade_coupon${grades.grade_name}" name=grade_coupon style="font-size:medium;color:black;border:none;width:100%;height:100%;overflow:auto;"  maxLength=50 readonly>
                                             <td>
                                            	<a onclick="del(this);" val="${grades.grade_name}" id="del${grades.grade_name}" class="btn btn-danger btn-icon-split">
 		                                        <span class="icon text-white-50">
@@ -338,13 +361,13 @@
                                 </table>
                                 <script>
 	                        		
-                            		$("#add").on("click",function(){
+                            		$("#add").on("click",function(){ // 추가버튼 클릭시
                             			$("#add").css("display","none");
                             			$("#input-new").css("display","block");
                             			$("#insert").css("display","inline-block");
                             			$("#cancel").css("display","inline-block");
                             		})
-                            		$("#cancel").on("click",function(){
+                            		$("#cancel").on("click",function(){ // 입력 취소버튼 클릭시
                             			if(confirm("입력을 취소하시겠습니까?")){
                             				$("#grade_name").val("");
                                 			$("#grade_percent").val("");
@@ -356,7 +379,7 @@
                             			}
                             		})
                             		
-                            		$("#insert").on("click",function(){
+                            		$("#insert").on("click",function(){ //입력 버튼 클릭 시
                             			
                                 		let gradeName = $("#grade_name").val();
                                 		let nameRegex = /^[a-zA-Zㄱ-ㅎ가-힣]+$/;
@@ -367,8 +390,17 @@
                                 		let gradeTarget = $("#grade_target").val();
                                 		let targetRegex = /^[0-9]+$/;
                                 		
+                                		let gradeCoupon = $("#grade_coupon").val();
+                                		let checkGrade = $("#checkGrade").html();
+                                		
                             			if(!nameRegex.test(gradeName)) {
                             				alert("등급이름을 확인해주세요!(문자만 입력하세요. 예)해, 달, 별)");
+                            				return false;
+                            			}else if(checkGrade == "") {
+                            				alert("중복확인을 실행해주세요");
+                            				return false;
+                            			}else if(checkGrade == "이미 사용중인 등급이름 입니다.") {
+                            				alert("등급이름이 중복됐는지 확인해주세요!");
                             				return false;
                             			}else if(!percentRegex.test(gradePercent)) {
                             				alert("적립률을 확인해주세요!(소숫점으로만 입력하세요. 예)0.1, 0.05)");
@@ -376,20 +408,23 @@
                             			}else if(!targetRegex.test(gradeTarget)) {
                             				alert("달성기준을 확인해주세요!(숫자만 입력하세요 예)100000)");
                             				return false;
+                            			}else if(gradeCoupon == "") {
+                            				alert("등급혜택을 입력해주세요!(최대 50자)");
+                            				return false;
                             			}else{
                             				if(confirm("정말로 입력하시겠습니까?")){
                             					$("#submit-grade").submit();
                             				}
                             			}
                             		})
-                            		function del(element) {
+                            		function del(element) { // 삭제버튼 클릭시
                             			if(confirm("정말 삭제하시겠습니까?")){
                             				let value = element.getAttribute("val");
                             				location.href="/seller/deleteGrade?grade_name="+value;
                             			}
                             		}
                             		
-                            		function modify(element){
+                            		function modify(element){ //수정 버튼 클릭시
                             			let value = element.getAttribute("val");
                             			eval("bkPercent" + value + "=" + $("#grade_percent"+value).val());
                             			eval("bkTarget" + value + "=" + $("#grade_target"+value).val());
@@ -402,9 +437,11 @@
                             			$("#grade_percent"+value).css("border","1px solid black");
                             			$("#grade_target"+value).removeAttr("readonly");
                             			$("#grade_target"+value).css("border","1px solid black");
+                            			$("#grade_coupon"+value).removeAttr("readonly");
+                            			$("#grade_coupon"+value).css("border","1px solid black");
                             		}
                             		
-                            		function cancelMod(element){
+                            		function cancelMod(element){ //수정취소버튼 클릭시
                             			let value = element.getAttribute("val");
                             			if(confirm("수정을 취소하시겠습니까?")){
                             				$("#grade_percent"+value).val(eval("bkPercent"+value));
@@ -417,6 +454,8 @@
                                 			$("#grade_percent"+value).css("border","none");
                                 			$("#grade_target"+value).attr("readonly","readonly");
                                 			$("#grade_target"+value).css("border","none");
+                                			$("#grade_coupon"+value).attr("readonly","readonly");
+                                			$("#grade_coupon"+value).css("border","none");
                             			}
                             		}
                             		
@@ -429,11 +468,16 @@
                                 		let gradeTarget = $("#grade_target"+value).val();
                                 		let targetRegex = /^[0-9]+$/;
                                 		
+                                		let gradeCoupon = $("#grade_coupon"+value).val();
+                                		
                             			if(!percentRegex.test(gradePercent)) {
                             				alert("적립률을 확인해주세요!(소숫점으로만 입력하세요. 예)0.1, 0.05)");
                             				return false;
                             			}else if(!targetRegex.test(gradeTarget)) {
                             				alert("달성기준을 확인해주세요!(숫자만 입력하세요 예)100000)");
+                            				return false;
+                            			}else if(gradeCoupon == "") {
+                            				alert("등급혜택을 입력해주세요!(최대 50자)");
                             				return false;
                             			}else{
                             				if(confirm("정말로 수정하시겠습니까?")){
@@ -441,6 +485,25 @@
                             				}
                             			}
                             		}
+                            		
+                            		
+                            		$(function(){
+										$("#check").on("click",function(){
+											$.ajax({
+												url: "/seller/checkGrade",
+												data:{grade_name:$("#grade_name").val()}
+											}).done(function(resp){
+												console.log(resp);
+												if(resp != 0){
+													$("#checkGrade").html("이미 사용중인 등급이름 입니다.");
+												}else{
+													$("#checkGrade").html("사용 가능한 등급이름 입니다.");
+												}
+											})
+										});
+									})
+
+
                             	</script>
                             </div>
                         </div>

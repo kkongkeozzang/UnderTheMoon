@@ -27,4 +27,10 @@ public class PageStatic {
 	
 	// 최근 본 상품 쿠키에 몇 개의 값을 넣을 건지
 	public static final int RECENTLY_MD_VIEW_COOKIE_LIMIT = 5;
+	
+	// 마이페이지 쿠폰 모아보기 한 페이지에 몇 개
+	public static final int COUPON_COUNT_PER_PAGE = 8;
+	
+	// 마이페이지 쿠폰 모아보기 네비게이터 몇 개
+	public static final int COUPON_NAVI_COUNT_PER_PAGE = 3;
 }

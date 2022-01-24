@@ -34,7 +34,7 @@ public class CartAPIController {
 	
 	@DeleteMapping("deleteCart/{cart_id}")
 	public ResponseEntity<Integer> deleteCart(@PathVariable String cart_id){
-		System.out.println("controller"+cart_id);
+		
 		Integer result = cartService.deleteCart(Integer.valueOf(cart_id));
 	
 		return new ResponseEntity<Integer>(result,HttpStatus.OK);
@@ -44,7 +44,7 @@ public class CartAPIController {
 	public ResponseEntity<Integer> addItemCount(@PathVariable String cart_id){
 		
 		Integer result = cartService.addItemCount(Integer.valueOf(cart_id));
-		System.out.println("result+"+result);
+		
 		return new ResponseEntity<Integer>(result,HttpStatus.OK);
 	}
 	
@@ -53,6 +53,16 @@ public class CartAPIController {
 		
 		Integer result = cartService.subtractItemCount(Integer.valueOf(cart_id));
 		
+		return new ResponseEntity<Integer>(result,HttpStatus.OK);
+	}
+	
+	@DeleteMapping("deleteAll/{member_id}")
+	public ResponseEntity<Integer> deleteAll(@PathVariable String member_id){
+
+		System.out.println("controller"+member_id);
+
+		Integer result = cartService.deleteAll(Integer.valueOf(member_id));
+	
 		return new ResponseEntity<Integer>(result,HttpStatus.OK);
 	}
 }

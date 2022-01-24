@@ -30,7 +30,11 @@
   </update>
   
   <select id="selectMdByMdId" resultType="kh.spring.dto.CartDTO">
-  		select * from cart where md_id = #{value}
+  		select * from cart where md_id = #{md_id} and member_id = #{member_id}
   </select>
+  
+  <delete id="deleteAll">
+  		delete from cart where member_id = ${member_id}
+  </delete>
   
   </mapper>

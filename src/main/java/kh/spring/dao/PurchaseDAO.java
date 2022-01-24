@@ -3,7 +3,6 @@ package kh.spring.dao;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
-import kh.spring.dto.DeliveryDTO;
 import kh.spring.dto.PurchaseDTO;
 
 @Repository
@@ -33,6 +32,12 @@ private final SqlSessionTemplate mybatis;
 		
 		return mybatis.delete("Purchase.deleteById",order_id);
 	}
+	
+	public long deleteById(long order_id) {
+		
+		return mybatis.delete("Purchase.deleteById",order_id);
+	}
+
 	
 	public long deleteById(long order_id) {
 		

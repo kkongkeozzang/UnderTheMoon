@@ -17,7 +17,12 @@ private final SqlSessionTemplate mybatis;
 	}
 
 	public int insertPurchaseDetails(List<PurchaseDetailDTO> purchseDetailList) {
-		
-		return mybatis.insert("PurchaseDetail.insertPurchaseDetails",purchseDetailList);
+		int result = 0;
+		for(int i = 0; i < purchseDetailList.size(); i++) {
+			PurchaseDetailDTO dto = new PurchaseDetailDTO();
+			dto = purchseDetailList.get(i);
+			 result = mybatis.insert("PurchaseDetail.insertPurchaseDetails",dto);
+		}
+		return result;
 	}
 }

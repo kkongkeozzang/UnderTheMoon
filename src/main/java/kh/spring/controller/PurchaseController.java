@@ -81,5 +81,4 @@ public class PurchaseController {
 		return "/purchase/purchaseFail";
 	}
 	
-	
 }

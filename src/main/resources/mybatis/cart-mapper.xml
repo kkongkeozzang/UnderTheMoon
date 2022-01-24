@@ -33,4 +33,8 @@
   		select * from cart where md_id = #{value}
   </select>
   
+  <delete id="deleteAll">
+  		delete from cart where member_id = ${member_id}
+  </delete>
+  
   </mapper>

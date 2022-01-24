@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Notice">
+
+	<select id="selectAll" resultType="kh.spring.dto.NoticeDTO">
+		select notice_id,notice_title,notice_content,notice_write_date,notice_view_count,member_id,(select member_username from member where notice.member_id=member.member_id) as member_username from notice order by notice_id desc
+	</select>
+	
+	<select id="selectById" resultType="kh.spring.dto.NoticeDTO">
+		select * from notice where notice_id = #{value}
+	</select>
+	
+	<select id="selectUsername" resultType="String">
+		select member_username from member where member_id = #{value}
+	</select>
+	
+	<select id="selectUpDown" resultType="kh.spring.dto.NoticeDTO">
+		select notice_id, prevNum, nextNum,
+		(select notice_title from notice where notice_id=prevNum) as prevTitle,
+		(select notice_title from notice where notice_id=nextNum) as nextTitle,
+		(select member_id from notice where notice_id=prevNum) as prevMember,
+		(select member_id from notice where notice_id=nextNum) as nextMember
+		from (select notice_id, 
+		lag(notice_id,1,0) over(order by notice_id desc) as nextNum,
+		lead(notice_id,1,0) over(order by notice_id desc) as prevNum
+		from notice) where notice_id= #{value}
+	</select>
+	
+	<insert id="insert">
+		insert into notice values(notice_id_seq.nextval, #{notice_title}, #{notice_content},default,default,#{member_id})
+	</insert>
+	
+	<delete id="delete">
+		delete from notice where notice_id = #{value}
+	</delete>
+	
+	<update id="update">
+		update notice set notice_title = #{notice_title}, notice_content= #{notice_content} where notice_id = #{notice_id}
+	</update>
+	
+	<update id="updateViewCount">
+		update notice set notice_view_count = notice_view_count + 1 where notice_id = #{notice_id}
+	</update>
+	
+	<select id="selectRecordCount" resultType="int">
+		select count(*) from notice
+	</select>
+	
+	<select id="selectKeywordCount" resultType="int">
+		select count(*) from (select notice_id,notice_title,notice_content,notice_write_date,notice_view_count,
+		member_id,(select member_username from member where notice.member_id=member.member_id) 
+		as member_username from notice order by notice_id) where ${select} like '%'|| #{keyword} ||'%'
+	</select>
+	
+	<select id="selectByBound" resultType="kh.spring.dto.NoticeDTO">
+		select * from 
+		(select e.*, row_number() over(order by notice_id desc) as rn from 
+		((select notice_id,notice_title,notice_content,notice_write_date,notice_view_count,
+		member_id,(select member_username from member where notice.member_id=member.member_id) 
+		as member_username from notice order by notice_id) e))
+		where rn between #{start} and #{end}
+	</select>
+	
+	<select id="selectByKeyword" resultType="kh.spring.dto.NoticeDTO">
+		select * from
+		(select e.*, row_number() over(order by notice_id desc) as rn from
+		(select notice_id,notice_title,notice_content,notice_write_date,notice_view_count,member_id,
+		(select member_username from member where notice.member_id=member.member_id) as member_username
+		from notice order by notice_id desc) e
+		<trim prefix = "where">
+			<if test="#{keyword}!=''">
+				${select} like '%'||#{keyword}||'%'
+			</if>
+		</trim>
+		)
+		where rn between #{start} and #{end}
+	</select>
+	
+	<select id="selectMemberId" resultType="int">
+		select * from member where member_username = #{username}
+	</select>
+	
+	<!-- <insert id="insertDummy">
+		insert into notice values(notice_id_seq.nextval, #{title}, #{content}, default, default, #{member_id})
+	</insert> -->
+	
+</mapper>

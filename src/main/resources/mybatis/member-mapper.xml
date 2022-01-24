@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace ="Member">
+  
+  <select id="selectByUsername" resultType="kh.spring.dto.MemberDTO">
+  	select * from member where member_username = #{member_username}
+  </select>
+  
+
+  <select id="selectByNameAndEmail" resultType="String">
+  	select member_username from member where member_email = #{member_email} and member_name = #{member_name}
+  </select>
+  
+
+  <select id="selectByUsernameAndPhone" resultType="Integer">
+  	select * from member where member_username = #{member_username} and member_phone = #{member_phone}
+  </select>
+
+
+  <select id="SelectByNameAndEmail" resultType="String">
+  	select member_username from member where member_email = #{member_email} and member_name = #{member_name}
+  </select>
+  
+  <insert id="insertMember">
+  	insert into member values(member_id_seq.nextval,#{member_username},#{member_password},#{member_name},#{member_birth_date}
+  	, #{member_phone}, #{member_zipcode}, #{member_address1}, #{member_address2}, default, '별', 'ROLE_USER', #{member_email})
+  	<selectKey resultType="integer" order="AFTER" keyProperty="member_id">
+  		select member_id_seq.currval from dual
+  	</selectKey>
+  </insert>
+
+  <update id="resetPassword">
+  	update member set member_password = #{member_password} where member_username = #{member_username}
+  </update>
+
+  <select id="idDuplCheck" resultType="int">
+ 		select count(*) from member where member_username = #{value}
+  </select>
+
+  <select id="selectIdByUsername" resultType="Integer">
+  		select member_id from member where member_username = #{member_username}
+  </select>
+
+  <update id="updateGradeMoon">
+  	update member set grade_name = '달' where member_username = #{member_username}
+  </update>
+  
+  <update id="updateGradeSun">
+  	update member set grade_name = '해' where member_username = #{member_username}
+  </update>
+  </mapper>
+  
+  

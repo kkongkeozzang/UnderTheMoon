@@ -79,11 +79,6 @@ private final SqlSessionTemplate mybatis;
 		Integer result = mybatis.delete("Cart.deleteAll",member_id);
 		return result;
 	}
-
-	public Integer deleteAll(Integer member_id) {
-		Integer result = mybatis.delete("Cart.deleteAll",member_id);
-		return result;
-	}
 	
 	
 

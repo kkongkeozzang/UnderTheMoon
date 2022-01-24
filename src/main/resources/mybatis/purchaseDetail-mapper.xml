@@ -4,13 +4,10 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
   <mapper namespace ="PurchaseDetail">
-  
-  		<insert id="insertPurchaseDetails">
-  			insert into purchaseDetail(purchase_detail_id,purchase_id,md_id,purchase_detail_quantity,purchase_detail_price,purchase_detail_purchased,purchase_detail_cancel_order,purchase_detail_exchange,purchase_detail_refund,purchase_detail_cancel_sale,purchase_detail_result,purchase_detail_delivery_date)
-  			values
-  			<foreach collection="list" item="purchseDetailList" separator=",">
-  			(purchase_detail_id_seq.nextval,#{purchseDetailList.purchase_id},#{purchseDetailList.md_id},#{purchseDetailList.purchase_detail_quantity},#{purchseDetailList.purchase_detail_price},default,default,default,default,default,default,sysdate)
-  			</foreach>
+
+  		<insert id="insertPurchaseDetails" parameterType = "kh.spring.dto.PurchaseDetailDTO">
+  			insert into purchase_detail(purchase_detail_id,purchase_id,md_id,purchase_detail_quantity,purchase_detail_price,purchase_detail_purchased,purchase_detail_cancel_order,purchase_detail_exchange,purchase_detail_refund,purchase_detail_cancel_sale,purchase_detail_result,purchase_detail_delivery_date) values
+  			(purchase_detail_id_seq.nextval,#{purchase_id},#{md_id},#{purchase_detail_quantity},#{purchase_detail_price},default,default,default,default,default,default,sysdate)
   		</insert>
   
   </mapper>

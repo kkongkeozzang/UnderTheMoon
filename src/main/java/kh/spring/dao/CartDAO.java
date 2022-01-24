@@ -49,9 +49,9 @@ private final SqlSessionTemplate mybatis;
 	}
 
 	public Integer deleteCart(Integer cart_id) {
-		System.out.println(cart_id);
+	
 		Integer result = mybatis.delete("Cart.deleteCart",cart_id);
-		System.out.println("s"+result);
+		
 		return result;
 	}
 
@@ -68,6 +68,11 @@ private final SqlSessionTemplate mybatis;
 	public List<CartDTO> selectMdByMdId(Integer md_id) {
 		
 		return mybatis.selectList("Cart.selectMdByMdId", md_id);
+	}
+
+	public Integer deleteAll(Integer member_id) {
+		Integer result = mybatis.delete("Cart.deleteAll",member_id);
+		return result;
 	}
 	
 	

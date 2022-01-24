@@ -71,4 +71,9 @@ public class CartService {
 		return result;
 	}
 
+	public Integer deleteAll(Integer member_id) {
+		Integer result = cartDAO.deleteAll(member_id);
+		return result;
+	}
+
 }

@@ -76,10 +76,10 @@ public class PurchaseController {
 		
 	}
 	
+
 	@RequestMapping("fail")
 	public String fail() {
 		return "/purchase/purchaseFail";
 	}
-	
 	
 }

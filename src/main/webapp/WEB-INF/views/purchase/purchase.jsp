@@ -189,6 +189,7 @@ $(function(){
 							<td data-th="Quantity">
 								<button class="plus" type ="button">+</button>
 									 <input type="hidden" class="cart_id" value="${cart.cart_id}">
+									  <input type="hidden" class="member_id" value="${cart.member_id}">
 									<input type="number" class="count form-control text-center" value="${cart.cart_item_count}" readonly>
 								<button class="minus" type="button">-</button>
 							</td>
@@ -344,6 +345,7 @@ $(function(){
 					    
 					} else {
 						var deliveryDTO = {
+
 								 member_id: ${member.member_id},
 								 delivery_address1: $("#roadAddress").val(),
 								 delivery_address2: $("#roadAddress2").val(),
@@ -366,6 +368,8 @@ $(function(){
 						
 						let order_id = 0;
 						let delivery_id = 0;
+						let member_id = $(".member_id").val();
+						console.log(member_id);
 						 
 						 $.ajax({
 						  	  type: 'post',
@@ -387,27 +391,23 @@ $(function(){
 						  		    	  
 						  		    	 order_id = resp;
 						  		    	 
-										 var purchaseDetailDTO = [];
-										
+
+										 var purchaseDetailArray = [];
+										 var purchaseDetailDTO = new Object();
+										 
 										<c:forEach var="cart" items="${carts}">
-										    purchaseDetailDTO.push({
+										purchaseDetailArray.push(purchaseDetailDTO = {
+
 												purchase_id: order_id,
 												md_id: ${cart.md_id},
 												purchase_detail_quantity: ${cart.cart_item_count},
 												purchase_detail_price: ${cart.cart_price},
-												purchase_detail_purchased: 'N',
-												purchase_detail_cancel_order: 'N',
-												purchase_detail_exchange: 'N',
-												purchase_detail_refund: 'N',
-												purchase_detail_cencel_sale: 'N', 
-												purchase_detail_result: 'N',
-												purchase_detail_delivery_date: 'sysdate'
+
 											})
 										</c:forEach>
 												 
-										 	console.log(purchaseDetailDTO);  
-						  		    	 
-						  		    	 
+										 	console.log(purchaseDetailArray);  
+			  		    	 
 						  		    	 BootPay.request({
 												price: document.getElementById("totalPrice").value, //실제 결제되는 가격
 												application_id: "61eab9c3e38c3000227b8107",
@@ -457,18 +457,26 @@ $(function(){
 											}).done(function (data) {
 												//결제가 정상적으로 완료되면 수행됩니다
 												//비즈니스 로직을 수행하기 전에 결제 유효성 검증을 하시길 추천합니다.
-												location.replace("/pay/confirm?receipt_id="+data.receipt_id);
+
 												$.ajax({
 												  	  type: 'post',
 												        url:'/purchaseDetail/rest/insertPurchaseDetail/',
-												        data: {
-												        	objects: JSON.stringify(purchaseDetailDTO)
-												        	},
+												        data: JSON.stringify(purchaseDetailArray), 	
 												        contentType:"application/json;charset=utf-8",
 												        dataType:"json",
 												        async: false,
 												        success : function(resp){
-												        	
+												    
+												        	$.ajax({
+												      	  	  type: 'delete',
+												      	        url:"/cart/rest/deleteAll/"+member_id,
+												      	        dataType:"json",
+												      	        async: false     
+												      	     }).done(function(resp){
+												      	    	
+												      	    	location.replace("/pay/confirm?receipt_id="+data.receipt_id);
+												      	    	 
+												      	   })
 												        }
 												        
 												})

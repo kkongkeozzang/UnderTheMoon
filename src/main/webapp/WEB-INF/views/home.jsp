@@ -17,5 +17,6 @@
 	<a href="/faq/toFaq?cPage=1">자주하는질문</a>
 	<a href="/mypage/myPageList">마이페이지</a>
 	<a href="/seller/sellerOffice">판매자</a>
+	<a href="/event/toEvent">이벤트</a>
 </body>
 </html>

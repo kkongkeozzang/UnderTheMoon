@@ -2,9 +2,9 @@ package kh.spring.controller.api;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
+
+
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,22 +13,18 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.module.SimpleModule;
 
-import kh.spring.dto.DeliveryDTO;
+
 import kh.spring.dto.PurchaseDetailDTO;
 
 import kh.spring.service.PurchaseDetailService;
 
 
+
+
 @RestController
 @RequestMapping("/purchaseDetail/rest/")
-@JsonIgnoreProperties(ignoreUnknown = true)
 public class PurchaseDetailAPIController {
 
 	private final PurchaseDetailService purchaseDetailService;
@@ -55,6 +51,7 @@ public class PurchaseDetailAPIController {
 		int result = purchaseDetailService.insertPurchaseDetails(purchaseDetailList);
 			
 		return new ResponseEntity<Integer>(result,HttpStatus.OK);
+
 		
 	}
 }

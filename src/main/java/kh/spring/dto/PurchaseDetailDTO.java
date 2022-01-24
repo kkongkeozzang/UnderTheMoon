@@ -1,5 +1,6 @@
 package kh.spring.dto;
 
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -19,7 +20,7 @@ public class PurchaseDetailDTO {
 	private String purchase_detail_cancel_sale;
 	private String purchase_detail_result;
 	private String purchase_detail_delivery_date;
-	
+
 	public PurchaseDetailDTO() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -28,8 +29,8 @@ public class PurchaseDetailDTO {
 			Integer purchase_detail_quantity, Integer purchase_detail_price, String purchase_detail_purchased,
 			String purchase_detail_cancel_order, String purchase_detail_exchange, String purchase_detail_refund,
 			String purchase_detail_cancel_sale, String purchase_detail_result, String purchase_detail_delivery_date) {
+
 		super();
-		this.purchase_detail_id = purchase_detail_id;
 		this.purchase_id = purchase_id;
 		this.md_id = md_id;
 		this.purchase_detail_quantity = purchase_detail_quantity;

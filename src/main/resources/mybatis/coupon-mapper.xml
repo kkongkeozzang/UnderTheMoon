@@ -45,5 +45,20 @@
   	insert into coupon values(coupon_id_seq.nextval,'해 등급 할인 쿠폰',50000,'등급쿠폰','무제한','N',sysdate,#{value})
   </insert>
   
-  	
+  <select id="selectCouponListById" resultType="kh.spring.dto.CouponDTO">
+  	select * from coupon where member_id = #{member_id}
+  </select>
+  
+  <select id="selectCouponPossibleById" resultType="int">
+  	select count(*) from coupon where member_id = #{member_id} and coupon_used_yn = 'N'
+  </select>
+  
+  <select id="selectRecordCount" resultType="int">
+  	select count(*) from coupon where member_id = #{value}
+  </select>
+  
+  <select id="selectByBound" resultType="kh.spring.dto.CouponDTO">
+  	select * from (select * from (select target.*, row_number() over(order by coupon_id desc) rn from 
+  	(select * from coupon where member_id = #{member_id}) target)) where rn between #{start} and #{end}
+  </select>	
   </mapper>

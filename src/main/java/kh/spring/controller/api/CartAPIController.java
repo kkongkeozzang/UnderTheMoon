@@ -58,7 +58,9 @@ public class CartAPIController {
 	
 	@DeleteMapping("deleteAll/{member_id}")
 	public ResponseEntity<Integer> deleteAll(@PathVariable String member_id){
-		
+
+		System.out.println("controller"+member_id);
+
 		Integer result = cartService.deleteAll(Integer.valueOf(member_id));
 	
 		return new ResponseEntity<Integer>(result,HttpStatus.OK);

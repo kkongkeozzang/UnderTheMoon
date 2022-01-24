@@ -178,4 +178,14 @@ body {
 }
 ul{
 	list-style:none;
+
+}
+
+.purchase-list{
+	border: 1px solid black;
+
+}
+
+.navigator > button.btn btn-outline-primary{
+	float:center;
 }

@@ -1,5 +1,7 @@
 package kh.spring.dao;
 
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -25,6 +27,15 @@ public class PointDAO {
 	public Integer selectPointById(Integer member_id) {
 		
 		return mybatis.selectOne("Point.selectPointById",member_id);
+	}
+	
+	public List<PointDTO> selectPointListById(Integer member_id) {
+		
+		return mybatis.selectList("Point.selectPointListById", member_id);
+	}
+	
+	public Integer insertNotInputEvent(Integer id) {
+		return mybatis.insert("Point.insertNotInputEvent", id);
 	}
 }
 

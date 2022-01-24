@@ -19,4 +19,8 @@ public class GradeService {
 	public List<GradeDTO> selectAll(){
 		return gradeDAO.selectAll();
 	}
+
+	public List<GradeDTO> selectGradeTarget(){
+		return gradeDAO.selectGradeTarget();
+	}
 }

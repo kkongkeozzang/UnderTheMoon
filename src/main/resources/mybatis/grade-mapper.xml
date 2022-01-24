@@ -6,6 +6,10 @@
  <mapper namespace="Grade">
  	
  	<select id="selectAll" resultType="kh.spring.dto.GradeDTO">
- 		select * from grade
+ 		select * from grade order by grade_target
  	</select>
+	
+	<select id="selectGradeTarget" resultType="int">
+		select grade_target from grade order by grade_target
+	</select>
  </mapper>

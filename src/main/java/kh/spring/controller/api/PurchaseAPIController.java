@@ -37,7 +37,7 @@ public class PurchaseAPIController {
 		this.deliveryService = deliveryService;
 	}
 	
-	@PostMapping(value="insertPurchase")
+	@PostMapping(value="insertPurchase", produces = "application/json")
 	public ResponseEntity<Integer> insertPurchase(@RequestBody List<Map<String,String>> objects) throws IOException{
 			
 			ObjectMapper mapper = new ObjectMapper();

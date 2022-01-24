@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -228,15 +229,22 @@ $(function(){
 			<!-- 쿠폰선택자. -->
 					<div id="select-container">
 						 <select id="coupon" class="form-select" >
+						 <c:choose>
+						 <c:when test="${fn:length(coupons)== 0}">
+							<option>사용 가능한 쿠폰이 없습니다.</option>
+						</c:when>
+						<c:otherwise>
 							 <c:forEach var="coupon" items="${coupons }">
 							  <option >${coupon.coupon_name} ${coupon.coupon_discount_rate }</option>
 							  </c:forEach>
+						</c:otherwise>
+						</c:choose>
 						</select><br><br>
 					</div>	
 			<!-- 쿠폰선택자. -->
 			
 			<!-- 전릭금.선택자. -->
-						  <label for="point" class="mr-sm-2">적립금: ${ pointSum}</label>
+						  <label for="point" class="mr-sm-2">적립금: ${ pointSum} </label>
 						  <input type="text" id="point-input" class="form-control mb-2 mr-sm-2" value=0 id="pointSum">
 						  <button id="point-btn"type="button" class="btn btn-primary mb-2">적립금전체사용</button><br><br>
 			<!-- 전릭금.선택자. -->		

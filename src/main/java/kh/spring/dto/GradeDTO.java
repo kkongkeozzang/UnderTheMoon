@@ -5,16 +5,18 @@ public class GradeDTO {
 	private String grade_name;
 	private double grade_percent;
 	private int grade_target;
+	private String grade_coupon;
 	
 	public GradeDTO() {
 		super();
 	}
 
-	public GradeDTO(String grade_name, double grade_percent, int grade_target) {
+	public GradeDTO(String grade_name, double grade_percent, int grade_target, String grade_coupon) {
 		super();
 		this.grade_name = grade_name;
 		this.grade_percent = grade_percent;
 		this.grade_target = grade_target;
+		this.grade_coupon = grade_coupon;
 	}
 
 	public String getGrade_name() {
@@ -40,6 +42,13 @@ public class GradeDTO {
 	public void setGrade_target(int grade_target) {
 		this.grade_target = grade_target;
 	}
-	
-	
+
+	public String getGrade_coupon() {
+		return grade_coupon;
+	}
+
+	public void setGrade_coupon(String grade_coupon) {
+		this.grade_coupon = grade_coupon;
+	}
+		
 }

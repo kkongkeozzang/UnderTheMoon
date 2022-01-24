@@ -46,7 +46,7 @@
 											<div class="detail">
                                                 <h6 class="detail-title-one">${memberDTO.member_username }회원님</h6>
 												<button type="button" class="btn btn-light" id="all-grade">나의등급 보기</button>
-												<input type="hidden" name="member_id" value="${memberDTO.member_id }">
+												<input type="hidden" value="${memberDTO.member_id }">
 											</div>
 										</div>
 									</div>
@@ -89,8 +89,9 @@
 									</div>
 								</div>
 							</div>
-            			</div>            
-            		</div>    
+            </div>
+            
+            </div>    
 
         
 	<div class="row">
@@ -116,47 +117,42 @@
 						</div>
 					</div>
 				</div>
+
 			</div>
 
 			<div class="col-12 col-md-8 col-lg-9">
 				<div class="card">
-					<div class="card-body">						
-							<div class="drive-wrapper drive-list-view">								
+					<div class="card-body">											
+							<div class="drive-wrapper drive-list-view">
+								<div class="table-responsive drive-items-table-wrapper">
 									<table class="table">
 										<thead>
 											<tr>
-												<th class="name truncate" colspan=4>주문 내역 (지난 3개월 간 주문 내역 조회가 가능합니다) 
-                                                    <select class="form-select form-select-sm" aria-label=".form-select-sm example">
-                                                    <option value="1" selected>전체기간</option>
-                                                    <option value="2">1개월전</option>
-                                                    <option value="3">2개월전</option>
-													<option value="4">3개월전</option>
-                                                  </select></th>
+												<th class="name truncate" colspan=4>적립금                                                
+											</tr>
+											<tr>
+												<th class="grade-list" style="text-align:center">적립/사용 내역</th>
+												<th class="grade-list" style="text-align:center">금액</th>
+												<th class="grade-list" style="text-align:center">날짜</th>                                           
 											</tr>
 										</thead>										
-										<tbody>														
+										<tbody>
+											<c:forEach var="pointDTO" items="${pointList }">
+											<tr>												
+												<td class="grade-list" style="text-align:center">${pointDTO.point_event}</td>
+												<td class="grade-list" style="text-align:center"><fmt:formatNumber value="${pointDTO.point_used_saved}" type="number"/></td>
+												<td class="grade-list" style="text-align:center">${pointDTO.point_date}</td>													
+											</tr>
+											</c:forEach>			
 										</tbody>
-									</table>
-									<div class="row">
-										<div class="col-sm-12" id="purchase-name">춘식이 무드등											
-											<hr>
-										</div>										
-										<div class="col-sm-2" id="purchase-img"><img src="https://order.pay.naver.com/proxy/phinf/shop1/20211006_47/1633531442640eSL92_PNG/34667285324274523_698179646.png?type=m90_90" alt="카카오프렌즈 춘식이 무드등 무선 간편사용 굿즈" width="90" height="90"></div>
-										<div class="col-sm-7" id="purchase-information"><ul>
-											<li>주문 날짜 :</li>
-											<br>
-											<li>결제 금액 :</li>
-										</ul></div>
-										<div class="col-sm-3" id="purchase-option">
-											<button type="button" class="btn btn-light">1:1문의</button>
-										</div>
-									</div>
-									<br>																								
+									</table>							
+								</div>
 							</div>						
 					</div>
 				</div>
 			</div>
 		</div>
+	</div>
 	</div>
 	</div>
 	</div>

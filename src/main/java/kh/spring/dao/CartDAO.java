@@ -2,6 +2,7 @@ package kh.spring.dao;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
@@ -65,16 +66,19 @@ private final SqlSessionTemplate mybatis;
 		return mybatis.update("Cart.subtractItemCount",cart_id);
 	}
 	
-	public List<CartDTO> selectMdByMdId(Integer md_id) {
+	public List<CartDTO> selectMdByMdId(Integer md_id, Integer member_id) {
 		
-		return mybatis.selectList("Cart.selectMdByMdId", md_id);
+		Map<String,Integer> map = new HashMap<>();
+		map.put("md_id",md_id );
+		map.put("member_id", member_id);
+		
+		return mybatis.selectList("Cart.selectMdByMdId", map);
 	}
 
 	public Integer deleteAll(Integer member_id) {
 		Integer result = mybatis.delete("Cart.deleteAll",member_id);
 		return result;
 	}
-	
-	
+
 
 }

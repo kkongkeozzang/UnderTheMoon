@@ -71,6 +71,8 @@ public class MemberController {
 		int result = memberService.idDuplCheck(recommend_id);
 		if(result == 1) {
 			pointService.insertRecommendMemberPoint(dto.getMember_id());
+		}else {
+			pointService.insertNotInputEvent(dto.getMember_id());
 		}
 
 		if(event.equals("월하합작")) {

@@ -345,10 +345,6 @@ $(function(){
 					    
 					} else {
 						var deliveryDTO = {
-<<<<<<< HEAD
-=======
-
->>>>>>> 718b0b71e7a578f37da8ea791889fe35dbb6d771
 								 member_id: ${member.member_id},
 								 delivery_address1: $("#roadAddress").val(),
 								 delivery_address2: $("#roadAddress2").val(),
@@ -460,11 +456,6 @@ $(function(){
 											}).done(function (data) {
 												//결제가 정상적으로 완료되면 수행됩니다
 												//비즈니스 로직을 수행하기 전에 결제 유효성 검증을 하시길 추천합니다.
-<<<<<<< HEAD
-												location.replace("/pay/confirm?receipt_id="+data.receipt_id);
-=======
-
->>>>>>> 718b0b71e7a578f37da8ea791889fe35dbb6d771
 												$.ajax({
 												  	  type: 'post',
 												        url:'/purchaseDetail/rest/insertPurchaseDetail/',

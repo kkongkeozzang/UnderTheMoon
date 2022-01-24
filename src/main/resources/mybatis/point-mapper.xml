@@ -17,4 +17,11 @@
    		select sum(point_used_saved) from point where member_id = #{member_id}
   </select>
 
+  <select id="selectPointListById" resultType="kh.spring.dto.PointDTO">
+  	select * from point where member_id = #{member_id}
+  </select>
+  
+  <select id="insertNotInputEvent">
+  	insert into point values(point_id_seq.nextval,'0','이벤트 미입력',default,#{value})
+  </select>
   </mapper>

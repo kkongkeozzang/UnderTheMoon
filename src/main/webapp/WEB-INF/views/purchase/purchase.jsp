@@ -13,6 +13,7 @@
 <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="https://cdn.bootpay.co.kr/js/bootpay-3.3.2.min.js" type="application/javascript"></script> 
+<link rel="stylesheet" href="/resources/purchase/css/purchase.css">
 <style>
 .table>tbody>tr>td, .table>tfoot>tr>td{
     vertical-align: middle;
@@ -188,6 +189,7 @@ $(function(){
 							<td data-th="Quantity">
 								<button class="plus" type ="button">+</button>
 									 <input type="hidden" class="cart_id" value="${cart.cart_id}">
+									  <input type="hidden" class="member_id" value="${cart.member_id}">
 									<input type="number" class="count form-control text-center" value="${cart.cart_item_count}" readonly>
 								<button class="minus" type="button">-</button>
 							</td>
@@ -245,6 +247,30 @@ $(function(){
 					
 					
 			</div>
+			<input id="agree" type="checkbox"><a href="#popup1">정보수집ㆍ이용</a> 동의(필수)
+			<div id="popup1" class="overlay">
+			   <div class="popup">
+			      <h2>정보수집ㆍ이용</h2>
+			      <a class="close" href="javascript:history.back()">&times;</a>
+			      <div class="content" style="text-align:center">
+			     	 <br>
+			     	 <b>개인정보 판매자 제공에 동의합니다.</b><br>
+			         제공받는 자:"월하합작"<br>
+			         판매자와 구매자 사이의 원활한 거래 진행, 상품의 배송을 위한 배송지 확인, 고객상담 및 불만처리 등명<br> 
+			         정보:구매자 정보 (이름, 전화번호, 주소)<br>
+			         수취인 정보 (이름, 전화번호, 주소)<br>
+			         보유기간:발송완료 후 90일<br>
+			         <b>구매자의 정보수집ㆍ이용에 동의합니다.</b><br>
+			         제공받는 자:관할 세무서장<br>
+			         목적:주류 통신판매기록부 관리 및 국세청 신고<br>
+			         정보:구매자 정보(이름,주소,생년월일(본인인증 정보를 이용함),주문상품,수량,주문금액)<br>
+			         보유기간:회원 탈퇴 시까지<br>
+			         단, 관계법령의 규정에 따라 보존한 의무가 있으며 해당 기간동안 보존
+			         <p style="color:red;"><b>※ 동의하지 않으실 경우 구매가 제한됩니다.</b></p>
+			      </div>
+			   </div>
+			</div>
+			
 </body>
 
 					<script>
@@ -311,8 +337,15 @@ $(function(){
 					 
 				//결제API
 				$("body").on("click","#purchase",function(){
-						 
-						 var deliveryDTO = {
+					
+					// 정보 동의 안하면 결제 진행 막기
+					if($("#agree").is(":checked") == false){
+					    alert("결제 진행을 위해 정보수집ㆍ이용 동의에 체크해주세요.")
+					    return false;
+					    
+					} else {
+						var deliveryDTO = {
+
 								 member_id: ${member.member_id},
 								 delivery_address1: $("#roadAddress").val(),
 								 delivery_address2: $("#roadAddress2").val(),
@@ -335,6 +368,8 @@ $(function(){
 						
 						let order_id = 0;
 						let delivery_id = 0;
+						let member_id = $(".member_id").val();
+						console.log(member_id);
 						 
 						 $.ajax({
 						  	  type: 'post',
@@ -356,30 +391,26 @@ $(function(){
 						  		    	  
 						  		    	 order_id = resp;
 						  		    	 
-										 var purchaseDetailDTO = [];
-										
+
+										 var purchaseDetailArray = [];
+										 var purchaseDetailDTO = new Object();
+										 
 										<c:forEach var="cart" items="${carts}">
-										    purchaseDetailDTO.push({
+										purchaseDetailArray.push(purchaseDetailDTO = {
+
 												purchase_id: order_id,
 												md_id: ${cart.md_id},
 												purchase_detail_quantity: ${cart.cart_item_count},
 												purchase_detail_price: ${cart.cart_price},
-												purchase_detail_purchased: 'N',
-												purchase_detail_cancel_order: 'N',
-												purchase_detail_exchange: 'N',
-												purchase_detail_refund: 'N',
-												purchase_detail_cencel_sale: 'N', 
-												purchase_detail_result: 'N',
-												purchase_detail_delivery_date: 'sysdate'
+
 											})
 										</c:forEach>
 												 
-										 	console.log(purchaseDetailDTO);  
-						  		    	 
-						  		    	 
+										 	console.log(purchaseDetailArray);  
+			  		    	 
 						  		    	 BootPay.request({
 												price: document.getElementById("totalPrice").value, //실제 결제되는 가격
-												application_id: "61e73d6de38c3000217b806f",
+												application_id: "61eab9c3e38c3000227b8107",
 												name: document.getElementById("item").innerHTML + '외', //결제창에서 보여질 이름
 												pg: 'nicepay',
 												method: 'card', //결제수단, 입력하지 않으면 결제수단 선택부터 화면이 시작합니다.
@@ -426,17 +457,26 @@ $(function(){
 											}).done(function (data) {
 												//결제가 정상적으로 완료되면 수행됩니다
 												//비즈니스 로직을 수행하기 전에 결제 유효성 검증을 하시길 추천합니다.
+
 												$.ajax({
 												  	  type: 'post',
 												        url:'/purchaseDetail/rest/insertPurchaseDetail/',
-												        data: {
-												        	objects: JSON.stringify(purchaseDetailDTO)
-												        	},
+												        data: JSON.stringify(purchaseDetailArray), 	
 												        contentType:"application/json;charset=utf-8",
 												        dataType:"json",
 												        async: false,
 												        success : function(resp){
-												        	
+												    
+												        	$.ajax({
+												      	  	  type: 'delete',
+												      	        url:"/cart/rest/deleteAll/"+member_id,
+												      	        dataType:"json",
+												      	        async: false     
+												      	     }).done(function(resp){
+												      	    	
+												      	    	location.replace("/pay/confirm?receipt_id="+data.receipt_id);
+												      	    	 
+												      	   })
 												        }
 												        
 												})
@@ -447,6 +487,9 @@ $(function(){
 						  		     })
 						        }
 						     })
+					}
+						 
+						 
 									 	
 						 
 						 

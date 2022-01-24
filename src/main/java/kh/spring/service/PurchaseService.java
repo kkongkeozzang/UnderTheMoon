@@ -44,6 +44,12 @@ public class PurchaseService {
 		
 	}
 
+	
+	public void failOrder(Long id) {
+		purchaseDAO.deleteById(id);
+    }
+	
+
 	public Integer selectByIdSumPurchasePayment(Integer id) {
 		
 		return purchaseDAO.selectByIdSumPurchasePayment(id);

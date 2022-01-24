@@ -6,7 +6,7 @@
   <mapper namespace ="Coupon">
   
   <select id="selectAllByMemberId" resultType="kh.spring.dto.CouponDTO">
-  		select * from coupon where member_id = #{member_id} and coupon_used_yn = 'Y' and coupon_valid_date > TO_CHAR(sysdate,'YY/MM/DD')
+  		select coupon.*, floor((cast(coupon_valid_date as date)) - sysdate) valid_date from coupon where member_id=#{value} and coupon_used_yn = 'N'
   </select>
   
   <select id="selectByMemberIdCountCoupon" resultType="int">

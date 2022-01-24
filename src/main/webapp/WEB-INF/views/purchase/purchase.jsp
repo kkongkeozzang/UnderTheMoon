@@ -229,7 +229,7 @@ $(function(){
 					<div id="select-container">
 						 <select id="coupon" class="form-select" >
 							 <c:forEach var="coupon" items="${coupons }">
-							  <option >${coupon.coupon_discount_rate }</option>
+							  <option >${coupon.coupon_name} ${coupon.coupon_discount_rate }</option>
 							  </c:forEach>
 						</select><br><br>
 					</div>	

@@ -79,7 +79,6 @@ private final SqlSessionTemplate mybatis;
 		Integer result = mybatis.delete("Cart.deleteAll",member_id);
 		return result;
 	}
-	
-	
+
 
 }

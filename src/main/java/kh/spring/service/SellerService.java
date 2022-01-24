@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import kh.spring.dao.SellerDAO;
 import kh.spring.dto.GradeDTO;
+import kh.spring.dto.MdDTO;
 
 @Service
 public class SellerService {
@@ -34,5 +35,9 @@ public class SellerService {
 	
 	public int checkGrade(String grade_name){
 		return sellerDAO.checkGrade(grade_name);
+	}
+	
+	public List<MdDTO> selectAllMd(){
+		return sellerDAO.selectAllMd();
 	}
 }

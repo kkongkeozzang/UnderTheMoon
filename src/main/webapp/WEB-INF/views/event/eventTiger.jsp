@@ -295,7 +295,7 @@ body {
 				<div class="row">
 					<div class="col-sm-12" id="contents" name="contents"
 							style="min-height: 200px; overflow: auto;">
-						<img src="/resources/event/배송안내.png" width=100% height=100%>
+						<img src="/resources/event/새해이벤트_상세.png" width=100% height=100%>
 					</div>
 				</div>
 				<hr>

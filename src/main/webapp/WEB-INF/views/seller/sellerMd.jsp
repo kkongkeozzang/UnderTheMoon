@@ -24,8 +24,8 @@
 
     <!-- Page Wrapper -->
     <div id="wrapper">
-
-        <!-- Sidebar -->
+		
+		<!-- Sidebar -->
         <jsp:include page="sellerSideBar.jsp"></jsp:include>
 		<!-- End of Sidebar -->
 
@@ -35,7 +35,7 @@
             <!-- Main Content -->
             <div id="content">
             
-			<!-- Topbar -->
+            <!-- Topbar -->
 			<jsp:include page="sellerTopBar.jsp"></jsp:include>
 			<!-- End of Topbar -->
 
@@ -44,25 +44,47 @@
 
                     <!-- Page Heading -->
                     <h1 class="h3 mb-2 text-gray-800">등급 관리</h1>
-                    <p class="mb-4">등급 관리 메뉴입니다. 여기에서 등급을 조회, 생성, 수정, 삭제할 수 있습니다.</p>
+                    <p class="mb-4">상품 관리 메뉴입니다. 여기에서 상품을 조회, 생성, 수정, 삭제할 수 있습니다.</p>
 
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">등급 관리</h6>
+                            <h6 class="m-0 font-weight-bold text-primary">상품 관리</h6>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
-	                            <form action="/seller/insertGrade" method="post" id=submit-grade>
+	                            <form action="/seller/insertMd" method="post" id=submit-md>
 	                            	<table id=input-new style="display:none;">
 	                            		<tr>
 	                            			<th width=20%>항목
-	                            			<th width=30%>입력
-	                            			<th width=50%>
+	                            			<th width=40%>입력
+	                            			<th width=40%>
 	                            		</tr>
 	                            		<tr>
-	                             			<td>등급이름</td>
-	                             			<td><input type=text placeholder="예) '해','달','별'" id="grade_name" name="grade_name" maxLength=6></td>
+				                            <td>상품지역
+				                            <td>
+				                            <select id="md_region" name="md_region">
+				                            	<option value="">--지역을 선택하세요--</option>
+				                            	<option value="서울">서울</option>
+				                            	<option value="부산">부산</option>
+				                            	<option value="인천">인천</option>
+				                            	<option value="대전">대전</option>
+				                            	<option value="울산">울산</option>
+				                            	<option value="경기도">경기도</option>
+				                            	<option value="강원도">강원도</option>
+				                            	<option value="충청북도">충청북도</option>
+				                            	<option value="충청남도">충청남도</option>
+				                            	<option value="전라북도">전라북도</option>
+				                            	<option value="전라남도">전라남도</option>
+				                            	<option value="경상북도">경상북도</option>
+				                            	<option value="경상남도">경상남도</option>
+				                            	<option value="제주도">제주도</option>
+				                            </select>
+				                        </tr>
+	                            		<tr>
+	                             			<td>상품명
+	                             			<td><input type=text placeholder="예) '안동소주'" id="md_name" name="md_name" maxLength=30>
+<!-- 	                             			<input type=button value="중복확인" id=check> -->
 	                             			<td>
 	                             			<a href="#" class="btn btn-secondary btn-icon-split" id=check>
 		                                        <span class="icon text-white-50">
@@ -70,21 +92,45 @@
 		                                        </span>
 		                                        <span class="text">중복확인</span>
 		                                    </a>
-	                             			<span id="checkGrade"></span>
-	                             			</td>
+	                             			<span id="checkName"></span>
 	                             		</tr>
 	                             		<tr>
-				                            <td>적립률</td>
-				                            <td><input type=text placeholder="예) '0.05','0.07','0.1'" id="grade_percent" name="grade_percent" maxLength=10></td>
+				                            <td>상품정보
+				                            <td><input type=text placeholder="예) '원나라에서 전해진 역사가 깊은 소주'" id="md_content" name="md_content" maxLength=100>
 				                        </tr>
 				                        <tr>
-				                            <td>달성기준</td>
-				                            <td><input type=text placeholder="예) '0','500000','1000000'" id="grade_target" name="grade_target" maxLength=10></td>
-				                            
+				                            <td>상품가격
+				                            <td><input type=text placeholder="예) '0','5000','10000'" id="md_price" name="md_price" maxLength=10 onKeyUp="removeChar(event);inputNumberFormat(this);"onKeyDown="inputNumberFormat(this);">
 				                        </tr>
 				                       	<tr>
-				                            <td>등급혜택</td>
-				                            <td><input type=text placeholder="예) '무료배송 쿠폰1개, 5000원 할인쿠폰 1개'" id="grade_coupon" name="grade_coupon" maxLength=50></td>
+				                            <td>상품종류
+				                            <td>
+				                            <select id="md_category" name="md_category">
+				                            	<option value="">--종류를 선택하세요--</option>
+				                            	<option value="탁주">탁주</option>
+				                            	<option value="약주">약주</option>
+				                            	<option value="청주">청주</option>
+				                            	<option value="맥주">맥주</option>
+				                            	<option value="과실주">과실주</option>
+				                            	<option value="소주">소주</option>
+				                            	<option value="위스키">위스키</option>
+				                            	<option value="브랜디">브랜디</option>
+				                            	<option value="일반증류주">일반증류주</option>
+				                            	<option value="리큐르">리큐르</option>
+				                            	<option value="기타">기타</option>
+				                            </select>
+				                        </tr>
+				                        <tr>
+				                            <td>상품도수
+				                            <td><input type=text placeholder="예) '7','14'" id="md_abv" name="md_abv" maxLength=5>
+				                        </tr>
+				                        <tr>
+				                            <td>상품이미지
+				                            <td><input type=text placeholder="예) '공주애오디와인.jpg'" id="md_image" name="md_image" maxLength=30>
+				                        </tr>
+				                        <tr>
+				                            <td>상품정보이미지
+				                            <td><input type=text placeholder="예) '공주애오디와인_정보.png'" id="md_detail_image" name="md_detail_image" maxLength=30>
 				                        </tr>
 	                            	</table>
                             	<br>
@@ -114,21 +160,31 @@
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                     	<tr>
-                                            <th width=15%>등급이름</th>
-                                            <th width=15%>적립률</th>
-                                            <th width=15%>달성기준</th>
-                                            <th width=30%>등급혜택</th>
-                                            <th width=25%>관리</th>
+                                    		<th>ID</th>
+                                            <th>상품지역</th>
+                                            <th>상품명</th>
+                                            <th>상품정보</th>
+                                            <th>상품가격</th>
+                                            <th>상품종류</th>
+                                            <th>상품도수</th>
+                                            <th>상품이미지</th>
+                                            <th>정보이미지</th>
+                                            <th>관리</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-									<c:forEach var="grades" items="${grades}">
+									<c:forEach var="mds" items="${mds}">
                                         <tr>
-                                        <form action="/seller/updateGrade" method="post" id="upgrade${grades.grade_name}">
-                                            <td>${grades.grade_name}<input type=hidden value=${grades.grade_name } name=grade_name>
-                                            <td style="font-size:0em;color: white;">${grades.grade_percent }<input type=text value='${grades.grade_percent }' id="grade_percent${grades.grade_name}" name=grade_percent style="font-size:medium;color:black;border:none;width:100%;height:100%;overflow:auto;"  maxLength=10 readonly>
-                                            <td style="font-size:0em;color: white;">${grades.grade_target }<input type=text value='${grades.grade_target }' id="grade_target${grades.grade_name}" name=grade_target style="font-size:medium;color:black;border:none;width:100%;height:100%;overflow:auto;"  maxLength=10 readonly>
-                                            <td style="font-size:0em;color: white;">${grades.grade_coupon }<input type=text value='${grades.grade_coupon }' id="grade_coupon${grades.grade_name}" name=grade_coupon style="font-size:medium;color:black;border:none;width:100%;height:100%;overflow:auto;"  maxLength=50 readonly>
+                                        <form action="/seller/updateMd" method="post" id="updateMd${mds.md_id}">
+                                            <td>${mds.md_id}<input type=hidden value=${mds.md_id } name=md_id>
+                                            <td style="font-size:0em;color: white;">${mds.md_region }<input type=text value='${mds.md_region }' id="md_region${mds.md_id}" name=md_region style="font-size:medium;color:black;border:none;width:100%;height:100%;overflow:auto;"  maxLength=10 readonly>
+                                            <td style="font-size:0em;color: white;">${mds.md_name }<input type=text value='${mds.md_name }' id="md_name${mds.md_id}" name=md_name style="font-size:medium;color:black;border:none;width:100%;height:100%;overflow:auto;"  maxLength=10 readonly>
+                                            <td style="font-size:0em;color: white;">${mds.md_content }<input type=text value='${mds.md_content }' id="md_content${gmds.md_id}" name=md_content style="font-size:medium;color:black;border:none;width:100%;height:100%;overflow:auto;"  maxLength=50 readonly>
+                                            <td style="font-size:0em;color: white;">${mds.md_price }<input type=text value='${mds.md_price }' id="md_price${mds.md_id}" name=md_price style="font-size:medium;color:black;border:none;width:100%;height:100%;overflow:auto;"  maxLength=10 readonly>
+                                            <td style="font-size:0em;color: white;">${mds.md_category }<input type=text value='${mds.md_category }' id="md_category${mds.md_id}" name=md_category style="font-size:medium;color:black;border:none;width:100%;height:100%;overflow:auto;"  maxLength=10 readonly>
+                                            <td style="font-size:0em;color: white;">${mds.md_abv }<input type=text value='${mds.md_abv }' id="md_abv${mds.md_id}" name=md_abv style="font-size:medium;color:black;border:none;width:100%;height:100%;overflow:auto;"  maxLength=10 readonly>
+                                            <td style="font-size:0em;color: white;">${mds.md_image }<input type=text value='${mds.md_image }' id="md_image${mds.md_id}" name=md_image style="font-size:medium;color:black;border:none;width:100%;height:100%;overflow:auto;"  maxLength=50 readonly>
+                                            <td style="font-size:0em;color: white;">${mds.md_detail_image }<input type=text value='${gmds.md_detail_image }' id="md_detail_image${mds.md_id}" name=md_detail_image style="font-size:medium;color:black;border:none;width:100%;height:100%;overflow:auto;"  maxLength=10 readonly>
                                             <td>
                                            	<a onclick="del(this);" val="${grades.grade_name}" id="del${grades.grade_name}" class="btn btn-danger btn-icon-split">
 		                                        <span class="icon text-white-50">
@@ -156,7 +212,7 @@
 		                                        <span class="text">수정취소</span>
 		                                    </a>
                                             </td>
-                                        </form>
+                                            </form>
                                         </tr>
                                     </c:forEach>
                                     </tbody>
@@ -304,7 +360,49 @@
 											})
 										});
 									})
-
+									
+									//문자 제거
+									function removeChar(event) {
+										event = event || window.event;
+										var keyID = (event.which) ? event.which : event.keyCode;
+										if (keyID == 8 || keyID == 46 || keyID == 37 || keyID == 39)
+											return;
+										else
+											//숫자와 소수점만 입력가능
+											event.target.value = event.target.value.replace(/[^-\.0-9]/g, "");
+									}
+									//콤마 찍기
+									function comma(obj) {
+										var regx = new RegExp(/(-?\d+)(\d{3})/);
+										var bExists = obj.indexOf(".", 0);//0번째부터 .을 찾는다.
+										var strArr = obj.split('.');
+										while (regx.test(strArr[0])) {//문자열에 정규식 특수문자가 포함되어 있는지 체크
+											//정수 부분에만 콤마 달기
+											strArr[0] = strArr[0].replace(regx, "$1,$2");//콤마추가하기
+										}
+										if (bExists > -1) {
+											//. 소수점 문자열이 발견되지 않을 경우 -1 반환
+											obj = strArr[0] + "." + strArr[1];
+										} else { //정수만 있을경우 //소수점 문자열 존재하면 양수 반환
+											obj = strArr[0];
+										}
+										return obj;//문자열 반환
+									}
+									//콤마 풀기
+									function uncomma(str) {
+										str = "" + str.replace(/,/gi, ''); // 콤마 제거
+										str = str.replace(/(^\s*)|(\s*$)/g, ""); // trim()공백,문자열 제거
+										return (new Number(str));//문자열을 숫자로 반환
+									}
+									//input box 콤마달기
+									function inputNumberFormat(obj) {
+										obj.value = comma(obj.value);
+									}
+									//input box 콤마풀기 호출
+									function uncomma_call(){
+									var input_value = document.getElementById('input1');
+									input_value.value = uncomma(input_value.value);
+									}
                             	</script>
                             </div>
                         </div>
@@ -336,6 +434,6 @@
     <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>
     </a>
-        
+    
 </body>
 </html>

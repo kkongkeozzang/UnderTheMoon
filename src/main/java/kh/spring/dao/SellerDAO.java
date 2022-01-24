@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import kh.spring.dto.GradeDTO;
+import kh.spring.dto.MdDTO;
 
 @Repository
 public class SellerDAO {
@@ -34,5 +35,9 @@ private final SqlSessionTemplate mybatis;
 	
 	public int checkGrade(String grade_name) {
 		return mybatis.selectOne("Seller.checkGrade", grade_name);
+	}
+	
+	public List<MdDTO> selectAllMd() {
+		return mybatis.selectList("Seller.selectAllMd");
 	}
 }

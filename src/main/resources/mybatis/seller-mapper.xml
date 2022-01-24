@@ -25,6 +25,10 @@
 		select count(*) from grade where grade_name=#{grade_name}
 	</select>
 	
+	<select id="selectAllMd" resultType="kh.spring.dto.MdDTO">
+		select * from md
+	</select>
+	
 <!-- 	<select id="selectById" resultType="kh.spring.dto.NoticeDTO"> -->
 <!-- 		select * from notice where notice_id = #{value} -->
 <!-- 	</select> -->

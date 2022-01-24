@@ -340,10 +340,14 @@ $(function(){
 					
 					// 정보 동의 안하면 결제 진행 막기
 					if($("#agree").is(":checked") == false){
-					    alert("결제 진행을 위해 정보수집ㆍ이용 동의에 체크해주세요.")
+					    alert("결제 진행을 위해 정보수집ㆍ이용 동의에 체크해주세요.");
 					    return false;
-					    
+					// 상세주소가 null이면 경고 띄우기
+					} else if($("#roadAddress2").val() == "") {
+						alert("상세 주소를 입력해주세요.");
+						return false;
 					} else {
+						console.log($("#roadAddress2").val());
 						var deliveryDTO = {
 								 member_id: ${member.member_id},
 								 delivery_address1: $("#roadAddress").val(),
@@ -486,6 +490,7 @@ $(function(){
 						        }
 						     })
 					}
+
 						 
 						 
 									 	

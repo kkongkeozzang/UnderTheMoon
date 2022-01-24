@@ -138,11 +138,17 @@
 										</thead>										
 										<tbody>
 											<c:forEach var="pointDTO" items="${pointList }">
-											<tr>												
-												<td class="grade-list" style="text-align:center">${pointDTO.point_event}</td>
-												<td class="grade-list" style="text-align:center"><fmt:formatNumber value="${pointDTO.point_used_saved}" type="number"/></td>
-												<td class="grade-list" style="text-align:center">${pointDTO.point_date}</td>													
-											</tr>
+											<c:choose>
+												<c:when test="${pointDTO.point_event == '이벤트 미입력' }">
+												</c:when>
+												<c:otherwise>
+													<tr>												
+														<td class="grade-list" style="text-align:center">${pointDTO.point_event}</td>
+														<td class="grade-list" style="text-align:center"><fmt:formatNumber value="${pointDTO.point_used_saved}" type="number"/></td>
+														<td class="grade-list" style="text-align:center">${pointDTO.point_date}</td>													
+													</tr>
+												</c:otherwise>
+											</c:choose>
 											</c:forEach>			
 										</tbody>
 									</table>							

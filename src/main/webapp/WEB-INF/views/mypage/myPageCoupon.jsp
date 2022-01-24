@@ -143,7 +143,14 @@
 											<tr>												
 												<td class="grade-list" style="text-align:center">${couponDTO.coupon_name}</td>
 												<td class="grade-list" style="text-align:center"><fmt:formatNumber value="${couponDTO.coupon_discount_rate}" type="number"/></td>
-												<td class="grade-list" style="text-align:center">${couponDTO.coupon_valid_date}</td>
+												<c:choose>
+													<c:when test="${couponDTO.coupon_valid_date == '9999-12-31 00:00:00.0' }">											
+														<td class="grade-list" style="text-align:center">무제한</td>
+													</c:when>
+													<c:otherwise>
+														<td class="grade-list" style="text-align:center"><fmt:formatDate value = "${couponDTO.coupon_valid_date }"  type="date" dateStyle="full"/></td>
+													</c:otherwise>
+												</c:choose>
 												<c:choose>
 													<c:when test="${fn:contains(couponDTO.coupon_used_yn,'N')}">
 														<td class="grade-list" style="text-align:center">사용가능</td>

@@ -66,18 +66,18 @@ public class MyPageController {
 		Integer purchasePayment = purchaseService.selectByIdSumPurchasePayment(memberDTO.getMember_id());
 		int pointSum = pointService.selectPointById(username).get();
 		int couponSum = couponService.selectCouponPossibleById(memberDTO.getMember_id());
-		List<GradeDTO> gradeTarget = gradeService.selectGradeTarget();
-		
+		List gradeTarget = gradeService.selectGradeTarget();
+				
 		if(purchasePayment == null) {
 			purchasePayment = 0;
 		}
-		if(purchasePayment >= 500000 && purchasePayment < 1000000 && memberDTO.getGrade_name().equals("별")) {
+		if(purchasePayment >= (int) gradeTarget.get(1) && purchasePayment < (int) gradeTarget.get(2) && memberDTO.getGrade_name().equals("별")) {
 			memberService.updateGradeMoon(username);
 			for(int i=0; i<3; i++) {
 				couponService.insertMoonGradeDelivery(memberDTO.getMember_id());
 			}
 			couponService.insertMoonGradeDiscount(memberDTO.getMember_id());
-		}else if(purchasePayment >= 1000000 && memberDTO.getGrade_name().equals("달")){
+		}else if(purchasePayment >= (int) gradeTarget.get(2) && memberDTO.getGrade_name().equals("달")){
 			memberService.updateGradeSun(username);
 			for(int i=0; i<5; i++) {
 				couponService.insertSunGradeDelivery(memberDTO.getMember_id());

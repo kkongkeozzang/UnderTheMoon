@@ -254,13 +254,13 @@
 	                            <form action="/seller/insertGrade" method="post" id=submit-grade>
 	                            	<table id=input-new style="display:none;">
 	                            		<tr>
-	                             			<td width=50%>등급이름<td width=50%><input type=text placeholder="예) '해','달','별'" id="grade_name" name="grade_name">
+	                             			<td width=50%>등급이름<td width=50%><input type=text placeholder="예) '해','달','별'" id="grade_name" name="grade_name" maxLength=6>
 	                             		</tr>
 	                             		<tr>
-				                            <td>적립률<td><input type=text placeholder="예) '0.05','0.07','0.1'" id="grade_percent" name="grade_percent">
+				                            <td>적립률<td><input type=text placeholder="예) '0.05','0.07','0.1'" id="grade_percent" name="grade_percent" maxLength=10>
 				                        </tr>
 				                        <tr>
-				                            <td>달성기준<td><input type=text placeholder="예) '0','500000','1000000'" id="grade_target" name="grade_target">
+				                            <td>달성기준<td><input type=text placeholder="예) '0','500000','1000000'" id="grade_target" name="grade_target" maxLength=10>
 				                            
 				                        </tr>
 	                            	</table>
@@ -302,8 +302,8 @@
                                         <tr>
                                         <form action="/seller/updateGrade" method="post" id="upgrade${grades.grade_name}">
                                             <td>${grades.grade_name}<input type=hidden value=${grades.grade_name } name=grade_name>
-                                            <td style="font-size:0em;color: white;">${grades.grade_percent }<input type=text value=${grades.grade_percent } id="grade_percent${grades.grade_name}" name=grade_percent style="font-size:medium;color:black;border:none;" readonly>
-                                            <td style="font-size:0em;color: white;">${grades.grade_target }<input type=text value=${grades.grade_target } id="grade_target${grades.grade_name}" name=grade_target style="font-size:medium;color:black;border:none;" readonly>
+                                            <td style="font-size:0em;color: white;">${grades.grade_percent }<input type=text value=${grades.grade_percent } id="grade_percent${grades.grade_name}" name=grade_percent style="font-size:medium;color:black;border:none;"  maxLength=10 readonly>
+                                            <td style="font-size:0em;color: white;">${grades.grade_target }<input type=text value=${grades.grade_target } id="grade_target${grades.grade_name}" name=grade_target style="font-size:medium;color:black;border:none;"  maxLength=10 readonly>
                                             <td>
                                            	<a onclick="del(this);" val="${grades.grade_name}" id="del${grades.grade_name}" class="btn btn-danger btn-icon-split">
 		                                        <span class="icon text-white-50">

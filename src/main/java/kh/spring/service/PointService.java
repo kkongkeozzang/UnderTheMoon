@@ -45,4 +45,7 @@ public class PointService {
 	   return pointDAO.selectPointListById(member_id);
    }
 
+   public Integer insertNotInputEvent(Integer id) {
+	   return pointDAO.insertNotInputEvent(id);
+   }
 }

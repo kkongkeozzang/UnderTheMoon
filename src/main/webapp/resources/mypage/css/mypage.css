@@ -185,3 +185,7 @@ ul{
 	border: 1px solid black;
 
 }
+
+.navigator > button.btn btn-outline-primary{
+	float:center;
+}

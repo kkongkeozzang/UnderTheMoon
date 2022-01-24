@@ -33,6 +33,10 @@ public class PointDAO {
 		
 		return mybatis.selectList("Point.selectPointListById", member_id);
 	}
+	
+	public Integer insertNotInputEvent(Integer id) {
+		return mybatis.insert("Point.insertNotInputEvent", id);
+	}
 }
 
 

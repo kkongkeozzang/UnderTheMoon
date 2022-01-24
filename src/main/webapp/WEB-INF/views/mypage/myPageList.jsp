@@ -70,7 +70,7 @@
 									<div class="card-body" align=center>
 										<div class="d-flex">											
 											<div class="detail">
-												<h6 class="detail-title"><a href="/mypage/myPageCoupon">쿠폰 ></a></h6>
+												<h6 class="detail-title"><a href="/mypage/myPageCoupon?cPage=1">쿠폰 ></a></h6>
 												<p class="detail-detail"><span>${couponSum } 개</span></p>
 											</div>
 										</div>
@@ -105,7 +105,7 @@
 								<a href="/mypage/myPageLike" class="list-group-item py-1"><span>찜한 상품</span></a>
 								<a href="/mypage/myPageDelivery" class="list-group-item py-1"><span>배송지 관리</span></a>
 								<a href="/mypage/myPagePoint" class="list-group-item py-1"><span>적립금</span></a>
-                                <a href="/mypage/myPageCoupon" class="list-group-item py-1"><span>쿠폰</span></a>
+                                <a href="/mypage/myPageCoupon?cPage=1" class="list-group-item py-1"><span>쿠폰</span></a>
                                 <a href="" class="list-group-item py-1"><span>상품 문의</span></a>
                                 <a href="/mypage/myPageReview" class="list-group-item py-1"><span>상품 후기</span></a>
                                 <a href="/mypage/myPageModifyProfile" class="list-group-item py-1"><span>개인정보 수정</span></a>
@@ -143,9 +143,9 @@
 										</div>										
 										<div class="col-sm-2" id="purchase-img"><img src="https://order.pay.naver.com/proxy/phinf/shop1/20211006_47/1633531442640eSL92_PNG/34667285324274523_698179646.png?type=m90_90" alt="카카오프렌즈 춘식이 무드등 무선 간편사용 굿즈" width="90" height="90"></div>
 										<div class="col-sm-7" id="purchase-information"><ul>
-											<li>주문 번호 :</li>
+											<li>주문 날짜 :</li>
+											<br>
 											<li>결제 금액 :</li>
-											<li>주문 상태 :</li>
 										</ul></div>
 										<div class="col-sm-3" id="purchase-option">
 											<button type="button" class="btn btn-light">1:1문의</button>

@@ -20,4 +20,7 @@ public class GradeDAO {
 		return mybatis.selectList("Grade.selectAll");
 	}
 
+	public List<GradeDTO> selectGradeTarget(){
+		return mybatis.selectList("Grade.selectGradeTarget");
+	}
 }

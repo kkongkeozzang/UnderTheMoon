@@ -70,7 +70,7 @@
 									<div class="card-body" align=center>
 										<div class="d-flex">											
 											<div class="detail">
-												<h6 class="detail-title"><a href="/mypage/myPageCoupon">쿠폰 ></a></h6>
+												<h6 class="detail-title"><a href="/mypage/myPageCoupon?cPage=1">쿠폰 ></a></h6>
 												<p class="detail-detail"><span>${couponSum } 개</span></p>
 											</div>
 										</div>
@@ -106,7 +106,7 @@
 								<a href="/mypage/myPageLike" class="list-group-item py-1"><span>찜한 상품</span></a>
 								<a href="/mypage/myPageDelivery" class="list-group-item py-1"><span>배송지 관리</span></a>
 								<a href="/mypage/myPagePoint" class="list-group-item py-1"><span>적립금</span></a>
-                                <a href="/mypage/myPageCoupon" class="list-group-item py-1"><span>쿠폰</span></a>
+                                <a href="/mypage/myPageCoupon?cPage=1" class="list-group-item py-1"><span>쿠폰</span></a>
                                 <a href="" class="list-group-item py-1"><span>상품 문의</span></a>
                                 <a href="/mypage/myPageReview" class="list-group-item py-1"><span>상품 후기</span></a>
                                 <a href="/mypage/myPageModifyProfile" class="list-group-item py-1"><span>개인정보 수정</span></a>
@@ -191,20 +191,10 @@
 											<c:forEach var="gradeDTO" items="${gradeList }">
 											<tr>												
 												<td class="grade-list" style="text-align:center">${gradeDTO.grade_name}</td>
-												<c:choose>
-													<c:when test="${gradeDTO.grade_name == '별'}">
-														<td class="grade-list" style="text-align:center">무료배송 쿠폰1개, 5000원 할인쿠폰 1개</td>
-													</c:when>
-													<c:when test="${gradeDTO.grade_name == '달'}">
-														<td class="grade-list" style="text-align:center">무료배송 쿠폰3개, 10000원 할인쿠폰 1개</td>
-													</c:when>
-													<c:when test="${gradeDTO.grade_name == '해'}">
-														<td class="grade-list" style="text-align:center">무료배송 쿠폰5개, 50000원 할인쿠폰 1개</td>
-													</c:when>
-												</c:choose>
+												<td class="grade-list" style="text-align:center">${gradeDTO.grade_coupon}</td>
 												<td class="grade-list" style="text-align:center"><fmt:formatNumber value="${gradeDTO.grade_percent}" type="percent"/></td>												
 												<td class="grade-list" style="text-align:center"><fmt:formatNumber value="${gradeDTO.grade_target}" type="number"/>원</td>
-											</tr>
+											</tr>											
 											</c:forEach>			
 										</tbody>
 									</table>							

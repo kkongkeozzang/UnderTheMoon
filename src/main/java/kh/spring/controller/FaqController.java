@@ -39,7 +39,7 @@ public class FaqController {
 	@RequestMapping("toFaq")
 	public String notice(Model model, int cPage) throws Exception {
 //		faqService.insertDummy(); // 더미자료생성용도
-		int start = cPage * PageStatic.FAQ_COUNT_PER_PAGE-(PageStatic.FAQ_COUNT_PER_PAGE - 1);
+		int start = cPage * PageStatic.FAQ_COUNT_PER_PAGE-(PageStatic.FAQ_COUNT_PER_PAGE - 1); 
 		int end = cPage * PageStatic.FAQ_COUNT_PER_PAGE;
 		List<FaqDTO> faqs = faqService.selectByBound(start, end);
 		int allNoticeCount = faqService.selectRecordCount();

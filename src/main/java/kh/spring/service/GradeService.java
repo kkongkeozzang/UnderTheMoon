@@ -20,4 +20,7 @@ public class GradeService {
 		return gradeDAO.selectAll();
 	}
 
+	public List<GradeDTO> selectGradeTarget(){
+		return gradeDAO.selectGradeTarget();
+	}
 }

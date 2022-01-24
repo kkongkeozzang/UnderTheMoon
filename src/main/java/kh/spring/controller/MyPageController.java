@@ -2,6 +2,7 @@ package kh.spring.controller;
 
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -18,6 +19,8 @@ import kh.spring.service.GradeService;
 import kh.spring.service.MemberService;
 import kh.spring.service.PointService;
 import kh.spring.service.PurchaseService;
+import kh.spring.util.PageNavigator;
+import kh.spring.util.PageStatic;
 
 
 @Controller
@@ -63,6 +66,7 @@ public class MyPageController {
 		Integer purchasePayment = purchaseService.selectByIdSumPurchasePayment(memberDTO.getMember_id());
 		int pointSum = pointService.selectPointById(username).get();
 		int couponSum = couponService.selectCouponPossibleById(memberDTO.getMember_id());
+		List<GradeDTO> gradeTarget = gradeService.selectGradeTarget();
 		
 		if(purchasePayment == null) {
 			purchasePayment = 0;
@@ -107,18 +111,24 @@ public class MyPageController {
 	}
 	
 	@RequestMapping("myPageCoupon")
-	public String myPageCoupon(Model model) {
+	public String myPageCoupon(Model model, int cPage) {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal(); 
         String username = ((UserDetails)principal).getUsername();
 		MemberDTO memberDTO = memberService.selectByUsername(username);
 		int pointSum = pointService.selectPointById(username).get();
-		List<CouponDTO> couponList = couponService.selectCouponListById(memberDTO.getMember_id());
+		
 		int couponSum = couponService.selectCouponPossibleById(memberDTO.getMember_id());
+		int start = cPage * PageStatic.COUPON_COUNT_PER_PAGE-(PageStatic.COUPON_COUNT_PER_PAGE - 1); 
+		int end = cPage * PageStatic.COUPON_COUNT_PER_PAGE;
+		List<CouponDTO> couponList = couponService.selectByBound(memberDTO.getMember_id(), start, end);
+		Integer allCouponCount = couponService.selectRecordCount(memberDTO.getMember_id());
+		String pageNavi = PageNavigator.getPageNavigator(allCouponCount, cPage, PageStatic.COUPON_COUNT_PER_PAGE, PageStatic.COUPON_NAVI_COUNT_PER_PAGE, "coupon", "all" ,"","");
 		
 		model.addAttribute("memberDTO",memberDTO);
 		model.addAttribute("pointSum",pointSum);
 		model.addAttribute("couponList",couponList);
 		model.addAttribute("couponSum", couponSum);
+		model.addAttribute("pageNavi", pageNavi);
 		
 		return "/mypage/myPageCoupon";
 	}

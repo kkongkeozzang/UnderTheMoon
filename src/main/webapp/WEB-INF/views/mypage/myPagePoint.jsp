@@ -70,7 +70,7 @@
 									<div class="card-body" align=center>
 										<div class="d-flex">											
 											<div class="detail">
-												<h6 class="detail-title"><a href="/mypage/myPageCoupon">쿠폰 ></a></h6>
+												<h6 class="detail-title"><a href="/mypage/myPageCoupon?cPage=1">쿠폰 ></a></h6>
 												<p class="detail-detail"><span>${couponSum } 개</span></p>
 											</div>
 										</div>
@@ -106,7 +106,7 @@
 								<a href="/mypage/myPageLike" class="list-group-item py-1"><span>찜한 상품</span></a>
 								<a href="/mypage/myPageDelivery" class="list-group-item py-1"><span>배송지 관리</span></a>
 								<a href="/mypage/myPagePoint" class="list-group-item py-1"><span>적립금</span></a>
-                                <a href="/mypage/myPageCoupon" class="list-group-item py-1"><span>쿠폰</span></a>
+                                <a href="/mypage/myPageCoupon?cPage=1" class="list-group-item py-1"><span>쿠폰</span></a>
                                 <a href="" class="list-group-item py-1"><span>상품 문의</span></a>
                                 <a href="/mypage/myPageReview" class="list-group-item py-1"><span>상품 후기</span></a>
                                 <a href="/mypage/myPageModifyProfile" class="list-group-item py-1"><span>개인정보 수정</span></a>

@@ -190,6 +190,7 @@
 					//주소 api
 					 let coupon_discount_rate = 0;
 					 let coupon_id = 0;
+					 let totalPrice = $("#totalPrice").val();
 					 document.getElementById("addressSearch").onclick = function(){
 					        new daum.Postcode({
 					            oncomplete: function(data) {                                 
@@ -234,13 +235,28 @@
 						 $("#totalPrice").val(totalPrice_int-pointSum_int); 
 					 }) 
 					 
-					 //쿠폰사용액계산..
-					  $("body").on("change","#coupon",function(){
-						   
-						 coupon_discount_rate = $(this).closest("#select-container").find("#coupon").val().substring(0,$('#coupon').val().indexOf('|'));
-						 coupon_id = $(this).closest("#select-container").find("#coupon").val().substring($('#coupon').val().indexOf('|')+1);
-									
+					 //select 클릭 시 결제금액 초기화
+					 $("body").on("change","#coupon",function(){
+						coupon_discount_rate = 0;
+					 	let totalPrice_int = Number(totalPrice);
+					 	let coupon_price = Number(coupon_discount_rate);
+					 	$("#totalPrice").val(totalPrice_int-coupon_price);
 					 }) 
+					 
+					 //쿠폰 사용후 결제금액 갱신
+					 
+					  $("body").on("change","#coupon",function(){
+						coupon_discount_rate = $(this).closest("#select-container").find("#coupon").val().substring(0,$('#coupon').val().indexOf('|'));
+						coupon_id = $(this).closest("#select-container").find("#coupon").val().substring($('#coupon').val().indexOf('|')+1);
+					 	let totalPrice_int = Number(totalPrice);
+					 	let coupon_price = Number(coupon_discount_rate);
+					 	if(totalPrice_int-coupon_price<0) {
+					 		$("#totalPrice").val(0);
+					 	} else {
+					 		$("#totalPrice").val(totalPrice_int-coupon_price);
+					 	}
+					 }) 
+					 
 					 
 				//결제API
 				$("body").on("click","#purchase",function(){
@@ -318,7 +334,15 @@
 										</c:forEach>
 												 
 										 	console.log(purchaseDetailArray);  
-			  		    	 
+			  		    	 		 	// if 100원 이하일때
+			  		    	 		 	
+			  		    	 		 		//confirm(결제 하시겠습니까?) = 0원
+			  		    	 		 		// 확인 -> 결제 성공
+			  		    	 		 		
+			  		    	 		 		// 아니오 -> 기존페이지 남아있기
+			  		    	 		 	// 0원을 안만들면
+			  		    	 		 	
+			  		    	 		 	// if 100원 이상일때 결제값이
 						  		    	 BootPay.request({
 												price: document.getElementById("totalPrice").value, //실제 결제되는 가격
 												application_id: "61eab9c3e38c3000227b8107",

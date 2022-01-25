@@ -37,4 +37,8 @@
   		delete from cart where member_id = ${member_id}
   </delete>
   
+  <select id="selectAllByMemberId" resultType="map">
+  		select * from cart where member_id = ${member_id}
+  </select>
+  
   </mapper>

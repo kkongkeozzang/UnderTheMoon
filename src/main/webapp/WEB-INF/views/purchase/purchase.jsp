@@ -357,10 +357,9 @@
 										</c:forEach>
 												 
 										 	let pointSum = $("#point-input").val();
-										 	console.log(totalPrice);
+										 	//0원일경우..
 										 	if(totalPrice=='0'){
 										 		
-										 		//0원일경우..
 										 		if(confirm("결제하시겠씁니까?")){
 										 			$.ajax({
 													  	  type: 'post',
@@ -395,7 +394,7 @@
 													})
 										 		}
 										 	}
-										 	
+										 	//0원일경우끝...
 			  		    	 
 						  		    	 BootPay.request({
 												price: document.getElementById("totalPrice").value, //실제 결제되는 가격

@@ -190,6 +190,7 @@
 					//주소 api
 					 let coupon_discount_rate = 0;
 					 let coupon_id = 0;
+					 let totalPrice = $("#totalPrice").val();
 					 document.getElementById("addressSearch").onclick = function(){
 					        new daum.Postcode({
 					            oncomplete: function(data) {                                 
@@ -234,13 +235,24 @@
 						 $("#totalPrice").val(totalPrice_int-pointSum_int); 
 					 }) 
 					 
-					 //쿠폰사용액계산..
-					  $("body").on("change","#coupon",function(){
-						   
-						 coupon_discount_rate = $(this).closest("#select-container").find("#coupon").val().substring(0,$('#coupon').val().indexOf('|'));
-						 coupon_id = $(this).closest("#select-container").find("#coupon").val().substring($('#coupon').val().indexOf('|')+1);
-									
+					 //select 클릭 시 결제금액 초기화
+					 $("body").on("change","#coupon",function(){
+						coupon_discount_rate = 0;
+					 	let totalPrice_int = Number(totalPrice);
+					 	let coupon_price = Number(coupon_discount_rate);
+					 	$("#totalPrice").val(totalPrice_int-coupon_price);
 					 }) 
+					 
+					 //쿠폰 사용후 결제금액 갱신
+					 
+					  $("body").on("change","#coupon",function(){
+						coupon_discount_rate = $(this).closest("#select-container").find("#coupon").val().substring(0,$('#coupon').val().indexOf('|'));
+						coupon_id = $(this).closest("#select-container").find("#coupon").val().substring($('#coupon').val().indexOf('|')+1);
+					 	let totalPrice_int = Number(totalPrice);
+					 	let coupon_price = Number(coupon_discount_rate);
+					 	$("#totalPrice").val(totalPrice_int-coupon_price);
+					 }) 
+					 
 					 
 				//결제API
 				$("body").on("click","#purchase",function(){

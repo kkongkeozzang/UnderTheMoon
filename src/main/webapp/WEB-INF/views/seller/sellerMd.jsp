@@ -43,7 +43,7 @@
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">등급 관리</h1>
+                    <h1 class="h3 mb-2 text-gray-800">상품 관리</h1>
                     <p class="mb-4">상품 관리 메뉴입니다. 여기에서 상품을 조회, 생성, 수정, 삭제할 수 있습니다.</p>
 
                     <!-- DataTales Example -->
@@ -84,7 +84,6 @@
 	                            		<tr>
 	                             			<td>상품명
 	                             			<td><input type=text placeholder="예) '안동소주'" id="md_name" name="md_name" maxLength=30>
-<!-- 	                             			<input type=button value="중복확인" id=check> -->
 	                             			<td>
 	                             			<a href="#" class="btn btn-secondary btn-icon-split" id=check>
 		                                        <span class="icon text-white-50">
@@ -92,15 +91,16 @@
 		                                        </span>
 		                                        <span class="text">중복확인</span>
 		                                    </a>
-	                             			<span id="checkName"></span>
+	                             			<span id="checkDbl"></span>
 	                             		</tr>
 	                             		<tr>
 				                            <td>상품정보
-				                            <td><input type=text placeholder="예) '원나라에서 전해진 역사가 깊은 소주'" id="md_content" name="md_content" maxLength=100>
+				                            <td><input type=text placeholder="예) '역사가 깊은 소주'" id="md_content" name="md_content" maxLength=100>
 				                        </tr>
 				                        <tr>
 				                            <td>상품가격
-				                            <td><input type=text placeholder="예) '0','5000','10000'" id="md_price" name="md_price" maxLength=10 onKeyUp="removeChar(event);inputNumberFormat(this);"onKeyDown="inputNumberFormat(this);">
+				                            <td><input type=text placeholder="예) '0','5000','10000'" id="md_price" name="md_price" maxLength=10> 
+<!-- 				                            onKeyUp="removeChar(event);inputNumberFormat(this);"onKeyDown="inputNumberFormat(this);" -->
 				                        </tr>
 				                       	<tr>
 				                            <td>상품종류
@@ -126,11 +126,11 @@
 				                        </tr>
 				                        <tr>
 				                            <td>상품이미지
-				                            <td><input type=text placeholder="예) '공주애오디와인.jpg'" id="md_image" name="md_image" maxLength=30>
+				                            <td><input type=text placeholder="예) '안동소주.jpg'" id="md_image" name="md_image" maxLength=30>
 				                        </tr>
 				                        <tr>
 				                            <td>상품정보이미지
-				                            <td><input type=text placeholder="예) '공주애오디와인_정보.png'" id="md_detail_image" name="md_detail_image" maxLength=30>
+				                            <td><input type=text placeholder="예) '확장자.gif,jpg,jpeg,png'" id="md_detail_image" name="md_detail_image" maxLength=30>
 				                        </tr>
 	                            	</table>
                             	<br>
@@ -186,26 +186,26 @@
                                             <td style="font-size:0em;color: white;">${mds.md_image }<input type=text value='${mds.md_image }' id="md_image${mds.md_id}" name=md_image style="font-size:medium;color:black;border:none;width:100%;height:100%;overflow:auto;"  maxLength=50 readonly>
                                             <td style="font-size:0em;color: white;">${mds.md_detail_image }<input type=text value='${gmds.md_detail_image }' id="md_detail_image${mds.md_id}" name=md_detail_image style="font-size:medium;color:black;border:none;width:100%;height:100%;overflow:auto;"  maxLength=10 readonly>
                                             <td>
-                                           	<a onclick="del(this);" val="${grades.grade_name}" id="del${grades.grade_name}" class="btn btn-danger btn-icon-split">
+                                           	<a onclick="del(this);" val="${mds.md_id}" id="del${mds.md_id}" class="btn btn-danger btn-icon-split">
 		                                        <span class="icon text-white-50">
 		                                            <i class="fas fa-trash"></i>
 		                                        </span>
 		                                        <span class="text">삭제</span>
 		                                    </a>
 		                                    
-                                           	<a onclick="modify(this);" val="${grades.grade_name}" id="mod${grades.grade_name}" class="btn btn-warning btn-icon-split">
+                                           	<a onclick="modify(this);" val="${mds.md_id}" id="mod${mds.md_id}" class="btn btn-warning btn-icon-split">
 		                                        <span class="icon text-white-50">
 		                                            <i class="fas fa-exclamation-triangle"></i>
 		                                        </span>
 		                                        <span class="text">수정</span>
 		                                    </a>
-		                                   	<a onclick="update(this);" id="update${grades.grade_name}" val="${grades.grade_name}" style="display:none;" class="btn btn-success btn-icon-split">
+		                                   	<a onclick="update(this);" id="update${mds.md_id}" val="${mds.md_id}" style="display:none;" class="btn btn-success btn-icon-split">
 		                                        <span class="icon text-white-50">
 		                                            <i class="fas fa-check"></i>
 		                                        </span>
 		                                        <span class="text">수정</span>
 		                                    </a>
-		                                 	<a onclick="cancelMod(this);" id="cancelMod${grades.grade_name}" val="${grades.grade_name}" style="display:none;" class="btn btn-primary btn-icon-split">
+		                                 	<a onclick="cancelMod(this);" id="cancelMod${mds.md_id}" val="${mds.md_id}" style="display:none;" class="btn btn-primary btn-icon-split">
 		                                        <span class="icon text-white-50">
 		                                            <i class="fas fa-flag"></i>
 		                                        </span>
@@ -227,9 +227,15 @@
                             		})
                             		$("#cancel").on("click",function(){ // 입력 취소버튼 클릭시
                             			if(confirm("입력을 취소하시겠습니까?")){
-                            				$("#grade_name").val("");
-                                			$("#grade_percent").val("");
-                                			$("#grade_target").val("");
+                            				$("#md_region").val("");
+                            				$("#md_name").val("");
+                            				$("#md_content").val("");
+                            				$("#md_price").val("");
+                            				$("#md_category").val("");
+                            				$("#md_abv").val("");
+                            				$("#md_image").val("");
+                            				$("#md_detail_image").val("");
+                                			
                                 			$("#add").css("display","inline-block");
                                 			$("#insert").css("display","none");
                                 			$("#cancel").css("display","none");
@@ -237,41 +243,84 @@
                             			}
                             		})
                             		
+          		                    $(function(){
+										$("#check").on("click",function(){
+											$.ajax({
+												url: "/seller/checkMd",
+												data:{md_name:$("#md_name").val()}
+											}).done(function(resp){
+												console.log(resp);
+												if(resp != 0){
+													$("#checkDbl").html("이미 사용중인 등급이름 입니다.");
+												}else{
+													$("#checkDbl").html("사용 가능한 등급이름 입니다.");
+												}
+											})
+										});
+									})
+                            		
                             		$("#insert").on("click",function(){ //입력 버튼 클릭 시
                             			
-                                		let gradeName = $("#grade_name").val();
-                                		let nameRegex = /^[a-zA-Zㄱ-ㅎ가-힣]+$/;
-                                		
-                                		let gradePercent = $("#grade_percent").val();
-                                		let percentRegex = /^0\.[0-9]+$/;
-                                		
-                                		let gradeTarget = $("#grade_target").val();
-                                		let targetRegex = /^[0-9]+$/;
-                                		
-                                		let gradeCoupon = $("#grade_coupon").val();
-                                		let checkGrade = $("#checkGrade").html();
-                                		
-                            			if(!nameRegex.test(gradeName)) {
-                            				alert("등급이름을 확인해주세요!(문자만 입력하세요. 예)해, 달, 별)");
+                            			let mdRegion = $("#md_region").val();
+                            			let mdName = $("#md_name").val();
+                            			let mdContent = $("#md_content").val();
+                            			let mdPrice = $("#md_price").val();
+                            			let priceRegex = /^[0-9]+$/;
+                            			
+                            			let mdCategory = $("#md_category").val();
+                            			let mdAbv = $("#md_abv").val();
+                            			let abvRegex = /^[0-9]+$/;
+                            			
+                            			let mdImage = $("#md_image").val();
+                            			let mdDetailImage = $("#md_detail_image").val();
+                            			let imgRegex = /(\.gif|\.jpg|\.jpeg|\.png)$/i;
+                            			                               		
+                            			if(mdRegion=="") {
+                            				alert("지역을 선택해주세요!");
                             				return false;
-                            			}else if(checkGrade == "") {
+                            			}else if(mdName == "") {                            				
+                            				alert("상품명을 입력해주세요!");
+                            				return false;
+                            			}else if(mdContent == "") {                            				
+                            				alert("상품정보를 입력해주세요!");
+                            				return false;
+                            			}else if(mdPrice == "") {                            				
+                            				alert("상품가격을 입력해주세요!");
+                            				return false;
+                            			}else if(mdCategory == "") {                            				
+                            				alert("상품종류를 선택해주세요!");
+                            				return false;
+                            			}else if(mdAbv == "") {                            				
+                            				alert("상품도수를 입력해주세요!");
+                            				return false;
+                            			}else if(mdImage == "") {                            				
+                            				alert("상품이미지 경로를 입력해주세요!");
+                            				return false;
+                            			}else if(mdDetailImage == "") {                            				
+                            				alert("상품정보이미지 경로를 입력해주세요!");
+                            				return false;
+                            			}else if(checkDbl == "") {
                             				alert("중복확인을 실행해주세요");
                             				return false;
-                            			}else if(checkGrade == "이미 사용중인 등급이름 입니다.") {
+                            			}else if(checkDbl == "이미 사용중인 등급이름 입니다.") {
                             				alert("등급이름이 중복됐는지 확인해주세요!");
                             				return false;
-                            			}else if(!percentRegex.test(gradePercent)) {
-                            				alert("적립률을 확인해주세요!(소숫점으로만 입력하세요. 예)0.1, 0.05)");
+                            				
+                            			}else if(!priceRegex.test(mdPrice)) {
+                            				alert("상품가격을 확인해주세요!(숫자만)");
                             				return false;
-                            			}else if(!targetRegex.test(gradeTarget)) {
-                            				alert("달성기준을 확인해주세요!(숫자만 입력하세요 예)100000)");
+                            			}else if(!abvRegex.test(mdAbv)) {
+                            				alert("상품 도수를 확인해주세요!(숫자만)");
                             				return false;
-                            			}else if(gradeCoupon == "") {
-                            				alert("등급혜택을 입력해주세요!(최대 50자)");
+                            			}else if(!imgRegex.test(mdImage)) {
+                            				alert("상품이미지 파일명을 확인해주세요!");
+                            				return false;
+                            			}else if(!imgRegex.test(mdDetailImage)) {
+                            				alert("상품정보이미지 파일명을 확인해주세요!");
                             				return false;
                             			}else{
                             				if(confirm("정말로 입력하시겠습니까?")){
-                            					$("#submit-grade").submit();
+                            					$("#submit-md").submit();
                             				}
                             			}
                             		})
@@ -344,22 +393,6 @@
                             			}
                             		}
                             		
-                            		
-                            		$(function(){
-										$("#check").on("click",function(){
-											$.ajax({
-												url: "/seller/checkGrade",
-												data:{grade_name:$("#grade_name").val()}
-											}).done(function(resp){
-												console.log(resp);
-												if(resp != 0){
-													$("#checkGrade").html("이미 사용중인 등급이름 입니다.");
-												}else{
-													$("#checkGrade").html("사용 가능한 등급이름 입니다.");
-												}
-											})
-										});
-									})
 									
 									//문자 제거
 									function removeChar(event) {

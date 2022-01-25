@@ -73,4 +73,17 @@ public class SellerController {
 		model.addAttribute("mds", mds);
 	    return "/seller/sellerMd";
 	}
+	
+	@ResponseBody
+	@RequestMapping("checkMd")
+	public String checkMd(String md_name) throws Exception {
+		String result = Integer.toString(sellerService.checkMd(md_name));
+	    return result;
+	}
+	
+	@RequestMapping("insertMd")
+	public String insertMd(MdDTO mds) throws Exception {
+		int result = sellerService.insertMd(mds);
+	    return "redirect:/seller/md";
+	}
 }

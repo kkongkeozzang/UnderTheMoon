@@ -29,6 +29,14 @@
 		select * from md
 	</select>
 	
+	<select id="checkMd" resultType="int">
+		select count(*) from md where md_name=#{md_name}
+	</select>
+	
+	<insert id="insertMd">
+		insert into md values(md_id_seq.nextval, #{md_region},#{md_name},#{md_content},#{md_price},#{md_category},#{md_abv},#{md_image},#{md_detail_image})
+	</insert>
+	
 <!-- 	<select id="selectById" resultType="kh.spring.dto.NoticeDTO"> -->
 <!-- 		select * from notice where notice_id = #{value} -->
 <!-- 	</select> -->

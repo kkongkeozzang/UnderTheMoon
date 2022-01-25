@@ -40,4 +40,12 @@ public class SellerService {
 	public List<MdDTO> selectAllMd(){
 		return sellerDAO.selectAllMd();
 	}
+	
+	public int checkMd(String md_name){
+		return sellerDAO.checkMd(md_name);
+	}
+	
+	public int insertMd(MdDTO mds){
+		return sellerDAO.insertMd(mds);
+	}
 }

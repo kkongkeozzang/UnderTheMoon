@@ -40,4 +40,12 @@ private final SqlSessionTemplate mybatis;
 	public List<MdDTO> selectAllMd() {
 		return mybatis.selectList("Seller.selectAllMd");
 	}
+	
+	public int checkMd(String md_name) {
+		return mybatis.selectOne("Seller.checkMd", md_name);
+	}
+	
+	public int insertMd(MdDTO mds) {
+		return mybatis.insert("Seller.insertMd", mds);
+	}
 }

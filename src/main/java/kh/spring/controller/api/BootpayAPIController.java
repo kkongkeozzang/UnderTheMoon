@@ -1,11 +1,13 @@
-package kh.spring.controller;
-
+package kh.spring.controller.api;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpResponse;
-import org.springframework.stereotype.Controller;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -16,20 +18,20 @@ import kh.spring.dto.request.Cancel;
 import kh.spring.service.PurchaseService;
 import kh.spring.util.ApiKey;
 
-@Controller
-@RequestMapping("/pay/")
-public class BootpayController {
+@RestController
+@RequestMapping("/pay/rest/")
+public class BootpayAPIController {
+
+private final PurchaseService purchaseService;
 	
-	private final PurchaseService purchaseService;
-	
-	public BootpayController(PurchaseService purchaseService) {
+	public BootpayAPIController(PurchaseService purchaseService) {
 		this.purchaseService = purchaseService;
 	}
 	
-	@RequestMapping(value = "confirm", produces = "application/json; charset=utf8")
-	public String bootpay_confirm(@RequestParam("receipt_id") String receipt_id) throws Exception {
+	@GetMapping(value = "confirm", produces = "application/json; charset=utf8")
+	public ResponseEntity bootpay_confirm(@RequestParam("receipt_id") String receipt_id) throws Exception {
 		
-		System.out.println(receipt_id);
+		System.out.println("바뀐 컨트롤러 : "+receipt_id);
 		//첫번째 매개변수에 REST Application ID, 두번째 매개변수에 인증키 (Private Key)
 		BootpayApiDTO api = new BootpayApiDTO(ApiKey.BOOT_PAY_APPLICATION_ID,ApiKey.BOOT_PAY_PRIVATE_KEY);   
 		String bootpay_check = "";
@@ -58,7 +60,8 @@ public class BootpayController {
     		
 			// 결제 완료
 			purchaseService.completeOrder(orderId);
-			return "redirect:/"; // (임시) 마이페이지 주문 완료 페이지로 이동
+			
+			return ResponseEntity.ok("결제완료"); // (임시) 마이페이지 주문 완료 페이지로 이동
 			
     	} else {
     		
@@ -75,12 +78,12 @@ public class BootpayController {
 			cancelDataJson = IOUtils.toString(res.getEntity().getContent(), "UTF-8");
 			System.out.println("결제 오류 : " + cancelDataJson);
     		
-    		return "redirect:/purchase/purchaseFail";
+    		return new ResponseEntity<String>("실패", HttpStatus.OK);
     	}
     	
     	} catch (Exception e) {
     		e.printStackTrace();
-    		return "redirect:/purchase/purchaseFail";
+    		return new ResponseEntity<String>("실패", HttpStatus.OK);
     	}
 	}
 }

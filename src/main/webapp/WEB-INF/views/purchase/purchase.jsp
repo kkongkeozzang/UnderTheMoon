@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -50,114 +51,7 @@
 	
 }
 </style>
-<script>
 
-$(function(){
-	
-	
-	$("body").on("click",".delete",function(){
-		
-		let cart_id = $(this).closest(".cart-unit").find(".cart_id").val();
-		
-		let totalPrice = $("#totalPrice").val();
-		let totalPrice_int = Number(totalPrice);
-		
-		let cart_price = $(this).closest(".cart-unit").find(".cart_price").html();
-	    	let cart_price_int = Number(cart_price);
-	    	
-	    	 $(this).closest(".cart-unit").remove();
-	    	 
-		$.ajax({
-	  	  type: 'delete',
-	        url:"/cart/rest/deleteCart/"+cart_id,
-	        dataType:"json"
-	     }).done(function(resp){
-	    	
-	    	 
-	    	  alert("선택하신 상품이 삭제되었습니다.")  
-	    	  $("#totalPrice").attr('value', totalPrice_int-cart_price_int);
-	     })
-	   })
-	   
-	  $(".plus").on("click",function(){
-		  
-		  let cart_id = $(this).closest(".cart-unit").find(".cart_id").val();
-		
-		  let totalPrice = $("#totalPrice").val();
-			let totalPrice_int = Number(totalPrice);
-		  
-			let cart_price = $(this).closest(".cart-unit").find(".cart_price").html();
-	    	let cart_price_int = Number(cart_price);
-	    	
-	     let item_count = $(this).closest(".cart-unit").find(".count").val();
-	     	let item_count_int = Number(item_count);
-	    
-	     let singleItemPrice = cart_price_int/item_count_int;
-	     	let singleItemPriceInt = Number(singleItemPrice);
-	     	
-	     	 $(this).closest(".cart-unit").find(".count").attr('value', item_count_int+1);
-	     	 $(this).closest(".cart-unit").find(".cart_price").text(cart_price_int+singleItemPriceInt);
-	    
-		$.ajax({
-	  	  type: 'patch',
-	        url:'/cart/rest/addItemCount/'+cart_id,
-	        dataType:"json"
-	     }).done(function(resp){
-	    	
-	    	  $("#totalPrice").val(totalPrice_int+singleItemPriceInt);
-	     })
-	   })
-	   
-	   $(".minus").on("click",function(){
-		   
-		   let cart_id = $(this).closest(".cart-unit").find(".cart_id").val();
-		
-		   let totalPrice = $("#totalPrice").val();
-			let totalPrice_int = Number(totalPrice);
-		   
-			let cart_price = $(this).closest(".cart-unit").find(".cart_price").html();
-	    	let cart_price_int = Number(cart_price);;
-	    	
-	    	let item_count = $(this).closest(".cart-unit").find(".count").val();
-	     	let item_count_int = Number(item_count);
-	    
-	     let singleItemPrice = cart_price_int/item_count_int;
-	     	let singleItemPriceInt = Number(singleItemPrice);
-	     	if(item_count_int<2){
-				   alert("최소주문은 1개입니다.");
-				   return false;
-			   }else{
-	     	 $(this).closest(".cart-unit").find(".count").attr('value', item_count_int-1);
-	    	 $(this).closest(".cart-unit").find(".cart_price").text(cart_price_int-singleItemPriceInt);
-		   }
-		$.ajax({
-	  	  type: 'patch',
-	        url:"/cart/rest/subtractItemCount/"+cart_id,
-	        dataType:"json"
-	     }).done(function(resp){
-	    	
-	    	  $("#totalPrice").val(totalPrice_int-singleItemPriceInt);
-	     })
-	   })
-	   //주문서로 이동하는곳.
-	   $("#order").on("click",function(){
-			$.ajax({
-		  	  type: 'get',
-		        url:"/purchase/purchase",
-		        data: {
-		      	  member_username: $("#member_username").val(),
-		          order_detail_price: $("#totalPrice").val()
-		        }
-		     }).done(function(resp){
-		    	  
-		    		 document.location.href="/purchase/purchase";
-		    		
-		     })
-		   })
-		   
-		  
-	})
-</script>
 </head>
 <body>
 <div class="container">
@@ -166,6 +60,7 @@ $(function(){
 		</div>
 
 	<table id="cart" class="table table-hover table-condensed">
+    				<!-- 테이블컬럼. -->
     				<thead>
 						<tr>
 							<th style="width:50%">상품</th>
@@ -174,6 +69,7 @@ $(function(){
 							<th style="width:10%">가격</th>
 						</tr>
 					</thead>
+					<!-- 장바구니 상품 시작. -->
 					<tbody>
 					 <c:forEach var="cart" items="${carts }">
 						<tr class="cart-unit">
@@ -187,66 +83,68 @@ $(function(){
 							</td>
 							<td data-th="Price"></td>
 							<td data-th="Quantity">
-								<button class="plus" type ="button">+</button>
+								
 									 <input type="hidden" class="cart_id" value="${cart.cart_id}">
 									  <input type="hidden" class="member_id" value="${cart.member_id}">
 									<input type="number" class="count form-control text-center" value="${cart.cart_item_count}" readonly>
-								<button class="minus" type="button">-</button>
+								
 							</td>
 							<td data-th="Subtotal" class="cart_price text-center">${cart.cart_price}</td>
 							<td class="actions" data-th="">
-								<button class="btn btn-info btn-sm"><i class="fa fa-refresh"></i></button>
-								<button class="delete btn btn-danger btn-sm"><i class="fa fa-trash-o"></i></button>								
+								
+														
 							</td>
 						</tr>
 						</c:forEach>
-					</tbody>	
-					<tfoot>
-						<tr class="visible-xs">
-						</tr>
-					</tfoot>
+					</tbody>
+					<!-- 장바구니 상품 끝.. -->	
 				</table>
-				
+				<!-- 사용자정보 및 배송지. -->
 				<div class="form-group">
-				
 						<label for="recipient">받는사람 이름:</label>
 					    <input id="recipient" type="text" class="form-control" value="${member.member_name}"  readonly>
-					  </div>
+				</div>
+				<div class="form-group">
 					    <label for="recipient_phone">받는사람 번호:</label>
-					    <input id="recipient_phone" type="text" class="form-control" value="${member.member_phone}"  readonly>
-					  </div>
+					    <input id="recipient_phone" type="text" class="form-control" value="${member.member_phone}" >
+				</div>
 				<div class="form-group">
 					    <label for="address">배송지:</label>
 					    <input id="roadAddress" type="text" class="form-control" value="${member.member_address1}" readonly>
-					  </div>
-					  <div class="form-group">
+				</div>
+			    <div class="form-group">
 					    <label for="address2">상세주소:</label>
 					    <input id="roadAddress2" type="text" class="form-control" value="${member.member_address2}" >
+					    <button id="addressSearch" type="button" class="btn btn-primary">주소검색</button><br><br>
 				</div>
+			<!-- 사용자정보 및 배송지끝.. -->
+			
+			<!-- 쿠폰선택자. -->
 					<div id="select-container">
-					<button id="addressSearch" type="button" class="btn btn-primary">주소검색</button><br><br>
-					
 						 <select id="coupon" class="form-select" >
+						 <c:choose>
+						 <c:when test="${fn:length(coupons)== 0}">
+							<option value="0|0">사용 가능한 쿠폰이 없습니다.</option>
+						</c:when>
+						<c:otherwise>
+							<option value="0|0">사용할 쿠폰을 선택해주세요. 총 ${fn:length(coupons)}장</option>
 							 <c:forEach var="coupon" items="${coupons }">
-							  <option >${coupon.coupon_discount_rate }</option>
+							  <option value="${coupon.coupon_discount_rate}|${coupon.coupon_id}">${coupon.coupon_name} ${coupon.coupon_discount_rate }</option>
 							  </c:forEach>
+						</c:otherwise>
+						</c:choose>
 						</select><br><br>
-					</div>	
-						  <label for="point" class="mr-sm-2">적립금: ${ pointSum}</label>
+					</div>		
+			<!-- 쿠폰선택자. -->
+			
+			<!-- 전릭금.선택자. -->
+						  <label for="point" class="mr-sm-2">적립금: ${ pointSum} </label>
 						  <input type="text" id="point-input" class="form-control mb-2 mr-sm-2" value=0 id="pointSum">
 						  <button id="point-btn"type="button" class="btn btn-primary mb-2">적립금전체사용</button><br><br>
-						  
-						<table>
-						  <tr>
-							<td><a href="#" class="btn btn-warning"><i class="fa fa-angle-left"></i> 쇼핑계속하기</a></td>
-							<td colspan="2" class="hidden-xs"></td>
-							<td class="hidden-xs text-center">Total <input type="text" id="totalPrice" value="${ totalPrice}" readonly> </td>
-							<td><a href="#" id="purchase" class="btn btn-success btn-block">결제하기 <i class="fa fa-angle-right"></i></a></td>
-						</tr>
-						</table>
-					
-					
-			</div>
+			<!-- 전릭금.선택자. -->		
+			
+			<!-- 정보동의창. -->
+			
 			<input id="agree" type="checkbox"><a href="#popup1">정보수집ㆍ이용</a> 동의(필수)
 			<div id="popup1" class="overlay">
 			   <div class="popup">
@@ -270,11 +168,28 @@ $(function(){
 			      </div>
 			   </div>
 			</div>
+			<!-- 정보동의창. -->
+			
+			<!-- 최종결제및 가격. -->	  
+						<table>
+						  <tr>
+							<td><a href="#" class="btn btn-warning"><i class="fa fa-angle-left"></i> 쇼핑계속하기</a></td>
+							<td colspan="2" class="hidden-xs"></td>
+							<td class="hidden-xs text-center">Total <input type="text" id="totalPrice" value="${ totalPrice}" readonly> </td>
+							<td><a href="#" id="purchase" class="btn btn-success btn-block">결제하기 <i class="fa fa-angle-right"></i></a></td>
+						</tr>
+						</table>	
+			<!-- 최종결제및 가격. -->
+		 	
+		 	</div> 
+		 	<!-- 컨테이너. -->
 			
 </body>
 
 					<script>
 					//주소 api
+					 let coupon_discount_rate = 0;
+					 let coupon_id = 0;
 					 document.getElementById("addressSearch").onclick = function(){
 					        new daum.Postcode({
 					            oncomplete: function(data) {                                 
@@ -322,30 +237,29 @@ $(function(){
 					 //쿠폰사용액계산..
 					  $("body").on("change","#coupon",function(){
 						   
-						 let totalPrice = $("#amount").val();
-						 let totalPrice_int = Number(totalPrice);
-						 console.log(totalPrice_int);
-						 
-						/*  let coupon = $("#coupon").value(); */
-						 let coupon = $(this).closest("#select-container").find("#coupon").val()
-						 let coupon_int = Number(coupon);
-						 console.log(coupon_int);
-						 
-						 $("#totalPrice").val(totalPrice_int-(totalPrice_int*(coupon_int/100))); 
+						 coupon_discount_rate = $(this).closest("#select-container").find("#coupon").val().substring(0,$('#coupon').val().indexOf('|'));
+						 coupon_id = $(this).closest("#select-container").find("#coupon").val().substring($('#coupon').val().indexOf('|')+1);
 									
 					 }) 
 					 
 				//결제API
 				$("body").on("click","#purchase",function(){
-					
+					var regExp = /^(01[016789]{1}|02|0[3-9]{1}[0-9]{1})-?[0-9]{3,4}-?[0-9]{4}$/;
 					// 정보 동의 안하면 결제 진행 막기
 					if($("#agree").is(":checked") == false){
-					    alert("결제 진행을 위해 정보수집ㆍ이용 동의에 체크해주세요.")
+					    alert("결제 진행을 위해 정보수집ㆍ이용 동의에 체크해주세요.");
 					    return false;
-					    
+					//핸드폰 유효성검사.
+					}else if(!regExp.test($("#recipient_phone").val())){
+						alert("폰번호를 올바르게 입력해주세요..");
+						return false;
+						// 상세주소가 null이면 경고 띄우기
+					}else if($("#roadAddress2").val() == "") {
+						alert("상세 주소를 입력해주세요.");
+						return false;
 					} else {
+						console.log($("#roadAddress2").val());
 						var deliveryDTO = {
-
 								 member_id: ${member.member_id},
 								 delivery_address1: $("#roadAddress").val(),
 								 delivery_address2: $("#roadAddress2").val(),
@@ -359,7 +273,7 @@ $(function(){
 									purchase_amount: ${ totalPrice},
 									purchase_delivery_fee: '3000',
 									purchase_used_point: $("#point-input").val(),
-									purchase_coupon: $("#coupon option:selected").val(),
+									purchase_coupon: coupon_discount_rate,
 									purchase_payment: $("#totalPrice").val(),
 									purchase_method: 'card'
 						 };
@@ -391,18 +305,15 @@ $(function(){
 						  		    	  
 						  		    	 order_id = resp;
 						  		    	 
-
 										 var purchaseDetailArray = [];
 										 var purchaseDetailDTO = new Object();
 										 
 										<c:forEach var="cart" items="${carts}">
 										purchaseDetailArray.push(purchaseDetailDTO = {
-
 												purchase_id: order_id,
 												md_id: ${cart.md_id},
 												purchase_detail_quantity: ${cart.cart_item_count},
 												purchase_detail_price: ${cart.cart_price},
-
 											})
 										</c:forEach>
 												 
@@ -415,23 +326,7 @@ $(function(){
 												pg: 'nicepay',
 												method: 'card', //결제수단, 입력하지 않으면 결제수단 선택부터 화면이 시작합니다.
 												show_agree_window: 0, // 부트페이 정보 동의 창 보이기 여부
-												/* items: [
-													{
-														item_name: '나는 아이템', //상품명
-														qty: 1, //수량
-														unique: '123', //해당 상품을 구분짓는 primary key
-														price: 1000, //상품 단가
-														cat1: 'TOP', // 대표 상품의 카테고리 상, 50글자 이내
-														cat2: '티셔츠', // 대표 상품의 카테고리 중, 50글자 이내
-														cat3: '라운드 티', // 대표상품의 카테고리 하, 50글자 이내
-													}
-												],
-												user_info: {
-													username: ${member.member_username},
-													email: ${member.member_email},
-													addr: ${member.member_address1}+${member.member_address2},
-													phone: ${member.member_phone}
-												}, */
+												
 												order_id: order_id, //고유 주문번호로, 생성하신 값을 보내주셔야 합니다.
 												
 											}).error(function (data) {
@@ -457,7 +352,6 @@ $(function(){
 											}).done(function (data) {
 												//결제가 정상적으로 완료되면 수행됩니다
 												//비즈니스 로직을 수행하기 전에 결제 유효성 검증을 하시길 추천합니다.
-
 												$.ajax({
 												  	  type: 'post',
 												        url:'/purchaseDetail/rest/insertPurchaseDetail/',
@@ -466,28 +360,34 @@ $(function(){
 												        dataType:"json",
 												        async: false,
 												        success : function(resp){
-												    
-												        	$.ajax({
-												      	  	  type: 'delete',
-												      	        url:"/cart/rest/deleteAll/"+member_id,
-												      	        dataType:"json",
-												      	        async: false     
-												      	     }).done(function(resp){
-												      	    	
-												      	    	location.replace("/pay/confirm?receipt_id="+data.receipt_id);
-												      	    	 
-												      	   })
-												        }
+											        	$.ajax({
+											      	  	  type: 'delete',
+											      	        url:"/cart/rest/deleteAll/"+member_id,
+											      	        dataType:"json",
+											      	        async: false,
+											      	        success : function(resp){
+											      	        	$.ajax({
+											      	        		type:"post",
+											      	        		url:"/coupon/rest/update/"+coupon_id
+											      	        	})
+											      	        }
+											      	    }).done(function(resp){
+											      	    	
+											      	    	//location.replace("/pay/rest/confirm?receipt_id="+data.receipt_id);
+											      	    	location.replace("/pay/confirm?receipt_id="+data.receipt_id);
+											      	    })
+												    }
 												        
 												})
-												console.log(data);
+														
+														
 											});
-
 						  		    		
 						  		     })
 						        }
 						     })
 					}
+
 						 
 						 
 									 	
@@ -496,6 +396,3 @@ $(function(){
 					
 				 })
 				</script>
-
-					
-</html>

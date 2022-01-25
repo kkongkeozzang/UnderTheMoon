@@ -91,4 +91,8 @@ public class CouponDAO {
 		
 		return mybatis.selectOne("Coupon.selectRecordCount", member_id);
 	}
+	
+	public Integer updateCouponUsed(Integer coupon_id) {
+		return mybatis.update("Coupon.updateCouponUsed", coupon_id);
+	}
 }

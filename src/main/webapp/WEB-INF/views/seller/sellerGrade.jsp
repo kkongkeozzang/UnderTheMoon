@@ -250,6 +250,7 @@
                             				$("#grade_percent"+value).val(eval("bkPercent"+value));
                                 			$("#grade_target"+value).val(eval("bkTarget"+value));
                                 			$("#grade_coupon"+value).val(eval("bkCoupon"+value));
+
                             				$("#del"+value).css("display","inline-block");
                                 			$("#mod"+value).css("display","inline-block");
                                 			$("#update"+value).css("display","none");
@@ -306,7 +307,6 @@
 											})
 										});
 									})
-
                             	</script>
                             </div>
                         </div>

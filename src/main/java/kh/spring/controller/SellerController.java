@@ -86,4 +86,5 @@ public class SellerController {
 		int result = sellerService.insertMd(mds);
 	    return "redirect:/seller/md";
 	}
+
 }

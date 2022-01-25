@@ -82,4 +82,8 @@ public class CouponService {
 	public int selectRecordCount(Integer member_id) {
 		return couponDAO.selectRecordCount(member_id);
 	}
+	
+	public Integer updateCouponUsed(Integer coupon_id) {
+		return couponDAO.updateCouponUsed(coupon_id);
+	}
 }

@@ -51,114 +51,7 @@
 	
 }
 </style>
-<script>
 
-$(function(){
-	
-	
-	$("body").on("click",".delete",function(){
-		
-		let cart_id = $(this).closest(".cart-unit").find(".cart_id").val();
-		
-		let totalPrice = $("#totalPrice").val();
-		let totalPrice_int = Number(totalPrice);
-		
-		let cart_price = $(this).closest(".cart-unit").find(".cart_price").html();
-	    	let cart_price_int = Number(cart_price);
-	    	
-	    	 $(this).closest(".cart-unit").remove();
-	    	 
-		$.ajax({
-	  	  type: 'delete',
-	        url:"/cart/rest/deleteCart/"+cart_id,
-	        dataType:"json"
-	     }).done(function(resp){
-	    	
-	    	 
-	    	  alert("선택하신 상품이 삭제되었습니다.")  
-	    	  $("#totalPrice").attr('value', totalPrice_int-cart_price_int);
-	     })
-	   })
-	   
-	  $(".plus").on("click",function(){
-		  
-		  let cart_id = $(this).closest(".cart-unit").find(".cart_id").val();
-		
-		  let totalPrice = $("#totalPrice").val();
-			let totalPrice_int = Number(totalPrice);
-		  
-			let cart_price = $(this).closest(".cart-unit").find(".cart_price").html();
-	    	let cart_price_int = Number(cart_price);
-	    	
-	     let item_count = $(this).closest(".cart-unit").find(".count").val();
-	     	let item_count_int = Number(item_count);
-	    
-	     let singleItemPrice = cart_price_int/item_count_int;
-	     	let singleItemPriceInt = Number(singleItemPrice);
-	     	
-	     	 $(this).closest(".cart-unit").find(".count").attr('value', item_count_int+1);
-	     	 $(this).closest(".cart-unit").find(".cart_price").text(cart_price_int+singleItemPriceInt);
-	    
-		$.ajax({
-	  	  type: 'patch',
-	        url:'/cart/rest/addItemCount/'+cart_id,
-	        dataType:"json"
-	     }).done(function(resp){
-	    	
-	    	  $("#totalPrice").val(totalPrice_int+singleItemPriceInt);
-	     })
-	   })
-	   
-	   $(".minus").on("click",function(){
-		   
-		   let cart_id = $(this).closest(".cart-unit").find(".cart_id").val();
-		
-		   let totalPrice = $("#totalPrice").val();
-			let totalPrice_int = Number(totalPrice);
-		   
-			let cart_price = $(this).closest(".cart-unit").find(".cart_price").html();
-	    	let cart_price_int = Number(cart_price);;
-	    	
-	    	let item_count = $(this).closest(".cart-unit").find(".count").val();
-	     	let item_count_int = Number(item_count);
-	    
-	     let singleItemPrice = cart_price_int/item_count_int;
-	     	let singleItemPriceInt = Number(singleItemPrice);
-	     	if(item_count_int<2){
-				   alert("최소주문은 1개입니다.");
-				   return false;
-			   }else{
-	     	 $(this).closest(".cart-unit").find(".count").attr('value', item_count_int-1);
-	    	 $(this).closest(".cart-unit").find(".cart_price").text(cart_price_int-singleItemPriceInt);
-		   }
-		$.ajax({
-	  	  type: 'patch',
-	        url:"/cart/rest/subtractItemCount/"+cart_id,
-	        dataType:"json"
-	     }).done(function(resp){
-	    	
-	    	  $("#totalPrice").val(totalPrice_int-singleItemPriceInt);
-	     })
-	   })
-	   //주문서로 이동하는곳.
-	   $("#order").on("click",function(){
-			$.ajax({
-		  	  type: 'get',
-		        url:"/purchase/purchase",
-		        data: {
-		      	  member_username: $("#member_username").val(),
-		          order_detail_price: $("#totalPrice").val()
-		        }
-		     }).done(function(resp){
-		    	  
-		    		 document.location.href="/purchase/purchase";
-		    		
-		     })
-		   })
-		   
-		  
-	})
-</script>
 </head>
 <body>
 <div class="container">
@@ -190,16 +83,16 @@ $(function(){
 							</td>
 							<td data-th="Price"></td>
 							<td data-th="Quantity">
-								<button class="plus" type ="button">+</button>
+								
 									 <input type="hidden" class="cart_id" value="${cart.cart_id}">
 									  <input type="hidden" class="member_id" value="${cart.member_id}">
 									<input type="number" class="count form-control text-center" value="${cart.cart_item_count}" readonly>
-								<button class="minus" type="button">-</button>
+								
 							</td>
 							<td data-th="Subtotal" class="cart_price text-center">${cart.cart_price}</td>
 							<td class="actions" data-th="">
-								<button class="btn btn-info btn-sm"><i class="fa fa-refresh"></i></button>
-								<button class="delete btn btn-danger btn-sm"><i class="fa fa-trash-o"></i></button>								
+								
+														
 							</td>
 						</tr>
 						</c:forEach>
@@ -213,7 +106,7 @@ $(function(){
 				</div>
 				<div class="form-group">
 					    <label for="recipient_phone">받는사람 번호:</label>
-					    <input id="recipient_phone" type="text" class="form-control" value="${member.member_phone}"  readonly>
+					    <input id="recipient_phone" type="text" class="form-control" value="${member.member_phone}" >
 				</div>
 				<div class="form-group">
 					    <label for="address">배송지:</label>
@@ -351,13 +244,17 @@ $(function(){
 					 
 				//결제API
 				$("body").on("click","#purchase",function(){
-					
+					var regExp = /^(01[016789]{1}|02|0[3-9]{1}[0-9]{1})-?[0-9]{3,4}-?[0-9]{4}$/;
 					// 정보 동의 안하면 결제 진행 막기
 					if($("#agree").is(":checked") == false){
 					    alert("결제 진행을 위해 정보수집ㆍ이용 동의에 체크해주세요.");
 					    return false;
-					// 상세주소가 null이면 경고 띄우기
-					} else if($("#roadAddress2").val() == "") {
+					//핸드폰 유효성검사.
+					}else if(!regExp.test($("#recipient_phone").val())){
+						alert("폰번호를 올바르게 입력해주세요..");
+						return false;
+						// 상세주소가 null이면 경고 띄우기
+					}else if($("#roadAddress2").val() == "") {
 						alert("상세 주소를 입력해주세요.");
 						return false;
 					} else {
@@ -408,18 +305,15 @@ $(function(){
 						  		    	  
 						  		    	 order_id = resp;
 						  		    	 
-
 										 var purchaseDetailArray = [];
 										 var purchaseDetailDTO = new Object();
 										 
 										<c:forEach var="cart" items="${carts}">
 										purchaseDetailArray.push(purchaseDetailDTO = {
-
 												purchase_id: order_id,
 												md_id: ${cart.md_id},
 												purchase_detail_quantity: ${cart.cart_item_count},
 												purchase_detail_price: ${cart.cart_price},
-
 											})
 										</c:forEach>
 												 
@@ -432,23 +326,7 @@ $(function(){
 												pg: 'nicepay',
 												method: 'card', //결제수단, 입력하지 않으면 결제수단 선택부터 화면이 시작합니다.
 												show_agree_window: 0, // 부트페이 정보 동의 창 보이기 여부
-												/* items: [
-													{
-														item_name: '나는 아이템', //상품명
-														qty: 1, //수량
-														unique: '123', //해당 상품을 구분짓는 primary key
-														price: 1000, //상품 단가
-														cat1: 'TOP', // 대표 상품의 카테고리 상, 50글자 이내
-														cat2: '티셔츠', // 대표 상품의 카테고리 중, 50글자 이내
-														cat3: '라운드 티', // 대표상품의 카테고리 하, 50글자 이내
-													}
-												],
-												user_info: {
-													username: ${member.member_username},
-													email: ${member.member_email},
-													addr: ${member.member_address1}+${member.member_address2},
-													phone: ${member.member_phone}
-												}, */
+												
 												order_id: order_id, //고유 주문번호로, 생성하신 값을 보내주셔야 합니다.
 												
 											}).error(function (data) {
@@ -504,7 +382,6 @@ $(function(){
 														
 														
 											});
-
 						  		    		
 						  		     })
 						        }
@@ -519,6 +396,3 @@ $(function(){
 					
 				 })
 				</script>
-
-					
-</html>

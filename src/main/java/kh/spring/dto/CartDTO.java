@@ -2,6 +2,11 @@ package kh.spring.dto;
 
 import java.sql.Timestamp;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+
+@JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 public class CartDTO {
 
 	private Integer cart_id;
@@ -10,6 +15,7 @@ public class CartDTO {
 	private String cart_item;
 	private Integer cart_item_count;
 	private Integer cart_price;
+	@JsonIgnore
 	private Timestamp cart_date;
 	private String cart_image;
 	

@@ -14,35 +14,35 @@
   </select>
   
   <insert id="insertSignUpEventDelivery">
-  	insert into coupon values(coupon_id_seq.nextval,'웰컴 배송비 쿠폰',2500,'회원가입이벤트','무제한','N',sysdate,#{value})
+  	insert into coupon values(coupon_id_seq.nextval,'웰컴 배송비 쿠폰',2500,'회원가입이벤트','9999/12/31','N',sysdate,#{value})
   </insert>
   
   <insert id="insertSignUpEventDiscount">
-  	insert into coupon values(coupon_id_seq.nextval,'웰컴 할인 쿠폰',10000,'회원가입이벤트','무제한','N',sysdate,#{value})
+  	insert into coupon values(coupon_id_seq.nextval,'웰컴 할인 쿠폰',10000,'회원가입이벤트','9999/12/31','N',sysdate,#{value})
   </insert>
   
   <insert id="insertStarGradeDelivery">
-  	insert into coupon values(coupon_id_seq.nextval,'별 등급 배송비 쿠폰',2500,'등급쿠폰','무제한','N',sysdate,#{value})
+  	insert into coupon values(coupon_id_seq.nextval,'별 등급 배송비 쿠폰',2500,'등급쿠폰','9999/12/31','N',sysdate,#{value})
   </insert>
   
   <insert id="insertStarGradeDiscount">
-  	insert into coupon values(coupon_id_seq.nextval,'별 등급 할인 쿠폰',5000,'등급쿠폰','무제한','N',sysdate,#{value})
+  	insert into coupon values(coupon_id_seq.nextval,'별 등급 할인 쿠폰',5000,'등급쿠폰','9999/12/31','N',sysdate,#{value})
   </insert>
   
   <insert id="insertMoonGradeDelivery">
-  	insert into coupon values(coupon_id_seq.nextval,'달 등급 배송비 쿠폰',2500,'등급쿠폰','무제한','N',sysdate,#{value})
+  	insert into coupon values(coupon_id_seq.nextval,'달 등급 배송비 쿠폰',2500,'등급쿠폰','9999/12/31','N',sysdate,#{value})
   </insert>
   
   <insert id="insertMoonGradeDiscount">
-  	insert into coupon values(coupon_id_seq.nextval,'달 등급 할인 쿠폰',10000,'등급쿠폰','무제한','N',sysdate,#{value})
+  	insert into coupon values(coupon_id_seq.nextval,'달 등급 할인 쿠폰',10000,'등급쿠폰','9999/12/31','N',sysdate,#{value})
   </insert>
   
   <insert id="insertSunGradeDelivery">
-  	insert into coupon values(coupon_id_seq.nextval,'해 등급 배송비 쿠폰',2500,'등급쿠폰','무제한','N',sysdate,#{value})
+  	insert into coupon values(coupon_id_seq.nextval,'해 등급 배송비 쿠폰',2500,'등급쿠폰','9999/12/31','N',sysdate,#{value})
   </insert>
   
   <insert id="insertSunGradeDiscount">
-  	insert into coupon values(coupon_id_seq.nextval,'해 등급 할인 쿠폰',50000,'등급쿠폰','무제한','N',sysdate,#{value})
+  	insert into coupon values(coupon_id_seq.nextval,'해 등급 할인 쿠폰',50000,'등급쿠폰','9999/12/31','N',sysdate,#{value})
   </insert>
   
   <select id="selectCouponListById" resultType="kh.spring.dto.CouponDTO">

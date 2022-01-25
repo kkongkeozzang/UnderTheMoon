@@ -1,8 +1,16 @@
 package kh.spring.controller.api;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -10,6 +18,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import kh.spring.dto.CartDTO;
 import kh.spring.service.CartService;
 
 @RestController
@@ -59,10 +71,11 @@ public class CartAPIController {
 	@DeleteMapping("deleteAll/{member_id}")
 	public ResponseEntity<Integer> deleteAll(@PathVariable String member_id){
 
-		System.out.println("controller"+member_id);
-
 		Integer result = cartService.deleteAll(Integer.valueOf(member_id));
 	
 		return new ResponseEntity<Integer>(result,HttpStatus.OK);
 	}
+	
+	
+
 }

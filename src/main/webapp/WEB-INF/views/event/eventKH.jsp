@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>${notices.notice_title}</title>
+<title>이벤트 - 호랑이띠</title>
 <link
 	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
 	rel="stylesheet" />
@@ -254,7 +254,7 @@ body {
 	<!-- 타이틀  -->
 	<div class="container-fluid mt-100">
 		<div id="board-title">
-			<span><h3>공지사항</h3></span>
+			<span><h3>이벤트</h3></span>
 		</div>
 		<div align=center>
 			
@@ -273,10 +273,6 @@ body {
 								</ul>
 							</div>
 						</div>
-						<input type="hidden" value="${notices.member_id}" name="member_id">
-						<input type="hidden" value="${notices.notice_id}" name="notice_id">
-						<input type="hidden" value="${username}" id="username">
-						<input type="hidden" value="${principal.username}" id="principal.username">
 					</div>
 				</div>
 				<div class="row" style="border-top:1px solid black; margin:0px;height:30px;line-height:29px;">
@@ -284,103 +280,36 @@ body {
 						제목
 					</div>
 					<div class="col-12 col-sm-10" style="white-space: nowrap;overflow:hidden;">
-						${notices.notice_title}
+						[이벤트] 월하합작 X KH정보교육원
 					</div>
 				</div>
 				<div class="row" style="margin:0px;border-top:1px solid gray;border-bottom:1px solid gray;height:30px;line-height:28px;">
 					<div class="col-2 d-none d-sm-block" style="background-color:#B1D0E0;white-space: nowrap;overflow:hidden;">
-						작성자
+						이벤트 기간
 					</div>
 					<div class="col-12 col-sm-10" style="white-space: nowrap;overflow:hidden;">
-						${username}
-					</div>
-				</div>
-				<div class="row" style="border-bottom:1px solid gray; margin:0px;height:30px;line-height:29px;">
-					<div class="col-2 d-none d-sm-block" style="background-color:#B1D0E0;white-space: nowrap;overflow:hidden;">
-						작성일
-					</div>
-					<div class="col-6 col-sm-2" style="white-space: nowrap;overflow:hidden;">
-						${notices.getFormedDate()}
-					</div>
-					<div class="col-2 d-none d-sm-block" style="background-color:#B1D0E0;white-space: nowrap;overflow:hidden;">
-						조회수
-					</div>
-					<div class="col-6 col-sm-2" style="white-space: nowrap;overflow:hidden;">
-						<div id=input-title name=title style="width: 100%;">${notices.notice_view_count}</div>
+						2021.09.01 ~ 2022.02.09
 					</div>
 				</div>
 				<br>
 				<div class="row">
 					<div class="col-sm-12" id="contents" name="contents"
 							style="min-height: 200px; overflow: auto;">
-						${notices.notice_content}
+						<img src="/resources/event/배송안내.png" width=100% height=100%>
 					</div>
 				</div>
+				<hr>
 				<div class="row">
 					<div class="col-sm-12" style="text-align: right; margin-top:15px;margin-bottom:15px;">
-						<c:choose>
-							<c:when test="${username == principal.username }">
-								<button type="button" class="btn btn-dark" id="update"
-									style="background-color: #406882;">수정하기</button>
-								<button type="button" class="btn btn-dark" id="delete"
-									style="background-color: #406882;">삭제하기</button>
-							</c:when>
-							<c:otherwise>
-								<sec:authorize access="hasRole('ROLE_ADMIN')">
-									<button type="button" class="btn btn-dark" id="delete"
-										style="background-color: #406882;">삭제하기</button>
-								</sec:authorize>
-							</c:otherwise>
-						</c:choose>
 							<button type="button" id="board-list" class="btn btn-dark"
 								style="background-color: #406882;">목록으로</button>
 						<script>
 							$("#board-list").on("click",function(){
-								if(document.referrer.split('/')[4].indexOf('search')>=0){
-									location.href="javascript:history.back()";
-								}else if(document.referrer.split('/')[4].indexOf('toNotice')>=0){
-									location.href="javascript:history.back()";
-								}else{
-	 								location.href="/notice/toNotice?cPage=${cPage}";									
-								}
+								location.href="javascript:history.back()";
 							});
-							
-							$("#delete").on("click", function(){
-		                		if(confirm("정말 삭제하시겠습니까? \r\n되돌릴 수 없습니다.")) {
-		                			 location.href="/notice/delete?notice_id="+${notices.notice_id};
-		                		}
-		                	});
-							
-							$("#update").on("click", function(){
-								location.href="/notice/toUpdate?notice_id=${notices.notice_id}&cPage=${cPage}";
-							});
-							
-							username = $("#username").val();
-							principal.username = ("#principal.username").val();
-							
 						</script>
 					</div>
 				</div>
-				<c:if test="${upDown.prevNum ne 0 }">
-				<div class="row" style="border-top:1px solid black; border-bottom:1px solid gray; margin:0px;height:30px;line-height:30px;">
-					<div class="col-xs-12 col-sm-2">
-						▲ 이전 글
-					</div>
-					<div class="col-xs-12 col-sm-10">
-						<a href="/notice/detail?notice_id=${upDown.prevNum}&member_id=${upDown.prevMember}&cPage=${cPage}"><div style="width: 100%;">${upDown.prevTitle}</div></a>
-					</div>
-				</div>
-				</c:if>
-				<c:if test="${upDown.nextNum ne 0 }">
-				<div class="row" style="border-bottom:1px solid black; margin:0px;height:30px;line-height:30px;">
-					<div class="col-xs-12 col-sm-2">
-						▼ 다음 글
-					</div>
-					<div class="col-xs-12 col-sm-10">
-						<a href="/notice/detail?notice_id=${upDown.nextNum}&member_id=${upDown.nextMember}&cPage=${cPage}"><div style="width: 100%;">${upDown.nextTitle}</div></a>
-					</div>
-				</div>
-				</c:if>
 			</div>
 		</div>
 		<hr>

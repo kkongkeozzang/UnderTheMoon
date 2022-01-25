@@ -28,11 +28,11 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar" style="background-color:#406882;">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/seller/sellerOffice">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/admin/adminOffice">
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i><!-- 여기 로고-->
                 </div>
-                <div class="sidebar-brand-text mx-3">Seller Office</div>
+                <div class="sidebar-brand-text mx-3">Admin Office</div>
             </a>
 
             <!-- Divider -->
@@ -40,12 +40,12 @@
 
             <!-- Heading -->
             <div class="sidebar-heading">
-                판매자
+                관리자
             </div>
 
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="/seller/sellerOffice" data-target="#collapse-one"
+                <a class="nav-link collapsed" href="/admin/adminOffice" data-target="#collapse-one"
                     aria-expanded="true" aria-controls="collapse-one">
                     <i class="fas fa-fw fa-chart-area"></i>
                     <span>대쉬 보드</span>
@@ -54,49 +54,35 @@
             
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="/seller/md" data-target="#collapse-two"
+                <a class="nav-link collapsed" href="#" data-target="#collapse-two"
                     aria-expanded="true" aria-controls="collapse-two">
                     <i class="fas fa-fw fa-table"></i>
-                    <span>상품 관리</span>
+                    <span>회원 관리</span>
                 </a>
             </li>
 
             <!-- Nav Item - Utilities Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse-three"
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse-board"
                     aria-expanded="true" aria-controls="collapse-three">
                     <i class="fas fa-fw fa-table"></i>
-                    <span>주문 관리</span>
+                    <span>게시판 관리</span>
                 </a>
-                <div id="collapse-three" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                <div id="collapse-board" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="#">주문내역</a>
-                        <a class="collapse-item" href="#">상세주문</a>
+                        <a class="collapse-item" href="#">공지사항</a>
+                        <a class="collapse-item" href="#">자주묻는질문</a>
                     </div>
                 </div>
-            </li>
-            <!-- Nav Item - Utilities Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-target="#collapse-four"
-                    aria-expanded="true" aria-controls="collapse-five">
-                    <i class="fas fa-fw fa-table"></i>
-                    <span>리뷰 관리</span>
-                </a>
             </li>
             
-            <!-- Nav Item - Pages Collapse Menu -->
+            <!-- Nav Item - Utilities Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse-six"
-                    aria-expanded="true" aria-controls="collapse-seven">
+                <a class="nav-link collapsed" href="/admin/grade" data-target="#collapse-five"
+                    aria-expanded="true" aria-controls="collapse-six">
                     <i class="fas fa-fw fa-table"></i>
-                    <span>포인트/쿠폰 관리</span>
+                    <span>등급 관리</span>
                 </a>
-                <div id="collapse-six" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="#">포인트</a>
-                        <a class="collapse-item" href="#">쿠폰</a>
-                    </div>
-                </div>
             </li>
 
             <!-- Divider -->
@@ -106,6 +92,7 @@
             <div class="text-center d-none d-md-inline">
                 <button class="rounded-circle border-0" id="sidebarToggle"></button>
             </div>
+
         </ul>
         <!-- End of Sidebar -->
         

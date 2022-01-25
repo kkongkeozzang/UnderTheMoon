@@ -76,5 +76,4 @@ public class SellerController {
 //		String result = Integer.toString(mdService.checkGrade(grade_name));
 //	    return result;
 //	}
-
 }

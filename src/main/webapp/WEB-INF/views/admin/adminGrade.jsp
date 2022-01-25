@@ -176,6 +176,7 @@
                                 			$("#grade_target").val("");
                                 			$("#grade_coupon").val("");
                                 			$("#checkDbl").html("");
+
                                 			$("#add").css("display","inline-block");
                                 			$("#insert").css("display","none");
                                 			$("#cancel").css("display","none");
@@ -195,7 +196,7 @@
                                 		let targetRegex = /^[0-9]+$/;
                                 		
                                 		let gradeCoupon = $("#grade_coupon").val();
-                                		let checkDbl = $("#checkDbl").html();
+                                		let checkDbl = $("#checkDbl").html();      
                                 		
                             			if(!nameRegex.test(gradeName)) {
                             				alert("등급이름을 확인해주세요!(문자만 입력하세요. 예)해, 달, 별)");
@@ -308,7 +309,6 @@
 											})
 										});
 									})
-
                             	</script>
                             </div>
                         </div>

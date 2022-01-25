@@ -1,6 +1,8 @@
 package kh.spring.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
@@ -36,6 +38,15 @@ public class PointDAO {
 	
 	public Integer insertNotInputEvent(Integer id) {
 		return mybatis.insert("Point.insertNotInputEvent", id);
+	}
+
+	public Integer insertUsedPoint(Integer member_id, Integer pointSum) {
+		
+		Map<String,Integer> map = new HashMap<>();
+		map.put("member_id",member_id);
+		map.put("pointSum",pointSum);
+		
+		return mybatis.insert("Point.insertUsedPoint",map);
 	}
 }
 

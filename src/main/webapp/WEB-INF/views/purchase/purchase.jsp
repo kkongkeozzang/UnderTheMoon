@@ -120,25 +120,25 @@
 			<!-- 사용자정보 및 배송지끝.. -->
 			
 			<!-- 쿠폰선택자. -->
-					<div id="select-container">
-						 <select id="coupon" class="form-select" >
-						 <c:choose>
-						 <c:when test="${fn:length(coupons)== 0}">
-							<option value="0|0">사용 가능한 쿠폰이 없습니다.</option>
-						</c:when>
-						<c:otherwise>
-							<option value="0|0">사용할 쿠폰을 선택해주세요. 총 ${fn:length(coupons)}장</option>
-							 <c:forEach var="coupon" items="${coupons }">
-							  <option value="${coupon.coupon_discount_rate}|${coupon.coupon_id}">${coupon.coupon_name} ${coupon.coupon_discount_rate }</option>
-							  </c:forEach>
-						</c:otherwise>
-						</c:choose>
-						</select><br><br>
-					</div>		
-			<!-- 쿠폰선택자. -->
+               <div id="select-container">
+                   <select id="coupon" class="form-select" >
+                   <c:choose>
+                   <c:when test="${fn:length(coupons)== 0}">
+                     <option value="0">사용 가능한 쿠폰이 없습니다.</option>
+                  </c:when>
+                  <c:otherwise>
+                     <option value="0">사용할 쿠폰을 선택해주세요. 총 ${fn:length(coupons)}장</option>
+                      <c:forEach var="coupon" items="${coupons }">
+                       <option value="${coupon.coupon_discount_rate}|${coupon.coupon_id}">${coupon.coupon_name} ${coupon.coupon_discount_rate }</option>
+                       </c:forEach>
+                  </c:otherwise>
+                  </c:choose>
+                  </select><br><br>
+               </div>      
+         <!-- 쿠폰선택자. -->
 			
 			<!-- 전릭금.선택자. -->
-						  <label for="point" class="mr-sm-2">적립금: ${ pointSum} </label>
+						  <label for="point" class="mr-sm-2">적립금:</label><span id="point"> ${ pointSum}</span>
 						  <input type="text" id="point-input" class="form-control mb-2 mr-sm-2" value=0 id="pointSum">
 						  <button id="point-btn"type="button" class="btn btn-primary mb-2">적립금전체사용</button><br><br>
 			<!-- 전릭금.선택자. -->		
@@ -188,9 +188,10 @@
 
 					<script>
 					//주소 api
-					 let coupon_discount_rate = 0;
+					let coupon_discount_rate = 0;
 					 let coupon_id = 0;
 					 let totalPrice = $("#totalPrice").val();
+					 
 					 document.getElementById("addressSearch").onclick = function(){
 					        new daum.Postcode({
 					            oncomplete: function(data) {                                 
@@ -199,43 +200,67 @@
 					            }            
 					        }).open();
 					    }
-					 //적립금 전체사용.
-					 $("#point-btn").on("click",function(){
-						 
-						/*  $("#pointSum").attr('value', ${pointSum}); */
-						 $("#point-input").val(${pointSum}); 
-						 
-					 })
+					 
+					   //적립금 클릭 시 적립금 결제금액 초기화
+	                $("#point-input").on("focus",function(){
+	                
+	                   let current_point = $("#point-input").val();
+	                   let current_point_int = Number(current_point);
+	                   let totalPrice = $("#totalPrice").val();
+						let	totalPrice_int = Number(totalPrice);
+	                   
+						 $("#totalPrice").val(totalPrice_int+current_point_int);
+	                   
+						   $("#point-input").val("");
+		                	
+                })  
+					 
 					 //적립금 직접입력..
 					$("#point-input").on("blur",function(){
 						 
 						 let pointSum = $("#point-input").val();
 							let pointSum_int = Number(pointSum);
-							
-						let totalPrice = $("#totalPrice").val();
-							let totalPrice_int = Number(totalPrice);
 						
-							if(pointSum_int<=${pointSum}){
+							 let totalPrice = $("#totalPrice").val();
+						let	totalPrice_int = Number(totalPrice);
+						
+						let point = $("#point").html();
+		                let point_int = Number(point);
+						
+		               	if(pointSum_int<0) {
+							$("#point-input").val(0); 
+						}else if(pointSum_int<=${pointSum}){
 							
 						 $("#totalPrice").val(totalPrice_int-pointSum_int); 
 						 
-						}else{
+						}else if (pointSum_int>${pointSum}){
 							$("#point-input").val(${pointSum}); 
+							 $("#totalPrice").val(totalPrice_int-point_int); 
+							
 						}
 					 }) 
-					 //적립금전체사용..
-					 $("#point-btn").on("click",function(){
-						 
-						 let pointSum = $("#point-input").val();
-							let pointSum_int = Number(pointSum);
-							
-						let totalPrice = $("#totalPrice").val();
-							let totalPrice_int = Number(totalPrice);
-							
-						 $("#totalPrice").val(totalPrice_int-pointSum_int); 
-					 }) 
 					 
-					 //select 클릭 시 결제금액 초기화
+					
+					   //적립금전체사용..
+					    $("#point-btn").on("click",function(){
+						 	
+					    	let totalPrice = $("#totalPrice").val();
+					    	let totalPrice_int = Number(totalPrice);
+					    	
+					    	if( $("#point-input").val()=="" || $("#point-input").val()==0){
+							 $("#point-input").val(${pointSum}); 
+							  $("#totalPrice").val(totalPrice_int-${pointSum}); 
+					    	}else if($("#point-input").val()==${pointSum}){
+					    		 $("#totalPrice").val(totalPrice_int+Number(${pointSum}));
+								 $("#point-input").val(0); 	
+					    	}else{
+					    		$("#totalPrice").val(totalPrice_int-${pointSum}+Number($("#point-input").val())); 
+					    		$("#point-input").val(${pointSum});
+					    	}
+					    	
+					 })      										 
+					 
+					  //select 클릭 시 결제금액 초기화
 					 $("body").on("change","#coupon",function(){
 						coupon_discount_rate = 0;
 					 	let totalPrice_int = Number(totalPrice);
@@ -244,8 +269,7 @@
 					 }) 
 					 
 					 //쿠폰 사용후 결제금액 갱신
-					 
-					  $("body").on("change","#coupon",function(){
+					   $("body").on("change","#coupon",function(){
 						coupon_discount_rate = $(this).closest("#select-container").find("#coupon").val().substring(0,$('#coupon').val().indexOf('|'));
 						coupon_id = $(this).closest("#select-container").find("#coupon").val().substring($('#coupon').val().indexOf('|')+1);
 					 	let totalPrice_int = Number(totalPrice);
@@ -256,7 +280,6 @@
 					 		$("#totalPrice").val(totalPrice_int-coupon_price);
 					 	}
 					 }) 
-					 
 					 
 				//결제API
 				$("body").on("click","#purchase",function(){
@@ -289,7 +312,7 @@
 									purchase_amount: ${ totalPrice},
 									purchase_delivery_fee: '3000',
 									purchase_used_point: $("#point-input").val(),
-									purchase_coupon: coupon_discount_rate,
+									purchase_coupon: $("#coupon option:selected").val(),
 									purchase_payment: $("#totalPrice").val(),
 									purchase_method: 'card'
 						 };
@@ -333,22 +356,53 @@
 											})
 										</c:forEach>
 												 
-										 	console.log(purchaseDetailArray);  
-			  		    	 		 	// if 100원 이하일때
-			  		    	 		 	
-			  		    	 		 		//confirm(결제 하시겠습니까?) = 0원
-			  		    	 		 		// 확인 -> 결제 성공
-			  		    	 		 		
-			  		    	 		 		// 아니오 -> 기존페이지 남아있기
-			  		    	 		 	// 0원을 안만들면
-			  		    	 		 	
-			  		    	 		 	// if 100원 이상일때 결제값이
+										 	let pointSum = $("#point-input").val();
+										 	console.log(totalPrice);
+										 	if(totalPrice=='0'){
+										 		
+										 		//0원일경우..
+										 		if(confirm("결제하시겠씁니까?")){
+										 			$.ajax({
+													  	  type: 'post',
+													        url:'/purchaseDetail/rest/insertPurchaseDetail/',
+													        data: JSON.stringify(purchaseDetailArray), 	
+													        contentType:"application/json;charset=utf-8",
+													        dataType:"json",
+													        async: false,
+													        success : function(resp){
+												        	$.ajax({
+												      	  	  type: 'delete',
+												      	        url:"/cart/rest/deleteAll/"+member_id,
+												      	        dataType:"json",
+												      	        async: false,
+												      	        success : function(resp){
+												      	        	$.ajax({
+												      	        		type:"post",
+												      	        		url:"/coupon/rest/update/"+coupon_id
+												      	        	})
+												      	        }
+												      	    }).done(function(resp){
+												      	    	$.ajax({
+											      	        		type:"post",
+											      	        		url:"/point/rest/"+member_id+"/"+pointSum
+											      	        	})
+												      	    	//location.replace("/pay/rest/confirm?receipt_id="+data.receipt_id);
+												      	    	location.href ="/";
+												      	    	return false;
+												      	    })
+													    }
+													        
+													})
+										 		}
+										 	}
+										 	
+			  		    	 
 						  		    	 BootPay.request({
 												price: document.getElementById("totalPrice").value, //실제 결제되는 가격
 												application_id: "61eab9c3e38c3000227b8107",
 												name: document.getElementById("item").innerHTML + '외', //결제창에서 보여질 이름
 												pg: 'nicepay',
-												method: 'card', //결제수단, 입력하지 않으면 결제수단 선택부터 화면이 시작합니다.
+												method: 'card',//결제수단, 입력하지 않으면 결제수단 선택부터 화면이 시작합니다.
 												show_agree_window: 0, // 부트페이 정보 동의 창 보이기 여부
 												
 												order_id: order_id, //고유 주문번호로, 생성하신 값을 보내주셔야 합니다.
@@ -376,6 +430,9 @@
 											}).done(function (data) {
 												//결제가 정상적으로 완료되면 수행됩니다
 												//비즈니스 로직을 수행하기 전에 결제 유효성 검증을 하시길 추천합니다.
+											}).done(function (data) {
+												//결제가 정상적으로 완료되면 수행됩니다
+												//비즈니스 로직을 수행하기 전에 결제 유효성 검증을 하시길 추천합니다.
 												$.ajax({
 												  	  type: 'post',
 												        url:'/purchaseDetail/rest/insertPurchaseDetail/',
@@ -396,7 +453,10 @@
 											      	        	})
 											      	        }
 											      	    }).done(function(resp){
-											      	    	
+											      	    	$.ajax({
+										      	        		type:"post",
+										      	        		url:"/point/rest/"+member_id+"/"+pointSum
+										      	        	})
 											      	    	//location.replace("/pay/rest/confirm?receipt_id="+data.receipt_id);
 											      	    	location.replace("/pay/confirm?receipt_id="+data.receipt_id);
 											      	    })
@@ -410,13 +470,6 @@
 						  		     })
 						        }
 						     })
-					}
-
-						 
-						 
-									 	
-						 
-						 
-					
+					}			
 				 })
 				</script>

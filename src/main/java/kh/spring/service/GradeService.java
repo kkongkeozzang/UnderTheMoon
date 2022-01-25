@@ -23,4 +23,20 @@ public class GradeService {
 	public List<GradeDTO> selectGradeTarget(){
 		return gradeDAO.selectGradeTarget();
 	}
+	
+	public int insertGrade(GradeDTO grades){
+		return gradeDAO.insertGrade(grades);
+	}
+	
+	public int deleteGrade(String grade_name){
+		return gradeDAO.deleteGrade(grade_name);
+	}
+	
+	public int updateGrade(GradeDTO grades){
+		return gradeDAO.updateGrade(grades);
+	}
+	
+	public int checkGrade(String grade_name){
+		return gradeDAO.checkGrade(grade_name);
+	}
 }

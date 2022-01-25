@@ -250,7 +250,11 @@
 						coupon_id = $(this).closest("#select-container").find("#coupon").val().substring($('#coupon').val().indexOf('|')+1);
 					 	let totalPrice_int = Number(totalPrice);
 					 	let coupon_price = Number(coupon_discount_rate);
-					 	$("#totalPrice").val(totalPrice_int-coupon_price);
+					 	if(totalPrice_int-coupon_price<0) {
+					 		$("#totalPrice").val(0);
+					 	} else {
+					 		$("#totalPrice").val(totalPrice_int-coupon_price);
+					 	}
 					 }) 
 					 
 					 
@@ -330,7 +334,15 @@
 										</c:forEach>
 												 
 										 	console.log(purchaseDetailArray);  
-			  		    	 
+			  		    	 		 	// if 100원 이하일때
+			  		    	 		 	
+			  		    	 		 		//confirm(결제 하시겠습니까?) = 0원
+			  		    	 		 		// 확인 -> 결제 성공
+			  		    	 		 		
+			  		    	 		 		// 아니오 -> 기존페이지 남아있기
+			  		    	 		 	// 0원을 안만들면
+			  		    	 		 	
+			  		    	 		 	// if 100원 이상일때 결제값이
 						  		    	 BootPay.request({
 												price: document.getElementById("totalPrice").value, //실제 결제되는 가격
 												application_id: "61eab9c3e38c3000227b8107",

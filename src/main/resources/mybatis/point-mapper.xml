@@ -24,4 +24,8 @@
   <select id="insertNotInputEvent">
   	insert into point values(point_id_seq.nextval,'0','이벤트 미입력',default,#{value})
   </select>
+  
+  <insert id="insertUsedPoint">
+     insert into point values(point_id_seq.nextval,-#{pointSum},'Used Points',default,#{member_id})
+  </insert>
   </mapper>

@@ -106,7 +106,7 @@
 				</div>
 				<div class="form-group">
 					    <label for="recipient_phone">받는사람 번호:</label>
-					    <input id="recipient_phone" type="text" class="form-control" value="${member.member_phone}"  readonly>
+					    <input id="recipient_phone" type="text" class="form-control" value="${member.member_phone}" >
 				</div>
 				<div class="form-group">
 					    <label for="address">배송지:</label>
@@ -250,13 +250,17 @@
 					 
 				//결제API
 				$("body").on("click","#purchase",function(){
-					
+					var regExp = /^(01[016789]{1}|02|0[3-9]{1}[0-9]{1})-?[0-9]{3,4}-?[0-9]{4}$/;
 					// 정보 동의 안하면 결제 진행 막기
 					if($("#agree").is(":checked") == false){
 					    alert("결제 진행을 위해 정보수집ㆍ이용 동의에 체크해주세요.");
 					    return false;
-					// 상세주소가 null이면 경고 띄우기
-					} else if($("#roadAddress2").val() == "") {
+					//핸드폰 유효성검사.
+					}else if(!regExp.test($("#recipient_phone").val())){
+						alert("폰번호를 올바르게 입력해주세요..");
+						return false;
+						// 상세주소가 null이면 경고 띄우기
+					}else if($("#roadAddress2").val() == "") {
 						alert("상세 주소를 입력해주세요.");
 						return false;
 					} else {

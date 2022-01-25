@@ -21,7 +21,9 @@
     <!-- Page Wrapper -->
     <div id="wrapper">
 
-        <jsp:include page="sellerSideBar.jsp"></jsp:include>
+        <!-- Sidebar -->
+        <jsp:include page="adminSideBar.jsp"></jsp:include>
+		<!-- End of Sidebar -->
 
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
@@ -29,9 +31,9 @@
             <!-- Main Content -->
             <div id="content">
 
-                <!-- Topbar -->
-				<jsp:include page="sellerTopBar.jsp"></jsp:include>
-				<!-- End of Topbar -->
+            <!-- Topbar -->
+			<jsp:include page="adminTopBar.jsp"></jsp:include>
+			<!-- End of Topbar -->
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid">

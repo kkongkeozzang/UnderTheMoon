@@ -120,25 +120,29 @@
 			<!-- 사용자정보 및 배송지끝.. -->
 			
 			<!-- 쿠폰선택자. -->
-               <div id="select-container">
-                   <select id="coupon" class="form-select" >
-                   <c:choose>
-                   <c:when test="${fn:length(coupons)== 0}">
-                     <option value="0">사용 가능한 쿠폰이 없습니다.</option>
-                  </c:when>
-                  <c:otherwise>
-                     <option value="0">사용할 쿠폰을 선택해주세요. 총 ${fn:length(coupons)}장</option>
-                      <c:forEach var="coupon" items="${coupons }">
-                       <option value="${coupon.coupon_discount_rate}|${coupon.coupon_id}">${coupon.coupon_name} ${coupon.coupon_discount_rate }</option>
-                       </c:forEach>
-                  </c:otherwise>
-                  </c:choose>
-                  </select><br><br>
-               </div>      
-         <!-- 쿠폰선택자. -->
+					<div id="select-container">
+						 <select id="coupon" class="form-select" >
+						 <c:choose>
+						 <c:when test="${fn:length(coupons)== 0}">
+							<option value="0|0">사용 가능한 쿠폰이 없습니다.</option>
+						</c:when>
+						<c:otherwise>
+							<option value="0|0">사용할 쿠폰을 선택해주세요. 총 ${fn:length(coupons)}장</option>
+							 <c:forEach var="coupon" items="${coupons }">
+							  <option value="${coupon.coupon_discount_rate}|${coupon.coupon_id}">${coupon.coupon_name} ${coupon.coupon_discount_rate }</option>
+							  </c:forEach>
+						</c:otherwise>
+						</c:choose>
+						</select><br><br>
+					</div>		
+			<!-- 쿠폰선택자. -->
 			
 			<!-- 전릭금.선택자. -->
+<<<<<<< HEAD
 						  <label for="point" class="mr-sm-2">적립금:</label><span id="point"> ${ pointSum}</span>
+=======
+						  <label for="point" class="mr-sm-2">적립금: ${ pointSum} </label>
+>>>>>>> d221c285ff187136f80688ed0e193c8add228896
 						  <input type="text" id="point-input" class="form-control mb-2 mr-sm-2" value=0 id="pointSum">
 						  <button id="point-btn"type="button" class="btn btn-primary mb-2">적립금전체사용</button><br><br>
 			<!-- 전릭금.선택자. -->		
@@ -188,6 +192,9 @@
 
 					<script>
 					//주소 api
+					 let coupon_discount_rate = 0;
+					 let coupon_id = 0;
+					 let totalPrice = $("#totalPrice").val();
 					 document.getElementById("addressSearch").onclick = function(){
 					        new daum.Postcode({
 					            oncomplete: function(data) {                                 
@@ -254,6 +261,7 @@
 						 
 						 let totalPrice = $("#totalPrice").val();
 							let totalPrice_int = Number(totalPrice);
+<<<<<<< HEAD
 						 
 						 if(clickCount%2==1){
 							 let pointSum = $("#point-input").val();
@@ -275,20 +283,34 @@
 					 })   
 					
 					 //쿠폰사용액계산..
-					  $("body").on("change","#coupon",function(){
-						   
-						 let totalPrice = $("#amount").val();
-						 let totalPrice_int = Number(totalPrice);
-						 console.log(totalPrice_int);
-						 
-						/*  let coupon = $("#coupon").value(); */
-						 let coupon = $(this).closest("#select-container").find("#coupon").val()
-						 let coupon_int = Number(coupon);
-						 console.log(coupon_int);
-						 
-						 $("#totalPrice").val(totalPrice_int-(totalPrice_int*(coupon_int/100))); 
-									
+=======
+							
+						 $("#totalPrice").val(totalPrice_int-pointSum_int); 
 					 }) 
+					 
+					 //select 클릭 시 결제금액 초기화
+					 $("body").on("change","#coupon",function(){
+						coupon_discount_rate = 0;
+					 	let totalPrice_int = Number(totalPrice);
+					 	let coupon_price = Number(coupon_discount_rate);
+					 	$("#totalPrice").val(totalPrice_int-coupon_price);
+					 }) 
+					 
+					 //쿠폰 사용후 결제금액 갱신
+					 
+>>>>>>> d221c285ff187136f80688ed0e193c8add228896
+					  $("body").on("change","#coupon",function(){
+						coupon_discount_rate = $(this).closest("#select-container").find("#coupon").val().substring(0,$('#coupon').val().indexOf('|'));
+						coupon_id = $(this).closest("#select-container").find("#coupon").val().substring($('#coupon').val().indexOf('|')+1);
+					 	let totalPrice_int = Number(totalPrice);
+					 	let coupon_price = Number(coupon_discount_rate);
+					 	if(totalPrice_int-coupon_price<0) {
+					 		$("#totalPrice").val(0);
+					 	} else {
+					 		$("#totalPrice").val(totalPrice_int-coupon_price);
+					 	}
+					 }) 
+					 
 					 
 				//결제API
 				$("body").on("click","#purchase",function(){
@@ -321,7 +343,7 @@
 									purchase_amount: ${ totalPrice},
 									purchase_delivery_fee: '3000',
 									purchase_used_point: $("#point-input").val(),
-									purchase_coupon: $("#coupon option:selected").val(),
+									purchase_coupon: coupon_discount_rate,
 									purchase_payment: $("#totalPrice").val(),
 									purchase_method: 'card'
 						 };
@@ -366,7 +388,15 @@
 										</c:forEach>
 												 
 										 	console.log(purchaseDetailArray);  
-			  		    	 
+			  		    	 		 	// if 100원 이하일때
+			  		    	 		 	
+			  		    	 		 		//confirm(결제 하시겠습니까?) = 0원
+			  		    	 		 		// 확인 -> 결제 성공
+			  		    	 		 		
+			  		    	 		 		// 아니오 -> 기존페이지 남아있기
+			  		    	 		 	// 0원을 안만들면
+			  		    	 		 	
+			  		    	 		 	// if 100원 이상일때 결제값이
 						  		    	 BootPay.request({
 												price: document.getElementById("totalPrice").value, //실제 결제되는 가격
 												application_id: "61eab9c3e38c3000227b8107",
@@ -408,21 +438,27 @@
 												        dataType:"json",
 												        async: false,
 												        success : function(resp){
-												    
-												        	$.ajax({
-												      	  	  type: 'delete',
-												      	        url:"/cart/rest/deleteAll/"+member_id,
-												      	        dataType:"json",
-												      	        async: false     
-												      	     }).done(function(resp){
-												      	    	
-												      	    	location.replace("/pay/confirm?receipt_id="+data.receipt_id);
-												      	    	 
-												      	   })
-												        }
+											        	$.ajax({
+											      	  	  type: 'delete',
+											      	        url:"/cart/rest/deleteAll/"+member_id,
+											      	        dataType:"json",
+											      	        async: false,
+											      	        success : function(resp){
+											      	        	$.ajax({
+											      	        		type:"post",
+											      	        		url:"/coupon/rest/update/"+coupon_id
+											      	        	})
+											      	        }
+											      	    }).done(function(resp){
+											      	    	
+											      	    	//location.replace("/pay/rest/confirm?receipt_id="+data.receipt_id);
+											      	    	location.replace("/pay/confirm?receipt_id="+data.receipt_id);
+											      	    })
+												    }
 												        
 												})
-												console.log(data);
+														
+														
 											});
 						  		    		
 						  		     })

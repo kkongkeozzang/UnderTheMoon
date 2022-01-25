@@ -61,4 +61,8 @@
   	select * from (select * from (select target.*, row_number() over(order by coupon_id desc) rn from 
   	(select * from coupon where member_id = #{member_id}) target)) where rn between #{start} and #{end}
   </select>	
+  
+  <update id="updateCouponUsed">
+  	update coupon set coupon_used_yn = 'Y' where coupon_id = #{value}
+  </update>
   </mapper>

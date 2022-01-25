@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>셀러오피스</title>
+<title>어드민오피스</title>
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.1/dist/chart.min.js"></script>
 <link href="/resources/admin/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -26,7 +26,7 @@
     <div id="wrapper">
 
         <!-- Sidebar -->
-        <jsp:include page="sellerSideBar.jsp"></jsp:include>
+        <jsp:include page="adminSideBar.jsp"></jsp:include>
 		<!-- End of Sidebar -->
 
         <!-- Content Wrapper -->
@@ -36,7 +36,7 @@
             <div id="content">
             
 			<!-- Topbar -->
-			<jsp:include page="sellerTopBar.jsp"></jsp:include>
+			<jsp:include page="adminTopBar.jsp"></jsp:include>
 			<!-- End of Topbar -->
 
                 <!-- Begin Page Content -->
@@ -53,7 +53,7 @@
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
-	                            <form action="/seller/insertGrade" method="post" id=submit-grade>
+	                            <form action="/admin/insertGrade" method="post" id=submit-grade>
 	                            	<table id=input-new style="display:none;">
 	                            		<tr>
 	                            			<th width=20%>항목
@@ -124,7 +124,7 @@
                                     <tbody>
 									<c:forEach var="grades" items="${grades}">
                                         <tr>
-                                        <form action="/seller/updateGrade" method="post" id="upgrade${grades.grade_name}">
+                                        <form action="/admin/updateGrade" method="post" id="upgrade${grades.grade_name}">
                                             <td>${grades.grade_name}<input type=hidden value=${grades.grade_name } name=grade_name>
                                             <td style="font-size:0em;color: white;">${grades.grade_percent }<input type=text value='${grades.grade_percent }' id="grade_percent${grades.grade_name}" name=grade_percent style="font-size:medium;color:black;border:none;width:100%;height:100%;overflow:auto;"  maxLength=10 readonly>
                                             <td style="font-size:0em;color: white;">${grades.grade_target }<input type=text value='${grades.grade_target }' id="grade_target${grades.grade_name}" name=grade_target style="font-size:medium;color:black;border:none;width:100%;height:100%;overflow:auto;"  maxLength=10 readonly>
@@ -174,6 +174,7 @@
                             				$("#grade_name").val("");
                                 			$("#grade_percent").val("");
                                 			$("#grade_target").val("");
+                                			$("#grade_coupon").val("");
                                 			$("#add").css("display","inline-block");
                                 			$("#insert").css("display","none");
                                 			$("#cancel").css("display","none");
@@ -222,7 +223,7 @@
                             		function del(element) { // 삭제버튼 클릭시
                             			if(confirm("정말 삭제하시겠습니까?")){
                             				let value = element.getAttribute("val");
-                            				location.href="/seller/deleteGrade?grade_name="+value;
+                            				location.href="/admin/deleteGrade?grade_name="+value;
                             			}
                             		}
                             		
@@ -250,7 +251,6 @@
                             				$("#grade_percent"+value).val(eval("bkPercent"+value));
                                 			$("#grade_target"+value).val(eval("bkTarget"+value));
                                 			$("#grade_coupon"+value).val(eval("bkCoupon"+value));
-
                             				$("#del"+value).css("display","inline-block");
                                 			$("#mod"+value).css("display","inline-block");
                                 			$("#update"+value).css("display","none");
@@ -295,7 +295,7 @@
                             		$(function(){
 										$("#check").on("click",function(){
 											$.ajax({
-												url: "/seller/checkGrade",
+												url: "/admin/checkGrade",
 												data:{grade_name:$("#grade_name").val()}
 											}).done(function(resp){
 												console.log(resp);
@@ -307,6 +307,7 @@
 											})
 										});
 									})
+
                             	</script>
                             </div>
                         </div>

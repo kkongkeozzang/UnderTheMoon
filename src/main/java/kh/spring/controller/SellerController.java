@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kh.spring.dto.GradeDTO;
+import kh.spring.dto.MdDTO;
 import kh.spring.service.SellerService;
 
 @RequestMapping("/seller/")
@@ -65,4 +66,25 @@ public class SellerController {
 		String result = Integer.toString(sellerService.checkGrade(grade_name));
 	    return result;
 	}
+	
+	@RequestMapping("md")
+	public String sellerMd(Model model) throws Exception {
+		List<MdDTO> mds = sellerService.selectAllMd();
+		model.addAttribute("mds", mds);
+	    return "/seller/sellerMd";
+	}
+	
+	@ResponseBody
+	@RequestMapping("checkMd")
+	public String checkMd(String md_name) throws Exception {
+		String result = Integer.toString(sellerService.checkMd(md_name));
+	    return result;
+	}
+	
+	@RequestMapping("insertMd")
+	public String insertMd(MdDTO mds) throws Exception {
+		int result = sellerService.insertMd(mds);
+	    return "redirect:/seller/md";
+	}
+
 }

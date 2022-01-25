@@ -80,6 +80,4 @@ private final SqlSessionTemplate mybatis;
 		return result;
 	}
 
-
-
 }

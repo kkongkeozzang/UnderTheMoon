@@ -148,7 +148,6 @@ public class PageNavigator {
 				}
 				if(needNext) {pageNavi += "<a href='/mypage/myPageCoupon?cPage="+(endNavi+1)+"'><button type='button' class='btn btn-outline-primary' style='background-color:#406882;color:white;float:center;'>></button></a>";}
 			}
-
 		}
 
 		return pageNavi;

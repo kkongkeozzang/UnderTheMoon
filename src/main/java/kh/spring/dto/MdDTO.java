@@ -9,6 +9,7 @@ public class MdDTO {
 	private String md_category;
 	private int md_abv;
 	private String md_image;
+	private String md_detail_image;
 	
 	public MdDTO() {
 		super();
@@ -73,9 +74,12 @@ public class MdDTO {
 	}
 	public void setMd_image(String md_image) {
 		this.md_image = md_image;
+	}	
+	public String getMd_detail_image() {
+		return md_detail_image;
 	}
-	
-	
-	
+	public void setMd_detail_image(String md_detail_image) {
+		this.md_detail_image = md_detail_image;
+	}
 }
 

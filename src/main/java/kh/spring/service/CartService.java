@@ -1,6 +1,7 @@
 package kh.spring.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
@@ -76,5 +77,7 @@ public class CartService {
 		Integer result = cartDAO.deleteAll(member_id);
 		return result;
 	}
+
+	
 
 }

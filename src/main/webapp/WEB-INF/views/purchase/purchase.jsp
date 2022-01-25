@@ -138,7 +138,7 @@
          <!-- 쿠폰선택자. -->
 			
 			<!-- 전릭금.선택자. -->
-						  <label for="point" class="mr-sm-2">적립금: ${ pointSum}</label>
+						  <label for="point" class="mr-sm-2">적립금:</label><span id="point"> ${ pointSum}</span>
 						  <input type="text" id="point-input" class="form-control mb-2 mr-sm-2" value=0 id="pointSum">
 						  <button id="point-btn"type="button" class="btn btn-primary mb-2">적립금전체사용</button><br><br>
 			<!-- 전릭금.선택자. -->		
@@ -199,10 +199,26 @@
 					 //적립금 전체사용.
 					 $("#point-btn").on("click",function(){
 						 
-						/*  $("#pointSum").attr('value', ${pointSum}); */
+						 $("#pointSum").attr('value', ${pointSum}); 
 						 $("#point-input").val(${pointSum}); 
 						 
 					 })
+					 
+					   //적립금 클릭 시 적립금 결제금액 초기화
+	                $("#point-input").on("focus",function(){
+	                
+	                   let current_point = $("#point-input").val();
+	                   let current_point_int = Number(current_point);
+	                   
+	                   let totalPrice = $("#totalPrice").val();
+						let	totalPrice_int = Number(totalPrice);
+	                   
+						 $("#totalPrice").val(totalPrice_int+current_point_int);
+	                   
+						   $("#point-input").val("");
+		                	
+                })  
+					 
 					 //적립금 직접입력..
 					$("#point-input").on("blur",function(){
 						 
@@ -210,28 +226,54 @@
 							let pointSum_int = Number(pointSum);
 							
 						let totalPrice = $("#totalPrice").val();
-							let totalPrice_int = Number(totalPrice);
+						let	totalPrice_int = Number(totalPrice);
 						
-							if(pointSum_int<=${pointSum}){
+						let point = $("#point").html();
+		                let point_int = Number(point);
+						
+		               	if(pointSum_int<0) {
+							$("#point-input").val(0); 
+						}else if(pointSum_int<=${pointSum}){
 							
 						 $("#totalPrice").val(totalPrice_int-pointSum_int); 
 						 
-						}else{
+						}else if (pointSum_int>${pointSum}){
 							$("#point-input").val(${pointSum}); 
+							 $("#totalPrice").val(totalPrice_int-point_int); 
+							
 						}
 					 }) 
-					 //적립금전체사용..
+					 
+					
+					   //적립금전체사용..
+					  let clickCount = 0;
+					 
 					 $("#point-btn").on("click",function(){
 						 
-						 let pointSum = $("#point-input").val();
-							let pointSum_int = Number(pointSum);
-							
-						let totalPrice = $("#totalPrice").val();
+						 clickCount++;
+						 
+						 let totalPrice = $("#totalPrice").val();
 							let totalPrice_int = Number(totalPrice);
-							
-						 $("#totalPrice").val(totalPrice_int-pointSum_int); 
-					 }) 
-					 
+						 
+						 if(clickCount%2==1){
+							 let pointSum = $("#point-input").val();
+								let pointSum_int = Number(pointSum);
+								
+							 $("#totalPrice").val(totalPrice_int-pointSum_int); 
+							 
+						 }else if(clickCount%2==0){
+							 let current_point = $("#point-input").val();
+			                   let current_point_int = Number(current_point);
+			                   
+								 $("#totalPrice").val(totalPrice_int+current_point_int);
+			                   
+								 $("#point-input").val("");
+				                	
+				                	
+						 }
+						 
+					 })   
+					
 					 //쿠폰사용액계산..
 					  $("body").on("change","#coupon",function(){
 						   
@@ -330,7 +372,7 @@
 												application_id: "61eab9c3e38c3000227b8107",
 												name: document.getElementById("item").innerHTML + '외', //결제창에서 보여질 이름
 												pg: 'nicepay',
-												method: 'card', //결제수단, 입력하지 않으면 결제수단 선택부터 화면이 시작합니다.
+												method: 'card',//결제수단, 입력하지 않으면 결제수단 선택부터 화면이 시작합니다.
 												show_agree_window: 0, // 부트페이 정보 동의 창 보이기 여부
 												
 												order_id: order_id, //고유 주문번호로, 생성하신 값을 보내주셔야 합니다.

@@ -255,6 +255,10 @@ $(document).ready(function(){
 	                    <td><input type="text" id="point-input" class="addBtn form-control mb-2 mr-sm-2" value=0 id="pointSum">
 	                    <button id="point-btn"type="button" class="btn btn-primary mb-2">적립금전체사용</button>
 	                    </td></tr>
+	                    <tr><td>
+	                    <td><span id="point">사용 가능한 적립금 : ${ pointSum} 원</span>
+	                    </td></tr>
+	                    
            			</table>
 
 					<h3>결제 수단</h3><hr>
@@ -303,7 +307,7 @@ $(document).ready(function(){
 										<dl class="amount">
 											<dt class="tit">적립금사용</dt>
 											<dd class="price">
-												<span class="num pay_sum" id="paper_reserves">0 원</span>
+												<span id="point-num">0 </span>원
 											</dd>
 										</dl>
 										<dl class="amount lst">
@@ -321,20 +325,6 @@ $(document).ready(function(){
 									</div>
 								</div>
 							</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 						</div>
 					</div>
 				</div>
@@ -343,9 +333,7 @@ $(document).ready(function(){
 			<table>
 				<tr><td><div class="row">
 	                <input id="agree" type="checkbox"><a href="#popup1">정보수집ㆍ이용</a> 동의(필수)
-				    
 	            </div>
-	            
 	            </td></tr>
             </table>
             <hr>
@@ -354,12 +342,11 @@ $(document).ready(function(){
 					 <button type="button" id="purchase" class="btn btn-success">
 						결제하기
 					</button>
-					
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-</div>
 	<div style="height:500px"></div>
 	<div id="popup1" class="overlay">
 	                    <div class="popup">
@@ -385,57 +372,69 @@ $(document).ready(function(){
 				    </div>
   </body>
   
-<script>
-					//주소 api
+				<script>
 					let deliveryFee = 2500;
 					let initialTotalPrice = Number($("#productsTotalPrice").text()) + deliveryFee;  	
 					$("#totalPrice").text(initialTotalPrice);
+					let TotalPriceMinusPoint = 0;
 					let coupon_discount_rate = 0;
 					let coupon_id = 0;
 					 
+					//주소 api
 					document.getElementById("addressSearch").onclick = function(){
-					       new daum.Postcode({
-					           oncomplete: function(data) {                                 
-					               /* document.getElementById('postcode').value = data.zonecode; */
-					               document.getElementById("roadAddress").value = data.roadAddress;                   
-					           }            
-					       }).open();
-					   }
-					//적립금 전체사용.
-					$("#point-btn").on("click",function(){
-						 
-						/*  $("#pointSum").attr('value', ${pointSum}); */
-						$("#point-input").val(${pointSum}); 
-						 
-					})
-					 //적립금 직접입력..
+				       new daum.Postcode({
+				           oncomplete: function(data) {                                 
+				               /* document.getElementById('postcode').value = data.zonecode; */
+				               document.getElementById("roadAddress").value = data.roadAddress;                   
+				           }            
+				       }).open();
+				   	}
+					 
+					 
+					//적립금 직접입력..
 					$("#point-input").on("blur",function(){
-						 
-						 let pointSum = $("#point-input").val();
-							let pointSum_int = Number(pointSum);
-							
-						let totalPrice = $("#totalPrice").val();
-							let totalPrice_int = Number(totalPrice);
+						let pointSum = $("#point-input").val();
+						let pointSum_int = Number(pointSum);
+						console.log(pointSum);
 						
-							if(pointSum_int<=${pointSum}){
-							
-						 $("#totalPrice").val(totalPrice_int-pointSum_int); 
-						 
-						}else{
+						let point = $("#point").text();
+			            let point_int = Number(point);
+						
+		            	if(pointSum_int<0) {
+							$("#point-input").val(0); 
+							totalPriceMinusPoint = initialTotalPrice;
+						}else if(pointSum_int<=${pointSum}){
+							$("#point-num").text("- " + pointSum_int + " "); 
+							totalPriceMinusPoint = initialTotalPrice - pointSum_int;
+						}else if (pointSum_int>${pointSum}){
 							$("#point-input").val(${pointSum}); 
+							$("#point-num").text("- " + ${pointSum} + " "); 
+							totalPriceMinusPoint = initialTotalPrice - Number(${pointSum});
 						}
+		            	// 최종 결제금액 갱신
+		            	$("#totalPrice").text(totalPriceMinusPoint);
 					 }) 
-					 //적립금전체사용..
-					 $("#point-btn").on("click",function(){
-						 
-						 let pointSum = $("#point-input").val();
-							let pointSum_int = Number(pointSum);
-							
-						let totalPrice = $("#totalPrice").val();
-							let totalPrice_int = Number(totalPrice);
-							
-						 $("#totalPrice").val(totalPrice_int-pointSum_int); 
-					 }) 
+					 
+					
+					//적립금전체사용..
+					$("#point-btn").on("click",function(){
+					    if( $("#point-input").val()=="" || $("#point-input").val()==0){
+							$("#point-input").val(${pointSum}); 
+							$("#point-num").text("- " + ${pointSum} + " ");
+							totalPriceMinusPoint = initialTotalPrice - Number(${pointSum}); 
+					    }else if($("#point-input").val()==${pointSum}){
+					    	totalPriceMinusPoint = initialTotalPrice; 
+							$("#point-input").val(0); 	
+							$("#point-num").text(0);
+						}else{
+							$("#point-num").text("- " + ${pointSum} + " ");
+					    	$("#point-input").val(${pointSum});
+					    	totalPriceMinusPoint = initialTotalPrice - Number(${pointSum}); 
+					    	console.log(totalPriceMinusPoint);
+					    }
+					 	// 최종 결제금액 갱신
+		            	$("#totalPrice").text(totalPriceMinusPoint);	
+					})      										 
 					 
 					 //쿠폰 사용후 결제금액 갱신
 					  $("body").on("change","#coupon",function(){
@@ -531,91 +530,118 @@ $(document).ready(function(){
 											})
 										</c:forEach>
 												 
-										 	console.log(purchaseDetailArray);  
-			  		    	 		 	// if 100원 이하일때
-			  		    	 		 	
-			  		    	 		 		//confirm(결제 하시겠습니까?) = 0원
-			  		    	 		 		// 확인 -> 결제 성공
-			  		    	 		 		
-			  		    	 		 		// 아니오 -> 기존페이지 남아있기
-			  		    	 		 	// 0원을 안만들면
-			  		    	 		 	
-			  		    	 		 	// if 100원 이상일때 결제값이
-						  		    	 BootPay.request({
-												price: document.getElementById("totalPrice").innerHTML, //실제 결제되는 가격
-												application_id: "61eab9c3e38c3000227b8107",
-												name: document.getElementById("item").innerHTML + '외', //결제창에서 보여질 이름
-												pg: 'nicepay',
-												method: 'card', //결제수단, 입력하지 않으면 결제수단 선택부터 화면이 시작합니다.
-												show_agree_window: 0, // 부트페이 정보 동의 창 보이기 여부
-												
-												order_id: order_id, //고유 주문번호로, 생성하신 값을 보내주셔야 합니다.
-												
-											}).error(function (data) {
-												//결제 진행시 에러가 발생하면 수행됩니다.
-												console.log(data);
-											}).cancel(function (data) {
-												//결제가 취소되면 수행됩니다.
-												$.ajax({
-												  	  type: 'delete',
-												        url:'/purchase/rest/deleteId/'+delivery_id+"/"+order_id,
-												        contentType:"application/json;charset=utf-8",
-												        dataType:"json",
-												        async: false     
-												})
-												console.log(data);
-											}).ready(function (data) {
-												// 가상계좌 입금 계좌번호가 발급되면 호출되는 함수입니다.
-												console.log(data);
-											}).close(function (data) {
-											    // 결제창이 닫힐때 수행됩니다. (성공,실패,취소에 상관없이 모두 수행됨)
-											    
-											    console.log(data);
-											}).done(function (data) {
-												//결제가 정상적으로 완료되면 수행됩니다
-												//비즈니스 로직을 수행하기 전에 결제 유효성 검증을 하시길 추천합니다.
-												$.ajax({
-												  	  type: 'post',
-												        url:'/purchaseDetail/rest/insertPurchaseDetail/',
-												        data: JSON.stringify(purchaseDetailArray), 	
-												        contentType:"application/json;charset=utf-8",
-												        dataType:"json",
-												        async: false,
-												        success : function(resp){
-											        	$.ajax({
-											      	  	  type: 'delete',
-											      	        url:"/cart/rest/deleteAll/"+member_id,
-											      	        dataType:"json",
-											      	        async: false,
-											      	        success : function(resp){
-											      	        	$.ajax({
+										 	let pointSum = $("#point-input").val();
+										 	console.log(totalPrice);
+										 	if(totalPrice=='0'){
+										 		
+										 		//0원일경우..
+										 		if(confirm("결제하시겠씁니까?")){
+										 			$.ajax({
+													  	  type: 'post',
+													        url:'/purchaseDetail/rest/insertPurchaseDetail/',
+													        data: JSON.stringify(purchaseDetailArray), 	
+													        contentType:"application/json;charset=utf-8",
+													        dataType:"json",
+													        async: false,
+													        success : function(resp){
+												        	$.ajax({
+												      	  	  type: 'delete',
+												      	        url:"/cart/rest/deleteAll/"+member_id,
+												      	        dataType:"json",
+												      	        async: false,
+												      	        success : function(resp){
+												      	        	$.ajax({
+												      	        		type:"post",
+												      	        		url:"/coupon/rest/update/"+coupon_id
+												      	        	})
+												      	        }
+												      	    }).done(function(resp){
+												      	    	$.ajax({
 											      	        		type:"post",
-											      	        		url:"/coupon/rest/update/"+coupon_id
+											      	        		url:"/point/rest/"+member_id+"/"+pointSum
 											      	        	})
-											      	        }
-											      	    }).done(function(resp){
-											      	    	
-											      	    	//location.replace("/pay/rest/confirm?receipt_id="+data.receipt_id);
-											      	    	location.replace("/pay/confirm?receipt_id="+data.receipt_id);
-											      	    })
-												    }
-												        
-												})
-														
-														
-											});
-						  		    		
+												      	    	//location.replace("/pay/rest/confirm?receipt_id="+data.receipt_id);
+												      	    	location.href ="/";
+												      	    	return false;
+												      	    })
+													    }
+													        
+													})
+										 		}
+										 	} else {
+										 		
+										 		BootPay.request({
+													price: document.getElementById("totalPrice").innerHTML, //실제 결제되는 가격
+													application_id: "61eab9c3e38c3000227b8107",
+													name: document.getElementById("item").innerHTML + '외', //결제창에서 보여질 이름
+													pg: 'nicepay',
+													method: 'card',//결제수단, 입력하지 않으면 결제수단 선택부터 화면이 시작합니다.
+													show_agree_window: 0, // 부트페이 정보 동의 창 보이기 여부
+													
+													order_id: order_id, //고유 주문번호로, 생성하신 값을 보내주셔야 합니다.
+													
+												}).error(function (data) {
+													//결제 진행시 에러가 발생하면 수행됩니다.
+													console.log(data);
+												}).cancel(function (data) {
+													//결제가 취소되면 수행됩니다.
+													$.ajax({
+													  	  type: 'delete',
+													        url:'/purchase/rest/deleteId/'+delivery_id+"/"+order_id,
+													        contentType:"application/json;charset=utf-8",
+													        dataType:"json",
+													        async: false     
+													})
+													console.log(data);
+												}).ready(function (data) {
+													// 가상계좌 입금 계좌번호가 발급되면 호출되는 함수입니다.
+													console.log(data);
+												}).close(function (data) {
+												    // 결제창이 닫힐때 수행됩니다. (성공,실패,취소에 상관없이 모두 수행됨)
+												    
+												    console.log(data);
+												}).done(function (data) {
+													//결제가 정상적으로 완료되면 수행됩니다
+													//비즈니스 로직을 수행하기 전에 결제 유효성 검증을 하시길 추천합니다.
+												}).done(function (data) {
+													//결제가 정상적으로 완료되면 수행됩니다
+													//비즈니스 로직을 수행하기 전에 결제 유효성 검증을 하시길 추천합니다.
+													$.ajax({
+													  	  type: 'post',
+													        url:'/purchaseDetail/rest/insertPurchaseDetail/',
+													        data: JSON.stringify(purchaseDetailArray), 	
+													        contentType:"application/json;charset=utf-8",
+													        dataType:"json",
+													        async: false,
+													        success : function(resp){
+												        	$.ajax({
+												      	  	  type: 'delete',
+												      	        url:"/cart/rest/deleteAll/"+member_id,
+												      	        dataType:"json",
+												      	        async: false,
+												      	        success : function(resp){
+												      	        	$.ajax({
+												      	        		type:"post",
+												      	        		url:"/coupon/rest/update/"+coupon_id
+												      	        	})
+												      	        }
+												      	    }).done(function(resp){
+												      	    	$.ajax({
+											      	        		type:"post",
+											      	        		url:"/point/rest/"+member_id+"/"+pointSum
+											      	        	})
+												      	    	//location.replace("/pay/rest/confirm?receipt_id="+data.receipt_id);
+												      	    	location.replace("/pay/confirm?receipt_id="+data.receipt_id);
+												      	    })
+													    }
+													        
+													})
+												});
+										 	}
 						  		     })
 						        }
 						     })
-					}
-
-						 
-						 
-									 	
-						 
-						 
-					
+					}			
 				 })
 				</script>
   

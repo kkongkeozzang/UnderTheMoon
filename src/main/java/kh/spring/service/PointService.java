@@ -34,7 +34,7 @@ public class PointService {
 	   Integer member_id = memberDAO.selectIdByUsername(username);
 	   
 	   Integer result = pointDAO.selectPointById(member_id);
-	   
+	   System.out.println(member_id+result);
 	   Optional<Integer> op = Optional.ofNullable(result);
 	   
 	   return op;
@@ -48,4 +48,9 @@ public class PointService {
    public Integer insertNotInputEvent(Integer id) {
 	   return pointDAO.insertNotInputEvent(id);
    }
+
+public Integer insertUsedPoint(Integer member_id, Integer pointSum) {
+	
+	return  pointDAO.insertUsedPoint(member_id,pointSum);
+}
 }

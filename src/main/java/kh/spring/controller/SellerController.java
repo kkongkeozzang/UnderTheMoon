@@ -45,6 +45,19 @@ public class SellerController {
 	    return "redirect:/seller/md";
 	}
 	
+	@RequestMapping("deleteMd")
+	public String deleteMd(int md_id) throws Exception {
+		int result = mdService.deleteMd(md_id);
+	    return "redirect:/seller/md";
+	}
+	
+	
+	@RequestMapping("updateMd")
+	public String updateMd(MdDTO mds) throws Exception {
+		int result = mdService.updateMd(mds);
+	    return "redirect:/seller/md";
+	}
+	
 //	@RequestMapping("grade")
 //	public String sellerGrade(Model model) throws Exception {
 //		List<GradeDTO> grades = mdService.selectAllGrade();
@@ -55,18 +68,6 @@ public class SellerController {
 //	@RequestMapping("insertGrade")
 //	public String insertGrade(GradeDTO grades) throws Exception {
 //		int result = mdService.insertGrade(grades);
-//	    return "redirect:/seller/grade";
-//	}
-//	
-//	@RequestMapping("deleteGrade")
-//	public String deleteGrade(String grade_name) throws Exception {
-//		int result = mdService.deleteGrade(grade_name);
-//	    return "redirect:/seller/grade";
-//	}
-//	
-//	@RequestMapping("updateGrade")
-//	public String updateGrade(GradeDTO grades) throws Exception {
-//		int result = mdService.updateGrade(grades);
 //	    return "redirect:/seller/grade";
 //	}
 //	

@@ -77,6 +77,13 @@ private final SqlSessionTemplate mybatis;
 		return mybatis.insert("Md.insertMd", mds);
 	}
 	
+	public int deleteMd(int md_id) {
+		return mybatis.delete("Md.deleteMd", md_id);
+	}
+	
+	public int updateMd(MdDTO mds) {
+		return mybatis.update("Md.updateMd", mds);
+	}
 }
 
 

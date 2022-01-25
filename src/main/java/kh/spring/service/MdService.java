@@ -52,4 +52,11 @@ public class MdService {
 		return mdDAO.insertMd(mds);
 	}
 	
+	public int deleteMd(int md_id){
+		return mdDAO.deleteMd(md_id);
+	}
+	
+	public int updateMd(MdDTO mds){
+		return mdDAO.updateMd(mds);
+	}
 }

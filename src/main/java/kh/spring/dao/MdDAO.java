@@ -7,6 +7,7 @@ import java.util.Map;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import kh.spring.dto.GradeDTO;
 import kh.spring.dto.MdDTO;
 
 @Repository
@@ -67,7 +68,14 @@ private final SqlSessionTemplate mybatis;
 	public List<MdDTO> selectSameRegionMdsExceptForSelectMd(String md_id) {
 		return mybatis.selectList("Md.selectSameRegionMdsExceptForSelectMd", md_id);
 	}
-
+	
+	public int checkMd(String md_name) {
+		return mybatis.selectOne("Md.checkMd", md_name);
+	}
+	
+	public int insertMd(MdDTO mds) {
+		return mybatis.insert("Md.insertMd", mds);
+	}
 	
 }
 

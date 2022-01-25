@@ -85,4 +85,12 @@
 		select * from md where md_id = #{md_id}
 	</select> -->
 	
+	<select id="checkMd" resultType="int">
+		select count(*) from md where md_name=#{md_name}
+	</select>
+	
+	<insert id="insertMd">
+		insert into md values(md_id_seq.nextval, #{md_region},#{md_name},#{md_content},#{md_price},#{md_category},#{md_abv},#{md_image},#{md_detail_image})
+	</insert>
+	
 </mapper>

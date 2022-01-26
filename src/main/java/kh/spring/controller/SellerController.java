@@ -69,5 +69,9 @@ public class SellerController {
 	    return "/seller/sellerPurchase";
 	}
 	
-
+	@RequestMapping("deletePurchase")
+	public String deletePurchase(int purchase_id) throws Exception {
+		int result = purchaseService.deletePurchase(purchase_id);
+	    return "redirect:/seller/purchase";
+	}
 }

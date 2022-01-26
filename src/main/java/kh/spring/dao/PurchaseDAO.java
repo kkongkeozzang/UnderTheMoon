@@ -54,4 +54,8 @@ private final SqlSessionTemplate mybatis;
 	public List<PurchaseDTO> selectAll(){
 		return mybatis.selectList("Purchase.selectAll");
 	}
+	
+	public int deletePurchase(int purchase_id){
+		return mybatis.delete("Purchase.selectAll",purchase_id);
+	}
 }

@@ -57,4 +57,7 @@ public class PurchaseService {
 	public List<PurchaseDTO> selectAll(){
 		return purchaseDAO.selectAll();
 	}
+	public int deletePurchase(int purchase_id){
+		return purchaseDAO.deletePurchase(purchase_id);
+	}
 }

@@ -8,16 +8,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kh.spring.dto.GradeDTO;
+import kh.spring.dto.MemberDTO;
 import kh.spring.service.GradeService;
+import kh.spring.service.MemberService;
 
 @RequestMapping("/admin/")
 @Controller
 public class AdminController {
 	
 	private final GradeService gradeService;
+	private final MemberService memberService;
 	
-	public AdminController(GradeService gradeService) {
+	public AdminController(GradeService gradeService, MemberService memberService) {
 		this.gradeService = gradeService;
+		this.memberService = memberService;
 	}
 	
 	@RequestMapping("adminOffice")
@@ -26,7 +30,7 @@ public class AdminController {
 	}
 	
 	@RequestMapping("grade")
-	public String sellerGrade(Model model) throws Exception {
+	public String adminGrade(Model model) throws Exception {
 		List<GradeDTO> grades = gradeService.selectAll();
 		model.addAttribute("grades", grades);
 	    return "/admin/adminGrade";
@@ -55,6 +59,13 @@ public class AdminController {
 	public String checkGrade(String grade_name, Model model) throws Exception {
 		String result = Integer.toString(gradeService.checkGrade(grade_name));
 	    return result;
+	}
+	
+	@RequestMapping("member")
+	public String adminMember(Model model) throws Exception {
+		List<MemberDTO> members = memberService.selectAll();
+		model.addAttribute("members", members);
+		return "/admin/adminMember";
 	}
 	
 }

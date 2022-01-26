@@ -494,7 +494,6 @@ $(document).ready(function(){
                }) 
 
 					 
-					 
 				//결제API
 				$("body").on("click","#purchase",function(){
 					var regExp = /^(01[016789]{1}|02|0[3-9]{1}[0-9]{1})-?[0-9]{3,4}-?[0-9]{4}$/;
@@ -694,4 +693,3 @@ $(document).ready(function(){
 				</script>
   
 </html>
-

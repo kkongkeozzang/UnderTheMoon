@@ -1,6 +1,7 @@
 package kh.spring.dto;
 
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 
 public class MemberDTO {
 
@@ -144,7 +145,10 @@ public class MemberDTO {
 	      this.member_email = member_email;
 	   }
 
-	   
+	   public String getFormedDate() {
+			SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-dd");
+			return sdf.format(getMember_signup_date().getTime());
+	   }
 	   
 	   
 }

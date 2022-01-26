@@ -20,5 +20,8 @@ public class PurchaseDetailService {
 		
 		return purchaseDetailDAO.insertPurchaseDetails(purchseDetailList);
 	}
-
+	
+	public List<PurchaseDetailDTO> selectAll(){
+		return purchaseDetailDAO.selectAll();
+	}
 }

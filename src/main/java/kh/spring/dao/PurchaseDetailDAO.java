@@ -25,4 +25,8 @@ private final SqlSessionTemplate mybatis;
 		}
 		return result;
 	}
+	
+	public List<PurchaseDetailDTO> selectAll(){
+		return mybatis.selectList("PurchaseDetail.selectAll");
+	}
 }

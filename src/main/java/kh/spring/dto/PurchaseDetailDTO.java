@@ -20,6 +20,8 @@ public class PurchaseDetailDTO {
 	private String purchase_detail_cancel_sale;
 	private String purchase_detail_result;
 	private String purchase_detail_delivery_date;
+	private String member_username;
+	private String member_id;
 
 	public PurchaseDetailDTO() {
 		super();
@@ -28,7 +30,8 @@ public class PurchaseDetailDTO {
 	public PurchaseDetailDTO(Integer purchase_detail_id, Integer purchase_id, Integer md_id,
 			Integer purchase_detail_quantity, Integer purchase_detail_price, String purchase_detail_purchased,
 			String purchase_detail_cancel_order, String purchase_detail_exchange, String purchase_detail_refund,
-			String purchase_detail_cancel_sale, String purchase_detail_result, String purchase_detail_delivery_date) {
+			String purchase_detail_cancel_sale, String purchase_detail_result, String purchase_detail_delivery_date,
+			String member_username) {
 
 		super();
 		this.purchase_id = purchase_id;
@@ -42,6 +45,7 @@ public class PurchaseDetailDTO {
 		this.purchase_detail_cancel_sale = purchase_detail_cancel_sale;
 		this.purchase_detail_result = purchase_detail_result;
 		this.purchase_detail_delivery_date = purchase_detail_delivery_date;
+		this.member_username = member_username;
 	}
 	public Integer getPurchase_detail_id() {
 		return purchase_detail_id;
@@ -115,10 +119,19 @@ public class PurchaseDetailDTO {
 	public void setPurchase_detail_delivery_date(String purchase_detail_delivery_date) {
 		this.purchase_detail_delivery_date = purchase_detail_delivery_date;
 	}
-	
+    public String getMember_username() {
+        return member_username;
+    }
+    public void setMember_username(String member_username) {
+        this.member_username = member_username;
+    }
+    public String getMember_id() {
+		return member_id;
+	}
 
-	
-	
+	public void setMember_id(String member_id) {
+		this.member_id = member_id;
+	}
 
 
 	

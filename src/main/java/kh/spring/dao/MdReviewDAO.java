@@ -50,5 +50,12 @@ public class MdReviewDAO {
 	public int selectMdReviewLikeCount(String md_review_id) {
 		return mybatis.selectOne("MdReview.selectMdReviewLikeCount",md_review_id);
 	}
-		
+	
+	public List<MdReviewDTO> selectAll() {
+		return mybatis.selectList("MdReview.selectAll");
+	}
+	
+	public int deleteByMdReviewId(String md_review_id) {
+		return mybatis.delete("MdReview.deleteByMdReviewId", md_review_id);
+	}
 }

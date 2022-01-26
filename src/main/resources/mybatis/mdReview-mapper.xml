@@ -46,4 +46,12 @@
 		select md_review_like from md_review where md_review_id = #{value}
 	</select>
 	
+	<select id="selectAll" resultType="kh.spring.dto.MdReviewDTO">
+		select r.*, m.member_username from md_review r join member m on r.member_id = m.member_id
+	</select>
+	
+	<delete id="deleteByMdReviewId">
+		delete from md_review where md_review_id = #{value}
+	</delete>
+	
 </mapper>

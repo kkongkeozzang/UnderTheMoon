@@ -40,4 +40,11 @@ public class MdReviewService {
 		return mdReviewDAO.selectMdReviewLikeCount(md_review_id);
 	}
 	
+	public List<MdReviewDTO> selectAll() {
+		return mdReviewDAO.selectAll();
+	}
+	
+	public int deleteByMdReviewId(String md_review_id) {
+		return mdReviewDAO.deleteByMdReviewId(md_review_id);
+	}
 }

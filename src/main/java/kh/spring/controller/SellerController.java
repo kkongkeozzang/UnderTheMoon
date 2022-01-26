@@ -8,6 +8,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kh.spring.dto.MdDTO;
+import kh.spring.dto.PurchaseDTO;
+import kh.spring.dto.PurchaseDetailDTO;
+import kh.spring.service.MdService;
+import kh.spring.service.PurchaseDetailService;
+import kh.spring.service.PurchaseService;
 import kh.spring.service.MdService;
 
 @RequestMapping("/seller/")
@@ -15,9 +20,13 @@ import kh.spring.service.MdService;
 public class SellerController {
 	
 	private final MdService mdService;
+	private final PurchaseService purchaseService;
+	private final PurchaseDetailService purchaseDetailService;
 	
-	public SellerController(MdService mdService) {
+	public SellerController(MdService mdService, PurchaseService purchaseService, PurchaseDetailService purchaseDetailService) {
 		this.mdService = mdService;
+		this.purchaseService = purchaseService;
+		this.purchaseDetailService = purchaseDetailService;
 	}
 	
 	@RequestMapping("sellerOffice")
@@ -58,23 +67,23 @@ public class SellerController {
 	    return "redirect:/seller/md";
 	}
 	
-//	@RequestMapping("grade")
-//	public String sellerGrade(Model model) throws Exception {
-//		List<GradeDTO> grades = mdService.selectAllGrade();
-//		model.addAttribute("grades", grades);
-//	    return "/seller/sellerGrade";
-//	}
-//	
-//	@RequestMapping("insertGrade")
-//	public String insertGrade(GradeDTO grades) throws Exception {
-//		int result = mdService.insertGrade(grades);
-//	    return "redirect:/seller/grade";
-//	}
-//	
-//	@ResponseBody
-//	@RequestMapping("checkGrade")
-//	public String checkGrade(String grade_name, Model model) throws Exception {
-//		String result = Integer.toString(mdService.checkGrade(grade_name));
-//	    return result;
-//	}
+	@RequestMapping("purchase")
+	public String sellerPurchase(Model model) throws Exception {
+		List<PurchaseDTO> purchases = purchaseService.selectAll();
+		model.addAttribute("purchases", purchases);
+	    return "/seller/sellerPurchase";
+	}
+	
+	@RequestMapping("deletePurchase")
+	public String deletePurchase(int purchase_id) throws Exception {
+		int result = purchaseService.deletePurchase(purchase_id);
+	    return "redirect:/seller/purchase";
+	}
+	
+	@RequestMapping("purchaseDetail")
+	public String sellerPurchaseDetail(Model model) throws Exception {
+		List<PurchaseDetailDTO> purchaseDetails = purchaseDetailService.selectAll();
+		model.addAttribute("purchaseDetails", purchaseDetails);
+	    return "/seller/sellerPurchaseDetail";
+	}
 }

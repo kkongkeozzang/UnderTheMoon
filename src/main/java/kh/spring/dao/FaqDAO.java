@@ -72,6 +72,25 @@ public class FaqDAO {
 		return mybatis.selectOne("Faq.selectKeywordCount",map);
 	}
 	
+	public List<FaqDTO> selectAll() {
+		return mybatis.selectList("Faq.selectAll");
+	}
+	
+	public List<FaqDTO> selectByKeywordAdmin(int start, int end, String select, String keyword){	
+		Map<String,String> map = new HashMap<>();
+		map.put("select", select);
+		map.put("keyword", keyword);
+		map.put("start", String.valueOf(start));
+		map.put("end", String.valueOf(end));	
+		return mybatis.selectList("Faq.selectByKeywordAdmin", map);		
+	}
+	
+	public int selectRecordCountAdmin(String select, String keyword) {
+		Map<String, String> map = new HashMap<>();
+		map.put("select", select);
+		map.put("keyword", keyword);
+		return mybatis.selectOne("Faq.selectKeywordCountAdmin",map);
+	}
 //	public void insertDummy() {
 //		Map<String,String> map = new HashMap<>();
 //		for (int i = 1; i < 150; i++) {

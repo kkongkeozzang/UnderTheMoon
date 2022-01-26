@@ -52,7 +52,7 @@ public class NoticeController {
 	}
 	
 	@RequestMapping("detail")
-	public String selectById(int notice_id, int member_id, Model model, int cPage) {
+	public String selectById(int notice_id, int member_id, Model model, int cPage) throws Exception {
 		NoticeDTO notices = noticeService.selectById(notice_id);
 		int viewCount = noticeService.updateViewCount(notice_id);
 		NoticeDTO selectUpDown = noticeService.selectUpDown(notice_id);
@@ -66,7 +66,7 @@ public class NoticeController {
 	}
 		
 	@RequestMapping("toWrite")
-	public String toWrite(Model model) {
+	public String toWrite(Model model) throws Exception {
 		//로그인된 아이디
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String username = ((UserDetails)principal).getUsername();
@@ -76,14 +76,14 @@ public class NoticeController {
 	}
 	
 	@RequestMapping("insert")
-	public String insert(NoticeDTO dto) {
+	public String insert(NoticeDTO dto) throws Exception {
 		int result = noticeService.insert(dto); // 게시판에 작성된 내용을 DB에 저장하는 부분
 		return "redirect:/notice/toNotice?cPage=1";
 	}
 	
 	@RequestMapping(value="/uploadSummernoteImageFile", produces = "application/json; charset=utf8")
 	@ResponseBody
-	public String uploadSummernoteImageFile(@RequestParam("file") MultipartFile multipartFile, HttpServletRequest request )  {
+	public String uploadSummernoteImageFile(@RequestParam("file") MultipartFile multipartFile, HttpServletRequest request )  throws Exception {
 		
 		JsonObject jsonObject = new JsonObject();
 		
@@ -116,13 +116,13 @@ public class NoticeController {
 	}
 	
 	@RequestMapping("delete")
-	public String delete(int notice_id) {
+	public String delete(int notice_id)  throws Exception{
 		int result = noticeService.delete(notice_id); // 게시판에 작성된 내용을 DB에 저장하는 부분
 		return "redirect:/notice/toNotice?cPage=1";
 	}
 	
 	@RequestMapping("toUpdate")
-	public String toUpdate(int notice_id, int cPage, Model model) {
+	public String toUpdate(int notice_id, int cPage, Model model)  throws Exception {
 		NoticeDTO notices = noticeService.selectById(notice_id);
 		model.addAttribute("notices", notices);
 		model.addAttribute("cPage", cPage);
@@ -130,13 +130,13 @@ public class NoticeController {
 	}
 	
 	@RequestMapping("update")
-	public String update(NoticeDTO dto, int cPage) {
+	public String update(NoticeDTO dto, int cPage)  throws Exception{
 		int result = noticeService.update(dto); // 게시판에 작성된 내용을 DB에 저장하는 부분
 		return "redirect:/notice/detail?notice_id="+dto.getNotice_id()+"&member_id="+dto.getMember_id()+"&cPage="+cPage;
 	}
 	
 	@RequestMapping("search") //검색기능
-	public String search(String select, String keyword, int cPage, Model model) {
+	public String search(String select, String keyword, int cPage, Model model)  throws Exception{
 		
 
 		int start = cPage * PageStatic.NOTICE_COUNT_PER_PAGE-(PageStatic.NOTICE_COUNT_PER_PAGE - 1);

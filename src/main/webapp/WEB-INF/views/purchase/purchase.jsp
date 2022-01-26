@@ -250,6 +250,7 @@ $(document).ready(function(){
 	                    </div>
 	                    </tr>		
                     <!-- 쿠폰선택자. -->
+                    <!-- 적립금. -->
 	                    <tr><td colspan=2><hr></tr>
 	                    <tr><td>적립금 적용
 	                    <td><input type="text" id="point-input" class="addBtn form-control mb-2 mr-sm-2" value=0 id="pointSum">
@@ -258,7 +259,7 @@ $(document).ready(function(){
 	                    <tr><td>
 	                    <td><span id="point">사용 가능한 적립금 : ${ pointSum} 원</span>
 	                    </td></tr>
-	                    
+	                  <!-- 적립금. -->
            			</table>
 
 					<h3>결제 수단</h3><hr>
@@ -374,9 +375,8 @@ $(document).ready(function(){
   
 				<script>
 					let deliveryFee = 2500;
-					let initialTotalPrice = Number($("#productsTotalPrice").text()) + deliveryFee;  	
-					$("#totalPrice").text(initialTotalPrice);
-					let TotalPriceMinusPoint = 0;
+					let initialTotalPrice = Number($("#productsTotalPrice").text()) + deliveryFee; //전체가격과 배송비.  	
+					$("#totalPrice").text(initialTotalPrice); 
 					let coupon_discount_rate = 0;
 					let coupon_id = 0;
 					 
@@ -400,19 +400,19 @@ $(document).ready(function(){
 						let point = $("#point").text();
 			            let point_int = Number(point);
 						
-		            	if(pointSum_int<0) {
+		            	if(pointSum_int<0 || isNaN(pointSum) || $.trim(pointSum)=="" || pointSum==null) {
 							$("#point-input").val(0); 
-							totalPriceMinusPoint = initialTotalPrice;
+							initialTotalPrice = initialTotalPrice;
 						}else if(pointSum_int<=${pointSum}){
-							$("#point-num").text("- " + pointSum_int + " "); 
-							totalPriceMinusPoint = initialTotalPrice - pointSum_int;
+							$("#point-num").text("- " + pointSum_int + " ");							
+							initialTotalPrice = initialTotalPrice - pointSum_int;
 						}else if (pointSum_int>${pointSum}){
 							$("#point-input").val(${pointSum}); 
 							$("#point-num").text("- " + ${pointSum} + " "); 
-							totalPriceMinusPoint = initialTotalPrice - Number(${pointSum});
+							initialTotalPrice = initialTotalPrice - Number(${pointSum});
 						}
 		            	// 최종 결제금액 갱신
-		            	$("#totalPrice").text(totalPriceMinusPoint);
+		            	$("#totalPrice").text(initialTotalPrice);
 					 }) 
 					 
 					
@@ -421,7 +421,7 @@ $(document).ready(function(){
 					    if( $("#point-input").val()=="" || $("#point-input").val()==0){
 							$("#point-input").val(${pointSum}); 
 							$("#point-num").text("- " + ${pointSum} + " ");
-							totalPriceMinusPoint = initialTotalPrice - Number(${pointSum}); 
+							initialTotalPrice = initialTotalPrice - Number(${pointSum}); 
 					    }else if($("#point-input").val()==${pointSum}){
 					    	totalPriceMinusPoint = initialTotalPrice; 
 							$("#point-input").val(0); 	
@@ -429,12 +429,26 @@ $(document).ready(function(){
 						}else{
 							$("#point-num").text("- " + ${pointSum} + " ");
 					    	$("#point-input").val(${pointSum});
-					    	totalPriceMinusPoint = initialTotalPrice - Number(${pointSum}); 
-					    	console.log(totalPriceMinusPoint);
+					    	initialTotalPrice = initialTotalPrice - Number(${pointSum}); 
+					    	
 					    }
 					 	// 최종 결제금액 갱신
-		            	$("#totalPrice").text(totalPriceMinusPoint);	
-					})      										 
+		            	$("#totalPrice").text(initialTotalPrice);	
+					})      
+					
+					   //적립금 클릭 시 적립금 결제금액 초기화
+	                $("#point-input").on("focus",function(){
+	                
+	                   let current_point = $("#point-input").val();
+	                   let current_point_int = Number(current_point);
+	                   
+						initialTotalPrice = initialTotalPrice + current_point_int;
+						
+						 $("#totalPrice").text(initialTotalPrice);
+	                   
+						   $("#point-input").val("");
+		                	
+                })  
 					 
 					 //쿠폰 사용후 결제금액 갱신
 					  $("body").on("change","#coupon",function(){
@@ -444,13 +458,16 @@ $(document).ready(function(){
 					 	let coupon_price = Number(coupon_discount_rate);
 					 	if(coupon_discount_rate == 0) {
 					 		$("#coupon_price").text(coupon_discount_rate + " ");
+					 		initialTotalPrice = initialTotalPrice + Number($("#coupon_price").text());
+					 		$("#totalPrice").text(initialTotalPrice);
 					 	} else {
 						 	$("#coupon_price").text("- " + coupon_discount_rate + " ");
 					 	}
 					 	if(totalPrice_int-coupon_price<0) {
 					 		$("#totalPrice").text(0);
 					 	} else {
-					 		$("#totalPrice").text(totalPrice_int-coupon_price);
+					 		initialTotalPrice = initialTotalPrice - coupon_price;
+					 		$("#totalPrice").text(initialTotalPrice);
 					 	}
 					 }) 
 					 
@@ -646,5 +663,3 @@ $(document).ready(function(){
 				</script>
   
 </html>
-
-

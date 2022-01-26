@@ -70,7 +70,7 @@
 		                                        </span>
 		                                        <span class="text">중복확인</span>
 		                                    </a>
-	                             			<span id="checkGrade"></span>
+	                             			<span id="checkDbl"></span>
 	                             			</td>
 	                             		</tr>
 	                             		<tr>
@@ -175,6 +175,8 @@
                                 			$("#grade_percent").val("");
                                 			$("#grade_target").val("");
                                 			$("#grade_coupon").val("");
+                                			$("#checkDbl").html("");
+
                                 			$("#add").css("display","inline-block");
                                 			$("#insert").css("display","none");
                                 			$("#cancel").css("display","none");
@@ -194,15 +196,15 @@
                                 		let targetRegex = /^[0-9]+$/;
                                 		
                                 		let gradeCoupon = $("#grade_coupon").val();
-                                		let checkGrade = $("#checkGrade").html();
+                                		let checkDbl = $("#checkDbl").html();      
                                 		
                             			if(!nameRegex.test(gradeName)) {
                             				alert("등급이름을 확인해주세요!(문자만 입력하세요. 예)해, 달, 별)");
                             				return false;
-                            			}else if(checkGrade == "") {
+                            			}else if(checkDbl == "") {
                             				alert("중복확인을 실행해주세요");
                             				return false;
-                            			}else if(checkGrade == "이미 사용중인 등급이름 입니다.") {
+                            			}else if(checkDbl == "이미 사용중인 등급이름 입니다.") {
                             				alert("등급이름이 중복됐는지 확인해주세요!");
                             				return false;
                             			}else if(!percentRegex.test(gradePercent)) {
@@ -300,14 +302,13 @@
 											}).done(function(resp){
 												console.log(resp);
 												if(resp != 0){
-													$("#checkGrade").html("이미 사용중인 등급이름 입니다.");
+													$("#checkDbl").html("이미 사용중인 등급이름 입니다.");
 												}else{
-													$("#checkGrade").html("사용 가능한 등급이름 입니다.");
+													$("#checkDbl").html("사용 가능한 등급이름 입니다.");
 												}
 											})
 										});
 									})
-
                             	</script>
                             </div>
                         </div>

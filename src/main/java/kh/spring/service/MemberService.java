@@ -1,13 +1,12 @@
 package kh.spring.service;
 
+import java.util.List;
 import java.util.Optional;
-
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import kh.spring.dao.MemberDAO;
-
 import kh.spring.dto.MemberDTO;
 
 @Service
@@ -88,5 +87,13 @@ public class MemberService {
 		String password = dto.getMember_password();		
 		dto.setMember_password(bCrptPasswordEncoder.encode(password));
 		return memberDAO.updateMember(dto);
+	}
+	
+	public List<MemberDTO> selectAll() {
+		return memberDAO.selectAll();
+	}
+	
+	public Integer deleteByMemberId(String member_id) {
+		return memberDAO.deleteByMemberId(member_id);
 	}
 }

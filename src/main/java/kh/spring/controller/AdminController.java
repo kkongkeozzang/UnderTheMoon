@@ -63,8 +63,9 @@ public class AdminController {
 	
 	@RequestMapping("member")
 	public String adminMember(Model model) throws Exception {
-		//List<MemberDTO> members = memberService.sele
-		return "";
+		List<MemberDTO> members = memberService.selectAll();
+		model.addAttribute("members", members);
+		return "/admin/adminMember";
 	}
 	
 }

@@ -81,7 +81,7 @@
 									<div class="card-body" align=center>
 										<div class="d-flex">										
 											<div class="detail">
-												<h6 class="detail-title"><a href="">1:1문의 ></a></h6>
+												<h6 class="detail-title"><a href="/qna/qnaList">1:1문의 ></a></h6>
 												<p class="detail-detail"><span>도움이 필요하신가요?</span></p>
 											</div>
 										</div>
@@ -110,7 +110,7 @@
                                 <a href="" class="list-group-item py-1"><span>개인정보 수정</span></a>
                                 <br>
                                 <br>
-								<a href="" class="list-group-item py-1"><span>도움이 필요하신가요?<br>1:1 문의하기</span></a>
+								<a href="/qna/qnaList" class="list-group-item py-1"><span>도움이 필요하신가요?<br>1:1 문의하기</span></a>
 							</div>
 						</div>
 					</div>

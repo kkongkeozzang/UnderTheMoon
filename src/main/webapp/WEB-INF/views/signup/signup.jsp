@@ -54,7 +54,7 @@
             </div>           
         </div>      
       <div class="form-group row">
-         <label class="col-form-label col-3">이메일</label>
+         <label class="col-form-label col-3">이메일*</label>
          <div class="col-7">
                 <input type="text" class="form-control" id="member-email" name="member_email">
             </div>           

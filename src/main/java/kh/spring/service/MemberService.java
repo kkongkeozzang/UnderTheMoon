@@ -57,7 +57,6 @@ public class MemberService {
 		String encPassword = bCrptPasswordEncoder.encode(rawPassword);
 		Integer result = memberDAO.resetPassword(encPassword,member_username);//회원정보 수정을 염두 updatePassword 를 쓰지않았습니다.
 		return result;
-		
 	}
 
 	
@@ -79,5 +78,15 @@ public class MemberService {
 		
 		return memberDAO.updateGradeSun(member_username);
 	}
-
+	
+	public Integer selectIdByUsername(String member_username) {
+		
+		return memberDAO.selectIdByUsername(member_username);
+	}
+	
+	public int updateMember(MemberDTO dto) {
+		String password = dto.getMember_password();		
+		dto.setMember_password(bCrptPasswordEncoder.encode(password));
+		return memberDAO.updateMember(dto);
+	}
 }

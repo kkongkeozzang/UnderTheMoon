@@ -37,6 +37,10 @@ public class PointDAO {
 	public Integer insertNotInputEvent(Integer id) {
 		return mybatis.insert("Point.insertNotInputEvent", id);
 	}
+	
+	public Integer insertRecomendadoMemberPoint(Integer id) {
+	      return mybatis.insert("Point.insertRecomendadoMemberPoint",id);
+	   }
 }
 
 

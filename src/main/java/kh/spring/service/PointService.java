@@ -48,4 +48,8 @@ public class PointService {
    public Integer insertNotInputEvent(Integer id) {
 	   return pointDAO.insertNotInputEvent(id);
    }
+   
+   public Integer insertRecomendadoMemberPoint(Integer id) {
+	      return pointDAO.insertRecomendadoMemberPoint(id);
+	   }
 }

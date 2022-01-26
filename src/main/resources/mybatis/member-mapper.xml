@@ -51,6 +51,12 @@
   <update id="updateGradeSun">
   	update member set grade_name = '해' where member_username = #{member_username}
   </update>
+
+  <update id="updateMember">
+  	update member set member_password=#{member_password}, member_name=#{member_name}, member_phone=#{member_phone},
+  	 member_zipcode=#{member_zipcode}, member_address1=#{member_address1}, member_address2=#{member_address2}, member_email=#{member_email}
+  	 where member_username = #{member_username}
+  </update>
   </mapper>
   
   

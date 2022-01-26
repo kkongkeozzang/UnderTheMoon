@@ -103,9 +103,8 @@
 						<h5 class="my-3">My Page</h5>
 						<div class="fm-menu">
 							<div class="list-group list-group-flush">
-								<a href="/mypage/myPageList" class="list-group-item py-1"><span>주문 내역</span></a> 													
+								<a href="/mypage/myPageList?cPage=1" class="list-group-item py-1"><span>주문 내역</span></a> 													
 								<a href="/mypage/myPageLike" class="list-group-item py-1"><span>찜한 상품</span></a>
-								<a href="/mypage/myPageDelivery" class="list-group-item py-1"><span>배송지 관리</span></a>
 								<a href="/mypage/myPagePoint" class="list-group-item py-1"><span>적립금</span></a>
                                 <a href="/mypage/myPageCoupon?cPage=1" class="list-group-item py-1"><span>쿠폰</span></a>
                                 <a href="" class="list-group-item py-1"><span>상품 문의</span></a>
@@ -163,7 +162,7 @@
 											</c:forEach>														
 										</tbody>
 									</table>
-									<div class="navigator" style="float:center;">
+									<div class="navigator" style="margin:auto; display:block;">
 									${pageNavi}
 									</div>							
 								</div>

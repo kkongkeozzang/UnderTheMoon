@@ -1,9 +1,10 @@
 package kh.spring.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import kh.spring.dao.PurchaseDAO;
-import kh.spring.dto.DeliveryDTO;
 import kh.spring.dto.PurchaseDTO;
 
 @Service
@@ -51,5 +52,9 @@ public class PurchaseService {
 	public Integer selectByIdSumPurchasePayment(Integer id) {
 		
 		return purchaseDAO.selectByIdSumPurchasePayment(id);
+	}
+	
+	public List<PurchaseDTO> selectAll(){
+		return purchaseDAO.selectAll();
 	}
 }

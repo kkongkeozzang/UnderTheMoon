@@ -70,14 +70,14 @@
                 </a>
                 <div id="collapse-three" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="#">주문내역</a>
-                        <a class="collapse-item" href="#">상세주문</a>
+                        <a class="collapse-item" href="/seller/purchase">주문내역</a>
+                        <a class="collapse-item" href="/seller/purchaseDetail">상세주문</a>
                     </div>
                 </div>
             </li>
             <!-- Nav Item - Utilities Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-target="#collapse-four"
+                <a class="nav-link collapsed" href="/seller/mdReview" data-target="#collapse-four"
                     aria-expanded="true" aria-controls="collapse-five">
                     <i class="fas fa-fw fa-table"></i>
                     <span>리뷰 관리</span>
@@ -93,8 +93,8 @@
                 </a>
                 <div id="collapse-six" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="#">포인트</a>
-                        <a class="collapse-item" href="#">쿠폰</a>
+                        <a class="collapse-item" href="/seller/point">포인트</a>
+                        <a class="collapse-item" href="/seller/coupon">쿠폰</a>
                     </div>
                 </div>
             </li>

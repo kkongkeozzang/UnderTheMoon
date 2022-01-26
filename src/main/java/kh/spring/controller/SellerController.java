@@ -8,16 +8,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kh.spring.dto.MdDTO;
+import kh.spring.dto.PurchaseDTO;
 import kh.spring.service.MdService;
+import kh.spring.service.PurchaseService;
 
 @RequestMapping("/seller/")
 @Controller
 public class SellerController {
 	
 	private final MdService mdService;
+	private final PurchaseService purchaseService;
 	
-	public SellerController(MdService mdService) {
+	public SellerController(MdService mdService, PurchaseService purchaseService) {
 		this.mdService = mdService;
+		this.purchaseService = purchaseService;
 	}
 	
 	@RequestMapping("sellerOffice")
@@ -58,23 +62,12 @@ public class SellerController {
 	    return "redirect:/seller/md";
 	}
 	
-//	@RequestMapping("grade")
-//	public String sellerGrade(Model model) throws Exception {
-//		List<GradeDTO> grades = mdService.selectAllGrade();
-//		model.addAttribute("grades", grades);
-//	    return "/seller/sellerGrade";
-//	}
-//	
-//	@RequestMapping("insertGrade")
-//	public String insertGrade(GradeDTO grades) throws Exception {
-//		int result = mdService.insertGrade(grades);
-//	    return "redirect:/seller/grade";
-//	}
-//	
-//	@ResponseBody
-//	@RequestMapping("checkGrade")
-//	public String checkGrade(String grade_name, Model model) throws Exception {
-//		String result = Integer.toString(mdService.checkGrade(grade_name));
-//	    return result;
-//	}
+	@RequestMapping("purchase")
+	public String sellerPurchase(Model model) throws Exception {
+		List<PurchaseDTO> purchases = purchaseService.selectAll();
+		model.addAttribute("purchases", purchases);
+	    return "/seller/sellerPurchase";
+	}
+	
+
 }

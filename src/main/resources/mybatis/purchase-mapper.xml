@@ -32,4 +32,9 @@
   			select sum(purchase_payment) from purchase where member_id = #{value}
 
   		</select>
+  		
+  		<select id="selectAll" resultType="kh.spring.dto.PurchaseDTO">
+  			select e1.*, e2.member_username from purchase e1, member e2 where e1.member_id=e2.member_id
+  		</select>
+  		
   </mapper>

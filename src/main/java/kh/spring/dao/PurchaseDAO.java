@@ -1,5 +1,7 @@
 package kh.spring.dao;
 
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -49,4 +51,7 @@ private final SqlSessionTemplate mybatis;
 		return mybatis.selectOne("Purchase.selectByIdSumPurchasePayment",id);
 	}
 
+	public List<PurchaseDTO> selectAll(){
+		return mybatis.selectList("Purchase.selectAll");
+	}
 }

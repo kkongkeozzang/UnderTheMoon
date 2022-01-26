@@ -16,12 +16,13 @@ public class PurchaseDTO {
 	private Integer purchase_coupon;
 	private Integer purchase_payment;
 	private String purchase_method;
+	private String member_username;
 	
 	public PurchaseDTO() {}
 
 	public PurchaseDTO(Integer purchase_id, String member_id, Timestamp purchase_date, Integer delivery_id,
 			int purchase_amount, Integer purchase_delivery_fee, Integer purchase_used_point, Integer purchase_coupon,
-			Integer purchase_payment, String purchase_method) {
+			Integer purchase_payment, String purchase_method, String member_username) {
 		super();
 		this.purchase_id = purchase_id;
 		this.member_id = member_id;
@@ -33,6 +34,7 @@ public class PurchaseDTO {
 		this.purchase_coupon = purchase_coupon;
 		this.purchase_payment = purchase_payment;
 		this.purchase_method = purchase_method;
+		this.member_username = member_username;
 	}
 
     @SuppressWarnings("unused")
@@ -122,8 +124,11 @@ public class PurchaseDTO {
 		  this.orderStatus = OrderStatus.COMP;
 		
 	}
-
-	
-	
+    public String getMember_username() {
+        return member_username;
+    }
+    public void setMember_username(String member_username) {
+        this.member_username = member_username;
+    }
 	
 }

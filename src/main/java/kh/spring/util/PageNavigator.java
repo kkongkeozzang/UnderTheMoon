@@ -7,36 +7,36 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class PageNavigator {
-	
+
 	public static List<String> getPageNavigator(int recordTotalCount, int currentPage, int recordCountPerPage, int naviCountPerPage, String select, String sort) {
-		
+
 		int pageTotalCount = 0;
-		
+
 		if(recordTotalCount % recordCountPerPage == 0) {
 			pageTotalCount = recordTotalCount / recordCountPerPage;
 		} else {
 			pageTotalCount = recordTotalCount / recordCountPerPage + 1;
 		}
-		
+
 		if (currentPage < 1) {
 			currentPage = 1;
 		} else if (currentPage > pageTotalCount) {
 			currentPage = pageTotalCount;
 		}
-		
+
 		int startNavi = (currentPage-1)/naviCountPerPage * naviCountPerPage + 1;
 		int endNavi = startNavi + (naviCountPerPage-1);
-		
+
 		if(endNavi > pageTotalCount) {
 			endNavi = pageTotalCount;
 		}
-		
+
 		boolean needPrev = true;
 		boolean needNext = true;
-		
+
 		if(startNavi == 1) {needPrev = false;}
 		if(endNavi == pageTotalCount) {needNext = false;}
-		
+
 		List<String> pageNavi = new ArrayList<>();
 		if(needPrev) {
 			String start = "<a href=\"javascript:void(0);\" onclick=\"getPage";
@@ -78,39 +78,39 @@ public class PageNavigator {
 			end += "</a>";
 			pageNavi.add(end);
 		}
-		
+
 		return pageNavi;
 	}
-	
-public static String getPageNavigator(int recordTotalCount, int currentPage, int recordCountPerPage, int naviCountPerPage, String board, String option, String select, String keyword) {
-		
+
+	public static String getPageNavigator(int recordTotalCount, int currentPage, int recordCountPerPage, int naviCountPerPage, String board, String option, String select, String keyword) {
+
 		int pageTotalCount = 0;
-		
+
 		if(recordTotalCount % recordCountPerPage == 0) {
 			pageTotalCount = recordTotalCount / recordCountPerPage;
 		} else {
 			pageTotalCount = recordTotalCount / recordCountPerPage + 1;
 		}
-		
+
 		if (currentPage < 1) {
 			currentPage = 1;
 		} else if (currentPage > pageTotalCount) {
 			currentPage = pageTotalCount;
 		}
-		
+
 		int startNavi = (currentPage-1)/naviCountPerPage * naviCountPerPage + 1;
 		int endNavi = startNavi + (naviCountPerPage-1);
-		
+
 		if(endNavi > pageTotalCount) {
 			endNavi = pageTotalCount;
 		}
-		
+
 		boolean needPrev = true;
 		boolean needNext = true;
-		
+
 		if(startNavi == 1) {needPrev = false;}
 		if(endNavi == pageTotalCount) {needNext = false;}
-		
+
 		String pageNavi = "";
 		if(board.equals("notice")) {
 			if(option.equals("all")) {
@@ -125,8 +125,6 @@ public static String getPageNavigator(int recordTotalCount, int currentPage, int
 					pageNavi += "<a href='/notice/search?select="+select+"&keyword="+keyword+"&cPage="+i+"'><button type='button' class='btn btn-outline-primary' style='background-color:#406882;color:white;'>" + i + "</button></a> ";
 				}
 				if(needNext) {pageNavi += "<a href='/notice/search?select="+select+"&keyword="+keyword+"&cPage="+(endNavi+1)+"'><button type='button' class='btn btn-outline-primary' style='background-color:#406882;color:white;'>></button></a>";}
-			}else {
-				pageNavi = "네비게이터를 찾을 수 없습니다.";
 			}
 		}else if(board.equals("faq")){
 			if(option.equals("all")) {
@@ -141,13 +139,28 @@ public static String getPageNavigator(int recordTotalCount, int currentPage, int
 					pageNavi += "<a href='/faq/search?select="+select+"&keyword="+keyword+"&cPage="+i+"'><button type='button' class='btn btn-outline-primary' style='background-color:#406882;color:white;'>" + i + "</button></a> ";
 				}
 				if(needNext) {pageNavi += "<a href='/faq/search?select="+select+"&keyword="+keyword+"&cPage="+(endNavi+1)+"'><button type='button' class='btn btn-outline-primary' style='background-color:#406882;color:white;'>></button></a>";}
-			}else {
-				pageNavi = "네비게이터를 찾을 수 없습니다.";
 			}
-		}else {
-			pageNavi = "네비게이터를 찾을 수 없습니다.";
+		}else if(board.equals("coupon")) {
+			if(option.equals("all")) {
+				if(needPrev) {pageNavi += "<a href='/mypage/myPageCoupon?cPage="+(startNavi-1)+"'><button type='button' class='btn btn-outline-primary' style='background-color:#406882;color:white;float:center;'><</button></a> ";}
+				for (int i = startNavi; i <= endNavi; i++) {
+					pageNavi += "<a href='/mypage/myPageCoupon?cPage="+i+"'><button type='button' class='btn btn-outline-primary' style='background-color:#406882;color:white;float:center;'>" + i + "</button></a> ";
+				}
+				if(needNext) {pageNavi += "<a href='/mypage/myPageCoupon?cPage="+(endNavi+1)+"'><button type='button' class='btn btn-outline-primary' style='background-color:#406882;color:white;float:center;'>></button></a>";}
+			}
+
+		}else if(board.equals("myPageList")) {
+			if(option.equals("all")) {
+				if(needPrev) {pageNavi += "<a href='/mypage/myPageList?cPage="+(startNavi-1)+"'><button type='button' class='btn btn-outline-primary' style='background-color:#406882;color:white;float:center;'><</button></a> ";}
+				for (int i = startNavi; i <= endNavi; i++) {
+					pageNavi += "<a href='/mypage/myPageList?cPage="+i+"'><button type='button' class='btn btn-outline-primary' style='background-color:#406882;color:white;float:center;'>" + i + "</button></a> ";
+				}
+				if(needNext) {pageNavi += "<a href='/mypage/myPageList?cPage="+(endNavi+1)+"'><button type='button' class='btn btn-outline-primary' style='background-color:#406882;color:white;float:center;'>></button></a>";}
+			}
+
 		}
 
 		return pageNavi;
 	}
+	
 }

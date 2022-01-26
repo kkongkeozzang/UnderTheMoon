@@ -1,9 +1,13 @@
 package kh.spring.dao;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
-import kh.spring.dto.DeliveryDTO;
+import kh.spring.dto.MyPagePurchaseDTO;
 import kh.spring.dto.PurchaseDTO;
 
 @Repository
@@ -34,8 +38,35 @@ private final SqlSessionTemplate mybatis;
 		return mybatis.delete("Purchase.deleteById",order_id);
 	}
 	
+	public long deleteById(long order_id) {
+		
+		return mybatis.delete("Purchase.deleteById",order_id);
+	}
+
+
+	public PurchaseDTO findId(long orderId) {
+		
+		return mybatis.selectOne("Purchase.findId",orderId);
+	}
+	
 	public Integer selectByIdSumPurchasePayment(Integer id) {
 		
 		return mybatis.selectOne("Purchase.selectByIdSumPurchasePayment",id);
 	}
+	
+	public int selectRecordCount(Integer member_id) {
+		
+		return mybatis.selectOne("Purchase.selectRecordCount", member_id);
+	}
+	
+	public List<MyPagePurchaseDTO> selectByBound(Integer member_id, int start, int end) {
+		
+		Map<String, String> map = new HashMap<>();
+		map.put("member_id", String.valueOf(member_id));
+		map.put("start", String.valueOf(start));
+		map.put("end", String.valueOf(end));
+		
+		return mybatis.selectList("Purchase.selectByBound", map);
+	}
+
 }

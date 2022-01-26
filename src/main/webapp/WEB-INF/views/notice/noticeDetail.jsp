@@ -280,32 +280,32 @@ body {
 					</div>
 				</div>
 				<div class="row" style="border-top:1px solid black; margin:0px;height:30px;line-height:29px;">
-					<div class="col-xs-12 col-sm-2" style="background-color:#B1D0E0;">
+					<div class="col-2 d-none d-sm-block" style="background-color:#B1D0E0;white-space: nowrap;overflow:hidden;">
 						제목
 					</div>
-					<div class="col-xs-12 col-sm-10" id=input-title name=title style="width: 100%;">
+					<div class="col-12 col-sm-10" style="white-space: nowrap;overflow:hidden;">
 						${notices.notice_title}
 					</div>
 				</div>
 				<div class="row" style="margin:0px;border-top:1px solid gray;border-bottom:1px solid gray;height:30px;line-height:28px;">
-					<div class="col-xs-12 col-sm-2" style="background-color:#B1D0E0;">
+					<div class="col-2 d-none d-sm-block" style="background-color:#B1D0E0;white-space: nowrap;overflow:hidden;">
 						작성자
 					</div>
-					<div class="col-xs-12 col-sm-10" id=input-title name=username style="width: 100%;">
+					<div class="col-12 col-sm-10" style="white-space: nowrap;overflow:hidden;">
 						${username}
 					</div>
 				</div>
 				<div class="row" style="border-bottom:1px solid gray; margin:0px;height:30px;line-height:29px;">
-					<div class="col-xs-12 col-sm-2" style="background-color:#B1D0E0;">
+					<div class="col-2 d-none d-sm-block" style="background-color:#B1D0E0;white-space: nowrap;overflow:hidden;">
 						작성일
 					</div>
-					<div class="col-xs-12 col-sm-2">
+					<div class="col-6 col-sm-2" style="white-space: nowrap;overflow:hidden;">
 						${notices.getFormedDate()}
 					</div>
-					<div class="col-xs-12 col-sm-2" style="background-color:#B1D0E0;">
+					<div class="col-2 d-none d-sm-block" style="background-color:#B1D0E0;white-space: nowrap;overflow:hidden;">
 						조회수
 					</div>
-					<div class="col-xs-12 col-sm-6">
+					<div class="col-6 col-sm-2" style="white-space: nowrap;overflow:hidden;">
 						<div id=input-title name=title style="width: 100%;">${notices.notice_view_count}</div>
 					</div>
 				</div>

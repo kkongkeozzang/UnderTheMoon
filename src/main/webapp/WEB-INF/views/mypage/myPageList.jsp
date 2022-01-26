@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -57,8 +58,8 @@
 										<div class="d-flex">
 
 											<div class="detail">
-												<h6 class="detail-title"><a href="">적립금 ></a></h6>
-												<p class="detail-detail"><span>~원</span></p>
+												<h6 class="detail-title"><a href="/mypage/myPagePoint">적립금 ></a></h6>
+												<p class="detail-detail"><span><fmt:formatNumber value="${pointSum}" type="number"/> 원</span></p>
 											</div>
 										</div>
 									</div>
@@ -69,8 +70,8 @@
 									<div class="card-body" align=center>
 										<div class="d-flex">											
 											<div class="detail">
-												<h6 class="detail-title"><a href="">쿠폰 ></a></h6>
-												<p class="detail-detail"><span>~개</span></p>
+												<h6 class="detail-title"><a href="/mypage/myPageCoupon?cPage=1">쿠폰 ></a></h6>
+												<p class="detail-detail"><span>${couponSum } 개</span></p>
 											</div>
 										</div>
 									</div>
@@ -100,14 +101,13 @@
 						<h5 class="my-3">My Page</h5>
 						<div class="fm-menu">
 							<div class="list-group list-group-flush">
-								<a href="" class="list-group-item py-1"><span>주문 내역</span></a> 													
-								<a href="" class="list-group-item py-1"><span>찜한 상품</span></a>
-								<a href="" class="list-group-item py-1"><span>배송지 관리</span></a>
-								<a href="" class="list-group-item py-1"><span>적립금</span></a>
-                                <a href="" class="list-group-item py-1"><span>쿠폰</span></a>
+								<a href="/mypage/myPageList?cPage=1" class="list-group-item py-1"><span>주문 내역</span></a> 													
+								<a href="/mypage/myPageLike" class="list-group-item py-1"><span>찜한 상품</span></a>
+								<a href="/mypage/myPagePoint" class="list-group-item py-1"><span>적립금</span></a>
+                                <a href="/mypage/myPageCoupon?cPage=1" class="list-group-item py-1"><span>쿠폰</span></a>
                                 <a href="" class="list-group-item py-1"><span>상품 문의</span></a>
-                                <a href="" class="list-group-item py-1"><span>상품 후기</span></a>
-                                <a href="" class="list-group-item py-1"><span>개인정보 수정</span></a>
+                                <a href="/mypage/myPageReview" class="list-group-item py-1"><span>상품 후기</span></a>
+                                <a href="/mypage/myPageModifyProfile" class="list-group-item py-1"><span>개인정보 수정</span></a>
                                 <br>
                                 <br>
 								<a href="/qna/qnaList" class="list-group-item py-1"><span>도움이 필요하신가요?<br>1:1 문의하기</span></a>
@@ -120,9 +120,7 @@
 			<div class="col-12 col-md-8 col-lg-9">
 				<div class="card">
 					<div class="card-body">						
-
-							<div class="drive-wrapper drive-list-view">
-								<div class="table-responsive drive-items-table-wrapper">
+							<div class="drive-wrapper drive-list-view">								
 									<table class="table">
 										<thead>
 											<tr>
@@ -135,27 +133,29 @@
                                                   </select></th>
 											</tr>
 										</thead>										
-										<tbody>
-														
+										<tbody>														
 										</tbody>
 									</table>
+									<c:forEach var="purchaseList" items="#{purchaseList}">
 									<div class="row">
-
-										<div class="col-sm-12" id="title">춘식이 무드등											
+										<div class="col-sm-12" id="purchase-name"><a href="/md/detail/page?md_id=${purchaseList.md_id }">${purchaseList.md_name }</a>											
 											<hr>
-										</div>
-										
-										<div class="col-sm-2"><img src="https://order.pay.naver.com/proxy/phinf/shop1/20211006_47/1633531442640eSL92_PNG/34667285324274523_698179646.png?type=m90_90" alt="카카오프렌즈 춘식이 무드등 무선 간편사용 굿즈" width="90" height="90"></div>
-										<div class="col-sm-7"><ul>
-											<li>주문 번호 :</li>
-											<li>결제 금액 :</li>
-											<li>주문 상태 :</li>
+										</div>										
+										<div class="col-sm-2" id="purchase-img"><img src="/mdImage/${purchaseList.md_image}" alt="" width="90" height="90"></div>
+										<div class="col-sm-7" id="purchase-information"><ul>
+											<li>주문 날짜 : <fmt:formatDate value = "${purchaseList.purchase_date }"  type="date" dateStyle="full"/></li>
+											<br>
+											<li>결제 금액 : <fmt:formatNumber value="${purchaseList.purchase_payment }" type="number"/> 원</li>
 										</ul></div>
-										<div class="col-sm-3">
+										<div class="col-sm-3" id="purchase-option">
 											<button type="button" class="btn btn-light">1:1문의</button>
 										</div>
 									</div>
-								</div>
+									<br>
+									</c:forEach>
+									<div class="navigator" style="margin:auto; display:block;">
+									${pageNavi}
+									</div>																									
 							</div>						
 					</div>
 				</div>
@@ -169,6 +169,5 @@
 		location="/mypage/myPageGrade"
 	})
 </script>
-</div>
 </body>
 </html>

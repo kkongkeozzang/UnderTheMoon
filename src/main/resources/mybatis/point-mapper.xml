@@ -6,15 +6,36 @@
   <mapper namespace ="Point">
  
   <insert id="insertRecommendMemberPoint">
-     insert into point values(point_id_seq.nextval,'1000','추천인 입력',default,#{value})
+     insert into point values(point_id_seq.nextval,'5000','추천인 입력',default,#{value})
   </insert>
   
   <insert id="insertEventMemberPoint">
-     insert into point values(point_id_seq.nextval,'2000','이벤트 입력',default,#{value})
+     insert into point values(point_id_seq.nextval,'5000','이벤트 입력',default,#{value})
   </insert>
   
   <select id="selectPointById" resultType="int">
    		select sum(point_used_saved) from point where member_id = #{member_id}
   </select>
 
+  <select id="selectPointListById" resultType="kh.spring.dto.PointDTO">
+  	select * from point where member_id = #{member_id}
+  </select>
+  
+  <select id="insertNotInputEvent">
+  	insert into point values(point_id_seq.nextval,'0','이벤트 미입력',default,#{value})
+  </select>
+
+  <insert id="insertUsedPoint">
+     insert into point values(point_id_seq.nextval,#{pointSum},'Used Points',default,#{member_id})
+  </insert>
+  
+  <insert id="savePoints">
+   insert into point values
+   (point_id_seq.nextval,(select grade_percent from grade 
+   where grade_name = (select grade_name from member where member_id = #{member_id}))*${productTotal},'Saved Points',default,#{member_id})
+  </insert>
+  
+  <insert id="insertRecomendadoMemberPoint">
+  	insert into point values(point_id_seq.nextval,'5000','추천인 입력받음',default,#{value})
+  </insert>
   </mapper>

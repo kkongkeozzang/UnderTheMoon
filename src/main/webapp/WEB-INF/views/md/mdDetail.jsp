@@ -90,6 +90,11 @@ $(document).ready(function(){
  		$(this).next().toggleClass("hide-toggle");
      	$(this).parent("#inqry-board").find(".inqry-content").not($(this).next()).addClass("hide-toggle");
     })
+    $("body").on("click",".relatedMd-box", function(){
+    	let relatedMd_id = $(this).find(".relatedMd_id").val()
+    	location.href="/md/detail/page?md_id="+relatedMd_id;
+    	
+    })
 })
 function viewCount(md_review_id, target) {
 	$.ajax({
@@ -232,7 +237,7 @@ function getPage(pageNavi, select, sort) {
             <div class="row">
                 <div class="col-lg-5 mt-5">
                     <div class="card mb-3">
-                        <img class="card-img img-fluid" src="/resources/mdDetail/assets/img/product_single_10.jpg" alt="Card image cap" id="product-detail">
+                        <img class="card-img img-fluid" src="/mdImage/${mdDetails.md_image}" alt="Card image cap" id="product-detail">
                     </div>
                 </div>
                 <!-- col end -->
@@ -310,10 +315,11 @@ function getPage(pageNavi, select, sort) {
                 <h4>Related Products</h4>
             </div>
 
-            <!--Start Carousel Wrapper-->
+            <!--Start Carousel Wrapper -->
             <div id="carousel-related-product">
 				<c:forEach var="relatedMd" items="${relatedMds }">
-                <div class="p-2 pb-3">
+                <div class="p-2 pb-3 relatedMd-box">
+                	<input type=hidden class="relatedMd_id" value="${relatedMd.md_id }">
                     <div class="product-wap card rounded-0">
                         <div class="card rounded-0">
                             <img class="card-img rounded-0 img-fluid" src="/resources/mdDetail/assets/img/shop_08.jpg">

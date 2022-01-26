@@ -1,6 +1,8 @@
 package kh.spring.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
@@ -63,5 +65,34 @@ public class CouponDAO {
 	public Integer insertSunGradeDiscount(Integer id) {
 		
 		return mybatis.insert("Coupon.insertSunGradeDelivery",id);
+	}
+	
+	public List<CouponDTO> selectCouponListById(Integer member_id) {
+		
+		return mybatis.selectList("Coupon.selectCouponListById", member_id);
+	}
+	
+	public int selectCouponPossibleById(Integer member_id) {
+		
+		return mybatis.selectOne("Coupon.selectCouponPossibleById", member_id);
+	}
+	
+	public List<CouponDTO> selectByBound(Integer member_id, int start, int end) {
+		
+		Map<String, String> map = new HashMap<>();
+		map.put("member_id", String.valueOf(member_id));
+		map.put("start", String.valueOf(start));
+		map.put("end", String.valueOf(end));
+		
+		return mybatis.selectList("Coupon.selectByBound", map);
+	}
+	
+	public int selectRecordCount(Integer member_id) {
+		
+		return mybatis.selectOne("Coupon.selectRecordCount", member_id);
+	}
+	
+	public Integer updateCouponUsed(Integer coupon_id) {
+		return mybatis.update("Coupon.updateCouponUsed", coupon_id);
 	}
 }

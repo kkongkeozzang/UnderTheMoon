@@ -44,4 +44,19 @@ public class MdService {
 		return mdDAO.selectSameRegionMdsExceptForSelectMd(md_id);
 	}
 	
+	public int checkMd(String md_name){
+		return mdDAO.checkMd(md_name);
+	}
+	
+	public int insertMd(MdDTO mds){
+		return mdDAO.insertMd(mds);
+	}
+	
+	public int deleteMd(int md_id){
+		return mdDAO.deleteMd(md_id);
+	}
+	
+	public int updateMd(MdDTO mds){
+		return mdDAO.updateMd(mds);
+	}
 }

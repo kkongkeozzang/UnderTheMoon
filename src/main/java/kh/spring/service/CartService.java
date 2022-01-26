@@ -1,6 +1,7 @@
 package kh.spring.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
@@ -32,7 +33,8 @@ public class CartService {
 		
 		Integer result = 0;
 		// 기존 존재하는 cart 레코드 가져오기
-		List<CartDTO> cartMds = cartDAO.selectMdByMdId(md_id);
+		List<CartDTO> cartMds = cartDAO.selectMdByMdId(md_id,member_id);
+		
 		if(cartMds.size() == 0) {  
 			// 없다면 생성
 			result = cartDAO.insertIntoCart(member_id,md_id,cart_item_count,md);
@@ -70,5 +72,12 @@ public class CartService {
 		Integer result = cartDAO.subtractItemCount(cart_id);
 		return result;
 	}
+
+	public Integer deleteAll(Integer member_id) {
+		Integer result = cartDAO.deleteAll(member_id);
+		return result;
+	}
+
+	
 
 }

@@ -1,7 +1,7 @@
 package kh.spring.controller.api;
 
 import java.io.IOException;
-
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -37,9 +37,9 @@ public class PurchaseAPIController {
 		this.deliveryService = deliveryService;
 	}
 	
-	@PostMapping(value="insertPurchase")
+	@PostMapping(value="insertPurchase", produces = "application/json")
 	public ResponseEntity<Integer> insertPurchase(@RequestBody List<Map<String,String>> objects) throws IOException{
-		
+			
 			ObjectMapper mapper = new ObjectMapper();
 			
 			String delivery = mapper.writeValueAsString((objects.get(0)));
@@ -50,13 +50,14 @@ public class PurchaseAPIController {
 			
 			DeliveryDTO deliveryDTO = mapper.readValue(delivery, DeliveryDTO.class);
 			PurchaseDTO purchaseDTO = mapper.readValue(purchase, PurchaseDTO.class);
-
+			
 			Integer delivery_id = deliveryService.insertDelivery(deliveryDTO);
 			purchaseService.insertPurchase(purchaseDTO);
 			
 		return new ResponseEntity<Integer>(delivery_id,HttpStatus.OK);
 		
 	}
+	
 	
 	@GetMapping("selectId/{resp}")
 	public ResponseEntity<Integer> selectId(@PathVariable("resp") Integer delivery_id) throws InterruptedException{
@@ -67,7 +68,7 @@ public class PurchaseAPIController {
 
 	@DeleteMapping("deleteId/{delivery_id}/{order_id}")
 	public ResponseEntity<Integer> deleteId(@PathVariable Integer delivery_id,@PathVariable Integer order_id){
-	
+		System.out.println("delete");
 		int result = deliveryService.deleteById(delivery_id);
 		
 		int result2 = purchaseService.deleteById(order_id);

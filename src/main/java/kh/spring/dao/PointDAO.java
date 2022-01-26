@@ -49,7 +49,7 @@ public class PointDAO {
 		return mybatis.insert("Point.insertUsedPoint",map);
 	}
 
-<<<<<<< HEAD
+
 	public Integer savePoints(Integer member_id, Integer productTotal) {
 		
 		Map<String,Integer> map = new HashMap<>();
@@ -57,10 +57,11 @@ public class PointDAO {
 		map.put("productTotal",productTotal);
 		
 		return mybatis.insert("Point.savePoints",map);
-=======
+	}
+
 	public Integer insertRecomendadoMemberPoint(Integer id) {
 		return mybatis.insert("Point.insertRecomendadoMemberPoint",id);
->>>>>>> fa79203dfec26324adc3ef62f2a7a0609f0e7075
+
 	}
 }
 

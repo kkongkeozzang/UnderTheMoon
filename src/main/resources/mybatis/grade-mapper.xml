@@ -29,4 +29,7 @@
 		select count(*) from grade where grade_name=#{grade_name}
 	</select>
 	
+	<select id="selectGrade_point" resultType="int">
+		select grade_percent*100 from grade where grade_name = (select grade_name from member where member_username = #{username})
+ 	</select>
  </mapper>

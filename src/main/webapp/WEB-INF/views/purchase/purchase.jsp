@@ -237,13 +237,14 @@ $(document).ready(function(){
 	                        <select id="coupon" class="form-select" >
 	                            <c:choose>
 	                                <c:when test="${fn:length(coupons)== 0}">
-	                                <option value="0|0">사용 가능한 쿠폰이 없습니다.</option>
+	                                <option value="0|0|없음">사용 가능한 쿠폰이 없습니다.</option>
 	                                </c:when>
 	                                <c:otherwise>
-	                                    <option value="0|0">사용할 쿠폰을 선택해주세요. 총 ${fn:length(coupons)}장</option>
+	                                    <option value="0|0|없음">사용할 쿠폰을 선택해주세요. 총 ${fn:length(coupons)}장</option>
 	                                    <c:forEach var="coupon" items="${coupons }">
-	                                    <option value="${coupon.coupon_discount_rate}|${coupon.coupon_id}">${coupon.coupon_name} ${coupon.coupon_discount_rate }</option>
+	                                    <option value="${coupon.coupon_discount_rate}|${coupon.coupon_id}|${coupon.coupon_name}">${coupon.coupon_name} ${coupon.coupon_discount_rate }</option>
 	                                    </c:forEach>
+	                                    <option value="0|0|없음">쿠폰 사용 안함</option>
 	                                </c:otherwise>
 	                            </c:choose>
 	                       </select>
@@ -294,7 +295,7 @@ $(document).ready(function(){
 										<dl class="amount">
 											<dt class="tit">배송비</dt>
 											<dd class="price">
-												<span>2,500</span> 원
+												<span id="delivery-fee">2,500</span> 원
 											</dd>
 										</dl>
 										<dl class="amount">
@@ -452,10 +453,17 @@ $(document).ready(function(){
 					 
 					 //쿠폰 사용후 결제금액 갱신
 					  $("body").on("change","#coupon",function(){
-						coupon_discount_rate = $(this).closest("#select-container").find("#coupon").val().substring(0,$('#coupon').val().indexOf('|'));
-						coupon_id = $(this).closest("#select-container").find("#coupon").val().substring($('#coupon').val().indexOf('|')+1);
+						// 쿠폰이 배송비인지 금액인지
+						let couponDetails = $(this).closest("#select-container").find("#coupon").val().split("|");
+						coupon_discount_rate = couponDetails[0];
+						coupon_id = couponDetails[1];
+						coupon_name = couponDetails[2];
 					 	let totalPrice_int = initialTotalPrice;
 					 	let coupon_price = Number(coupon_discount_rate);
+					 	if(coupon_name.includes("배송비")) {
+					 		coupon_discount_rate = 0;
+					 		$("#delivery-fee").text(0);
+					 	}
 					 	if(coupon_discount_rate == 0) {
 					 		$("#coupon_price").text(coupon_discount_rate + " ");
 					 		initialTotalPrice = initialTotalPrice + Number($("#coupon_price").text());

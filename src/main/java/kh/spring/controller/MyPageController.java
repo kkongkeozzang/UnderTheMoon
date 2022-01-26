@@ -2,17 +2,21 @@ package kh.spring.controller;
 
 
 import java.util.List;
-import java.util.Map;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import kh.spring.dto.CouponDTO;
 import kh.spring.dto.GradeDTO;
 import kh.spring.dto.MemberDTO;
+import kh.spring.dto.MyPagePurchaseDTO;
 import kh.spring.dto.PointDTO;
 import kh.spring.service.CouponService;
 import kh.spring.service.GradeService;
@@ -21,6 +25,7 @@ import kh.spring.service.PointService;
 import kh.spring.service.PurchaseService;
 import kh.spring.util.PageNavigator;
 import kh.spring.util.PageStatic;
+import kh.spring.util.ScriptUtils;
 
 
 @Controller
@@ -32,27 +37,38 @@ public class MyPageController {
 	private final PurchaseService purchaseService;
 	private final CouponService couponService;
 	private final PointService pointService;
+	private final BCryptPasswordEncoder bCrptPasswordEncoder;
+	private final HttpServletResponse response;
 	
 	public MyPageController(GradeService gradeService, MemberService memberService, PurchaseService purchaseService, 
-			CouponService couponService, PointService pointService) {
+			CouponService couponService, PointService pointService, BCryptPasswordEncoder bCrptPasswordEncoder, HttpServletResponse response) {
 		this.gradeService = gradeService;
 		this.memberService = memberService;
 		this.purchaseService = purchaseService;
 		this.couponService = couponService;
 		this.pointService = pointService;
+		this.bCrptPasswordEncoder = bCrptPasswordEncoder;
+		this.response = response;
 	}
 	
 	@RequestMapping("myPageList")
-	public String myPage(Model model) {
+	public String myPage(Model model, int cPage) {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal(); 
         String username = ((UserDetails)principal).getUsername();
 		MemberDTO memberDTO = memberService.selectByUsername(username);
 		int pointSum = pointService.selectPointById(username).get();
 		int couponSum = couponService.selectCouponPossibleById(memberDTO.getMember_id());
+		int start = cPage * PageStatic.MYPAGELIST_COUNT_PER_PAGE-(PageStatic.MYPAGELIST_COUNT_PER_PAGE - 1); 
+		int end = cPage * PageStatic.MYPAGELIST_COUNT_PER_PAGE;
+		List<MyPagePurchaseDTO> purchaseList = purchaseService.selectByBound(memberDTO.getMember_id(), start, end);
+		Integer allPurchaseCount = purchaseService.selectRecordCount(memberDTO.getMember_id());
+		String pageNavi = PageNavigator.getPageNavigator(allPurchaseCount, cPage, PageStatic.MYPAGELIST_COUNT_PER_PAGE, PageStatic.MYPAGELIST_NAVI_COUNT_PER_PAGE, "myPageList", "all" ,"","");
 		
 		model.addAttribute("memberDTO",memberDTO);
 		model.addAttribute("pointSum",pointSum);
 		model.addAttribute("couponSum", couponSum);
+		model.addAttribute("purchaseList", purchaseList);
+		model.addAttribute("pageNavi", pageNavi);
         
 		return "/mypage/myPageList";
 	}
@@ -116,8 +132,7 @@ public class MyPageController {
         String username = ((UserDetails)principal).getUsername();
 		MemberDTO memberDTO = memberService.selectByUsername(username);
 		int pointSum = pointService.selectPointById(username).get();
-		
-		int couponSum = couponService.selectCouponPossibleById(memberDTO.getMember_id());
+		int couponSum = couponService.selectCouponPossibleById(memberDTO.getMember_id());		
 		int start = cPage * PageStatic.COUPON_COUNT_PER_PAGE-(PageStatic.COUPON_COUNT_PER_PAGE - 1); 
 		int end = cPage * PageStatic.COUPON_COUNT_PER_PAGE;
 		List<CouponDTO> couponList = couponService.selectByBound(memberDTO.getMember_id(), start, end);
@@ -131,5 +146,60 @@ public class MyPageController {
 		model.addAttribute("pageNavi", pageNavi);
 		
 		return "/mypage/myPageCoupon";
+	}
+	
+	@RequestMapping("myPageModifyProfile")
+	public String myPageModifyProfile(Model model) {
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal(); 
+        String username = ((UserDetails)principal).getUsername();
+		MemberDTO memberDTO = memberService.selectByUsername(username);
+		int pointSum = pointService.selectPointById(username).get();
+		int couponSum = couponService.selectCouponPossibleById(memberDTO.getMember_id());
+		
+		model.addAttribute("memberDTO",memberDTO);
+		model.addAttribute("pointSum",pointSum);
+		model.addAttribute("couponSum", couponSum);
+		
+		return "/mypage/myPageModifyProfile";
+	}
+	
+	@RequestMapping("myPageCheckPassword")
+	public String myPageCheckPassword(Model model, @RequestParam(value = "member_password", required=false, defaultValue="") 
+	String member_password) throws Exception{
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal(); 
+        String username = ((UserDetails)principal).getUsername();
+		MemberDTO memberDTO = memberService.selectByUsername(username);
+		String password = memberDTO.getMember_password();
+		boolean result = bCrptPasswordEncoder.matches(member_password, password);
+		if(result == true) {
+			model.addAttribute("memberDTO",memberDTO);
+			return "/mypage/myPageModifyProfileDetail";
+		}else {
+			int pointSum = pointService.selectPointById(username).get();
+			int couponSum = couponService.selectCouponPossibleById(memberDTO.getMember_id());
+			model.addAttribute("memberDTO",memberDTO);
+			model.addAttribute("pointSum",pointSum);
+			model.addAttribute("couponSum", couponSum);
+			ScriptUtils.alert(response, "비밀번호가 올바르지않습니다");
+
+			return "/mypage/myPageModifyProfile";
+		}
+	}
+	
+	@RequestMapping("UpdateProfile")
+	public String updateMember(Model model, MemberDTO dto) throws Exception{
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal(); 
+        String username = ((UserDetails)principal).getUsername();
+		MemberDTO memberDTO = memberService.selectByUsername(username);
+		int pointSum = pointService.selectPointById(username).get();
+		int couponSum = couponService.selectCouponPossibleById(memberDTO.getMember_id());
+		memberService.updateMember(dto);
+		
+		model.addAttribute("memberDTO",memberDTO);
+		model.addAttribute("pointSum",pointSum);
+		model.addAttribute("couponSum", couponSum);
+		ScriptUtils.alert(response, "회원정보가 수정 되었습니다.");
+		
+		return "/mypage/myPageModifyProfile";
 	}
 }

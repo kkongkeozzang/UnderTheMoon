@@ -16,6 +16,46 @@
 
     <!-- Custom styles for this template-->
     <link href="/resources/admin/css/sb-admin-2.min.css" rel="stylesheet">
+<style>
+	
+	#input-new td{
+		font-size:medium;
+		color:black;
+	}
+	
+	#input-new td select{
+		border: 1px solid black;
+	}
+	
+	#input-new td input{
+		border: 1px solid black;
+	}
+	
+ 	#dataTable>tbody>tr>td{
+ 		font-size:0em;
+ 		color: white;
+ 	}
+ 	
+	#dataTable>tbody>tr>td>input {
+		font-size:medium;
+		color:black;
+		border:none;
+		width:100%;
+		height:100%;
+		overflow:hidden;
+		text-overflow:ellipsis;
+		white-space:nowrap;
+	}
+	#dataTable>tbody>tr>td>select {
+		font-size:medium;
+		color:black;
+		border:none;
+		width:100%;
+		height:100%;
+		disabled:true;
+		display:inline-block;
+	}
+</style>
 <sec:authorize access="isAuthenticated()">
     <sec:authentication property="principal" var="principal"/>
 </sec:authorize>
@@ -63,13 +103,16 @@
 	                            		<tr>
 				                            <td>상품지역
 				                            <td>
-				                            <select id="md_region" name="md_region">
+				                            <select name="md_region" id="md_region">
 				                            	<option value="">--지역을 선택하세요--</option>
 				                            	<option value="서울">서울</option>
 				                            	<option value="부산">부산</option>
 				                            	<option value="인천">인천</option>
 				                            	<option value="대전">대전</option>
+				                            	<option value="대구">대구</option>
+					                            <option value="세종">세종</option>
 				                            	<option value="울산">울산</option>
+				                            	<option value="광주">광주</option>
 				                            	<option value="경기도">경기도</option>
 				                            	<option value="강원도">강원도</option>
 				                            	<option value="충청북도">충청북도</option>
@@ -105,7 +148,7 @@
 				                       	<tr>
 				                            <td>상품종류
 				                            <td>
-				                            <select id="md_category" name="md_category">
+				                            <select name="md_category" id="md_category">
 				                            	<option value="">--종류를 선택하세요--</option>
 				                            	<option value="탁주">탁주</option>
 				                            	<option value="약주">약주</option>
@@ -161,51 +204,89 @@
                                     <thead>
                                     	<tr>
                                     		<th>ID</th>
-                                            <th>상품지역</th>
-                                            <th>상품명</th>
-                                            <th>상품정보</th>
-                                            <th>상품가격</th>
-                                            <th>상품종류</th>
-                                            <th>상품도수</th>
-                                            <th>상품이미지</th>
-                                            <th>정보이미지</th>
-                                            <th>관리</th>
+                                            <th width=8%>상품지역</th>
+                                            <th width=8%>상품명</th>
+                                            <th width=15%>상품정보</th>
+                                            <th width=8%>상품가격</th>
+                                            <th width=9%>상품종류</th>
+                                            <th width=7%>상품도수</th>
+                                            <th width=15%>상품이미지</th>
+                                            <th width=15%>정보이미지</th>
+                                            <th width=15%>관리</th>
                                         </tr>
                                     </thead>
                                     <tbody>
 									<c:forEach var="mds" items="${mds}">
                                         <tr>
-                                        <form action="/seller/updateMd" method="post" id="updateMd${mds.md_id}">
-                                            <td>${mds.md_id}<input type=hidden value=${mds.md_id } name=md_id>
-                                            <td style="font-size:0em;color: white;">${mds.md_region }<input type=text value='${mds.md_region }' id="md_region${mds.md_id}" name=md_region style="font-size:medium;color:black;border:none;width:100%;height:100%;overflow:auto;"  maxLength=10 readonly>
-                                            <td style="font-size:0em;color: white;">${mds.md_name }<input type=text value='${mds.md_name }' id="md_name${mds.md_id}" name=md_name style="font-size:medium;color:black;border:none;width:100%;height:100%;overflow:auto;"  maxLength=10 readonly>
-                                            <td style="font-size:0em;color: white;">${mds.md_content }<input type=text value='${mds.md_content }' id="md_content${gmds.md_id}" name=md_content style="font-size:medium;color:black;border:none;width:100%;height:100%;overflow:auto;"  maxLength=50 readonly>
-                                            <td style="font-size:0em;color: white;">${mds.md_price }<input type=text value='${mds.md_price }' id="md_price${mds.md_id}" name=md_price style="font-size:medium;color:black;border:none;width:100%;height:100%;overflow:auto;"  maxLength=10 readonly>
-                                            <td style="font-size:0em;color: white;">${mds.md_category }<input type=text value='${mds.md_category }' id="md_category${mds.md_id}" name=md_category style="font-size:medium;color:black;border:none;width:100%;height:100%;overflow:auto;"  maxLength=10 readonly>
-                                            <td style="font-size:0em;color: white;">${mds.md_abv }<input type=text value='${mds.md_abv }' id="md_abv${mds.md_id}" name=md_abv style="font-size:medium;color:black;border:none;width:100%;height:100%;overflow:auto;"  maxLength=10 readonly>
-                                            <td style="font-size:0em;color: white;">${mds.md_image }<input type=text value='${mds.md_image }' id="md_image${mds.md_id}" name=md_image style="font-size:medium;color:black;border:none;width:100%;height:100%;overflow:auto;"  maxLength=50 readonly>
-                                            <td style="font-size:0em;color: white;">${mds.md_detail_image }<input type=text value='${gmds.md_detail_image }' id="md_detail_image${mds.md_id}" name=md_detail_image style="font-size:medium;color:black;border:none;width:100%;height:100%;overflow:auto;"  maxLength=10 readonly>
+                                        <form action="/seller/updateMd" method="post" class="updateFrm">
+                                            <td style="font-size:medium;color:black;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${mds.md_id}<input type=hidden value=${mds.md_id } class=md_id name=md_id>
                                             <td>
-                                           	<a onclick="del(this);" val="${mds.md_id}" id="del${mds.md_id}" class="btn btn-danger btn-icon-split">
+                                            	${mds.md_region }
+                                            	<input type=text class="md_region" value=${mds.md_region } readonly>
+                                            	<select class="md_region_select" name="md_region" style="display:none;">
+					                            	<option value="서울">서울</option>
+					                            	<option value="부산">부산</option>
+					                            	<option value="인천">인천</option>
+					                            	<option value="대전">대전</option>
+					                            	<option value="대구">대구</option>
+					                            	<option value="세종">세종</option>
+					                            	<option value="울산">울산</option>
+					                            	<option value="광주">광주</option>
+					                            	<option value="경기도">경기도</option>
+					                            	<option value="강원도">강원도</option>
+					                            	<option value="충청북도">충청북도</option>
+					                            	<option value="충청남도">충청남도</option>
+					                            	<option value="전라북도">전라북도</option>
+					                            	<option value="전라남도">전라남도</option>
+					                            	<option value="경상북도">경상북도</option>
+					                            	<option value="경상남도">경상남도</option>
+					                            	<option value="제주도">제주도</option>
+					                            </select>
+                                            </td>
+                                            <td>${mds.md_name }<input type=text class="md_name" value="${mds.md_name }" name=md_name maxLength=10 readonly>
+                                            <td>'${mds.md_content }'<input type=text class="md_content" value="${mds.md_content }" name=md_content maxLength=50 readonly>
+                                            <td>${mds.md_price }<input type=text class="md_price" value=${mds.md_price } name=md_price maxLength=10 readonly>
+                                            <td>
+                                            	${mds.md_category }
+                                        		<input type=text class="md_category" value=${mds.md_category } readonly>
+                                            	<select class="md_category_select" name="md_category" style="display:none;">
+					                            	<option value="탁주">탁주</option>
+					                            	<option value="약주">약주</option>
+					                            	<option value="청주">청주</option>
+					                            	<option value="맥주">맥주</option>
+					                            	<option value="과실주">과실주</option>
+					                            	<option value="소주">소주</option>
+					                            	<option value="위스키">위스키</option>
+					                            	<option value="브랜디">브랜디</option>
+					                            	<option value="일반증류주">일반증류주</option>
+					                            	<option value="리큐르">리큐르</option>
+					                            	<option value="기타">기타</option>
+					                            </select>
+                                            </td>
+                                            <td>${mds.md_abv }<input type=text class="md_abv" value="${mds.md_abv }" name=md_abv maxLength=10 readonly>
+                                            <td>${mds.md_image }<input type=text class="md_image" value="${mds.md_image }" name=md_image maxLength=50 readonly>
+                                            <td>${mds.md_detail_image }<input type=text class="md_detail_image" value="${mds.md_detail_image }" name=md_detail_image maxLength=50 readonly>
+                                            <td>
+                                           	<a id="del" class="btn btn-danger btn-icon-split">
 		                                        <span class="icon text-white-50">
 		                                            <i class="fas fa-trash"></i>
 		                                        </span>
 		                                        <span class="text">삭제</span>
 		                                    </a>
 		                                    
-                                           	<a onclick="modify(this);" val="${mds.md_id}" id="mod${mds.md_id}" class="btn btn-warning btn-icon-split">
+                                           	<a id="mod" class="btn btn-warning btn-icon-split">
 		                                        <span class="icon text-white-50">
 		                                            <i class="fas fa-exclamation-triangle"></i>
 		                                        </span>
 		                                        <span class="text">수정</span>
 		                                    </a>
-		                                   	<a onclick="update(this);" id="update${mds.md_id}" val="${mds.md_id}" style="display:none;" class="btn btn-success btn-icon-split">
+		                                   	<a id="update" style="display:none;" class="btn btn-success btn-icon-split">
 		                                        <span class="icon text-white-50">
 		                                            <i class="fas fa-check"></i>
 		                                        </span>
 		                                        <span class="text">수정</span>
 		                                    </a>
-		                                 	<a onclick="cancelMod(this);" id="cancelMod${mds.md_id}" val="${mds.md_id}" style="display:none;" class="btn btn-primary btn-icon-split">
+		                                 	<a id="cancelMod" style="display:none;" class="btn btn-primary btn-icon-split">
 		                                        <span class="icon text-white-50">
 		                                            <i class="fas fa-flag"></i>
 		                                        </span>
@@ -251,9 +332,9 @@
 											}).done(function(resp){
 												console.log(resp);
 												if(resp != 0){
-													$("#checkDbl").html("이미 사용중인 등급이름 입니다.");
+													$("#checkDbl").html("이미 사용중인 이름 입니다.");
 												}else{
-													$("#checkDbl").html("사용 가능한 등급이름 입니다.");
+													$("#checkDbl").html("사용 가능한 이름 입니다.");
 												}
 											})
 										});
@@ -302,7 +383,7 @@
                             			}else if(checkDbl == "") {
                             				alert("중복확인을 실행해주세요");
                             				return false;
-                            			}else if(checkDbl == "이미 사용중인 등급이름 입니다.") {
+                            			}else if(checkDbl == "이미 사용중인 이름 입니다.") {
                             				alert("등급이름이 중복됐는지 확인해주세요!");
                             				return false;
                             				
@@ -324,118 +405,166 @@
                             				}
                             			}
                             		})
-                            		function del(element) { // 삭제버튼 클릭시
+                            		
+                            		$("table").on('click',"#del",function(){ // 삭제버튼 클릭시
+                            			let md_id = $(this).parent().siblings("td").children(".md_id").val();
                             			if(confirm("정말 삭제하시겠습니까?")){
-                            				let value = element.getAttribute("val");
-                            				location.href="/seller/deleteGrade?grade_name="+value;
+                            				location.href="/seller/deleteMd?md_id="+md_id;
                             			}
-                            		}
+                            		})
                             		
-                            		function modify(element){ //수정 버튼 클릭시
-                            			let value = element.getAttribute("val");
-                            			eval("bkPercent" + value + "=" + $("#grade_percent"+value).val());
-                            			eval("bkTarget" + value + "=" + $("#grade_target"+value).val());
+                            		$("table").on('click',"#mod",function(){ //수정 버튼 클릭시
+                            			let md_id = $(this).parent().siblings("td").children(".md_id").val();
+                            		
+                            			bkRegion = $(this).parent().siblings("td").children(".md_region").val();
+                            			bkName = $(this).parent().siblings("td").children(".md_name").val();
+                            			bkContent = $(this).parent().siblings("td").children(".md_content").val();
+                            			bkPrice = $(this).parent().siblings("td").children(".md_price").val();
+                            			bkCategory = $(this).parent().siblings("td").children(".md_category").val();
+                            			bkAbv = $(this).parent().siblings("td").children(".md_abv").val();
+                            			bkImg = $(this).parent().siblings("td").children(".md_image").val();
+                            			bkDetail = $(this).parent().siblings("td").children(".md_detail_image").val();
 
-                            			$("#del"+value).css("display","none");
-                            			$("#mod"+value).css("display","none");
-                            			$("#update"+value).css("display","inline-block");
-                            			$("#cancelMod"+value).css("display","inline-block");
-                            			$("#grade_percent"+value).removeAttr("readonly");
-                            			$("#grade_percent"+value).css("border","1px solid black");
-                            			$("#grade_target"+value).removeAttr("readonly");
-                            			$("#grade_target"+value).css("border","1px solid black");
-                            			$("#grade_coupon"+value).removeAttr("readonly");
-                            			$("#grade_coupon"+value).css("border","1px solid black");
-                            		}
+                            			$(this).prev("#del").css("display","none");
+                            			$(this).css("display","none");
+                            			$(this).next("#update").css("display","inline-block");
+                            			$(this).siblings("#cancelMod").css("display","inline-block");
+                            			$(this).parent().parent().siblings("tr").find("#mod").not($(this)).css("display","none");
+                            			$(this).parent().parent().siblings("tr").find("#del").css("display","none");
+                            			
+                            			
+                            			$(this).parent().siblings("td").children(".md_region").css("display","none");
+                            			$(this).parent().siblings("td").children(".md_region_select").css("display","inline-block");
+                            			$(this).parent().siblings("td").children(".md_region_select").css("border","1px solid black");
+                            			$(this).parent().siblings("td").children(".md_region_select").val(bkRegion);
+                            			$(this).parent().siblings("td").children(".md_name").removeAttr("readonly");
+                            			$(this).parent().siblings("td").children(".md_name").css("border","1px solid black");
+                            			$(this).parent().siblings("td").children(".md_content").removeAttr("readonly");
+                            			$(this).parent().siblings("td").children(".md_content").css("border","1px solid black");
+                            			$(this).parent().siblings("td").children(".md_price").removeAttr("readonly");
+                            			$(this).parent().siblings("td").children(".md_price").css("border","1px solid black");
+                            			$(this).parent().siblings("td").children(".md_category").css("display","none");
+                            			$(this).parent().siblings("td").children(".md_category_select").css("display","inline-block");
+                            			$(this).parent().siblings("td").children(".md_category_select").css("border","1px solid black");
+                            			$(this).parent().siblings("td").children(".md_category_select").val(bkCategory);
+                            			$(this).parent().siblings("td").children(".md_abv").removeAttr("readonly");
+                            			$(this).parent().siblings("td").children(".md_abv").css("border","1px solid black");
+                            			$(this).parent().siblings("td").children(".md_image").removeAttr("readonly");
+                            			$(this).parent().siblings("td").children(".md_image").css("border","1px solid black");
+                            			$(this).parent().siblings("td").children(".md_detail_image").removeAttr("readonly");
+                            			$(this).parent().siblings("td").children(".md_detail_image").css("border","1px solid black");
+                            		})
                             		
-                            		function cancelMod(element){ //수정취소버튼 클릭시
-                            			let value = element.getAttribute("val");
+                            		$("table").on('click',"#cancelMod",function(){ //수정취소버튼 클릭시
                             			if(confirm("수정을 취소하시겠습니까?")){
-                            				$("#grade_percent"+value).val(eval("bkPercent"+value));
-                                			$("#grade_target"+value).val(eval("bkTarget"+value));
-                            				$("#del"+value).css("display","inline-block");
-                                			$("#mod"+value).css("display","inline-block");
-                                			$("#update"+value).css("display","none");
-                                			$("#cancelMod"+value).css("display","none");
-                                			$("#grade_percent"+value).attr("readonly","readonly");
-                                			$("#grade_percent"+value).css("border","none");
-                                			$("#grade_target"+value).attr("readonly","readonly");
-                                			$("#grade_target"+value).css("border","none");
-                                			$("#grade_coupon"+value).attr("readonly","readonly");
-                                			$("#grade_coupon"+value).css("border","none");
+                            				$(this).parent().siblings("td").children(".md_region").val(bkRegion);
+                            				$(this).parent().siblings("td").children(".md_name").val(bkName);
+                            				$(this).parent().siblings("td").children(".md_content").val(bkContent);
+                            				$(this).parent().siblings("td").children(".md_price").val(bkPrice);
+                            				$(this).parent().siblings("td").children(".md_category").val(bkCategory);
+                            				$(this).parent().siblings("td").children(".md_abv").val(bkAbv);
+                            				$(this).parent().siblings("td").children(".md_image").val(bkImg);
+                            				$(this).parent().siblings("td").children(".md_detail_image").val(bkDetail);
+                                			
+                                			$(this).css("display","none");
+                                			$(this).prev("#update").css("display","none");
+                                			$(this).siblings("#mod").css("display","inline-block");
+                                			$(this).siblings("#del").css("display","inline-block");
+                                			$(this).parent().parent().siblings("tr").find("#mod").not($(this)).css("display","inline-block");
+                                			$(this).parent().parent().siblings("tr").find("#del").not($(this).siblings()).css("display","inline-block");
+                                			
+                                			$(this).parent().siblings("td").children(".md_region").css("display","inline-block");
+                                			$(this).parent().siblings("td").children(".md_region_select").css("display","none");
+                                			$(this).parent().siblings("td").children(".md_region_select").css("border","none");
+                                			$(this).parent().siblings("td").children(".md_name").attr("readonly","readonly");
+                                			$(this).parent().siblings("td").children(".md_name").css("border","none");
+                                			$(this).parent().siblings("td").children(".md_content").attr("readonly","readonly");
+                                			$(this).parent().siblings("td").children(".md_content").css("border","none");
+                                			$(this).parent().siblings("td").children(".md_price").attr("readonly","readonly");
+                                			$(this).parent().siblings("td").children(".md_price").css("border","none");
+                                			$(this).parent().siblings("td").children(".md_category").css("display","inline-block");
+                                			$(this).parent().siblings("td").children(".md_category_select").css("display","none");
+                                			$(this).parent().siblings("td").children(".md_category_select").css("border","none");
+                                			$(this).parent().siblings("td").children(".md_abv").attr("readonly","readonly");
+                                			$(this).parent().siblings("td").children(".md_abv").css("border","none");
+                                			$(this).parent().siblings("td").children(".md_image").attr("readonly","readonly");
+                                			$(this).parent().siblings("td").children(".md_image").css("border","none");
+                                			$(this).parent().siblings("td").children(".md_detail_image").attr("readonly","readonly");
+                                			$(this).parent().siblings("td").children(".md_detail_image").css("border","none");
                             			}
-                            		}
+                            		})
                             		
-                            		function update(element) {
-                            			let value = element.getAttribute("val");
+                            		$("table").on('click',"#update",function(){ //수정버튼 클릭시
+                        				let mdRegion = $(this).parent().siblings("td").children(".md_region").val();
+                        				let mdName = $(this).parent().siblings("td").children(".md_name").val();
+                        				let mdContent = $(this).parent().siblings("td").children(".md_content").val();
+                        				let mdPrice = $(this).parent().siblings("td").children(".md_price").val();
+                        				let mdCategory = $(this).parent().siblings("td").children(".md_category").val();
+                        				let mdAbv = $(this).parent().siblings("td").children(".md_abv").val();
+                        				let mdImage = $(this).parent().siblings("td").children(".md_image").val();
+                        				let mdDetail = $(this).parent().siblings("td").children(".md_detail_image").val();
                                 		
-                                		let gradePercent = $("#grade_percent"+value).val();
-                                		let percentRegex = /^0\.[0-9]+$/;
+                                		let numberRegex = /^[0-9]+$/;
+
                                 		
-                                		let gradeTarget = $("#grade_target"+value).val();
-                                		let targetRegex = /^[0-9]+$/;
-                                		
-                                		let gradeCoupon = $("#grade_coupon"+value).val();
-                                		
-                            			if(!percentRegex.test(gradePercent)) {
-                            				alert("적립률을 확인해주세요!(소숫점으로만 입력하세요. 예)0.1, 0.05)");
+                            			if(!numberRegex.test(mdPrice)) {
+                            				alert("상품가격을 확인해주세요!");
                             				return false;
-                            			}else if(!targetRegex.test(gradeTarget)) {
-                            				alert("달성기준을 확인해주세요!(숫자만 입력하세요 예)100000)");
+                            			}else if(!numberRegex.test(mdAbv)) {
+                            				alert("상품도수를 확인해주세요!");
                             				return false;
-                            			}else if(gradeCoupon == "") {
-                            				alert("등급혜택을 입력해주세요!(최대 50자)");
+                            			}else if(mdName == "" || mdContent == "" ||mdPrice == "" ||mdAbv == "" ||mdAbv == "") {
+                            				alert("빈칸을 확인해주세요.");
                             				return false;
                             			}else{
                             				if(confirm("정말로 수정하시겠습니까?")){
-                            					$("#upgrade"+value).submit();
+                            					$(this).parent().siblings(".updateFrm").submit();
                             				}
                             			}
-                            		}
-                            		
+                            		})
 									
-									//문자 제거
-									function removeChar(event) {
-										event = event || window.event;
-										var keyID = (event.which) ? event.which : event.keyCode;
-										if (keyID == 8 || keyID == 46 || keyID == 37 || keyID == 39)
-											return;
-										else
-											//숫자와 소수점만 입력가능
-											event.target.value = event.target.value.replace(/[^-\.0-9]/g, "");
-									}
-									//콤마 찍기
-									function comma(obj) {
-										var regx = new RegExp(/(-?\d+)(\d{3})/);
-										var bExists = obj.indexOf(".", 0);//0번째부터 .을 찾는다.
-										var strArr = obj.split('.');
-										while (regx.test(strArr[0])) {//문자열에 정규식 특수문자가 포함되어 있는지 체크
-											//정수 부분에만 콤마 달기
-											strArr[0] = strArr[0].replace(regx, "$1,$2");//콤마추가하기
-										}
-										if (bExists > -1) {
-											//. 소수점 문자열이 발견되지 않을 경우 -1 반환
-											obj = strArr[0] + "." + strArr[1];
-										} else { //정수만 있을경우 //소수점 문자열 존재하면 양수 반환
-											obj = strArr[0];
-										}
-										return obj;//문자열 반환
-									}
-									//콤마 풀기
-									function uncomma(str) {
-										str = "" + str.replace(/,/gi, ''); // 콤마 제거
-										str = str.replace(/(^\s*)|(\s*$)/g, ""); // trim()공백,문자열 제거
-										return (new Number(str));//문자열을 숫자로 반환
-									}
-									//input box 콤마달기
-									function inputNumberFormat(obj) {
-										obj.value = comma(obj.value);
-									}
-									//input box 콤마풀기 호출
-									function uncomma_call(){
-									var input_value = document.getElementById('input1');
-									input_value.value = uncomma(input_value.value);
-									}
+// 									//문자 제거
+// 									function removeChar(event) {
+// 										event = event || window.event;
+// 										var keyID = (event.which) ? event.which : event.keyCode;
+// 										if (keyID == 8 || keyID == 46 || keyID == 37 || keyID == 39)
+// 											return;
+// 										else
+// 											//숫자와 소수점만 입력가능
+// 											event.target.value = event.target.value.replace(/[^-\.0-9]/g, "");
+// 									}
+// 									//콤마 찍기
+// 									function comma(obj) {
+// 										var regx = new RegExp(/(-?\d+)(\d{3})/);
+// 										var bExists = obj.indexOf(".", 0);//0번째부터 .을 찾는다.
+// 										var strArr = obj.split('.');
+// 										while (regx.test(strArr[0])) {//문자열에 정규식 특수문자가 포함되어 있는지 체크
+// 											//정수 부분에만 콤마 달기
+// 											strArr[0] = strArr[0].replace(regx, "$1,$2");//콤마추가하기
+// 										}
+// 										if (bExists > -1) {
+// 											//. 소수점 문자열이 발견되지 않을 경우 -1 반환
+// 											obj = strArr[0] + "." + strArr[1];
+// 										} else { //정수만 있을경우 //소수점 문자열 존재하면 양수 반환
+// 											obj = strArr[0];
+// 										}
+// 										return obj;//문자열 반환
+// 									}
+// 									//콤마 풀기
+// 									function uncomma(str) {
+// 										str = "" + str.replace(/,/gi, ''); // 콤마 제거
+// 										str = str.replace(/(^\s*)|(\s*$)/g, ""); // trim()공백,문자열 제거
+// 										return (new Number(str));//문자열을 숫자로 반환
+// 									}
+// 									//input box 콤마달기
+// 									function inputNumberFormat(obj) {
+// 										obj.value = comma(obj.value);
+// 									}
+// 									//input box 콤마풀기 호출
+// 									function uncomma_call(){
+// 									var input_value = document.getElementById('input1');
+// 									input_value.value = uncomma(input_value.value);
+// 									}
                             	</script>
                             </div>
                         </div>

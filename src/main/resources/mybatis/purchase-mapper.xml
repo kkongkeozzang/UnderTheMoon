@@ -32,4 +32,12 @@
   			select sum(purchase_payment) from purchase where member_id = #{value}
 
   		</select>
+  		
+  		<select id="selectRecordCount" resultType= "int">
+  			select count(*) from (select * from purchase p join purchase_detail d on p.purchase_id = d.purchase_id where member_id = #{value}) tem join md m on tem.md_id = m.md_id
+  		</select>
+  		
+  		<select id="selectByBound" resultType="kh.spring.dto.MyPagePurchaseDTO">
+  			select * from (select target.*, row_number() over(order by purchase_date desc) rn from (select * from (select * from purchase p join purchase_detail d on p.purchase_id = d.purchase_id where member_id = #{member_id}) tem join md m on tem.md_id = m.md_id) target) where rn between #{start} and #{end}
+  		</select>
   </mapper>

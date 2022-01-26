@@ -71,6 +71,8 @@ public class MemberController {
 		int result = memberService.idDuplCheck(recommend_id);
 		if(result == 1) {
 			pointService.insertRecommendMemberPoint(dto.getMember_id());
+			Integer recomandado_id = memberService.selectIdByUsername(recommend_id);
+			pointService.insertRecomendadoMemberPoint(recomandado_id);
 		}else {
 			pointService.insertNotInputEvent(dto.getMember_id());
 		}
@@ -87,4 +89,5 @@ public class MemberController {
 		int result = memberService.idDuplCheck(id);		
 		return String.valueOf(result);		
 	}
+	
 }

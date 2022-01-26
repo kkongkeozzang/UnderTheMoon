@@ -23,4 +23,20 @@ public class GradeDAO {
 	public List<GradeDTO> selectGradeTarget(){
 		return mybatis.selectList("Grade.selectGradeTarget");
 	}
+	
+	public int insertGrade(GradeDTO grades) {
+		return mybatis.insert("Grade.insertGrade", grades);
+	}
+	
+	public int deleteGrade(String grade_name) {
+		return mybatis.delete("Grade.deleteGrade", grade_name);
+	}
+	
+	public int updateGrade(GradeDTO grades) {
+		return mybatis.update("Grade.updateGrade", grades);
+	}
+	
+	public int checkGrade(String grade_name) {
+		return mybatis.selectOne("Grade.checkGrade", grade_name);
+	}
 }

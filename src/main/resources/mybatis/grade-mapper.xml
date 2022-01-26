@@ -12,4 +12,21 @@
 	<select id="selectGradeTarget" resultType="int">
 		select grade_target from grade order by grade_target
 	</select>
+	
+	<insert id="insertGrade">
+		insert into grade values(#{grade_name},#{grade_percent},#{grade_target},#{grade_coupon})
+	</insert>
+	
+	<delete id="deleteGrade">
+		delete from grade where grade_name = #{grade_name}
+	</delete>
+	
+	<update id="updateGrade">
+		update grade set grade_percent = #{grade_percent}, grade_target = #{grade_target}, grade_coupon = #{grade_coupon} where grade_name = #{grade_name}
+	</update>
+	
+	<select id="checkGrade" resultType="int">
+		select count(*) from grade where grade_name=#{grade_name}
+	</select>
+	
  </mapper>

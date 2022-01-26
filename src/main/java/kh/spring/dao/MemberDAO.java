@@ -79,6 +79,11 @@ public class MemberDAO {
 		
 		return mybatis.update("Member.updateGradeSun",member_username);		
 	}
+	
+	public int updateMember(MemberDTO dto) {
+		
+		return mybatis.update("Member.updateMember", dto);
+	}
 	}
 
 

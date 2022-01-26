@@ -451,6 +451,7 @@ $(document).ready(function(){
 						   $("#point-input").val("");
 		                	
                 })  
+
                 
                  //select 클릭 시 결제금액 초기화
                 $("body").on("change","#coupon",function(){
@@ -491,6 +492,7 @@ $(document).ready(function(){
                      $("#totalPrice").text(initialTotalPrice);
                   }
                }) 
+
 					 
 					 
 				//결제API

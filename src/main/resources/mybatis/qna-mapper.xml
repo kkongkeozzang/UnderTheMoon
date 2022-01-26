@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Qna">
+
+<!-- DB에 글 작성하기 -->
+<insert id="insert">
+insert into qa_question values(qa_question_id_seq.nextval, #{qa_question_category} ,  #{member_id},#{qa_question_title}, #{qa_question_content}, default,default)
+</insert>
+
+<!-- 본인이 작성한 글만 조회하기 -->
+<select id="selectAllByUsername" resultType="kh.spring.dto.QnaDTO">
+select * from qa_question where member_id=#{value}
+</select>
+
+<!-- 전체 글 조회하기 -->
+<select id="selectAllAsAdmin" resultType="kh.spring.dto.QnaDTO">
+select * from qa_question 
+</select>
+
+
+<!-- member id 를 통해 회원 이름 조회 -->
+<select id="selectUsername" resultType="String">
+		select member_username from member where member_id = #{value}
+	</select>	
+	
+		<select id="selectMemberId" resultType="int">
+		select * from member where member_username = #{username}
+	</select>
+	
+	<delete id="delete">
+	delete from qa_question where qa_question_id = #{value}
+	</delete>
+
+
+
+</mapper>

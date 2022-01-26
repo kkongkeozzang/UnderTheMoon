@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="QnaResponse">
+
+<insert id="insert">
+insert into qa_response values(qa_response_id_seq.nextval, #{qa_question_id}, #{member_id}, #{qa_response_content}, default)
+</insert>
+
+<select id="selectMemberId" resultType="int">
+			select member_id from member where member_username = #{username}
+		</select>
+		
+			<select id="selectUsername" resultType="String">
+		select member_username from member where member_id = #{value}
+	</select>
+		
+
+<select id="selectQuestionId" resultType="int">
+select qa_question_id from qa_question where member_id = #{value}
+</select>
+
+<select id="selectAll" resultType="kh.spring.dto.QnaResponseDTO">
+select * from qa_response 
+</select> 
+
+</mapper>

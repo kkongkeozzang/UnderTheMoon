@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import kh.spring.dao.PurchaseDAO;
+import kh.spring.dto.DeliveryDTO;
+import kh.spring.dto.MyPagePurchaseDTO;
 import kh.spring.dto.PurchaseDTO;
 
 @Service
@@ -54,9 +56,20 @@ public class PurchaseService {
 		return purchaseDAO.selectByIdSumPurchasePayment(id);
 	}
 	
+	public List<MyPagePurchaseDTO> selectByBound(Integer member_id, int start, int end) {
+		
+		return purchaseDAO.selectByBound(member_id, start, end);
+	}
+	
+	public int selectRecordCount(Integer member_id) {
+		
+		return purchaseDAO.selectRecordCount(member_id);
+	}
+	
 	public List<PurchaseDTO> selectAll(){
 		return purchaseDAO.selectAll();
 	}
+	
 	public int deletePurchase(int purchase_id){
 		return purchaseDAO.deletePurchase(purchase_id);
 	}

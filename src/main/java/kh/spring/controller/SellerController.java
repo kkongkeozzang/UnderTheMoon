@@ -8,17 +8,22 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kh.spring.dto.MdDTO;
+<<<<<<< HEAD
 import kh.spring.dto.PurchaseDTO;
 import kh.spring.dto.PurchaseDetailDTO;
 import kh.spring.service.MdService;
 import kh.spring.service.PurchaseDetailService;
 import kh.spring.service.PurchaseService;
+=======
+import kh.spring.service.MdService;
+>>>>>>> 5f5df0a54fd928797804d61326fda06b32cacb24
 
 @RequestMapping("/seller/")
 @Controller
 public class SellerController {
 	
 	private final MdService mdService;
+<<<<<<< HEAD
 	private final PurchaseService purchaseService;
 	private final PurchaseDetailService purchaseDetailService;
 	
@@ -26,6 +31,11 @@ public class SellerController {
 		this.mdService = mdService;
 		this.purchaseService = purchaseService;
 		this.purchaseDetailService = purchaseDetailService;
+=======
+	
+	public SellerController(MdService mdService) {
+		this.mdService = mdService;
+>>>>>>> 5f5df0a54fd928797804d61326fda06b32cacb24
 	}
 	
 	@RequestMapping("sellerOffice")

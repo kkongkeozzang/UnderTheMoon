@@ -11,42 +11,57 @@ import kh.spring.dto.PointDTO;
 
 @Repository
 public class PointDAO {
-   
-   private final SqlSessionTemplate mybatis;
-   
-   public PointDAO(SqlSessionTemplate mybatis) {
-      this.mybatis = mybatis;
-   }
-      
-   public Integer insertRecommendMemberPoint(Integer id) {
-      return mybatis.insert("Point.insertRecommendMemberPoint",id);
-   }
-   
-   public Integer insertEventMemberPoint(Integer id) {
-      return mybatis.insert("Point.insertEventMemberPoint",id);
-   }
+
+	private final SqlSessionTemplate mybatis;
+
+	public PointDAO(SqlSessionTemplate mybatis) {
+		this.mybatis = mybatis;
+	}
+
+	public Integer insertRecommendMemberPoint(Integer id) {
+		return mybatis.insert("Point.insertRecommendMemberPoint",id);
+	}
+
+	public Integer insertEventMemberPoint(Integer id) {
+		return mybatis.insert("Point.insertEventMemberPoint",id);
+	}
 
 	public Integer selectPointById(Integer member_id) {
-		
+
 		return mybatis.selectOne("Point.selectPointById",member_id);
 	}
-	
+
 	public List<PointDTO> selectPointListById(Integer member_id) {
-		
+
 		return mybatis.selectList("Point.selectPointListById", member_id);
 	}
-	
+
 	public Integer insertNotInputEvent(Integer id) {
 		return mybatis.insert("Point.insertNotInputEvent", id);
 	}
 
 	public Integer insertUsedPoint(Integer member_id, Integer pointSum) {
-		
+
 		Map<String,Integer> map = new HashMap<>();
 		map.put("member_id",member_id);
 		map.put("pointSum",pointSum);
-		
+
 		return mybatis.insert("Point.insertUsedPoint",map);
+	}
+
+
+	public Integer savePoints(Integer member_id, Integer productTotal) {
+		
+		Map<String,Integer> map = new HashMap<>();
+		map.put("member_id",member_id);
+		map.put("productTotal",productTotal);
+		
+		return mybatis.insert("Point.savePoints",map);
+	}
+
+	public Integer insertRecomendadoMemberPoint(Integer id) {
+		return mybatis.insert("Point.insertRecomendadoMemberPoint",id);
+
 	}
 }
 

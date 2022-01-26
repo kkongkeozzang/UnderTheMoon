@@ -54,7 +54,7 @@
             
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-target="#collapse-two"
+                <a class="nav-link collapsed" href="/admin/member" data-target="#collapse-two"
                     aria-expanded="true" aria-controls="collapse-two">
                     <i class="fas fa-fw fa-table"></i>
                     <span>회원 관리</span>

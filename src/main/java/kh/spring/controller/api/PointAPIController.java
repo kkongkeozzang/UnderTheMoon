@@ -21,9 +21,18 @@ public class PointAPIController {
 	
 	@PostMapping("{member_id}/{pointSum}")
 	public ResponseEntity<Integer> insertUsedPoint(@PathVariable Integer member_id,@PathVariable  Integer pointSum){
-		System.out.println(member_id+pointSum);
 		
 		Integer result = pointService.insertUsedPoint(member_id,pointSum);
+		
+		return new ResponseEntity<Integer>(result,HttpStatus.OK);
+		
+	}
+	
+	@PostMapping("/savePoints/{member_id}/{productTotal}")
+	public ResponseEntity<Integer> savePoints(@PathVariable Integer member_id,@PathVariable Integer productTotal){
+		System.out.println("포인트"+member_id+productTotal);
+		
+		Integer result = pointService.savePoints(member_id,productTotal);
 		
 		return new ResponseEntity<Integer>(result,HttpStatus.OK);
 		

@@ -46,7 +46,7 @@
 											<div class="detail">
                                                 <h6 class="detail-title-one">${memberDTO.member_username }회원님</h6>
 												<button type="button" class="btn btn-light" id="all-grade">나의등급 보기</button>
-												<input type="hidden" name="member_id" value="${memberDTO.member_id }">
+												<input type="hidden" value="${memberDTO.member_id }">
 											</div>
 										</div>
 									</div>
@@ -89,8 +89,9 @@
 									</div>
 								</div>
 							</div>
-            			</div>            
-            		</div>    
+            </div>
+            
+            </div>    
 
         
 	<div class="row">
@@ -115,52 +116,49 @@
 						</div>
 					</div>
 				</div>
+
 			</div>
 
 			<div class="col-12 col-md-8 col-lg-9">
 				<div class="card">
-					<div class="card-body">						
-							<div class="drive-wrapper drive-list-view">								
+					<div class="card-body">											
+							<div class="drive-wrapper drive-list-view">
+								<div class="table-responsive drive-items-table-wrapper">
+								<form action="/mypage/myPageCheckPassword" method="post">	
 									<table class="table">
 										<thead>
 											<tr>
-												<th class="name truncate" colspan=4>주문 내역 (지난 3개월 간 주문 내역 조회가 가능합니다) 
-                                                    <select class="form-select form-select-sm" aria-label=".form-select-sm example">
-                                                    <option value="1" selected>전체기간</option>
-                                                    <option value="2">1개월전</option>
-                                                    <option value="3">2개월전</option>
-													<option value="4">3개월전</option>
-                                                  </select></th>
+												<th class="name truncate" colspan=4>개인정보 수정                                                
 											</tr>
-										</thead>										
-										<tbody>														
+											<tr>
+												<th class="grade-list" style="text-align:center" colspan=2>비밀번호 재확인</th>  									                          
+											</tr>
+										</thead>
+																			
+										<tbody>
+											<tr>
+												<td class="grade-list" style="text-align:center">아이디</td>
+												<td class="grade-list" style="text-align:center">
+													<input type="text" name="member_username" value="${memberDTO.member_username }" style="text-align:center;" readonly>
+												</td>
+											</tr>
+											<tr>
+												<td class="grade-list" style="text-align:center">비밀번호</td>
+												<td class="grade-list" style="text-align:center"><input type="password" name="member_password"></td>
+											</tr>	
 										</tbody>
 									</table>
-									<c:forEach var="purchaseList" items="#{purchaseList}">
-									<div class="row">
-										<div class="col-sm-12" id="purchase-name"><a href="/md/detail/page?md_id=${purchaseList.md_id }">${purchaseList.md_name }</a>											
-											<hr>
-										</div>										
-										<div class="col-sm-2" id="purchase-img"><img src="/mdImage/${purchaseList.md_image}" alt="" width="90" height="90"></div>
-										<div class="col-sm-7" id="purchase-information"><ul>
-											<li>주문 날짜 : <fmt:formatDate value = "${purchaseList.purchase_date }"  type="date" dateStyle="full"/></li>
-											<br>
-											<li>결제 금액 : <fmt:formatNumber value="${purchaseList.purchase_payment }" type="number"/> 원</li>
-										</ul></div>
-										<div class="col-sm-3" id="purchase-option">
-											<button type="button" class="btn btn-light">1:1문의</button>
-										</div>
+									<div>
+										<button type="submit" class="btn btn-light" style="margin:auto; display:block;">확인</button>
 									</div>
-									<br>
-									</c:forEach>
-									<div class="navigator" style="margin:auto; display:block;">
-									${pageNavi}
-									</div>																									
+									</form>							
+								</div>
 							</div>						
 					</div>
 				</div>
 			</div>
 		</div>
+	</div>
 	</div>
 	</div>
 	</div>

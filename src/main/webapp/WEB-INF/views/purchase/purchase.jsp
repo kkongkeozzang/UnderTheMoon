@@ -232,23 +232,24 @@ $(document).ready(function(){
 					<h3>쿠폰 / 적립금</h3><hr>
 					<table>
 					<!-- 쿠폰선택자. -->
-						<tr><td>쿠폰 적용
-						<td><div id="select-container">
-	                        <select id="coupon" class="form-select" >
-	                            <c:choose>
-	                                <c:when test="${fn:length(coupons)== 0}">
-	                                <option value="0|0">사용 가능한 쿠폰이 없습니다.</option>
-	                                </c:when>
-	                                <c:otherwise>
-	                                    <option value="0|0">사용할 쿠폰을 선택해주세요. 총 ${fn:length(coupons)}장</option>
-	                                    <c:forEach var="coupon" items="${coupons }">
-	                                    <option value="${coupon.coupon_discount_rate}|${coupon.coupon_id}">${coupon.coupon_name} ${coupon.coupon_discount_rate }</option>
-	                                    </c:forEach>
-	                                </c:otherwise>
-	                            </c:choose>
-	                       </select>
-	                    </div>
-	                    </tr>		
+                  <tr><td>쿠폰 적용
+                  <td><div id="select-container">
+                           <select id="coupon" class="form-select" >
+                               <c:choose>
+                                   <c:when test="${fn:length(coupons)== 0}">
+                                   <option value="0|0|없음">사용 가능한 쿠폰이 없습니다.</option>
+                                   </c:when>
+                                   <c:otherwise>
+                                       <option value="0|0|없음">사용할 쿠폰을 선택해주세요. 총 ${fn:length(coupons)}장</option>
+                                       <c:forEach var="coupon" items="${coupons }">
+                                       <option value="${coupon.coupon_discount_rate}|${coupon.coupon_id}|${coupon.coupon_name}">${coupon.coupon_name} ${coupon.coupon_discount_rate }</option>
+                                       </c:forEach>
+                                       <option value="0|0|없음">쿠폰 사용 안함</option>
+                                   </c:otherwise>
+                               </c:choose>
+                          </select>
+                       </div>
+                       </tr>      
                     <!-- 쿠폰선택자. -->
                     <!-- 적립금. -->
 	                    <tr><td colspan=2><hr></tr>
@@ -294,7 +295,7 @@ $(document).ready(function(){
 										<dl class="amount">
 											<dt class="tit">배송비</dt>
 											<dd class="price">
-												<span>2,500</span> 원
+												<span id="delivery-fee">2,500</span> 원
 											</dd>
 										</dl>
 										<dl class="amount">
@@ -426,6 +427,7 @@ $(document).ready(function(){
 					    	totalPriceMinusPoint = initialTotalPrice; 
 							$("#point-input").val(0); 	
 							$("#point-num").text(0);
+							 initialTotalPrice = initialTotalPrice + Number(${pointSum});  
 						}else{
 							$("#point-num").text("- " + ${pointSum} + " ");
 					    	$("#point-input").val(${pointSum});
@@ -449,27 +451,48 @@ $(document).ready(function(){
 						   $("#point-input").val("");
 		                	
                 })  
+
+                
+                 //select 클릭 시 결제금액 초기화
+                $("body").on("change","#coupon",function(){
+                
+                	if($("#delivery-fee").text()=="0"){
+                		 $("#delivery-fee").text(2500);
+                		 initialTotalPrice = initialTotalPrice + 2500;
+                	}else{
+                    $("#coupon_price").text(coupon_discount_rate + " ");
+                   initialTotalPrice = initialTotalPrice + Number($("#coupon_price").text());
+                	}
+                }) 
 					 
-					 //쿠폰 사용후 결제금액 갱신
-					  $("body").on("change","#coupon",function(){
-						coupon_discount_rate = $(this).closest("#select-container").find("#coupon").val().substring(0,$('#coupon').val().indexOf('|'));
-						coupon_id = $(this).closest("#select-container").find("#coupon").val().substring($('#coupon').val().indexOf('|')+1);
-					 	let totalPrice_int = initialTotalPrice;
-					 	let coupon_price = Number(coupon_discount_rate);
-					 	if(coupon_discount_rate == 0) {
-					 		$("#coupon_price").text(coupon_discount_rate + " ");
-					 		initialTotalPrice = initialTotalPrice + Number($("#coupon_price").text());
-					 		$("#totalPrice").text(initialTotalPrice);
-					 	} else {
-						 	$("#coupon_price").text("- " + coupon_discount_rate + " ");
-					 	}
-					 	if(totalPrice_int-coupon_price<0) {
-					 		$("#totalPrice").text(0);
-					 	} else {
-					 		initialTotalPrice = initialTotalPrice - coupon_price;
-					 		$("#totalPrice").text(initialTotalPrice);
-					 	}
-					 }) 
+              //쿠폰 사용후 결제금액 갱신
+                $("body").on("change","#coupon",function(){
+                 // 쿠폰이 배송비인지 금액인지
+                 let couponDetails = $(this).closest("#select-container").find("#coupon").val().split("|");
+                 coupon_discount_rate = couponDetails[0];
+                 coupon_id = couponDetails[1];
+                 coupon_name = couponDetails[2];
+                  let totalPrice_int = initialTotalPrice;
+                  let coupon_price = Number(coupon_discount_rate);
+                  if(coupon_name.includes("배송비")) {
+                     coupon_discount_rate = 0;
+                     $("#delivery-fee").text(0);
+                  }
+                  if(coupon_discount_rate == 0) {
+                     $("#coupon_price").text(coupon_discount_rate + " ");
+                     initialTotalPrice = initialTotalPrice + Number($("#coupon_price").text());
+                     $("#totalPrice").text(initialTotalPrice);
+                  } else {
+                     $("#coupon_price").text("- " + coupon_discount_rate + " ");
+                  }
+                  if(totalPrice_int-coupon_price<0) {
+                     $("#totalPrice").text(0);
+                  } else {
+                     initialTotalPrice = initialTotalPrice - coupon_price;
+                     $("#totalPrice").text(initialTotalPrice);
+                  }
+               }) 
+
 					 
 					 
 				//결제API
@@ -547,9 +570,9 @@ $(document).ready(function(){
 											})
 										</c:forEach>
 												 
-										 	let pointSum = $("#point-input").val();
-										 	console.log(totalPrice);
-										 	if(totalPrice=='0'){
+										
+										 	
+										 	if(initialTotalPrice=='0'){
 										 		
 										 		//0원일경우..
 										 		if(confirm("결제하시겠씁니까?")){
@@ -575,8 +598,9 @@ $(document).ready(function(){
 												      	    }).done(function(resp){
 												      	    	$.ajax({
 											      	        		type:"post",
-											      	        		url:"/point/rest/"+member_id+"/"+pointSum
+											      	        		url:"/point/rest/"+member_id+"/"+$("#point-num").text()
 											      	        	})
+											      	        	alert("결제가완료되었습니다..")
 												      	    	//location.replace("/pay/rest/confirm?receipt_id="+data.receipt_id);
 												      	    	location.href ="/";
 												      	    	return false;
@@ -645,8 +669,15 @@ $(document).ready(function(){
 												      	    }).done(function(resp){
 												      	    	$.ajax({
 											      	        		type:"post",
-											      	        		url:"/point/rest/"+member_id+"/"+pointSum
-											      	        	})
+											      	        		url:"/point/rest/"+member_id+"/"+$("#point-num").text(), //포인트쓴만큼 차감.
+											      	        		success : function(resp){
+											      	        			$.ajax({
+													      	        		type:"post",//포인트적립.
+													      	        		url:"/point/rest/savePoints/"+member_id+"/"+$("#productsTotalPrice").text()
+													      	        	})
+													      	        }
+											      	        	
+												      	    	})
 												      	    	//location.replace("/pay/rest/confirm?receipt_id="+data.receipt_id);
 												      	    	location.replace("/pay/confirm?receipt_id="+data.receipt_id);
 												      	    })

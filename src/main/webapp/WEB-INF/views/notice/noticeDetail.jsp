@@ -327,6 +327,8 @@ body {
 							</c:when>
 							<c:otherwise>
 								<sec:authorize access="hasRole('ROLE_ADMIN')">
+									<button type="button" class="btn btn-dark" id="update"
+										style="background-color: #406882;">수정하기</button>
 									<button type="button" class="btn btn-dark" id="delete"
 										style="background-color: #406882;">삭제하기</button>
 								</sec:authorize>
@@ -339,6 +341,8 @@ body {
 								if(document.referrer.split('/')[4].indexOf('search')>=0){
 									location.href="javascript:history.back()";
 								}else if(document.referrer.split('/')[4].indexOf('toNotice')>=0){
+									location.href="javascript:history.back()";
+								}else if(document.referrer.split('/')[4].indexOf('notice')>=0){
 									location.href="javascript:history.back()";
 								}else{
 	 								location.href="/notice/toNotice?cPage=${cPage}";									

@@ -55,7 +55,19 @@ public class FaqService {
 	public int selectRecordCount(String select, String keyword) {
 		return faqDAO.selectRecordCount(select, keyword);
 	}
-
+	
+	public List<FaqDTO> selectAll(){
+		return faqDAO.selectAll();
+	}
+	
+	public List<FaqDTO> selectByKeywordAdmin(int start, int end, String select, String keyword){
+		return faqDAO.selectByKeywordAdmin(start, end, select, keyword);
+	}
+	
+	public int selectRecordCountAdmin(String select, String keyword) {
+		return faqDAO.selectRecordCountAdmin(select, keyword);
+	}
+	
 //	public void insertDummy() {
 //		faqDAO.insertDummy();
 //	}

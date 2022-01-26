@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import kh.spring.dto.MdDTO;
 import kh.spring.dto.PurchaseDTO;
+import kh.spring.dto.PurchaseDetailDTO;
 import kh.spring.service.MdService;
+import kh.spring.service.PurchaseDetailService;
 import kh.spring.service.PurchaseService;
 
 @RequestMapping("/seller/")
@@ -18,10 +20,12 @@ public class SellerController {
 	
 	private final MdService mdService;
 	private final PurchaseService purchaseService;
+	private final PurchaseDetailService purchaseDetailService;
 	
-	public SellerController(MdService mdService, PurchaseService purchaseService) {
+	public SellerController(MdService mdService, PurchaseService purchaseService, PurchaseDetailService purchaseDetailService) {
 		this.mdService = mdService;
 		this.purchaseService = purchaseService;
+		this.purchaseDetailService = purchaseDetailService;
 	}
 	
 	@RequestMapping("sellerOffice")
@@ -73,5 +77,12 @@ public class SellerController {
 	public String deletePurchase(int purchase_id) throws Exception {
 		int result = purchaseService.deletePurchase(purchase_id);
 	    return "redirect:/seller/purchase";
+	}
+	
+	@RequestMapping("purchaseDetail")
+	public String sellerPurchaseDetail(Model model) throws Exception {
+		List<PurchaseDetailDTO> purchaseDetails = purchaseDetailService.selectAll();
+		model.addAttribute("purchaseDetails", purchaseDetails);
+	    return "/seller/sellerPurchaseDetail";
 	}
 }

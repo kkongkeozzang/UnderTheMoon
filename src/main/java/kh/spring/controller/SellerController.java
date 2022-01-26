@@ -8,8 +8,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kh.spring.dto.MdDTO;
+import kh.spring.dto.MdReviewDTO;
 import kh.spring.dto.PurchaseDTO;
 import kh.spring.dto.PurchaseDetailDTO;
+import kh.spring.service.MdReviewService;
 import kh.spring.service.MdService;
 import kh.spring.service.PurchaseDetailService;
 import kh.spring.service.PurchaseService;
@@ -22,11 +24,13 @@ public class SellerController {
 	private final MdService mdService;
 	private final PurchaseService purchaseService;
 	private final PurchaseDetailService purchaseDetailService;
+	private final MdReviewService mdReviewService;
 	
-	public SellerController(MdService mdService, PurchaseService purchaseService, PurchaseDetailService purchaseDetailService) {
+	public SellerController(MdService mdService, PurchaseService purchaseService, PurchaseDetailService purchaseDetailService, MdReviewService mdReviewService) {
 		this.mdService = mdService;
 		this.purchaseService = purchaseService;
 		this.purchaseDetailService = purchaseDetailService;
+		this.mdReviewService = mdReviewService;
 	}
 	
 	@RequestMapping("sellerOffice")
@@ -85,5 +89,12 @@ public class SellerController {
 		List<PurchaseDetailDTO> purchaseDetails = purchaseDetailService.selectAll();
 		model.addAttribute("purchaseDetails", purchaseDetails);
 	    return "/seller/sellerPurchaseDetail";
+	}
+	
+	@RequestMapping("mdReview")
+	public String sellerMdReview(Model model) throws Exception {
+		List<MdReviewDTO> mdReviews = mdReviewService.selectAll();
+		model.addAttribute("mdReviews", mdReviews);
+	    return "/seller/sellerMdReview";
 	}
 }

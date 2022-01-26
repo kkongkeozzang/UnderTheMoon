@@ -53,4 +53,8 @@ public Integer insertUsedPoint(Integer member_id, Integer pointSum) {
 	
 	return  pointDAO.insertUsedPoint(member_id,pointSum);
 }
+	
+	public Integer insertRecomendadoMemberPoint(Integer id) {
+		return pointDAO.insertRecomendadoMemberPoint(id);
+	}
 }

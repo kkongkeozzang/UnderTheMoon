@@ -48,6 +48,15 @@ public class PointDAO {
 		
 		return mybatis.insert("Point.insertUsedPoint",map);
 	}
+
+	public Integer savePoints(Integer member_id, Integer productTotal) {
+		
+		Map<String,Integer> map = new HashMap<>();
+		map.put("member_id",member_id);
+		map.put("productTotal",productTotal);
+		
+		return mybatis.insert("Point.savePoints",map);
+	}
 }
 
 

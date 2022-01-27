@@ -1,6 +1,7 @@
 package kh.spring.dao;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -84,7 +85,16 @@ public class MemberDAO {
 		
 		return mybatis.update("Member.updateMember", dto);
 	}
+
+	public List<MemberDTO> selectAll() {
+		return mybatis.selectList("Member.selectAll");
 	}
+	
+	public Integer deleteByMemberId(String member_id) {
+		return mybatis.delete("Member.deleteByMemberId", member_id);
+	}
+	
+}
 
 
 

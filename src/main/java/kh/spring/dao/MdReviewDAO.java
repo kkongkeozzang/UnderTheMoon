@@ -39,12 +39,27 @@ public class MdReviewDAO {
 		return mybatis.update("MdReview.mdReviewViewCountUp",md_review_id);
 	}
 	
+	public int mdReviewLikeCountUp(String md_review_id) {
+		return mybatis.update("MdReview.mdReviewLikeCountUp",md_review_id);
+	}
+	
 	public int selectMdReviewViewCount(String md_review_id) {
 		return mybatis.selectOne("MdReview.selectMdReviewViewCount",md_review_id);
 	}
+
+	public int selectMdReviewLikeCount(String md_review_id) {
+		return mybatis.selectOne("MdReview.selectMdReviewLikeCount",md_review_id);
+	}
 	
+	public List<MdReviewDTO> selectAll() {
+		return mybatis.selectList("MdReview.selectAll");
+	}
+	
+	public int deleteByMdReviewId(String md_review_id) {
+		return mybatis.delete("MdReview.deleteByMdReviewId", md_review_id);
+	}
+
 	public int insertMdReview(MdReviewDTO dto) {
 		return mybatis.insert("MdReview.insertMdReview", dto);
 	}
-		
 }

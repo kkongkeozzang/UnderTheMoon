@@ -28,8 +28,24 @@ public class MdReviewService {
 		return mdReviewDAO.mdReviewViewCountUp(md_review_id);
 	}
 	
+	public int mdReviewLikeCountUp(String md_review_id) {
+		return mdReviewDAO.mdReviewLikeCountUp(md_review_id);
+	}
+	
 	public int selectMdReviewViewCount(String md_review_id) {
 		return mdReviewDAO.selectMdReviewViewCount(md_review_id);
+	}
+
+	public int selectMdReviewLikeCount(String md_review_id) {
+		return mdReviewDAO.selectMdReviewLikeCount(md_review_id);
+	}
+	
+	public List<MdReviewDTO> selectAll() {
+		return mdReviewDAO.selectAll();
+	}
+	
+	public int deleteByMdReviewId(String md_review_id) {
+		return mdReviewDAO.deleteByMdReviewId(md_review_id);
 	}
 	
 	public int insertMdReview(MdReviewDTO dto) {

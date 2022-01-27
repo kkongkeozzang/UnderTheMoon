@@ -211,25 +211,25 @@ public class MyPageController {
 		return "/mypage/myPageModifyProfile";
 	}
 
-
-	@RequestMapping("writeReview")
-	public String writeReview(Model model) {
-		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal(); 
-        String username = ((UserDetails)principal).getUsername();
-		MemberDTO memberDTO = memberService.selectByUsername(username);
-		int pointSum = pointService.selectPointById(username).get();
-		int couponSum = couponService.selectCouponPossibleById(memberDTO.getMember_id());
-		
-		//int md_id = Integer.parseInt(request.getParameter(id));
-		//int md_id = (int) model.getAttribute("md_id");
-		//System.out.println(md_id);
-		//List<MdDTO> mdDTO = mdService.selectMdById(md_id);
-		
-		model.addAttribute("memberDTO",memberDTO);
-		model.addAttribute("pointSum",pointSum);
-		model.addAttribute("couponSum", couponSum);
-		//model.addAttribute("mdDTO",mdDTO);
-		
-		return "/mypage/myPageWriteReview";
-	}
+	// 리뷰작성 컨트롤러
+//	@RequestMapping("writeReview")
+//	public String writeReview(Model model) {
+//		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal(); 
+//        String username = ((UserDetails)principal).getUsername();
+//		MemberDTO memberDTO = memberService.selectByUsername(username);
+//		int pointSum = pointService.selectPointById(username).get();
+//		int couponSum = couponService.selectCouponPossibleById(memberDTO.getMember_id());
+//		
+//		int md_id = Integer.parseInt(request.getParameter(id));
+//		int md_id = (int) model.getAttribute("md_id");
+//		System.out.println(md_id);
+//		List<MdDTO> mdDTO = mdService.selectMdById(md_id);
+//		
+//		model.addAttribute("memberDTO",memberDTO);
+//		model.addAttribute("pointSum",pointSum);
+//		model.addAttribute("couponSum", couponSum);
+//		model.addAttribute("mdDTO",mdDTO);
+//		
+//		return "/mypage/myPageWriteReview";
+//	}
 }

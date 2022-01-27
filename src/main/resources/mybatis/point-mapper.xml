@@ -26,9 +26,15 @@
   </select>
 
   <insert id="insertUsedPoint">
-     insert into point values(point_id_seq.nextval,-#{pointSum},'Used Points',default,#{member_id})
+     insert into point values(point_id_seq.nextval,#{pointSum},'Used Points',default,#{member_id})
   </insert>
   
+  <insert id="savePoints">
+   insert into point values
+   (point_id_seq.nextval,(select grade_percent from grade 
+   where grade_name = (select grade_name from member where member_id = #{member_id}))*${productTotal},'Saved Points',default,#{member_id})
+  </insert>
+   
   <insert id="insertRecomendadoMemberPoint">
   	insert into point values(point_id_seq.nextval,'5000','추천인 입력받음',default,#{value})
   </insert>

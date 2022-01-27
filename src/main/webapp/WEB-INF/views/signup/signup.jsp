@@ -54,7 +54,7 @@
             </div>           
         </div>      
       <div class="form-group row">
-         <label class="col-form-label col-3">이메일</label>
+         <label class="col-form-label col-3">이메일*</label>
          <div class="col-7">
                 <input type="text" class="form-control" id="member-email" name="member_email">
             </div>           
@@ -268,71 +268,71 @@
    
 
 
-   //필수 입력값 유효성 검사
-   $("#submit").on("click",function(){
-      let regexId = /^[a-z]{1}[a-z\d]{5,13}$/;
-      let resultId = regexId.test($("#member-username").val());
-         if(resultId == false){
-             alert("아이디는 필수 입력사항입니다.")
-             return false;
-      }
-         
-      let regexPw = /^(?=.*[a-zA-Z])((?=.*\d)(?=.*\W)).{8,16}$/;
-      let resultPw = regexPw.test($("#member-password").val());
-         if(resultPw == false){
-             alert("비밀번호는 필수 입력사항입니다.")
-             return false;
-         }
-      
-         if($("#member-password").val() != $("#member-confirm-password").val()){
-             alert("비밀번호 확인을 진행 해주세요.")
-              return false;
-         }
-      
-      let regexName = /^[a-zA-Z가-힣]{1,8}$/
-      let resultName = regexName.test($("#member-name").val());
-         if(resultName == false){
-               alert("이름이 올바른 형식이 아닙니다. 다시 확인해주세요.")
-               return false;
-              }
-      
-      let regexMail = /^[a-zA-Z\d]{1,}@[a-z]{1,}.com$/;
-      let resultMail = regexMail.test($("#member-email").val());
-         if(resultMail == false){
-             alert("이메일을 다시 확인해주세요")
-             return false;
-         }
-         
-      let regexBirth = ""
-      let resultBirth = regexBirth.test($("#member-birth-date").val());
-           if(resultBirth == true){
-               alert("생년월일이 올바른 형식이 아닙니다.")
-               return false;
-           }
-       
-      let regexPhone = /^010\d{4}\d{4}$/;
-      let resultPhone = regexPhone.test($("#member-phone").val());
-           if(resultPhone == false){
-               alert("휴대폰 번호가 올바르지않은 형식입니다.")
-               return false;
-           }
-      
-      let regexAddress1 = /^[가-힣\d]{1,}/;
-      let resultAddress1 = regexAddress1.test($("#roadAddress").val());
-           if(resultAddress1 == false){
-               alert("주소는 필수 입력사항입니다.")
-               return false;
-           }
-      
-      let regexAddress2 = /^[가-힣\d]{1,}/;
-      let resultAddress2 = regexAddress2.test($("#member-address2").val());
-           if(resultAddress2 == false){
-               alert("상세주소를 입력해주세요.")
-               return false;
-           }
-   })
-   
-   document.getElementById("addressSearch").onclick = function(){
+	//필수 입력값 유효성 검사
+	$("#submit").on("click",function(){
+		let regexId = /^[a-z]{1}[a-z\d]{5,13}$/;
+		let resultId = regexId.test($("#member-username").val());
+			if(resultId == false){
+    			alert("아이디는 필수 입력사항입니다.")
+    			return false;
+		}
+			
+		let regexPw = /^(?=.*[a-zA-Z])((?=.*\d)(?=.*\W)).{8,16}$/;
+		let resultPw = regexPw.test($("#member-password").val());
+			if(resultPw == false){
+			    alert("비밀번호는 필수 입력사항입니다.")
+			    return false;
+			}
+		
+			if($("#member-password").val() != $("#member-confirm-password").val()){
+				 alert("비밀번호 확인을 진행 해주세요.")
+			     return false;
+			}
+		
+		let regexName = /^[a-zA-Z가-힣]{1,8}$/
+		let resultName = regexName.test($("#member-name").val());
+			if(resultName == false){
+			      alert("이름이 올바른 형식이 아닙니다. 다시 확인해주세요.")
+			      return false;
+			     }
+		
+		let regexMail = /^[a-zA-Z\d]{1,}@[a-z]{1,}.com$/;
+		let resultMail = regexMail.test($("#member-email").val());
+			if(resultMail == false){
+			    alert("이메일을 다시 확인해주세요")
+			    return false;
+			}
+			
+		let regexBirth = ""
+		let resultBirth = regexBirth.test($("#member-birth-date").val());
+		     if(resultBirth == true){
+		         alert("생년월일이 올바른 형식이 아닙니다.")
+		         return false;
+		     }
+		 
+		let regexPhone = /^010\d{4}\d{4}$/;
+		let resultPhone = regexPhone.test($("#member-phone").val());
+		     if(resultPhone == false){
+		         alert("휴대폰 번호가 올바르지않은 형식입니다.")
+		         return false;
+		     }
+		
+		let regexAddress1 = /^[가-힣\d]{1,}/;
+		let resultAddress1 = regexAddress1.test($("#roadAddress").val());
+		     if(resultAddress1 == false){
+		         alert("주소는 필수 입력사항입니다.")
+		         return false;
+		     }
+		
+		let regexAddress2 = /^[가-힣\d]{1,}/;
+		let resultAddress2 = regexAddress2.test($("#member-address2").val());
+		     if(resultAddress2 == false){
+		         alert("상세주소를 입력해주세요.")
+		         return false;
+		     }
+	})
+	
+	document.getElementById("addressSearch").onclick = function(){
         new daum.Postcode({
             oncomplete: function(data) {                                 
                 document.getElementById('postcode').value = data.zonecode;

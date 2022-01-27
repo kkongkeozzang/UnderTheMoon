@@ -32,4 +32,7 @@ public class MdReviewService {
 		return mdReviewDAO.selectMdReviewViewCount(md_review_id);
 	}
 	
+	public int insertMdReview(MdReviewDTO dto) {
+		return mdReviewDAO.insertMdReview(dto);
+	}
 }

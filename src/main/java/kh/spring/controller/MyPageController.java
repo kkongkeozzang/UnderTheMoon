@@ -3,6 +3,7 @@ package kh.spring.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import kh.spring.dto.CouponDTO;
 import kh.spring.dto.GradeDTO;
@@ -20,6 +22,7 @@ import kh.spring.dto.MyPagePurchaseDTO;
 import kh.spring.dto.PointDTO;
 import kh.spring.service.CouponService;
 import kh.spring.service.GradeService;
+import kh.spring.service.MdService;
 import kh.spring.service.MemberService;
 import kh.spring.service.PointService;
 import kh.spring.service.PurchaseService;
@@ -39,9 +42,12 @@ public class MyPageController {
 	private final PointService pointService;
 	private final BCryptPasswordEncoder bCrptPasswordEncoder;
 	private final HttpServletResponse response;
+	private final HttpServletRequest request;
+	private final MdService mdService;
 	
 	public MyPageController(GradeService gradeService, MemberService memberService, PurchaseService purchaseService, 
-			CouponService couponService, PointService pointService, BCryptPasswordEncoder bCrptPasswordEncoder, HttpServletResponse response) {
+			CouponService couponService, PointService pointService, BCryptPasswordEncoder bCrptPasswordEncoder, HttpServletResponse response,
+			HttpServletRequest request, MdService mdService) {
 		this.gradeService = gradeService;
 		this.memberService = memberService;
 		this.purchaseService = purchaseService;
@@ -49,6 +55,8 @@ public class MyPageController {
 		this.pointService = pointService;
 		this.bCrptPasswordEncoder = bCrptPasswordEncoder;
 		this.response = response;
+		this.request = request;
+		this.mdService = mdService;
 	}
 	
 	@RequestMapping("myPageList")
@@ -201,5 +209,27 @@ public class MyPageController {
 		ScriptUtils.alert(response, "회원정보가 수정 되었습니다.");
 		
 		return "/mypage/myPageModifyProfile";
+	}
+
+
+	@RequestMapping("writeReview")
+	public String writeReview(Model model) {
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal(); 
+        String username = ((UserDetails)principal).getUsername();
+		MemberDTO memberDTO = memberService.selectByUsername(username);
+		int pointSum = pointService.selectPointById(username).get();
+		int couponSum = couponService.selectCouponPossibleById(memberDTO.getMember_id());
+		
+		//int md_id = Integer.parseInt(request.getParameter(id));
+		//int md_id = (int) model.getAttribute("md_id");
+		//System.out.println(md_id);
+		//List<MdDTO> mdDTO = mdService.selectMdById(md_id);
+		
+		model.addAttribute("memberDTO",memberDTO);
+		model.addAttribute("pointSum",pointSum);
+		model.addAttribute("couponSum", couponSum);
+		//model.addAttribute("mdDTO",mdDTO);
+		
+		return "/mypage/myPageWriteReview";
 	}
 }

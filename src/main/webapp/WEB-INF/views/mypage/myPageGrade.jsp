@@ -146,18 +146,18 @@
 												<c:choose> 											
 													<c:when test="${empty purchasePayment}">
 														<h6 class="detail-title">누적 구매 금액 : 0 원 </h6>	
-														<p class="detail-detail"><span>다음 등급까지 : 500,000 원</span></p>													
+														<p class="detail-detail"><span>다음 등급까지 : <fmt:formatNumber value="${gradeList[1].grade_target }" type="number"/> 원</span></p>													
 													</c:when>
 													<c:when test="${not empty purchasePayment}">
 														<h6 class="detail-title">누적 구매 금액 : <fmt:formatNumber value="${purchasePayment }" type="number"/> 원 </h6>
 														<p class="detail-detail">
 														<span>다음 등급까지 :
 														<c:choose>
-															<c:when test="${purchasePayment lt 500000 }"> 
-																<fmt:formatNumber value="${500000 - purchasePayment }" type="number"/> 원
+															<c:when test="${purchasePayment lt gradeList[1].grade_target }"> 
+																<fmt:formatNumber value="${gradeList[1].grade_target - purchasePayment }" type="number"/> 원
 															</c:when>																
-															<c:when test="${500000 lt purchasePayment and purchasePayment lt 1000000 }">
-																<fmt:formatNumber value="${1000000 - purchasePayment }" type="number"/> 원
+															<c:when test="${gradeList[1].grade_target lt purchasePayment and purchasePayment lt gradeList[2].grade_target }">
+																<fmt:formatNumber value="${gradeList[2].grade_target - purchasePayment }" type="number"/> 원
 															</c:when>
 															<c:otherwise>
 																최고 등급 달성

@@ -65,7 +65,7 @@
   <delete id="deleteByMemberId">
   	delete from member where member_id = #{value}
   </delete>
-  
+
   </mapper>
   
   

@@ -35,7 +35,7 @@ public class MdReviewService {
 	public int selectMdReviewViewCount(String md_review_id) {
 		return mdReviewDAO.selectMdReviewViewCount(md_review_id);
 	}
-	
+
 	public int selectMdReviewLikeCount(String md_review_id) {
 		return mdReviewDAO.selectMdReviewLikeCount(md_review_id);
 	}
@@ -46,5 +46,9 @@ public class MdReviewService {
 	
 	public int deleteByMdReviewId(String md_review_id) {
 		return mdReviewDAO.deleteByMdReviewId(md_review_id);
+	}
+	
+	public int insertMdReview(MdReviewDTO dto) {
+		return mdReviewDAO.insertMdReview(dto);
 	}
 }

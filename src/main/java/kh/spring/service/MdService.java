@@ -59,4 +59,8 @@ public class MdService {
 	public int updateMd(MdDTO mds){
 		return mdDAO.updateMd(mds);
 	}
+	
+	public List<MdDTO> selectMdById(int md_id) {
+		return mdDAO.selectMdById(md_id);
+	}
 }

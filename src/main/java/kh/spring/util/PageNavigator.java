@@ -142,20 +142,20 @@ public class PageNavigator {
 			}
 		}else if(board.equals("coupon")) {
 			if(option.equals("all")) {
-				if(needPrev) {pageNavi += "<a href='/mypage/myPageCoupon?cPage="+(startNavi-1)+"'><button type='button' class='btn btn-outline-primary' style='background-color:#406882;color:white;float:center;'><</button></a> ";}
+				if(needPrev) {pageNavi += "<a href='/mypage/myPageCoupon?cPage="+(startNavi-1)+"'><button type='button' class='btn btn-outline-primary' style='background-color:#406882;color:white;'><</button></a> ";}
 				for (int i = startNavi; i <= endNavi; i++) {
-					pageNavi += "<a href='/mypage/myPageCoupon?cPage="+i+"'><button type='button' class='btn btn-outline-primary' style='background-color:#406882;color:white;float:center;'>" + i + "</button></a> ";
+					pageNavi += "<a href='/mypage/myPageCoupon?cPage="+i+"'><button type='button' class='btn btn-outline-primary' style='background-color:#406882;color:white;'>" + i + "</button></a> ";
 				}
-				if(needNext) {pageNavi += "<a href='/mypage/myPageCoupon?cPage="+(endNavi+1)+"'><button type='button' class='btn btn-outline-primary' style='background-color:#406882;color:white;float:center;'>></button></a>";}
+				if(needNext) {pageNavi += "<a href='/mypage/myPageCoupon?cPage="+(endNavi+1)+"'><button type='button' class='btn btn-outline-primary' style='background-color:#406882;color:white;'>></button></a>";}
 			}
 
 		}else if(board.equals("myPageList")) {
 			if(option.equals("all")) {
-				if(needPrev) {pageNavi += "<a href='/mypage/myPageList?cPage="+(startNavi-1)+"'><button type='button' class='btn btn-outline-primary' style='background-color:#406882;color:white;float:center;'><</button></a> ";}
+				if(needPrev) {pageNavi += "<a href='/mypage/myPageList?cPage="+(startNavi-1)+"'><button type='button' class='btn btn-outline-primary' style='background-color:#406882;color:white;margin:auto; display:inline-block;'><</button></a> ";}
 				for (int i = startNavi; i <= endNavi; i++) {
-					pageNavi += "<a href='/mypage/myPageList?cPage="+i+"'><button type='button' class='btn btn-outline-primary' style='background-color:#406882;color:white;float:center;'>" + i + "</button></a> ";
+					pageNavi += "<a href='/mypage/myPageList?cPage="+i+"'><button type='button' class='btn btn-outline-primary' style='background-color:#406882;color:white;margin:auto; display:inline-block;'>" + i + "</button></a> ";
 				}
-				if(needNext) {pageNavi += "<a href='/mypage/myPageList?cPage="+(endNavi+1)+"'><button type='button' class='btn btn-outline-primary' style='background-color:#406882;color:white;float:center;'>></button></a>";}
+				if(needNext) {pageNavi += "<a href='/mypage/myPageList?cPage="+(endNavi+1)+"'><button type='button' class='btn btn-outline-primary' style='background-color:#406882;color:white;margin:auto; display:inline-block;'>></button></a>";}
 			}
 
 		}

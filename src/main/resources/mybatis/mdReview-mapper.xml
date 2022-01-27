@@ -41,7 +41,7 @@
 	<select id="selectMdReviewViewCount" resultType="int">
 		select md_review_view_count from md_review where md_review_id = #{value}
 	</select>
-	
+
 	<select id="selectMdReviewLikeCount" resultType="int">
 		select md_review_like from md_review where md_review_id = #{value}
 	</select>
@@ -53,5 +53,9 @@
 	<delete id="deleteByMdReviewId">
 		delete from md_review where md_review_id = #{value}
 	</delete>
-	
+
+	<insert id="insertMdReview">
+		insert into md_review values(md_review_id_seq.nextval,#{md_id},#{md_review_title},#{member_id},#{md_review_content},
+		default,#{md_review_like},default)
+	</insert>
 </mapper>

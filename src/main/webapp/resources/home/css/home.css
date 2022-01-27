@@ -1,3 +1,8 @@
+<<<<<<< HEAD
+=======
+@charset "UTF-8";
+
+>>>>>>> 750164ae33f120d1b8757207eb520b5d0d5d63ad
 /*header*/
 /*header-head login-signup-CS*/
 
@@ -691,6 +696,10 @@ div, th, td, li, dt, dd, p {
     margin: 0;
     padding: 0;
 }
+<<<<<<< HEAD
+=======
+사용자 에이전트 스타일시트
+>>>>>>> 750164ae33f120d1b8757207eb520b5d0d5d63ad
 div {
     display: block;
 }
@@ -743,6 +752,10 @@ div, th, td, li, dt, dd, p {
     margin: 0;
     padding: 0;
 }
+<<<<<<< HEAD
+=======
+사용자 에이전트 스타일시트
+>>>>>>> 750164ae33f120d1b8757207eb520b5d0d5d63ad
 li {
     display: list-item;
     text-align: -webkit-match-parent;
@@ -750,12 +763,20 @@ li {
 ol, ul {
     list-style-type: none;
 }
+<<<<<<< HEAD
+=======
+사용자 에이전트 스타일시트
+>>>>>>> 750164ae33f120d1b8757207eb520b5d0d5d63ad
 ul {
     list-style-type: disc;
 }
 #gnb .gnb_kurly {
     position: relative;
     z-index: 300;
+<<<<<<< HEAD
+=======
+    min-width: 1050px;
+>>>>>>> 750164ae33f120d1b8757207eb520b5d0d5d63ad
     background-color: #fff;
     font-family: 'Noto Sans';
     letter-spacing: -0.3px;
@@ -1000,7 +1021,11 @@ li{
 #gnb .gnb_main .gnb{float:left;width:100%}
 #gnb .gnb_main .gnb li{float:left}
 #gnb .gnb_main .gnb .lst{background:none}
+<<<<<<< HEAD
 #gnb .gnb_main .gnb a{overflow:visible;float:left;width:124px;height:55px;padding:16px 0 0;font-size:16px;color:#333;line-height:20px;text-align:center}
+=======
+#gnb .gnb_main .gnb a{overflow:hidden;float:left;width:124px;height:55px;padding:16px 0 0;font-size:16px;color:#333;line-height:20px;text-align:center}
+>>>>>>> 750164ae33f120d1b8757207eb520b5d0d5d63ad
 #gnb .gnb_main .gnb a .txt{font-weight:700}
 #gnb .gnb_main .gnb a:hover,
 #gnb .gnb_main .gnb a.on{font-weight:700;color:#5f0080}
@@ -1117,6 +1142,7 @@ only screen and (min-resolution: 1.5dppx) {
 }
 .gnb_search .init{position:relative}
 .gnb_search .init .btn_delete{overflow:hidden;position:absolute;left:170px;top:-36px;width:36px;height:36px;border:0 none;background:url(https://res.kurly.com/pc/ico/2010/ico_search_del.svg) no-repeat 50% 50%;background-size:12px 12px;font-size:0;line-height:0;text-indent:-9999px;opacity:0}
+<<<<<<< HEAD
 .gnb_search .init .btn_delete.on{opacity:1}
 
 
@@ -1150,3 +1176,6 @@ only screen and (min-resolution: 1.5dppx) {
   }
   img {vertical-align: top; max-width: 100%}
   #footer{display: none}
+=======
+.gnb_search .init .btn_delete.on{opacity:1}
+>>>>>>> 750164ae33f120d1b8757207eb520b5d0d5d63ad

@@ -34,8 +34,28 @@
 		update md_review set md_review_view_count = md_review_view_count+1 where md_review_id = #{value}
 	</update>
 	
+	<update id="mdReviewLikeCountUp">
+		update md_review set md_review_like = md_review_like+1 where md_review_id = #{value}
+	</update>
+	
 	<select id="selectMdReviewViewCount" resultType="int">
 		select md_review_view_count from md_review where md_review_id = #{value}
 	</select>
+
+	<select id="selectMdReviewLikeCount" resultType="int">
+		select md_review_like from md_review where md_review_id = #{value}
+	</select>
 	
+	<select id="selectAll" resultType="kh.spring.dto.MdReviewDTO">
+		select r.*, m.member_username from md_review r join member m on r.member_id = m.member_id
+	</select>
+	
+	<delete id="deleteByMdReviewId">
+		delete from md_review where md_review_id = #{value}
+	</delete>
+
+	<insert id="insertMdReview">
+		insert into md_review values(md_review_id_seq.nextval,#{md_id},#{md_review_title},#{member_id},#{md_review_content},
+		default,#{md_review_like},default)
+	</insert>
 </mapper>

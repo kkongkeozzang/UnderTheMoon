@@ -88,7 +88,7 @@ public class MemberService {
 		dto.setMember_password(bCrptPasswordEncoder.encode(password));
 		return memberDAO.updateMember(dto);
 	}
-	
+
 	public List<MemberDTO> selectAll() {
 		return memberDAO.selectAll();
 	}
@@ -96,4 +96,5 @@ public class MemberService {
 	public Integer deleteByMemberId(String member_id) {
 		return memberDAO.deleteByMemberId(member_id);
 	}
+
 }

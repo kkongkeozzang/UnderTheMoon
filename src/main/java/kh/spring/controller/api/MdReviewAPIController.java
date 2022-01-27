@@ -50,7 +50,6 @@ public class MdReviewAPIController {
 	
 	@GetMapping(value="board/{md_review_id}", produces = "application/json")
 	public ResponseEntity<String> addViewCount(@PathVariable String md_review_id, HttpServletRequest request, HttpServletResponse response) throws Exception {
-		
 		int result = 0;
 		Cookie oldCookie = null;
 	    Cookie[] cookies = request.getCookies();
@@ -81,6 +80,40 @@ public class MdReviewAPIController {
 		String updateViewCount = String.valueOf(mdReviewService.selectMdReviewViewCount(md_review_id));
 		
 		return new ResponseEntity<String>(updateViewCount, HttpStatus.OK);
+	}
+	
+	@GetMapping(value="board/like/{md_review_id}", produces = "application/json")
+	public ResponseEntity<String> addLikeCount(@PathVariable String md_review_id, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		int result = 0;
+		Cookie oldCookie = null;
+	    Cookie[] cookies = request.getCookies();
+	    if (cookies != null) {
+	        for (Cookie cookie : cookies) {
+	            if (cookie.getName().equals("mdReviewLike")) {
+	                oldCookie = cookie;
+	            }
+	        }
+	    }
+
+	    if (oldCookie != null) {
+	        if (!oldCookie.getValue().contains("[" + md_review_id.toString() + "]")) {
+	            result = mdReviewService.mdReviewLikeCountUp(md_review_id);
+	            oldCookie.setValue(oldCookie.getValue() + "_[" + md_review_id + "]");
+	            oldCookie.setPath("/");
+	            oldCookie.setMaxAge(60 * 60 * 24);
+	            response.addCookie(oldCookie);
+	        }
+	    } else {
+	    	result = mdReviewService.mdReviewLikeCountUp(md_review_id);
+	        Cookie newCookie = new Cookie("mdReviewLike","[" + md_review_id + "]");
+	        newCookie.setPath("/");
+	        newCookie.setMaxAge(60 * 60 * 24);
+	        response.addCookie(newCookie);
+	    }
+		
+		String updateLikeCount = String.valueOf(mdReviewService.selectMdReviewLikeCount(md_review_id));
+		
+		return new ResponseEntity<String>(updateLikeCount, HttpStatus.OK);
 	}
 	
 	

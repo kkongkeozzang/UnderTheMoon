@@ -82,7 +82,7 @@
 									<div class="card-body" align=center>
 										<div class="d-flex">										
 											<div class="detail">
-												<h6 class="detail-title"><a href="/qna/qnaList">1:1문의 ></a></h6>
+												<h6 class="detail-title"><a href="">1:1문의 ></a></h6>
 												<p class="detail-detail"><span>도움이 필요하신가요?</span></p>
 											</div>
 										</div>
@@ -110,7 +110,7 @@
                                 <a href="/mypage/myPageModifyProfile" class="list-group-item py-1"><span>개인정보 수정</span></a>
                                 <br>
                                 <br>
-								<a href="/qna/qnaList" class="list-group-item py-1"><span>도움이 필요하신가요?<br>1:1 문의하기</span></a>
+								<a href="" class="list-group-item py-1"><span>도움이 필요하신가요?<br>1:1 문의하기</span></a>
 							</div>
 						</div>
 					</div>
@@ -141,21 +141,17 @@
 										<div class="col-sm-12" id="purchase-name"><a href="/md/detail/page?md_id=${purchaseList.md_id }">${purchaseList.md_name }</a>											
 											<hr>
 										</div>										
-										<div class="col-sm-2" id="purchase-img"><img src="/mdImage/${purchaseList.md_image}" alt="" width="90" height="90">
-										<input type="hidden" id="md-id" name="md_id" value="${purchaseList.md_id}">
-										</div>
+										<div class="col-sm-2" id="purchase-img"><img src="/mdImage/${purchaseList.md_image}" alt="" width="90" height="90"></div>
 										<div class="col-sm-7" id="purchase-information"><ul>
 											<li>주문 날짜 : <fmt:formatDate value = "${purchaseList.purchase_date }"  type="date" dateStyle="full"/></li>
 											<br>
 											<li>결제 금액 : <fmt:formatNumber value="${purchaseList.purchase_payment }" type="number"/> 원</li>
 										</ul></div>
 										<div class="col-sm-3" id="purchase-option">
-											<button type="button" class="btn btn-light">1:1문의</button><br>
-											<button type="button" class="btn btn-light" id="md-delete">주문취소</button><br>
-											<button type="button" class="btn btn-light" id="md-review">상품후기</button>
+											<button type="button" class="btn btn-light">1:1문의</button>
 										</div>
 									</div>
-									<br>									
+									<br>
 									</c:forEach>
 									<div class="navigator" style="margin:auto; display:block;">
 									${pageNavi}
@@ -172,12 +168,6 @@
 	$("#all-grade").on("click",function(){
 		location="/mypage/myPageGrade"
 	})
-	
-	$("#md-review").on("click",function(){
-		
-		location="/mypage/writeReview"
-	})
-	
 </script>
 </body>
 </html>

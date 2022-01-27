@@ -84,6 +84,10 @@ private final SqlSessionTemplate mybatis;
 	public int updateMd(MdDTO mds) {
 		return mybatis.update("Md.updateMd", mds);
 	}
+	
+	public List<MdDTO> selectMdById(int md_id) {
+		return mybatis.selectList("Md.selectMdById", md_id);
+	}
 }
 
 

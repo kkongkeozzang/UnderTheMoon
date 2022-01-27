@@ -19,6 +19,7 @@
 <link rel="stylesheet" href="/shop/data/skin/designgj/swiper.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css" />-->
 
+
 </head>
 
 <!--Body 시작 부분 -->
@@ -67,6 +68,13 @@
     </button>
   </div>
 
+
+
+<!--상품 소개-->
+
+<!--타임 어택 상품 소개 -->
+
+<!--지도 API-->
 
 <!--월하합작 팀을 위한 링크-->
     <a href="/md/list">상품 리스트</a>
@@ -137,6 +145,7 @@ function CountDownTimer(dt, id) {
 
 <!--footer 시작 -->
 <jsp:include page="homeFooter.jsp"></jsp:include>
+
 
 </body>
 </html>

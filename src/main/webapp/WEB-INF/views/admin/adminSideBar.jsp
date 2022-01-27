@@ -54,7 +54,7 @@
             
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-target="#collapse-two"
+                <a class="nav-link collapsed" href="/admin/member" data-target="#collapse-two"
                     aria-expanded="true" aria-controls="collapse-two">
                     <i class="fas fa-fw fa-table"></i>
                     <span>회원 관리</span>
@@ -70,8 +70,8 @@
                 </a>
                 <div id="collapse-board" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="#">공지사항</a>
-                        <a class="collapse-item" href="#">자주묻는질문</a>
+                        <a class="collapse-item" href="/admin/notice">공지사항</a>
+                        <a class="collapse-item" href="/admin/faq">자주묻는질문</a>
                     </div>
                 </div>
             </li>

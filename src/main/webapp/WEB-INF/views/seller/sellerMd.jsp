@@ -355,6 +355,7 @@
                             			let mdImage = $("#md_image").val();
                             			let mdDetailImage = $("#md_detail_image").val();
                             			let imgRegex = /(\.gif|\.jpg|\.jpeg|\.png)$/i;
+                            			let checkDbl = $("#checkDbl").html();
                             			                               		
                             			if(mdRegion=="") {
                             				alert("지역을 선택해주세요!");

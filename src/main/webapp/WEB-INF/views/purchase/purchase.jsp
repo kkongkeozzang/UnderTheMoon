@@ -290,7 +290,9 @@ $(document).ready(function(){
 										<dl class="amount">
 											<dt class="tit">배송비</dt>
 											<dd class="price">
+
 												<span id="delivery-fee">${deliveryFee }</span> 원
+
 											</dd>
 										</dl>
 										<dl class="amount">
@@ -446,7 +448,9 @@ $(document).ready(function(){
 		                	
                 })  
 
+
 //=========================================================================================================================================================================                
+
                  //select 클릭 시 결제금액 초기화
                 $("body").on("change","#coupon",function(){
                 
@@ -487,7 +491,9 @@ $(document).ready(function(){
                   }
                }) 
 
+
  //=========================================================================================================================================================================
+
 					 
 				//결제API
 				$("body").on("click","#purchase",function(){
@@ -672,6 +678,7 @@ $(document).ready(function(){
 													      	        }
 											      	        	
 												      	    	})
+
 												      	    	//location.replace("/pay/rest/confirm?receipt_id="+data.receipt_id);
 												      	    	location.replace("/pay/confirm?receipt_id="+data.receipt_id);
 												      	    })
@@ -859,6 +866,7 @@ $(document).ready(function(){
 													      	        }
 											      	        	
 												      	    	})
+
 												      	    	//location.replace("/pay/rest/confirm?receipt_id="+data.receipt_id);
 												      	    	location.replace("/pay/confirm?receipt_id="+data.receipt_id);
 												      	    })
@@ -875,4 +883,3 @@ $(document).ready(function(){
 				</script>
   
 </html>
-

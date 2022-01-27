@@ -143,7 +143,23 @@ public class FaqController {
 		model.addAttribute("select", select);
 		model.addAttribute("keyword", keyword);
 	    return "/faq/faqSearch";
+	}
+	
+	@RequestMapping("searchForAdmin") //검색기능
+	public String searchForAdmin(String select, String keyword, int cPage, Model model) {
+
+		int start = cPage * PageStatic.FAQ_COUNT_PER_PAGE-(PageStatic.FAQ_COUNT_PER_PAGE - 1);
+		int end = cPage * PageStatic.FAQ_COUNT_PER_PAGE;
 		
+		List<FaqDTO> faqs = faqService.selectByKeywordAdmin(start, end, select, keyword);
+		int allFAQCount = faqService.selectRecordCountAdmin(select, keyword);
+		String pageNavi = PageNavigator.getPageNavigator(allFAQCount, cPage, PageStatic.FAQ_COUNT_PER_PAGE, PageStatic.FAQ_NAVI_COUNT_PER_PAGE,"faq","search",select,keyword);
+		model.addAttribute("faqs", faqs);
+		model.addAttribute("pageNavi", pageNavi);
+		model.addAttribute("cPage", cPage);
+		model.addAttribute("select", select);
+		model.addAttribute("keyword", keyword);
+	    return "/faq/faqSearch";
 	}
 	
 	

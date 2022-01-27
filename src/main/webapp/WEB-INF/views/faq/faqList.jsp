@@ -204,6 +204,7 @@ select {
 								}else{
 									str += "<sec:authorize access="hasRole('ROLE_ADMIN')">";
 									str += "<div class='col-sm-12' style='text-align: right; margin-top:15px;margin-bottom:15px;'>";
+									str += "<button type='button' class='btn btn-dark' id='update${faqs.faq_id}' style='background-color: #406882;margin-right:5px;'>수정하기</button>";
 									str += "<button type=\"button\" class=\"btn btn-dark\" id=\"delete${faqs.faq_id}\" style=\"background-color: #406882;\">삭제하기</button>";
 									str += "</sec:authorize>";
 									$(".buttons${faqs.faq_id}").html(str);

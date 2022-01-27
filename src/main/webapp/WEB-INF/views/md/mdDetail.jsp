@@ -74,6 +74,13 @@ ul.pages li {
 .hide-toggle {
 	display:none!important;
 }
+.review-content-div{
+	padding:10px 50px;
+}
+.helpful-box {
+	text-align:right;
+	padding-top: 10px;
+}
 </style>
 <script>
 document.cookie = "safeCookie1=foo; SameSite=Lax"; 
@@ -85,6 +92,10 @@ $(document).ready(function(){
 		$(this).next().toggleClass("hide-toggle");
 		$(this).parent("#review-board").find(".review-content").not($(this).next()).addClass("hide-toggle");
 		viewCount(md_review_id, $(this).find(".md_review_view_count"));
+	})
+	$("body").on("click",".helpful",function(){
+		let md_review_id2 = $(this).closest(".review-content").prev().find(".md_review_id").html();
+		likeCount(md_review_id2, $(this), $(this).closest(".review-content").prev().find(".md_review_like"));
 	})
 	$("body").on("click",".inqry-title",function(){
  		$(this).next().toggleClass("hide-toggle");
@@ -104,6 +115,18 @@ function viewCount(md_review_id, target) {
 	}).done(function(resp){
 		if(resp != "null") {
 			target.html(resp);
+		} 
+	})
+}
+function likeCount(md_review_id, target, target2) {
+	$.ajax({
+		url:"/md/detail/review/rest/board/like/"+md_review_id,
+		dataType:"json",
+		type:"get"
+	}).done(function(resp){
+		if(resp != "null") {
+			target.html("도움이 돼요 "+resp);
+			target2.html(resp);
 		} 
 	})
 }
@@ -172,15 +195,16 @@ function getPage(pageNavi, select, sort) {
 					str += "<td style='width:60%'>"+resp.reviews[i].md_review_title+"</td>";
 					str += "<td>"+ resp.reviews[i].member_username +"</td>";
 					str += "<td>"+ resp.reviews[i].formedDate +"</td>";
-					str += "<td>"+ resp.reviews[i].md_review_like+"</td>";
+					str += "<td class='md_review_like'>"+ resp.reviews[i].md_review_like+"</td>";
 					str += "<td class='md_review_view_count'>"+ resp.reviews[i].md_review_view_count +"</td>";
 					str += "</td>";
 					str += "</tr>";
 					
 					str += "<tr class='review-content hide-toggle'>";
 					str += "<td colspan='6'>";
-					str += "<div>"
+					str += "<div class='review-content-div'>"
 					str += resp.reviews[i].md_review_content;
+					str += "<div class='helpful-box'><button class='helpful'>도움이 돼요 "+resp.reviews[i].md_review_like+"</button></div>";
 					str += "</div>";
 					str += "</tr>";
 					
@@ -462,15 +486,16 @@ function getPage(pageNavi, select, sort) {
 	            				str += "<td style='width:60%'>"+resp.reviews[i].md_review_title+"</td>";
 	            				str += "<td>"+ resp.reviews[i].member_username +"</td>";
 	            				str += "<td>"+ resp.reviews[i].formedDate +"</td>";
-	            				str += "<td>"+ resp.reviews[i].md_review_like+"</td>";
+	            				str += "<td class='md_review_like'>"+ resp.reviews[i].md_review_like+"</td>";
 	            				str += "<td class='md_review_view_count'>"+ resp.reviews[i].md_review_view_count +"</td>";
 	            				str += "</td>";
 	            				str += "</tr>";
 	            				
 	            				str += "<tr class='review-content hide-toggle'>";
 	            				str += "<td colspan='6'>";
-	            				str += "<div>"
+	            				str += "<div class='review-content-div'>"
 	            				str += resp.reviews[i].md_review_content;
+	            				str += "<div class='helpful-box'><button class='helpful'>도움이 돼요 "+resp.reviews[i].md_review_like+"</button></div>";
 	            				str += "</div>";
 	            				str += "</tr>";
 	            				
@@ -503,15 +528,16 @@ function getPage(pageNavi, select, sort) {
        		            				str += "<td style='width:60%'>"+resp.reviews[i].md_review_title+"</td>";
        		            				str += "<td>"+ resp.reviews[i].member_username +"</td>";
        		            				str += "<td>"+ resp.reviews[i].formedDate +"</td>";
-       		            				str += "<td>"+ resp.reviews[i].md_review_like+"</td>";
+       		            				str += "<td class='md_review_like'>"+ resp.reviews[i].md_review_like+"</td>";
        		            				str += "<td class='md_review_view_count'>"+ resp.reviews[i].md_review_view_count +"</td>";
        		            				str += "</td>";
        		            				str += "</tr>";
        		            				
        		            				str += "<tr class='review-content hide-toggle'>";
        		            				str += "<td colspan='6'>";
-       		            				str += "<div>"
+       		            				str += "<div class='review-content-div'>"
        		            				str += resp.reviews[i].md_review_content;
+       		            				str += "<div class='helpful-box'><button class='helpful'>도움이 돼요 "+resp.reviews[i].md_review_like+"</button></div>";
        		            				str += "</div>";
        		            				str += "</tr>";
        		            				

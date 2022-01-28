@@ -11,8 +11,7 @@
   		</insert>
   		
 		<select id="selectAll" resultType="kh.spring.dto.PurchaseDetailDTO">
-<!--   			select e1.*, e2.member_id, e3.member_username, e4.md_name from purchase_detail e1, purchase e2, member e3, md e4 where e1.purchase_id=e2.purchase_id and e2.member_id=e3.member_id and e1.md_id=e4.md_id order by purchase_detail_id asc -->
-			select * from purchase_detail
+  			select e1.*, e2.member_id, e3.member_username, e4.md_name from purchase_detail e1, purchase e2, member e3, md e4 where e1.purchase_id=e2.purchase_id and e2.member_id=e3.member_id and e1.md_id=e4.md_id order by purchase_detail_id asc
   		</select>
   		
   		<delete id="deletePurchaseDetail">

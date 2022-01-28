@@ -43,13 +43,13 @@
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">주문 관리</h1>
-                    <p class="mb-4">주문 관리 메뉴입니다. 여기에서 상품을 조회, 생성, 수정, 삭제할 수 있습니다.</p>
+                    <h1 class="h3 mb-2 text-gray-800">상세주문 관리</h1>
+                    <p class="mb-4">상세주문 관리 메뉴입니다. 여기에서 상세주문 내역을 조회, 생성, 수정, 삭제할 수 있습니다.</p>
 
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">주문 관리</h6>
+                            <h6 class="m-0 font-weight-bold text-primary">상세주문 관리</h6>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -85,19 +85,22 @@
                                     <!-- <form action="/seller/completeDelivery" method="get" id="frm"> -->
 									<c:forEach var="purchaseDetails" items="${purchaseDetails}">
                                         <tr style="text-align:center;">
-                                        	<td>
-                                        		<input type="checkbox" name='check' value="${purchaseDetails.purchase_detail_id}">
+                                        	<td style="font-size:0em;">0
+                                        	<c:choose>
+	                                        	<c:when test="${purchaseDetails.purchase_detail_result == 'Y'}">
+	                                        		<input type="checkbox" value="${purchaseDetails.purchase_detail_id}" disabled checked>
+	                                        	</c:when>
+	                                        	<c:otherwise>
+	                                        		<input type="checkbox" name='check' value="${purchaseDetails.purchase_detail_id}">
+	                                        	</c:otherwise>
+                                        	</c:choose>
 	                                        	<input type=hidden id=name class=purchase_detail_id value="${purchaseDetails.purchase_detail_id}">
                                         	</td>
                                             <td style="font-size:medium;color:black;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${purchaseDetails.purchase_detail_id}
                                             <td>${purchaseDetails.purchase_id}
-                                            <td>
-<%--                                              ${purchaseDetails.member_username} --%>
-                                            </td>
+                                            <td>${purchaseDetails.member_username}
                                             <td>${purchaseDetails.md_id}
-                                            <td>
-<%--                                              ${purchaseDetails.md_name } --%>
-                                            </td>
+                                            <td>${purchaseDetails.md_name }
                                             <td>${purchaseDetails.purchase_detail_quantity}
                                             <td>${purchaseDetails.purchase_detail_price}
                                             <td>${purchaseDetails.purchase_detail_result}
@@ -130,17 +133,24 @@
                             				location.href="/seller/deletePurchaseDetail?purchase_detail_id="+purchase_detail_id;
                             			}
                             		})
- 		
-                            		$(function(){
-                                		let chkObj = document.getElementsByName("check");
-     									let rowCnt = chkObj.length;
-								 		$("input[name='checkAll']").click(function(){
-								 			let chk_listArr = $("input[name='check']");
+                            		
+									$('#dataTable').dataTable( {
+									      "aoColumnDefs": [
+									          { 'bSortable': false, 'aTargets': [ 0 ] }
+									       ]
+									});
+                            		
+                            		$("#dataTable").on("mouseover",function(){
+								 		chk_listArr = $("input[name='check']");
+							 			rowCnt = chk_listArr.length;
+							 			
+								 		$("input[name='checkAll']").on("click",function(){
 								 			for(let i = 0; i<chk_listArr.length; i++){
 								 				chk_listArr[i].checked = this.checked;
 								 			}
 								 		});
-								 		$("input[name='check']").click(function(){
+								 		
+								 		$("input[name='check']").on("click",function(){
 								 			if($("input[name='check']:checked").length == rowCnt){
 								 				$("input[name='checkAll']")[0].checked = true;
 								 			}else{
@@ -151,42 +161,24 @@
                             		
                             		$("#complete").on('click',function(){ // 배송완료버튼 클릭시
                             			
-                            			if($("table :checked").length == 0){ // 체크된 체크박스가 없을 때
-                             				alert("선택된 글이 없습니다.");
+                            			if($("table input[name='check']:checked").length == 0){ // 체크된 체크박스가 없을 때
+                             				alert("선택된 주문내역이 없습니다.");
                              				return false;
                              			}else{
                              				var checkArr = [];
-                             				$("table :checked").each(function(i){
+                             				$("table input[name='check']:checked").each(function(i){
                              					checkArr.push($(this).val());
-                             					console.log($(this).val());
                              				});
                              				$.ajax({
                              			        url: '/seller/completeDelivery',
-                             			        type: 'post',
+                             			        
                              			        data: {
                              			            valueArrTest: checkArr
                              			        }
                              			    }).done(function(resp){
-	                         					location.reload();
+ 	                         					location.reload();
 	                         					alert("업데이트가 완료되었습니다.");
 	                         				})
-//                              				var param = "";
-//                              				$("table :checked").each(function(){
-//                              					if(param==""){
-//                              						param = "name="+$(this).parent().children("#name").val();
-//                              					}else{
-//                              						param = param + "&name="+$(this).parent().children("#name").val();
-//                              					}
-//                              				});                             				
-//                              				$.ajax({
-//                              					url:'/seller/completeDelivery',
-//                              					type:'post',
-//                              					data:param,
-//                              					dataType:'text'
-//                              				}).done(function(resp){
-//                              					location.reload();
-//                              					alert("업데이트가 완료되었습니다.");
-//                              				})
                              			}	
                             		})
                             		

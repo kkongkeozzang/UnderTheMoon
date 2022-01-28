@@ -8,10 +8,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import kh.spring.dto.CouponDTO;
 import kh.spring.dto.MdDTO;
+import kh.spring.dto.PointDTO;
 import kh.spring.dto.PurchaseDTO;
 import kh.spring.dto.PurchaseDetailDTO;
+import kh.spring.service.CouponService;
 import kh.spring.service.MdService;
+import kh.spring.service.PointService;
 import kh.spring.service.PurchaseDetailService;
 import kh.spring.service.PurchaseService;
 
@@ -22,11 +26,15 @@ public class SellerController {
 	private final MdService mdService;
 	private final PurchaseService purchaseService;
 	private final PurchaseDetailService purchaseDetailService;
+	private final PointService pointService;
+	private final CouponService couponService;
 	
-	public SellerController(MdService mdService, PurchaseService purchaseService, PurchaseDetailService purchaseDetailService) {
+	public SellerController(MdService mdService, PurchaseService purchaseService, PurchaseDetailService purchaseDetailService, PointService pointService, CouponService couponService) {
 		this.mdService = mdService;
 		this.purchaseService = purchaseService;
 		this.purchaseDetailService = purchaseDetailService;
+		this.pointService = pointService;
+		this.couponService = couponService;
 	}
 	
 	@RequestMapping("sellerOffice")
@@ -108,5 +116,55 @@ public class SellerController {
 	public String cancelDelivery(int purchase_detail_id) throws Exception {
 		int result = purchaseDetailService.cancelDelivery(purchase_detail_id);
 	    return "redirect:/seller/purchaseDetail";
+	}
+	
+	@RequestMapping("point")
+	public String sellerPoint(Model model) throws Exception {
+		List<PointDTO> points = pointService.selectAll();
+		model.addAttribute("points", points);
+	    return "/seller/sellerPoint";
+	}
+	
+	@RequestMapping("insertPoint")
+	public String insertPoint(PointDTO points) throws Exception {
+		int result = pointService.insertPoint(points);
+	    return "redirect:/seller/point";
+	}
+	
+	@RequestMapping("deletePoint")
+	public String deletePoint(int point_id) throws Exception {
+		int result = pointService.deletePoint(point_id);
+	    return "redirect:/seller/point";
+	}
+	
+	@RequestMapping("updatePoint")
+	public String updatePoint(PointDTO points) throws Exception {
+		int result = pointService.updatePoint(points);
+	    return "redirect:/seller/point";
+	}
+	
+	@RequestMapping("coupon")
+	public String sellerCoupon(Model model) throws Exception {
+		List<CouponDTO> coupons = couponService.selectAll();
+		model.addAttribute("coupons", coupons);
+	    return "/seller/sellerCoupon";
+	}
+	
+	@RequestMapping("insertCoupon")
+	public String insertCoupon(CouponDTO coupons) throws Exception {
+		int result = couponService.insertCoupon(coupons);
+	    return "redirect:/seller/coupon";
+	}
+	
+	@RequestMapping("deleteCoupon")
+	public String deleteCoupon(int coupon_id) throws Exception {
+		int result = couponService.deleteCoupon(coupon_id);
+	    return "redirect:/seller/coupon";
+	}
+	
+	@RequestMapping("updateCoupon")
+	public String updateCoupon(CouponDTO coupons) throws Exception {
+		int result = couponService.updateCoupon(coupons);
+	    return "redirect:/seller/coupon";
 	}
 }

@@ -38,4 +38,20 @@
   <insert id="insertRecomendadoMemberPoint">
   	insert into point values(point_id_seq.nextval,'5000','추천인 입력받음',default,#{value})
   </insert>
+  
+  <select id="selectAll" resultType="kh.spring.dto.PointDTO">
+  	select * from point order by point_id asc
+  </select>
+  
+  <insert id="insertPoint">
+  	insert into point values(point_id_seq.nextval,#{point_used_saved},#{point_event},default,#{member_id})
+  </insert>
+  
+  <delete id="deletePoint">
+  	delete from point where point_id=#{point_id}
+  </delete>
+  
+  <update id="updatePoint">
+  	update point set point_used_saved = #{point_used_saved}, point_event = #{point_event}, member_id=#{member_id} where point_id = #{point_id}
+  </update>
   </mapper>

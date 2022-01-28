@@ -20,12 +20,15 @@ import kh.spring.dto.GradeDTO;
 import kh.spring.dto.MdAndReviewDTO;
 import kh.spring.dto.MemberDTO;
 import kh.spring.dto.MyPagePurchaseDTO;
+import kh.spring.dto.MyPagePurchaseDetailDTO;
 import kh.spring.dto.PointDTO;
+import kh.spring.dto.PurchaseDTO;
 import kh.spring.service.CouponService;
 import kh.spring.service.GradeService;
 import kh.spring.service.MdService;
 import kh.spring.service.MemberService;
 import kh.spring.service.PointService;
+import kh.spring.service.PurchaseDetailService;
 import kh.spring.service.PurchaseService;
 import kh.spring.util.PageNavigator;
 import kh.spring.util.PageStatic;
@@ -45,10 +48,11 @@ public class MyPageController {
 	private final HttpServletResponse response;
 	private final HttpServletRequest request;
 	private final MdService mdService;
+	private final PurchaseDetailService purchaseDetailService;
 	
 	public MyPageController(GradeService gradeService, MemberService memberService, PurchaseService purchaseService, 
 			CouponService couponService, PointService pointService, BCryptPasswordEncoder bCrptPasswordEncoder, HttpServletResponse response,
-			HttpServletRequest request, MdService mdService) {
+			HttpServletRequest request, MdService mdService, PurchaseDetailService purchaseDetailService) {
 		this.gradeService = gradeService;
 		this.memberService = memberService;
 		this.purchaseService = purchaseService;
@@ -58,6 +62,7 @@ public class MyPageController {
 		this.response = response;
 		this.request = request;
 		this.mdService = mdService;
+		this.purchaseDetailService = purchaseDetailService;
 	}
 	
 	@RequestMapping("myPageList")
@@ -69,7 +74,8 @@ public class MyPageController {
 		int couponSum = couponService.selectCouponPossibleById(memberDTO.getMember_id());
 		int start = cPage * PageStatic.MYPAGELIST_COUNT_PER_PAGE-(PageStatic.MYPAGELIST_COUNT_PER_PAGE - 1); 
 		int end = cPage * PageStatic.MYPAGELIST_COUNT_PER_PAGE;
-		List<MyPagePurchaseDTO> purchaseList = purchaseService.selectByBound(memberDTO.getMember_id(), start, end);
+//		List<MyPagePurchaseDTO> purchaseList = purchaseService.selectByBound(memberDTO.getMember_id(), start, end);
+		List<PurchaseDTO> purchaseList = purchaseService.selectPurchaseByBound(memberDTO.getMember_id(), start, end);
 		Integer allPurchaseCount = purchaseService.selectRecordCount(memberDTO.getMember_id());
 		String pageNavi = PageNavigator.getPageNavigator(allPurchaseCount, cPage, PageStatic.MYPAGELIST_COUNT_PER_PAGE, PageStatic.MYPAGELIST_NAVI_COUNT_PER_PAGE, "myPageList", "all" ,"","");
 		
@@ -80,6 +86,28 @@ public class MyPageController {
 		model.addAttribute("pageNavi", pageNavi);
         
 		return "/mypage/myPageList";
+	}
+	
+	//주문에서 상세보기.
+	@RequestMapping("myPagePurchaseDetail")
+	public String myPagePurchaseDetail(Model model, int cPage, int purchase_id) {
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal(); 
+        String username = ((UserDetails)principal).getUsername();
+        Integer member_id = memberService.selectIdByUsername(username);
+		int pointSum = pointService.selectPointById(username).get();
+		int couponSum = couponService.selectCouponPossibleById(member_id);
+		int start = cPage * PageStatic.MYPAGELIST_COUNT_PER_PAGE-(PageStatic.MYPAGELIST_COUNT_PER_PAGE - 1); 
+		int end = cPage * PageStatic.MYPAGELIST_COUNT_PER_PAGE;
+		List<MyPagePurchaseDetailDTO> purchaseList = purchaseService.selectPurchaseDetailByBound(purchase_id, start, end);
+		Integer allPurchaseDetailCount = purchaseDetailService.selectRecordCount(purchase_id);
+		String pageNavi = PageNavigator.getPageNavigator(allPurchaseDetailCount, cPage, PageStatic.MYPAGELIST_COUNT_PER_PAGE, PageStatic.MYPAGELIST_NAVI_COUNT_PER_PAGE, "myPageList", "all" ,"","");
+		System.out.println(member_id+" "+pointSum+" "+couponSum+" "+start+" "+end+" "+purchaseList.get(0).getMd_name());
+		model.addAttribute("pointSum",pointSum);
+		model.addAttribute("couponSum", couponSum);
+		model.addAttribute("purchaseList", purchaseList);
+		model.addAttribute("pageNavi", pageNavi);
+        
+		return "/mypage/myPagePurchaseDetail";
 	}
 	
 	@RequestMapping("myPageGrade")

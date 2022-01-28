@@ -24,4 +24,9 @@ public class PurchaseDetailService {
 	public List<PurchaseDetailDTO> selectAll(){
 		return purchaseDetailDAO.selectAll();
 	}
+
+	public Integer selectRecordCount(int purchase_id) {
+	
+		return purchaseDetailDAO.selectRecordCount(purchase_id);
+	}
 }

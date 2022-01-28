@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -161,9 +162,9 @@ function getPage(pageNavi, select, sort) {
 </script>
 </head>
 <body>
-	
-	<div id="recently-md-view-box">
-			<div id="recently-md-view-title">최근본상품</div>
+	<c:if test="${fn:length(mdImgs) != 0}">
+		<div id="recently-md-view-box" style="z-index:100;margin-right:10px;background-color:white;">
+			<div id="recently-md-view-title" style="background-color:white;">최근본상품</div>
 			<div id="recently-md-view-content">
 			
 			</div>
@@ -185,29 +186,29 @@ function getPage(pageNavi, select, sort) {
 	                    breakpoint: 1024,  //화면 사이즈 
 	                    settings: {
 	                    	//위에 옵션이 디폴트 , 여기에 추가하면 그걸로 변경
-	                        slidesToShow: 3,
-	                        slidesToScroll: 3
+	                        slidesToShow: 1,
+	                        slidesToScroll: 1
 	                    }
 	                },
 	                {
 	                    breakpoint: 600,
 	                    settings: {
-	                        slidesToShow: 2,
-	                        slidesToScroll: 3
+	                        slidesToShow: 1,
+	                        slidesToScroll: 1
 	                    }
 	                },
 	                {
 	                    breakpoint: 480,
 	                    settings: {
-	                        slidesToShow: 2,
-	                        slidesToScroll: 3
+	                        slidesToShow: 1,
+	                        slidesToScroll: 1
 	                    }
 	                }
 	            ]
 			});
 			</script>
 		</div>
-	
+	</c:if>
 	
     <div class="products">
       <div class="container">

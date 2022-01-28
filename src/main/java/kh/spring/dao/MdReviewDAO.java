@@ -7,6 +7,7 @@ import java.util.Map;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import kh.spring.dto.MdDTO;
 import kh.spring.dto.MdReviewDTO;
 
 @Repository
@@ -46,7 +47,7 @@ public class MdReviewDAO {
 	public int selectMdReviewViewCount(String md_review_id) {
 		return mybatis.selectOne("MdReview.selectMdReviewViewCount",md_review_id);
 	}
-
+	
 	public int selectMdReviewLikeCount(String md_review_id) {
 		return mybatis.selectOne("MdReview.selectMdReviewLikeCount",md_review_id);
 	}
@@ -62,4 +63,5 @@ public class MdReviewDAO {
 	public int insertMdReview(MdReviewDTO dto) {
 		return mybatis.insert("MdReview.insertMdReview", dto);
 	}
+	
 }

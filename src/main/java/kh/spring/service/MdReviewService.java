@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import kh.spring.dao.MdReviewDAO;
+import kh.spring.dto.MdDTO;
 import kh.spring.dto.MdReviewDTO;
 
 @Service
@@ -51,4 +52,5 @@ public class MdReviewService {
 	public int insertMdReview(MdReviewDTO dto) {
 		return mdReviewDAO.insertMdReview(dto);
 	}
+	
 }

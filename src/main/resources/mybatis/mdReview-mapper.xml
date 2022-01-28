@@ -58,4 +58,5 @@
 		insert into md_review values(md_review_id_seq.nextval,#{md_id},#{md_review_title},#{member_id},#{md_review_content},
 		default,#{md_review_like},default)
 	</insert>
+	
 </mapper>

@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import kh.spring.dao.MdDAO;
+import kh.spring.dto.MdAndReviewDTO;
 import kh.spring.dto.MdDTO;
 
 @Service
@@ -62,5 +63,21 @@ public class MdService {
 	
 	public List<MdDTO> selectMdById(int md_id) {
 		return mdDAO.selectMdById(md_id);
+	}
+	
+	public List<MdAndReviewDTO> selectByBoundNotReviewMdByMemberId(String member_id, int start, int end) {
+		return mdDAO.selectByBoundNotReviewMdByMemberId(member_id, start, end);
+	}
+
+	public List<MdAndReviewDTO> selectByBoundReviewMdByMemberId(String member_id, int start, int end) {
+		return mdDAO.selectByBoundReviewMdByMemberId(member_id, start, end);
+	}
+
+	public int selectByBoundNotReviewMdCountByMemberId(String member_id) {
+		return mdDAO.selectByBoundNotReviewMdCountByMemberId(member_id);
+	}
+
+	public int selectByBoundReviewMdCountByMemberId(String member_id) {
+		return mdDAO.selectByBoundReviewMdCountByMemberId(member_id);
 	}
 }

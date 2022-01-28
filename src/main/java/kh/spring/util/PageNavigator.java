@@ -158,9 +158,28 @@ public class PageNavigator {
 				if(needNext) {pageNavi += "<a href='/mypage/myPageList?cPage="+(endNavi+1)+"'><button type='button' class='btn btn-outline-primary' style='background-color:#406882;color:white;margin:auto; display:inline-block;'>></button></a>";}
 			}
 
+		}else if(board.equals("myPageMdReview")) {
+			if(option.equals("all")) {
+				if(needPrev) {pageNavi += "<a href='/mypage/myPageMdReview?cPage="+(startNavi-1)+"'><button type='button' class='btn btn-outline-primary' style='background-color:#406882;color:white;margin:auto; display:inline-block;'><</button></a> ";}
+				for (int i = startNavi; i <= endNavi; i++) {
+					pageNavi += "<a href='/mypage/myPageMdReview?cPage="+i+"'><button type='button' class='btn btn-outline-primary' style='background-color:#406882;color:white;margin:auto; display:inline-block;'>" + i + "</button></a> ";
+				}
+				if(needNext) {pageNavi += "<a href='/mypage/myPageMdReview?cPage="+(endNavi+1)+"'><button type='button' class='btn btn-outline-primary' style='background-color:#406882;color:white;margin:auto; display:inline-block;'>></button></a>";}
+			}
+
+		}else if(board.equals("myPageAfterMdReview")) {
+			if(option.equals("all")) {
+				if(needPrev) {pageNavi += "<a href='/mypage/myPageAfterMdReview?cPage="+(startNavi-1)+"'><button type='button' class='btn btn-outline-primary' style='background-color:#406882;color:white;margin:auto; display:inline-block;'><</button></a> ";}
+				for (int i = startNavi; i <= endNavi; i++) {
+					pageNavi += "<a href='/mypage/myPageAfterMdReview?cPage="+i+"'><button type='button' class='btn btn-outline-primary' style='background-color:#406882;color:white;margin:auto; display:inline-block;'>" + i + "</button></a> ";
+				}
+				if(needNext) {pageNavi += "<a href='/mypage/myPageAfterMdReview?cPage="+(endNavi+1)+"'><button type='button' class='btn btn-outline-primary' style='background-color:#406882;color:white;margin:auto; display:inline-block;'>></button></a>";}
+			}
+
 		}
 
 		return pageNavi;
 	}
 	
 }
+

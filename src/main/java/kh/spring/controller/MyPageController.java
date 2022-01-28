@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import kh.spring.dto.CouponDTO;
 import kh.spring.dto.GradeDTO;
+import kh.spring.dto.MdAndReviewDTO;
 import kh.spring.dto.MemberDTO;
 import kh.spring.dto.MyPagePurchaseDTO;
 import kh.spring.dto.PointDTO;

@@ -17,5 +17,9 @@
   		<delete id="deletePurchase">
   			delete from purchase_detail where purchase_detail_id = #{purchase_detail_id}
   		</delete>
+  		
+  		<select id="selectRecordCount" resultType= "int">
+  			select count(*) from purchase_detail where purchase_id = #{purchase_id}
+  		</select>
   
   </mapper>

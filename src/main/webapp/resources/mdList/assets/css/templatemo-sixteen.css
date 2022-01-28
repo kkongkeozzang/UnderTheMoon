@@ -17,13 +17,55 @@ https://templatemo.com/tm-546-sixteen-clothing
 	text-align:center;
 }
 	
+/* 커스텀 CSS */
+
+.row.region-sort {
+	margin:10px 0px;
+	display:flex;
+}
+
+.row.region-sort>ul li {
+	flex: 1 1;
+}
+
+.row.region-sort>ul {
+	padding:10px 20px;
+}
+
+.row.region-sort>ul:first-child {
+	margin-top:20px;
+}
+
+.row.region-sort>ul:last-child {
+	margin-bottom:20px;
+}
+
+.row.region-sort>ul li:first-child {
+	padding-left:50px;
+}
+
+#mdList-title {
+	font-size: 30px;
+	text-align:center;
+	padding-top: 70px;
+	padding-bottom: 30px;
+}
+
+#review-sort {
+	padding-left:5px;
+}
+
+#new-sort {
+	padding-right:5px;
+}
+
+.on {
+	color:red;
+}
+
 
 
 /* 이벤트박스 CSS */
-#event-box {
-	height:500px;
-	border: 1px solid black;
-}
 
 .slick-prev:before {
 	color:black;
@@ -32,6 +74,7 @@ https://templatemo.com/tm-546-sixteen-clothing
 .slick-prev:before, .slick-next:before {
 	color:black;
 }
+
 
 
 body {

@@ -35,7 +35,7 @@
 <!-- #userMenu 는 상단 로그인, 회원가입, 고객센터 메뉴-->
 <jsp:include page="homeHeader.jsp"></jsp:include>
 
-
+</div>
 
 <!--Main 내용 시작 부분-->
 <div id="main">
@@ -141,7 +141,10 @@ function CountDownTimer(dt, id) {
 
 
 </div>
-
+</div>
+</div>
+</div>
+</div>
 
 <!--footer 시작 -->
 <jsp:include page="homeFooter.jsp"></jsp:include>

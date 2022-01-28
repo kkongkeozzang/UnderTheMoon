@@ -196,6 +196,11 @@ $(function(){
 </sec:authorize>
 </head>
 <body>
+
+<!-- #userMenu 는 상단 로그인, 회원가입, 고객센터 메뉴-->
+<jsp:include page="/WEB-INF/views/homeHeader.jsp"></jsp:include>
+
+
 <div class="container">
 	<h2 class="text-center">장바구니</h2>
 			<h3>주문상품</h3>
@@ -252,5 +257,8 @@ $(function(){
 				</table>
 			
 </div>
+
+<!--footer 시작 -->
+<jsp:include page="/WEB-INF/views/homeFooter.jsp"></jsp:include>
 </body>
 </html>

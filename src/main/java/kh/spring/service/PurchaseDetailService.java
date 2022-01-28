@@ -24,4 +24,16 @@ public class PurchaseDetailService {
 	public List<PurchaseDetailDTO> selectAll(){
 		return purchaseDetailDAO.selectAll();
 	}
+	
+	public int deletePurchaseDetail(int purchase_detail_id){
+		return purchaseDetailDAO.deletePurchaseDetail(purchase_detail_id);
+	}
+	
+	public int completeDelivery(String purchase_detail_id){
+		return purchaseDetailDAO.completeDelivery(purchase_detail_id);
+	}
+	
+	public int cancelDelivery(int purchase_detail_id){
+		return purchaseDetailDAO.cancelDelivery(purchase_detail_id);
+	}
 }

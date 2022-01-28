@@ -74,6 +74,6 @@ private final SqlSessionTemplate mybatis;
 	}
 	
 	public int deletePurchase(int purchase_id){
-		return mybatis.delete("Purchase.selectAll",purchase_id);
+		return mybatis.delete("Purchase.deletePurchase",purchase_id);
 	}
 }

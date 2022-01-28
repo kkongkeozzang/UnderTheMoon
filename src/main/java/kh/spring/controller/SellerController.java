@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kh.spring.dto.MdDTO;
@@ -13,7 +14,6 @@ import kh.spring.dto.PurchaseDetailDTO;
 import kh.spring.service.MdService;
 import kh.spring.service.PurchaseDetailService;
 import kh.spring.service.PurchaseService;
-import kh.spring.service.MdService;
 
 @RequestMapping("/seller/")
 @Controller
@@ -85,5 +85,28 @@ public class SellerController {
 		List<PurchaseDetailDTO> purchaseDetails = purchaseDetailService.selectAll();
 		model.addAttribute("purchaseDetails", purchaseDetails);
 	    return "/seller/sellerPurchaseDetail";
+	}
+	
+	@RequestMapping("deletePurchaseDetail")
+	public String deletePurchaseDetail(int purchase_detail_id) throws Exception {
+		int result = purchaseDetailService.deletePurchaseDetail(purchase_detail_id);
+	    return "redirect:/seller/purchaseDetail";
+	}
+	
+	@ResponseBody
+	@RequestMapping("completeDelivery")
+	public String completeDelivery(@RequestParam(value="valueArrTest[]",required=true) List<String> name) throws Exception {
+
+		for(int i=0; i<name.size();i++) {
+			purchaseDetailService.completeDelivery(name.get(i));
+			System.out.println(name.get(i));
+		}
+	    return "redirect:/seller/purchaseDetail";
+	}
+	
+	@RequestMapping("cancelDelivery")
+	public String cancelDelivery(int purchase_detail_id) throws Exception {
+		int result = purchaseDetailService.cancelDelivery(purchase_detail_id);
+	    return "redirect:/seller/purchaseDetail";
 	}
 }

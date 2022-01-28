@@ -16,46 +16,6 @@
 
     <!-- Custom styles for this template-->
     <link href="/resources/admin/css/sb-admin-2.min.css" rel="stylesheet">
-<style>
-	
-	#input-new td{
-		font-size:medium;
-		color:black;
-	}
-	
-	#input-new td select{
-		border: 1px solid black;
-	}
-	
-	#input-new td input{
-		border: 1px solid black;
-	}
-	
- 	#dataTable>tbody>tr>td{
- 		font-size:0em;
- 		color: white;
- 	}
- 	
-	#dataTable>tbody>tr>td>input {
-		font-size:medium;
-		color:black;
-		border:none;
-		width:100%;
-		height:100%;
-		overflow:hidden;
-		text-overflow:ellipsis;
-		white-space:nowrap;
-	}
-	#dataTable>tbody>tr>td>select {
-		font-size:medium;
-		color:black;
-		border:none;
-		width:100%;
-		height:100%;
-		disabled:true;
-		display:inline-block;
-	}
-</style>
 <sec:authorize access="isAuthenticated()">
     <sec:authentication property="principal" var="principal"/>
 </sec:authorize>
@@ -93,44 +53,55 @@
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
+                            	<div>
+                                    <a id="complete" class="btn btn-info btn-icon-split">
+                                        <span class="icon text-white-50">
+                                            <i class="fas fa-check"></i>
+                                        </span>
+                                        <span class="text">배송확정</span>
+                                    </a>
+
+                            	</div>
+
+                            	
+                            	<hr>
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
-                                    	<tr>
-                                    		<th><input type="checkbox"></th>
+                                    	<tr style="text-align:center;">
+                                    		<th><input type="checkbox" name='checkAll'></th>
                                     		<th>ID</th>
                                             <th>주문번호</th>
                                             <th>주문자</th>
                                             <th>상품번호</th>
+                                            <th>상품명</th>
                                             <th>주문수량</th>
                                             <th>주문단가</th>
-                                            <th>구매확정여부</th>
-                                            <th>구매취소</th>
-                                            <th>교환</th>
-                                            <th>환불</th>
-                                            <th>판매취소</th>
                                             <th>배송처리유무</th>
                                             <th>배송완료날짜</th>
                                             <th>관리</th>
                                         </tr>
                                     </thead>
                                     <tbody>
+                                    <!-- <form action="/seller/completeDelivery" method="get" id="frm"> -->
 									<c:forEach var="purchaseDetails" items="${purchaseDetails}">
-                                        <tr>
-                                        <form action="/seller/updateMd" method="post" class="updateFrm">
-                                        	<td><input type="checkbox" style="font-size:medium;color:black;overflow:visible;"></td>
-                                            <td style="font-size:medium;color:black;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${purchaseDetails.purchase_detail_id}<input type=hidden value="${purchaseDetails.purchase_detail_id}" class=purchase_detail_id name=purchase_detail_id>
-                                            <td>${purchaseDetails.purchase_id}<input type=text class="purchase_id" value="${purchaseDetails.purchase_id}" name="purchase_id" readonly>
-                                            <td>${purchaseDetails.member_username}<input type=text class="member_username" value="${purchaseDetails.member_username}" name="member_username" readonly>
-                                            <td>${purchaseDetails.md_id}<input type=text class="md_id" value="${purchaseDetails.md_id}" name=md_id maxLength=10 readonly>
-                                            <td>${purchaseDetails.purchase_detail_quantity}<input type=text class="purchase_detail_quantity" value="${purchaseDetails.purchase_detail_quantity}" name=purchase_detail_quantity maxLength=10 readonly>
-                                            <td>${purchaseDetails.purchase_detail_price}<input type=text class="purchase_detail_price" value="${purchaseDetails.purchase_detail_price}" name=purchase_detail_price maxLength=10 readonly>
-                                            <td>${purchaseDetails.purchase_detail_purchased}<input type=text class="purchase_detail_purchased" value="${purchaseDetails.purchase_detail_purchased}" name="purchase_detail_purchased" readonly>
-                                            <td>${purchaseDetails.purchase_detail_cancel_order}<input type=text class="purchase_detail_cancel_order" value="${purchaseDetails.purchase_detail_cancel_order}" name=purchase_detail_cancel_order readonly>
-                                            <td>${purchaseDetails.purchase_detail_exchange}<input type=text class="purchase_detail_exchange" value="${purchaseDetails.purchase_detail_exchange}" name=purchase_detail_exchange readonly>
-                                            <td>${purchaseDetails.purchase_detail_refund}<input type=text class="purchase_detail_refund" value="${purchaseDetails.purchase_detail_refund}" name=purchase_detail_refund readonly>
-                                            <td>${purchaseDetails.purchase_detail_cancel_sale}<input type=text class="purchase_detail_refund" value="${purchaseDetails.purchase_detail_refund}" name=purchase_detail_refund readonly>
-                                            <td>${purchaseDetails.purchase_detail_result}<input type=text class="purchase_detail_result" value="${purchaseDetails.purchase_detail_result}" name=purchase_detail_result readonly>
-                                            <td>${purchaseDetails.purchase_detail_delivery_date}<input type=text class="purchase_detail_delivery_date" value="${purchaseDetails.purchase_detail_delivery_date}" name=purchase_detail_delivery_date readonly>
+                                        <tr style="text-align:center;">
+                                        	<td>
+                                        		<input type="checkbox" name='check' value="${purchaseDetails.purchase_detail_id}">
+	                                        	<input type=hidden id=name class=purchase_detail_id value="${purchaseDetails.purchase_detail_id}">
+                                        	</td>
+                                            <td style="font-size:medium;color:black;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${purchaseDetails.purchase_detail_id}
+                                            <td>${purchaseDetails.purchase_id}
+                                            <td>
+<%--                                              ${purchaseDetails.member_username} --%>
+                                            </td>
+                                            <td>${purchaseDetails.md_id}
+                                            <td>
+<%--                                              ${purchaseDetails.md_name } --%>
+                                            </td>
+                                            <td>${purchaseDetails.purchase_detail_quantity}
+                                            <td>${purchaseDetails.purchase_detail_price}
+                                            <td>${purchaseDetails.purchase_detail_result}
+                                            <td>${purchaseDetails.purchase_detail_delivery_date}
                                             <td>
                                            	<a id="del" class="btn btn-danger btn-icon-split">
 		                                        <span class="icon text-white-50">
@@ -138,17 +109,91 @@
 		                                        </span>
 		                                        <span class="text">삭제</span>
 		                                    </a>
+		                                    <c:if test="${purchaseDetails.purchase_detail_result == 'Y'}">
+	                                        	<a id="cancel" class="btn btn-primary btn-icon-split">
+						                            <span class="icon text-white-50">
+						                                 <i class="fas fa-flag"></i>
+						                            </span>
+						                            <span class="text">배송취소</span>
+						                        </a>
+                                        	</c:if>
                                             </td>
-                                            </form>
                                         </tr>
                                     </c:forEach>
+                                    <!-- </form> -->
                                     </tbody>
                                 </table>
                                 <script>
                             		$("table").on('click',"#del",function(){ // 삭제버튼 클릭시
-                            			let purchase_id = $(this).parent().siblings("td").children(".purchase_id").val();
+                            			let purchase_detail_id = $(this).parent().siblings("td").children(".purchase_detail_id").val();
                             			if(confirm("정말 삭제하시겠습니까?")){
-                            				location.href="/seller/deletePurchase?purchase_id="+purchase_id;
+                            				location.href="/seller/deletePurchaseDetail?purchase_detail_id="+purchase_detail_id;
+                            			}
+                            		})
+ 		
+                            		$(function(){
+                                		let chkObj = document.getElementsByName("check");
+     									let rowCnt = chkObj.length;
+								 		$("input[name='checkAll']").click(function(){
+								 			let chk_listArr = $("input[name='check']");
+								 			for(let i = 0; i<chk_listArr.length; i++){
+								 				chk_listArr[i].checked = this.checked;
+								 			}
+								 		});
+								 		$("input[name='check']").click(function(){
+								 			if($("input[name='check']:checked").length == rowCnt){
+								 				$("input[name='checkAll']")[0].checked = true;
+								 			}else{
+								 				$("input[name='checkAll']")[0].checked = false;
+								 			}
+								 		});	
+								 	});
+                            		
+                            		$("#complete").on('click',function(){ // 배송완료버튼 클릭시
+                            			
+                            			if($("table :checked").length == 0){ // 체크된 체크박스가 없을 때
+                             				alert("선택된 글이 없습니다.");
+                             				return false;
+                             			}else{
+                             				var checkArr = [];
+                             				$("table :checked").each(function(i){
+                             					checkArr.push($(this).val());
+                             					console.log($(this).val());
+                             				});
+                             				$.ajax({
+                             			        url: '/seller/completeDelivery',
+                             			        type: 'post',
+                             			        data: {
+                             			            valueArrTest: checkArr
+                             			        }
+                             			    }).done(function(resp){
+	                         					location.reload();
+	                         					alert("업데이트가 완료되었습니다.");
+	                         				})
+//                              				var param = "";
+//                              				$("table :checked").each(function(){
+//                              					if(param==""){
+//                              						param = "name="+$(this).parent().children("#name").val();
+//                              					}else{
+//                              						param = param + "&name="+$(this).parent().children("#name").val();
+//                              					}
+//                              				});                             				
+//                              				$.ajax({
+//                              					url:'/seller/completeDelivery',
+//                              					type:'post',
+//                              					data:param,
+//                              					dataType:'text'
+//                              				}).done(function(resp){
+//                              					location.reload();
+//                              					alert("업데이트가 완료되었습니다.");
+//                              				})
+                             			}	
+                            		})
+                            		
+                      		        $("table").on('click',"#cancel",function(){ // 배송취소버튼 클릭시
+                            			let purchase_detail_id = $(this).parent().siblings("td").children(".purchase_detail_id").val();
+                            			if(confirm("배송확정을 취소하시겠습니까?")){
+                            				location.href="/seller/cancelDelivery?purchase_detail_id="+purchase_detail_id;
                             			}
                             		})
                             		

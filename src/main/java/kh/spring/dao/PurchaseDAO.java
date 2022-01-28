@@ -8,7 +8,9 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import kh.spring.dto.MyPagePurchaseDTO;
+import kh.spring.dto.MyPagePurchaseDetailDTO;
 import kh.spring.dto.PurchaseDTO;
+
 
 @Repository
 public class PurchaseDAO {
@@ -75,5 +77,23 @@ private final SqlSessionTemplate mybatis;
 	
 	public int deletePurchase(int purchase_id){
 		return mybatis.delete("Purchase.selectAll",purchase_id);
+	}
+
+	public List<PurchaseDTO> selectPurchaseByBound(Integer member_id, int start, int end) {
+		Map<String, String> map = new HashMap<>();
+		map.put("member_id", String.valueOf(member_id));
+		map.put("start", String.valueOf(start));
+		map.put("end", String.valueOf(end));
+		
+		return mybatis.selectList("Purchase.selectPurchaseByBound", map);
+	}
+
+	public List<MyPagePurchaseDetailDTO> selectPurchaseDetailByBound(Integer purchase_id, int start, int end) {
+		Map<String, String> map = new HashMap<>();
+		map.put("purchase_id", String.valueOf(purchase_id));
+		map.put("start", String.valueOf(start));
+		map.put("end", String.valueOf(end));
+		
+		return mybatis.selectList("Purchase.selectPurchaseDetailByBound", map);
 	}
 }

@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -64,6 +65,9 @@ $(document).ready(function(){
 	    $("#recently-md-view-box").stop().animate({"top":position+currentPosition+"px"},1000);
 	});
 })
+function priceToString(price) {
+    return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+}
 function sortFunc(select, sort) {
 	if (select != "all") {
 		select = $(this).html();
@@ -102,17 +106,9 @@ function sortFuncDetail(select, sort) {
 			str += "' alt=''></a></div>";
 			str += "<div class='down-content'>";
 			str += "<input type=hidden id='md_id' value="+resp.mds[i].md_id+">"
-			str += "<a ><h4>"+resp.mds[i].md_name+"</h4></a>";
-			str += "<h6>"+resp.mds[i].md_price+"</h6>";
+			str += "<h4>"+resp.mds[i].md_name+"</h4>";
+			str += "<h6>"+priceToString(resp.mds[i].md_price)+"</h6>";
 			str += "<p>"+resp.mds[i].md_content+"</p>";
-			str += "<ul class='stars'>";
-			str += "<li><i class='fa fa-star'></i></li>";
-			str += "<li><i class='fa fa-star'></i></li>";
-			str += "<li><i class='fa fa-star'></i></li>";
-			str += "<li><i class='fa fa-star'></i></li>";
-			str += "<li><i class='fa fa-star'></i></li>";
-			str += "</ul>";
-			str += "<span>Reviews (12)</span>";
 			str += "</div>";
 			str += "</div>";
 			str += "</div>";
@@ -146,17 +142,9 @@ function getPage(pageNavi, select, sort) {
 			str += "' alt=''></a></div>";
 			str += "<div class='down-content'>";
 			str += "<input type=hidden id='md_id' value="+resp.mds[i].md_id+">"
-			str += "<a><h4>"+resp.mds[i].md_name+"</h4></a>";
-			str += "<h6>"+resp.mds[i].md_price+"</h6>";
+			str += "<h4>"+resp.mds[i].md_name+"</h4>";
+			str += "<h6>"+priceToString(resp.mds[i].md_price)+"</h6>";
 			str += "<p>"+resp.mds[i].md_content+"</p>";
-			str += "<ul class='stars'>";
-			str += "<li><i class='fa fa-star'></i></li>";
-			str += "<li><i class='fa fa-star'></i></li>";
-			str += "<li><i class='fa fa-star'></i></li>";
-			str += "<li><i class='fa fa-star'></i></li>";
-			str += "<li><i class='fa fa-star'></i></li>";
-			str += "</ul>";
-			str += "<span>Reviews (12)</span>";
 			str += "</div>";
 			str += "</div>";
 			str += "</div>";
@@ -283,16 +271,8 @@ function getPage(pageNavi, select, sort) {
 	                        <div class="down-content">
 	                          <input type=hidden id="md_id" value=${md.md_id }>
 	                          <a><h4>${md.md_name }</h4></a>
-	                          <h6>${md.md_price }</h6>
+	                          <h6><fmt:formatNumber value="${md.md_price }" pattern="#,###" /></h6>
 	                          <p>${md.md_content }</p>
-	                          <ul class="stars">
-	                            <li><i class="fa fa-star"></i></li>
-	                            <li><i class="fa fa-star"></i></li>
-	                            <li><i class="fa fa-star"></i></li>
-	                            <li><i class="fa fa-star"></i></li>
-	                            <li><i class="fa fa-star"></i></li>
-	                          </ul>
-	                          <span>Reviews (12)</span>
 	                        </div>
 	                      </div>
 	                    </div>

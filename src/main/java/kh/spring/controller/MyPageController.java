@@ -232,4 +232,51 @@ public class MyPageController {
 //		
 //		return "/mypage/myPageWriteReview";
 //	}
+	
+	@RequestMapping("myPageMdReview")
+	public String myPageReview(Model model, int cPage) throws Exception{
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal(); 
+        String username = ((UserDetails)principal).getUsername();
+		MemberDTO memberDTO = memberService.selectByUsername(username);
+		int pointSum = pointService.selectPointById(username).get();
+		int couponSum = couponService.selectCouponPossibleById(memberDTO.getMember_id());
+		int start = cPage * PageStatic.MYPAGEMDREVIEW_COUNT_PER_PAGE-(PageStatic.MYPAGEMDREVIEW_COUNT_PER_PAGE - 1); 
+		int end = cPage * PageStatic.MYPAGEMDREVIEW_COUNT_PER_PAGE;
+		List<MdAndReviewDTO> mds = mdService.selectByBoundNotReviewMdByMemberId(String.valueOf(memberDTO.getMember_id()), start, end);
+		Integer notReviewMdCount = mdService.selectByBoundNotReviewMdCountByMemberId(String.valueOf(memberDTO.getMember_id()));
+		Integer reviewMdCount = mdService.selectByBoundReviewMdCountByMemberId(String.valueOf(memberDTO.getMember_id()));
+		String pageNavi = PageNavigator.getPageNavigator(notReviewMdCount, cPage, PageStatic.MYPAGEMDREVIEW_COUNT_PER_PAGE, PageStatic.MYPAGEMDREVIEW_NAVI_COUNT_PER_PAGE, "myPageMdReview", "all" ,"","");
+		model.addAttribute("memberDTO",memberDTO);
+		model.addAttribute("pointSum",pointSum);
+		model.addAttribute("couponSum", couponSum);
+		model.addAttribute("mds", mds);
+		model.addAttribute("pageNavi",pageNavi);
+		model.addAttribute("notReviewMdCount", notReviewMdCount);
+		model.addAttribute("reviewMdCount", reviewMdCount);
+		return "/mypage/myPageMdReview";
+	}
+
+	@RequestMapping("myPageAfterMdReview")
+	public String myPageAfterMdReview(Model model, int cPage) throws Exception{
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal(); 
+        String username = ((UserDetails)principal).getUsername();
+		MemberDTO memberDTO = memberService.selectByUsername(username);
+		int pointSum = pointService.selectPointById(username).get();
+		int couponSum = couponService.selectCouponPossibleById(memberDTO.getMember_id());
+		int start = cPage * PageStatic.MYPAGEMDREVIEW_COUNT_PER_PAGE-(PageStatic.MYPAGEMDREVIEW_COUNT_PER_PAGE - 1); 
+		int end = cPage * PageStatic.MYPAGEMDREVIEW_COUNT_PER_PAGE;
+		List<MdAndReviewDTO> mds = mdService.selectByBoundReviewMdByMemberId(String.valueOf(memberDTO.getMember_id()), start, end);
+		Integer notReviewMdCount = mdService.selectByBoundNotReviewMdCountByMemberId(String.valueOf(memberDTO.getMember_id()));
+		Integer reviewMdCount = mdService.selectByBoundReviewMdCountByMemberId(String.valueOf(memberDTO.getMember_id()));
+		String pageNavi = PageNavigator.getPageNavigator(reviewMdCount, cPage, PageStatic.MYPAGEMDREVIEW_COUNT_PER_PAGE, PageStatic.MYPAGEMDREVIEW_NAVI_COUNT_PER_PAGE, "myPageAfterMdReview", "all" ,"","");
+		model.addAttribute("memberDTO",memberDTO);
+		model.addAttribute("pointSum",pointSum);
+		model.addAttribute("couponSum", couponSum);
+		model.addAttribute("mds", mds);
+		model.addAttribute("pageNavi",pageNavi);
+		model.addAttribute("notReviewMdCount", notReviewMdCount);
+		model.addAttribute("reviewMdCount", reviewMdCount);
+		return "/mypage/myPageAfterMdReview";
+	}
+	
 }

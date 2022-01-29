@@ -64,4 +64,16 @@ public Integer savePoints(Integer member_id, Integer productTotal) {
 		return pointDAO.insertRecomendadoMemberPoint(id);
 	}
 
+	public List<PointDTO> selectAll(){
+		return pointDAO.selectAll();
+	}
+	public int insertPoint(PointDTO points) {
+		return  pointDAO.insertPoint(points);
+	}
+	public int deletePoint(int point_id) {
+		return  pointDAO.deletePoint(point_id);
+	}
+	public int updatePoint(PointDTO points) {
+		return  pointDAO.updatePoint(points);
+	}
 }

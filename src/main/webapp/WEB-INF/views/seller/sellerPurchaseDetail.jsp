@@ -134,13 +134,13 @@
                             			}
                             		})
                             		
-									$('#dataTable').dataTable( {
+									$('#dataTable').dataTable( {  // 체크박스로 정렬되는 것을 막는 코드
 									      "aoColumnDefs": [
 									          { 'bSortable': false, 'aTargets': [ 0 ] }
 									       ]
 									});
                             		
-                            		$("#dataTable").on("mouseover",function(){
+                            		$("#dataTable").on("mouseover",function(){  // 체크박스 전체선택 관련 코드
 								 		chk_listArr = $("input[name='check']");
 							 			rowCnt = chk_listArr.length;
 							 			

@@ -2,6 +2,9 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
  <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+ <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+ <jsp:include page="/WEB-INF/views/homeHeader.jsp"></jsp:include>
+ <jsp:include page="/WEB-INF/views/homeFooter.jsp"></jsp:include>
 <!DOCTYPE html>
 <html>
 <head>
@@ -80,6 +83,14 @@ ul.pages li {
 .helpful-box {
 	text-align:right;
 	padding-top: 10px;
+}
+.img-box {
+	height:500px;
+	justify-content: space-evenly;
+    align-content: space-around;
+}
+.container {
+	max-width:1100px !important;
 }
 </style>
 <script>
@@ -252,7 +263,7 @@ function getPage(pageNavi, select, sort) {
 </head>
 <body>
 
-
+	
 
 
     <!-- Open Content -->
@@ -260,39 +271,40 @@ function getPage(pageNavi, select, sort) {
         <div class="container pb-5">
             <div class="row">
                 <div class="col-lg-5 mt-5">
-                    <div class="card mb-3">
+                    <div class="card mb-3 img-box">
                         <img class="card-img img-fluid" src="/mdImage/${mdDetails.md_image}" alt="Card image cap" id="product-detail">
                     </div>
                 </div>
                 <!-- col end -->
                 <div class="col-lg-7 mt-5">
                     <div class="card">
-                        <div class="card-body">
+                        <div class="card-body" id="md-detail">
                         	<input id="md_id" type="hidden" value="${mdDetails.md_id }">
                         	<input id="member_username" type=hidden value=${principal.username }>
                             <h1 class="h2">${mdDetails.md_name }</h1>
-                            <p class="h3 py-2">${mdDetails.md_price }</p>
-                            <ul class="list-inline">
-                                <li class="list-inline-item">
-                                    <h6>지역:</h6>
-                                </li>
-                                <li class="list-inline-item">
-                                    <p class="text-muted"><strong>${mdDetails.md_region }</strong></p>
-                                </li>
-                                <li class="list-inline-item">
-                                    <h6>분류:</h6>
-                                </li>
-                                <li class="list-inline-item">
-                                    <p class="text-muted"><strong>${mdDetails.md_category }</strong></p>
-                                </li>
-                                <li class="list-inline-item">
-                                    <h6>도수:</h6>
-                                </li>
-                                <li class="list-inline-item">
-                                    <p class="text-muted"><strong>${mdDetails.md_abv }%</strong></p>
-                                </li>
-                            </ul>
-                            <p>${mdDetails.md_content }</p>
+                            <div id="price-box">
+                            	<p class="h3 py-2"><fmt:formatNumber value="${mdDetails.md_price }" pattern="#,###" /></p>
+                            	<p id="won">원</p>
+                            </div>
+                            <div class="md-detail-box">
+	                            <div class="detail-box">
+	                            	<p class="detail-title">지역</p>
+	                            	<p class="detail-content">${mdDetails.md_region }</p>
+	                            </div>
+	                            <div class="detail-box">
+	                            	<p class="detail-title">주종</p>
+	                            	<p class="detail-content">${mdDetails.md_category }</p>
+	                            </div>
+	                            <div class="detail-box">
+	                            	<p class="detail-title">도수</p>
+	                            	<p class="detail-content">${mdDetails.md_abv }%</p>
+	                            </div>
+	                            <div class="detail-box">
+	                            	<p class="detail-title">설명</p>
+	                            	<p class="detail-content">${mdDetails.md_content }</p>
+	                            </div>
+	                            
+                            </div>
                             <form action="" method="GET">
                                 <input type="hidden" name="product-title" value="Activewear">
                                 <div class="row">
@@ -305,22 +317,22 @@ function getPage(pageNavi, select, sort) {
                                                 <input type="hidden" name="product-quanity" id="product-quanity" value="1">
                                             </li>
                                             <li class="list-inline-item"><span class="btn btn-success" id="btn-minus">-</span></li>
-                                            <li class="list-inline-item"><span class="badge bg-secondary" id="cart_item_count">1</span></li>
+                                            <li class="list-inline-item"><span class="badge badge-secondary" id="cart_item_count">1</span></li>
                                             <li class="list-inline-item"><span class="btn btn-success" id="btn-plus">+</span></li>
                                         </ul>
                                     </div>
                                 </div>
                                 <div class="row pb-3">
-                                	<div class="col d-grid">
-                                        <button type="submit" class="btn btn-success btn-lg" name="submit" value="buy">찜하기</button>
-                                    </div>
-                                </div>
-                                <div class="row pb-3">
-                                    <div class="col d-grid">
-                                        <button type="submit" class="btn btn-success btn-lg" name="submit" value="buy">Buy</button>
-                                    </div>
-                                    <div class="col d-grid">
-                                        <button type="button" id="cart" class=" btn btn-success btn-lg" name="submit" value="addtocard">Add To Cart</button>
+                                    <div class="gnbPick">
+									</div>
+                                    <div class="col d-flex">
+										<button type="button" class="btn_pick pick_icon_button" ></button>
+                                        <button type="button" id="cart" class=" btn btn-success btn-lg" name="submit" value="addtocard">장바구니 담기</button>
+                                        <script>
+                                    	$(".pick_icon_button").on("click", function(){
+                                    		$(this).toggleClass("on");
+                                    	})
+                                        </script>
                                     </div>
                                 </div>
                             </form>
@@ -344,39 +356,13 @@ function getPage(pageNavi, select, sort) {
 				<c:forEach var="relatedMd" items="${relatedMds }">
                 <div class="p-2 pb-3 relatedMd-box">
                 	<input type=hidden class="relatedMd_id" value="${relatedMd.md_id }">
-                    <div class="product-wap card rounded-0">
-                        <div class="card rounded-0">
-                            <img class="card-img rounded-0 img-fluid" src="/resources/mdDetail/assets/img/shop_08.jpg">
-                            <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
-                                <ul class="list-unstyled">
-                                    <li><a class="btn btn-success text-white" href="shop-single.html"><i class="far fa-heart"></i></a></li>
-                                    <li><a class="btn btn-success text-white mt-2" href="shop-single.html"><i class="far fa-eye"></i></a></li>
-                                    <li><a class="btn btn-success text-white mt-2" href="shop-single.html"><i class="fas fa-cart-plus"></i></a></li>
-                                </ul>
-                            </div>
+                    <div class="product-wap rounded-0">
+                        <div class="rounded-0 related-img-box">
+                            <img class="card-img rounded-0 img-fluid" src="/mdImage/${relatedMd.md_image }">
                         </div>
                         <div class="card-body">
-                            <a href="shop-single.html" class="h3 text-decoration-none">${ relatedMd.md_name}</a>
-                            <ul class="w-100 list-unstyled d-flex justify-content-between mb-0">
-                                <li>M/L/X/XL</li>
-                                <li class="pt-2">
-                                    <span class="product-color-dot color-dot-red float-left rounded-circle ml-1"></span>
-                                    <span class="product-color-dot color-dot-blue float-left rounded-circle ml-1"></span>
-                                    <span class="product-color-dot color-dot-black float-left rounded-circle ml-1"></span>
-                                    <span class="product-color-dot color-dot-light float-left rounded-circle ml-1"></span>
-                                    <span class="product-color-dot color-dot-green float-left rounded-circle ml-1"></span>
-                                </li>
-                            </ul>
-                            <ul class="list-unstyled d-flex justify-content-center mb-1">
-                                <li>
-                                    <i class="text-warning fa fa-star"></i>
-                                    <i class="text-warning fa fa-star"></i>
-                                    <i class="text-warning fa fa-star"></i>
-                                    <i class="text-warning fa fa-star"></i>
-                                    <i class="text-muted fa fa-star"></i>
-                                </li>
-                            </ul>
-                            <p class="text-center mb-0">$20.00</p>
+                            <p class="relatedMd-name">${ relatedMd.md_name}</p>
+                            <p class="mb-0"><fmt:formatNumber value="${relatedMd.md_price }" pattern="#,###" />원</p>
                         </div>
                     </div>
                 </div>
@@ -394,9 +380,7 @@ function getPage(pageNavi, select, sort) {
 		    <li><a href="#fragment-4"><span>문의</span></a></li>
 		  </ul>
 		  <div id="fragment-1">
-		    <p>상품 설명이 들어갑니다.</p>
-		    <br><br><br><br><br><br><br><br><br><br>
-		    <p>상품 등록할 때 구현해야함 </p>
+		    <img src="/mdImage/${mdDetails.md_detail_image}">
 		  </div>
 		  <div id="fragment-3">
 				<p>PRODUCT REVIEW</p>
@@ -463,6 +447,9 @@ function getPage(pageNavi, select, sort) {
 		
 	</div>
 	</div>
+	
+	
+	
 	<script>
 		$('#tabs').tabs({
             activate: function(event ,ui){

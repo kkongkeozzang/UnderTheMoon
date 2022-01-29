@@ -14,6 +14,7 @@ import kh.spring.dto.CouponDTO;
 import kh.spring.dto.MemberDTO;
 import kh.spring.service.CartService;
 import kh.spring.service.CouponService;
+import kh.spring.service.GradeService;
 import kh.spring.service.MemberService;
 import kh.spring.service.PointService;
 import kh.spring.service.PurchaseService;
@@ -27,17 +28,20 @@ public class PurchaseController {
 	private final MemberService memberService;
 	private final PointService pointService;
 	private final CouponService couponService;
+	private final GradeService gradeService;
 	
 	public PurchaseController(PurchaseService purchaseService
 								,CartService cartService
 								,MemberService memberService
 								,CouponService couponService
-								,PointService pointService) {
+								,PointService pointService
+								,GradeService gradeService) {
 		this.purchaseService = purchaseService;
 		this.cartService = cartService;
 		this.memberService = memberService;
 		this.couponService = couponService;
 		this.pointService = pointService;
+		this.gradeService = gradeService;
 	}
 	
 	@RequestMapping(value=("purchase"),method = RequestMethod.GET)
@@ -54,15 +58,25 @@ public class PurchaseController {
 		List<CouponDTO> coupons = couponService.selectAllByMemberId(username).get();
 		//적립금정보.
 		int pointSum = pointService.selectPointById(username).get();
+		//회원적립률
+		int grade_point = gradeService.selectGrade_point(username);
+		
 		
 		//구매 총금액
 		int totalPrice = 0;
+		int deliveryFee= 0;
 		
 		for(CartDTO cart :carts) {
 			totalPrice += cart.getCart_price();
 		}
 		
-		System.out.println(member+" "+carts+" "+coupons+" "+pointSum+" "+totalPrice);
+		if(totalPrice>=30000) {
+			deliveryFee= 0;
+		}else {
+			deliveryFee =2500;
+		}
+		
+		System.out.println(member+" "+carts+" "+coupons+" "+pointSum+" "+totalPrice+" "+grade_point);
 		
 		System.out.println(totalPrice);
 		model.addAttribute("carts", carts);
@@ -70,6 +84,8 @@ public class PurchaseController {
 		model.addAttribute("coupons", coupons);
 		model.addAttribute("pointSum", pointSum);
 		model.addAttribute("member", member);
+		model.addAttribute("grade_point", grade_point);
+		model.addAttribute("deliveryFee", deliveryFee);
 		
 			
 		return "/purchase/purchase";

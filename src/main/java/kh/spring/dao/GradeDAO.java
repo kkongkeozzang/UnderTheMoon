@@ -39,4 +39,9 @@ public class GradeDAO {
 	public int checkGrade(String grade_name) {
 		return mybatis.selectOne("Grade.checkGrade", grade_name);
 	}
+
+	public int selectGrade_point(String username) {
+		
+		return mybatis.selectOne("Grade.selectGrade_point",username);
+	}
 }

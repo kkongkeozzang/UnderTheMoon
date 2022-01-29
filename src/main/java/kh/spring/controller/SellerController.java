@@ -10,10 +10,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import kh.spring.dto.CouponDTO;
 import kh.spring.dto.MdDTO;
+import kh.spring.dto.MdReviewDTO;
 import kh.spring.dto.PointDTO;
 import kh.spring.dto.PurchaseDTO;
 import kh.spring.dto.PurchaseDetailDTO;
 import kh.spring.service.CouponService;
+import kh.spring.service.MdReviewService;
 import kh.spring.service.MdService;
 import kh.spring.service.PointService;
 import kh.spring.service.PurchaseDetailService;
@@ -28,13 +30,15 @@ public class SellerController {
 	private final PurchaseDetailService purchaseDetailService;
 	private final PointService pointService;
 	private final CouponService couponService;
+	private final MdReviewService mdReviewService;
 	
-	public SellerController(MdService mdService, PurchaseService purchaseService, PurchaseDetailService purchaseDetailService, PointService pointService, CouponService couponService) {
+	public SellerController(MdService mdService, PurchaseService purchaseService, PurchaseDetailService purchaseDetailService, PointService pointService, CouponService couponService, MdReviewService mdReviewService) {
 		this.mdService = mdService;
 		this.purchaseService = purchaseService;
 		this.purchaseDetailService = purchaseDetailService;
 		this.pointService = pointService;
 		this.couponService = couponService;
+		this.mdReviewService = mdReviewService;
 	}
 	
 	@RequestMapping("sellerOffice")
@@ -166,5 +170,12 @@ public class SellerController {
 	public String updateCoupon(CouponDTO coupons) throws Exception {
 		int result = couponService.updateCoupon(coupons);
 	    return "redirect:/seller/coupon";
+	}
+	
+	@RequestMapping("mdReview")
+	public String sellerMdReview(Model model) throws Exception {
+		List<MdReviewDTO> mdReviews = mdReviewService.selectAll();
+		model.addAttribute("mdReviews", mdReviews);
+	    return "/seller/sellerMdReview";
 	}
 }

@@ -33,7 +33,6 @@ public class PurchaseDetailDTO {
 			String purchase_detail_cancel_order, String purchase_detail_exchange, String purchase_detail_refund,
 			String purchase_detail_cancel_sale, String purchase_detail_result, String purchase_detail_delivery_date,
 			String member_username, String md_name) {
-
 		super();
 		this.purchase_id = purchase_id;
 		this.md_id = md_id;

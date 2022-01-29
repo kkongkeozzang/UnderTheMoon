@@ -48,5 +48,13 @@
   		<delete id="deletePurchase">
   			delete from purchase where purchase_id = #{purchase_id}
   		</delete>
+  		
+  		<select id="selectPurchaseByBound" resultType="kh.spring.dto.PurchaseDTO">
+  		select * from (select target.*, row_number() over(order by purchase_date desc) rn from (select * from purchase where member_id = #{member_id}) target) where rn between #{start} and #{end}
+  		</select>
+  		
+  		<select id="selectPurchaseDetailByBound" resultType="kh.spring.dto.MyPagePurchaseDetailDTO">
+  		select * from (select target.*, row_number() over(order by purchase_detail_id desc) rn from (select * from (select * from purchase_detail d join md m on d.md_id = m.md_id where purchase_id = #{purchase_id})) target) where rn between #{start} and #{end}
+  		</select>
 
   </mapper>

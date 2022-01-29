@@ -8,6 +8,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import kh.spring.dto.GradeDTO;
+import kh.spring.dto.MdAndReviewDTO;
 import kh.spring.dto.MdDTO;
 
 @Repository
@@ -83,6 +84,34 @@ private final SqlSessionTemplate mybatis;
 	
 	public int updateMd(MdDTO mds) {
 		return mybatis.update("Md.updateMd", mds);
+	}
+	
+	public List<MdDTO> selectMdById(int md_id) {
+		return mybatis.selectList("Md.selectMdById", md_id);
+	}
+	
+	public List<MdAndReviewDTO> selectByBoundNotReviewMdByMemberId(String member_id, int start, int end){
+		Map<String,String> map = new HashMap<>();
+		map.put("member_id", member_id);
+		map.put("start", String.valueOf(start));
+		map.put("end", String.valueOf(end));
+		return mybatis.selectList("Md.selectByBoundNotReviewMdByMemberId", map);
+	}
+
+	public List<MdAndReviewDTO> selectByBoundReviewMdByMemberId(String member_id, int start, int end){
+		Map<String,String> map = new HashMap<>();
+		map.put("member_id", member_id);
+		map.put("start", String.valueOf(start));
+		map.put("end", String.valueOf(end));
+		return mybatis.selectList("Md.selectByBoundReviewMdByMemberId", map);
+	}
+
+	public int selectByBoundNotReviewMdCountByMemberId(String member_id) {
+		return mybatis.selectOne("Md.selectByBoundNotReviewMdCountByMemberId", member_id);
+	}
+
+	public int selectByBoundReviewMdCountByMemberId(String member_id) {
+		return mybatis.selectOne("Md.selectByBoundReviewMdCountByMemberId", member_id);
 	}
 }
 

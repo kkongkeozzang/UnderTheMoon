@@ -85,7 +85,7 @@ public class MemberDAO {
 		
 		return mybatis.update("Member.updateMember", dto);
 	}
-	
+
 	public List<MemberDTO> selectAll() {
 		return mybatis.selectList("Member.selectAll");
 	}

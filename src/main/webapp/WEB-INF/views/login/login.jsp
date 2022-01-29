@@ -114,6 +114,10 @@ body {
 </style>
 </head>
 <body>
+
+<!-- #userMenu 는 상단 로그인, 회원가입, 고객센터 메뉴-->
+<jsp:include page="/WEB-INF/views/homeHeader.jsp"></jsp:include>
+
    <div class="signup-form">
       <form action="/login" method="post"
          class="form-horizontal">
@@ -159,5 +163,8 @@ body {
 			location.href = "/member/findPassword";
 		})
    </script>
+   
+   <!--footer 시작 -->
+<jsp:include page="/WEB-INF/views/homeFooter.jsp"></jsp:include>
 </body>
 </html>

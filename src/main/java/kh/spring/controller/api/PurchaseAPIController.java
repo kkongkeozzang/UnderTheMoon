@@ -68,7 +68,7 @@ public class PurchaseAPIController {
 
 	@DeleteMapping("deleteId/{delivery_id}/{order_id}")
 	public ResponseEntity<Integer> deleteId(@PathVariable Integer delivery_id,@PathVariable Integer order_id){
-		System.out.println("delete");
+		
 		int result = deliveryService.deleteById(delivery_id);
 		
 		int result2 = purchaseService.deleteById(order_id);

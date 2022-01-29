@@ -39,4 +39,9 @@ public class GradeService {
 	public int checkGrade(String grade_name){
 		return gradeDAO.checkGrade(grade_name);
 	}
+
+	public int selectGrade_point(String username) {
+		
+		return gradeDAO.selectGrade_point(username);
+	}
 }

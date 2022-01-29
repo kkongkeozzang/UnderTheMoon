@@ -39,6 +39,13 @@
 		<beans:property name="maxUploadSize" value="100000000"></beans:property>
 	</beans:bean>
 	
+    <!-- 파일업로드를 위한 디렉토리 설정 -->
+    <!-- String uploadPath=new String("d:/upload"); -->
+    <beans:bean id="uploadPath" class="java.lang.String">
+        <beans:constructor-arg value="E:\\FinalProjectUnderTheMoon/upload" />
+    </beans:bean>
+	
 	<context:component-scan base-package="kh.spring" />
+	<context:annotation-config/>
 	
 </beans:beans>

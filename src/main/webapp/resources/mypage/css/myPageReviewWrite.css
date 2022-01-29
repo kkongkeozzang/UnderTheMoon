@@ -7,3 +7,24 @@
 #md-img-box {
 	width: 20%;
 }
+
+.fileDrop {
+    width: 100%;
+    height: 200px;
+    border: 1px dotted blue;
+}
+small {
+    margin-left:3px;
+    font-weight: bold;
+    color: gray;
+}
+
+.fileDrop {
+	display:flex;
+	justify-content: space-around;
+    align-items: center;
+}
+
+.fileDrop span {
+	font-size: 30px;
+}

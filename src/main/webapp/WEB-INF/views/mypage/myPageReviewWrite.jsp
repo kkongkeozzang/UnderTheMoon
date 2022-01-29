@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 <!-- 합쳐지고 최소화된 최신 CSS -->
@@ -140,7 +141,100 @@ color:white;
 
 
 </style>
-
+<script>
+$(function(){
+    //드래그 기본 효과를 막음
+    $(".fileDrop").on("dragenter dragover", function(event){
+        event.preventDefault(); //기본효과를 막는다.
+    });
+    //기본효과를 막지 않으면 파일 업로드를 할 시에 사진이 실행되어버리기 때문에 기본효과를 막아야 한다.
+    $(".fileDrop").on("drop",function(event){
+        //drop이 될 때 기본 효과를 막음
+        event.preventDefault();
+        //드래그된 파일의 정보
+        
+        //첨부파일 배열
+        var files=event.originalEvent.dataTransfer.files; //드래그된 파일정보를 files변수에 저장
+        var file=files[0]; //첫번째 첨부파일 (컨트롤을 누르고 파일을 여러개를 올릴수도 있기 때문에, 첫번째 첨부파일이라고 지정한다.)
+        
+        //파일 크기 제한
+ 		if(file.size < 1024 * 1024 * 2) {
+ 			//ajax로 전달할 폼 객체
+ 	        var formData=new FormData(); //폼 객체
+ 	        formData.append("file",file); //만들어진 폼 객체에 위에서 저장한 file를 file이란 이름의 변수로 저장한다
+ 	        //서버에 파일 업로드(백그라운드에서 실행됨)
+ 	        
+ 	        //    processData : false => post 방식
+ 	        //    contentType : false => multipart/form-data로 처리됨
+ 	        $.ajax({
+ 	            type: "post", 
+ 	            url: "/upload/uploadAjax", 
+ 	            data: formData, 
+ 	            dataType: "text",
+ 	            processData: false,
+ 	            contentType: false,
+ 	            success: function(data,status,req){
+ 	            	var str="";
+ 	            	if(checkImageType(data)){
+ 	            		str += "<div><img src='${path}/upload/displayFile?fileName="+data+"'>"; //이미지 파일일때는 이미지 자체를 보여준다.
+ 	            		str += "<span data-src="+data+">[삭제]</span></div>"; 
+ 		            	$(".uploadedList").append(str);
+ 	            	} else {
+ 	            		alert("img 형식의 파일만 업로드해주세요.");
+ 	            	}
+ 	            }
+ 	        });
+ 		} else {
+ 			alert("파일 크기는 2MB를 넘을 수 없습니다.");
+ 		}
+        
+    });
+    
+    //fileDrop 함수
+    //첨부파일 삭제 함수
+    $(".uploadedList").on("click","span",function(event){
+        var that=$(this); 
+        $.ajax({
+            url: "${path}/upload/deleteFile",
+            type: "post",
+            data: {fileName: $(this).attr("data-src")},
+            dataType: "text",
+            success: function(result){
+                if(result=="deleted"){
+                    that.parent("div").remove();
+                }
+            }
+        });
+    });
+    
+    function getOriginalName(fileName){
+        if(checkImageType(fileName)){ //이미지 파일이면 skip
+            return;
+        }
+        
+        var idx=fileName.indexOf("_")+1; //uuid를 제외한 파일이름을 리턴함
+        return fileName.substr(idx);
+    }
+    function getImageLink(fileName){
+        if(!checkImageType(fileName)){//이미지 파일이 아니면 skip
+            return; //함수를 종료시킨다.
+        }
+        
+        //    이미지 파일일 경우 연월일 경로와 s_를 제거해서 리턴시킨다.
+        var front=fileName.substr(0,12);//연월일 경로
+        var end=fileName.substr(14);// s_ 제거
+        return front+end;
+    }
+    
+    //이미지인지, 아닌지 체크해주는 메소드
+    function checkImageType(fileName){
+        // i : ignore case (대소문자 무관)
+        var pattern = /jpg|png|jpeg/i; //정규표현식(i는 대소문자 무시하기 때문에 넣은것.) 
+        return fileName.match(pattern); //규칙에 맞으면 true
+        //그러니까 파일의 확장명을 검사해서 jpg,png,jpeg형식이 있으면 fileName과 매칭해서 true를 리턴한다.
+    }
+});
+</script>
 
 </head>
 
@@ -270,7 +364,14 @@ color:white;
               <tr>
                   <th id="tableHead">사진등록</th>
                   <td>
-                      <input type="file" name="file" class="form-control" id="customFile" />
+						<!-- 파일을 업로드할 영역 -->
+						<div class="fileDrop"> 
+						
+						<span>등록할 사진을 이곳에 넣어주세요.</span>
+						
+						</div>
+						<!-- 업로드된 파일 목록을 출력할 영역 -->
+						<div class="uploadedList"></div>
         </td>
         </tr>
                <tr>
@@ -279,10 +380,9 @@ color:white;
                    <input type="reset" class="btn btn-danger sharp" value="취소">
                    </td>
                </tr>
-                
-                
            </table>
        </form>
+       
        </div>
         
        </div>

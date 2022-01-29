@@ -76,7 +76,7 @@ private final SqlSessionTemplate mybatis;
 	}
 	
 	public int deletePurchase(int purchase_id){
-		return mybatis.delete("Purchase.selectAll",purchase_id);
+		return mybatis.delete("Purchase.deletePurchase",purchase_id);
 	}
 
 	public List<PurchaseDTO> selectPurchaseByBound(Integer member_id, int start, int end) {

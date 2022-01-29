@@ -68,7 +68,22 @@ public Integer savePoints(Integer member_id, Integer productTotal) {
 		return pointDAO.selectRecordCount(member_id);
 	}
 
+
 	public List<PointDTO> selectByBound(Integer member_id, int start, int end) {
 		return pointDAO.selectByBound(member_id, start, end);
+	}
+	
+	public List<PointDTO> selectAll(){
+		return pointDAO.selectAll();
+	}
+	public int insertPoint(PointDTO points) {
+		return  pointDAO.insertPoint(points);
+	}
+	public int deletePoint(int point_id) {
+		return  pointDAO.deletePoint(point_id);
+	}
+	public int updatePoint(PointDTO points) {
+		return  pointDAO.updatePoint(points);
+
 	}
 }

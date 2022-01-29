@@ -74,6 +74,20 @@ public class PointDAO {
 		
 		return mybatis.selectList("Point.selectByBound", map);
 	}
+	
+	public List<PointDTO> selectAll(){
+		return mybatis.selectList("Point.selectAll");
+	}
+	public int insertPoint(PointDTO points){
+		return mybatis.insert("Point.insertPoint",points);
+	}
+	public int deletePoint(int point_id){
+		return mybatis.delete("Point.deletePoint",point_id);
+	}
+	public int updatePoint(PointDTO points){
+		return mybatis.update("Point.updatePoint",points);
+
+	}
 }
 
 

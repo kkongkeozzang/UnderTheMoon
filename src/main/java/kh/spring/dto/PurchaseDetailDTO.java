@@ -22,6 +22,7 @@ public class PurchaseDetailDTO {
 	private String purchase_detail_delivery_date;
 	private String member_username;
 	private String member_id;
+	private String md_name;
 
 	public PurchaseDetailDTO() {
 		super();
@@ -31,8 +32,7 @@ public class PurchaseDetailDTO {
 			Integer purchase_detail_quantity, Integer purchase_detail_price, String purchase_detail_purchased,
 			String purchase_detail_cancel_order, String purchase_detail_exchange, String purchase_detail_refund,
 			String purchase_detail_cancel_sale, String purchase_detail_result, String purchase_detail_delivery_date,
-			String member_username) {
-
+			String member_username, String md_name) {
 		super();
 		this.purchase_id = purchase_id;
 		this.md_id = md_id;
@@ -46,6 +46,7 @@ public class PurchaseDetailDTO {
 		this.purchase_detail_result = purchase_detail_result;
 		this.purchase_detail_delivery_date = purchase_detail_delivery_date;
 		this.member_username = member_username;
+		this.md_name = md_name;
 	}
 	public Integer getPurchase_detail_id() {
 		return purchase_detail_id;
@@ -133,8 +134,12 @@ public class PurchaseDetailDTO {
 		this.member_id = member_id;
 	}
 
+    public String getMd_name() {
+		return md_name;
+	}
 
-	
-	
+	public void setMd_name(String md_name) {
+		this.md_name = md_name;
+	}
 	
 }

@@ -86,4 +86,20 @@ public class CouponService {
 	public Integer updateCouponUsed(Integer coupon_id) {
 		return couponDAO.updateCouponUsed(coupon_id);
 	}
+	
+	public List<CouponDTO> selectAll() {
+		return couponDAO.selectAll();
+	}
+	
+	public int insertCoupon(CouponDTO coupons) {
+		return couponDAO.insertCoupon(coupons);
+	}
+	
+	public int deleteCoupon(int coupon_id) {
+		return couponDAO.deleteCoupon(coupon_id);
+	}
+	
+	public int updateCoupon(CouponDTO coupons) {
+		return couponDAO.updateCoupon(coupons);
+	}
 }

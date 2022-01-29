@@ -65,4 +65,21 @@
   <update id="updateCouponUsed">
   	update coupon set coupon_used_yn = 'Y' where coupon_id = #{value}
   </update>
+  
+  <select id="selectAll" resultType="kh.spring.dto.CouponDTO">
+  	select * from coupon order by coupon_id asc
+  </select>
+  
+  <insert id="insertCoupon">
+  	insert into coupon values(coupon_id_seq.nextval,#{coupon_name},#{coupon_discount_rate},#{coupon_event},#{coupon_valid_date},default, default, #{member_id} )
+  </insert>
+  
+  <delete id="deleteCoupon">
+  	delete from coupon where coupon_id=#{coupon_id}
+  </delete>
+  
+  <update id="updateCoupon">
+  	update coupon set coupon_name=#{coupon_name}, coupon_discount_rate=#{coupon_discount_rate}, coupon_event=#{coupon_event}, coupon_valid_date=#{coupon_valid_date}, member_id=#{member_id}, coupon_used_yn=#{coupon_used_yn} where coupon_id=#{coupon_id}
+  </update>
+  
   </mapper>

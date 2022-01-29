@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -53,34 +54,30 @@
 					<div class="card-body">											
 							<div class="drive-wrapper drive-list-view">
 								<div class="table-responsive drive-items-table-wrapper">
-								<form action="/mypage/myPageCheckPassword" method="post">	
 									<table class="table">
 										<thead>
 											<tr>
-												<th class="name truncate" colspan=4>개인정보 수정                                                
+												<th class="name truncate" colspan=4>상품문의                                                
 											</tr>
 											<tr>
-												<th class="grade-list" style="text-align:center" colspan=2>비밀번호 재확인</th>  									                          
+												<th class="grade-list" style="text-align:center">제목</th>
+												<th class="grade-list" style="text-align:center">작성일</th>
+												<th class="grade-list" style="text-align:center">답변상태</th>                                         
 											</tr>
-										</thead>
-																			
+										</thead>										
 										<tbody>
-											<tr>
-												<td class="grade-list" style="text-align:center">아이디</td>
-												<td class="grade-list" style="text-align:center">
-													<input type="text" name="member_username" value="${memberDTO.member_username }" style="text-align:center;" readonly>
-												</td>
+											<c:forEach var="MdInqryDTO" items="${mdInqryList }">
+											<tr>												
+												<td class="grade-list" style="text-align:center" ><a href="/md/detail/page?md_id=${MdInqryDTO.md_id}">${MdInqryDTO.md_question_title}</a></td>
+												<td class="grade-list" style="text-align:center"><fmt:formatDate value = "${MdInqryDTO.md_question_write_date}"  type="date" dateStyle="full"/></td>
+												<td class="grade-list" style="text-align:center">${MdInqryDTO.md_question_reply_yn}</td>									
 											</tr>
-											<tr>
-												<td class="grade-list" style="text-align:center">비밀번호</td>
-												<td class="grade-list" style="text-align:center"><input type="password" name="member_password"></td>
-											</tr>	
+											</c:forEach>														
 										</tbody>
 									</table>
-									<div>
-										<button type="submit" class="btn btn-light" style="margin:auto; display:block;">확인</button>
-									</div>
-									</form>							
+									<div class="navigator" style="margin:auto; display:block;">
+									${pageNavi}
+									</div>							
 								</div>
 							</div>						
 					</div>

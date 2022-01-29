@@ -63,5 +63,12 @@ public Integer savePoints(Integer member_id, Integer productTotal) {
 	public Integer insertRecomendadoMemberPoint(Integer id) {
 		return pointDAO.insertRecomendadoMemberPoint(id);
 	}
+	
+	public int selectRecordCount(Integer member_id) {
+		return pointDAO.selectRecordCount(member_id);
+	}
 
+	public List<PointDTO> selectByBound(Integer member_id, int start, int end) {
+		return pointDAO.selectByBound(member_id, start, end);
+	}
 }

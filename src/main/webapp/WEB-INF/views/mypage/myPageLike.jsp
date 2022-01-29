@@ -37,83 +37,13 @@
         <div class="row">
             <div class="col-12">
                 <div class="card">
-					<div class="card-body">
-						<div class="row mt-3">
-							<div class="col-12 col-lg-3">
-								<div class="card shadow-none border radius-15">
-									<div class="card-body" align=center>
-										<div class="d-flex">										
-											<div class="detail">
-                                                <h6 class="detail-title-one">${memberDTO.member_username }회원님</h6>
-												<button type="button" class="btn btn-light" id="all-grade">나의등급 보기</button>
-												<input type="hidden" name="member_id" value="${memberDTO.member_id }">
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-                            <div class="col-12 col-lg-3">
-								<div class="card shadow-none border radius-15">
-									<div class="card-body" align=center>
-										<div class="d-flex">
-
-											<div class="detail">
-												<h6 class="detail-title"><a href="/mypage/myPagePoint">적립금 ></a></h6>
-												<p class="detail-detail"><span><fmt:formatNumber value="${pointSum}" type="number"/> 원</span></p>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-                            <div class="col-12 col-lg-3">
-								<div class="card shadow-none border radius-15">
-									<div class="card-body" align=center>
-										<div class="d-flex">											
-											<div class="detail">
-												<h6 class="detail-title"><a href="/mypage/myPageCoupon?cPage=1">쿠폰 ></a></h6>
-												<p class="detail-detail"><span>${couponSum } 개</span></p>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-                            <div class="col-12 col-lg-3">
-								<div class="card shadow-none border radius-15">
-									<div class="card-body" align=center>
-										<div class="d-flex">										
-											<div class="detail">
-												<h6 class="detail-title"><a href="">1:1문의 ></a></h6>
-												<p class="detail-detail"><span>도움이 필요하신가요?</span></p>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-            			</div>            
-            		</div>    
+					<jsp:include page="myPageNavBar.jsp" flush="false" /> 
 
         
 	<div class="row">
 			<div class="col-12 col-md-4 col-lg-3">
 				<div class="card">
-					<div class="card-body">
-						<div class="d-grid"></div>
-						<h5 class="my-3">My Page</h5>
-						<div class="fm-menu">
-							<div class="list-group list-group-flush">
-								<a href="/mypage/myPageList?cPage=1" class="list-group-item py-1"><span>주문 내역</span></a> 													
-								<a href="/mypage/myPageLike" class="list-group-item py-1"><span>찜한 상품</span></a>
-								<a href="/mypage/myPagePoint" class="list-group-item py-1"><span>적립금</span></a>
-                                <a href="/mypage/myPageCoupon?cPage=1" class="list-group-item py-1"><span>쿠폰</span></a>
-                                <a href="" class="list-group-item py-1"><span>상품 문의</span></a>
-                                <a href="/mypage/myPageReview" class="list-group-item py-1"><span>상품 후기</span></a>
-                                <a href="/mypage/myPageModifyProfile" class="list-group-item py-1"><span>개인정보 수정</span></a>
-                                <br>
-                                <br>
-								<a href="" class="list-group-item py-1"><span>도움이 필요하신가요?<br>1:1 문의하기</span></a>
-							</div>
-						</div>
-					</div>
+					<jsp:include page="myPageSideBar.jsp" flush="false" />
 				</div>
 			</div>
 
@@ -124,33 +54,31 @@
 									<table class="table">
 										<thead>
 											<tr>
-												<th class="name truncate" colspan=4>주문 내역 (지난 3개월 간 주문 내역 조회가 가능합니다) 
-                                                    <select class="form-select form-select-sm" aria-label=".form-select-sm example">
-                                                    <option value="1" selected>전체기간</option>
-                                                    <option value="2">1개월전</option>
-                                                    <option value="3">2개월전</option>
-													<option value="4">3개월전</option>
-                                                  </select></th>
+												<th class="name truncate" colspan=4>찜한 상품 
+                                                    </th>
 											</tr>
 										</thead>										
 										<tbody>														
 										</tbody>
 									</table>
-									<c:forEach var="purchaseList" items="#{purchaseList}">
-									<div class="row">
-										<div class="col-sm-12" id="purchase-name"><a href="/md/detail/page?md_id=${purchaseList.md_id }">${purchaseList.md_name }</a>											
-											<hr>
-										</div>										
-										<div class="col-sm-2" id="purchase-img"><img src="/mdImage/${purchaseList.md_image}" alt="" width="90" height="90"></div>
-										<div class="col-sm-7" id="purchase-information"><ul>
-											<li>주문 날짜 : <fmt:formatDate value = "${purchaseList.purchase_date }"  type="date" dateStyle="full"/></li>
-											<br>
-											<li>결제 금액 : <fmt:formatNumber value="${purchaseList.purchase_payment }" type="number"/> 원</li>
-										</ul></div>
-										<div class="col-sm-3" id="purchase-option">
-											<button type="button" class="btn btn-light">1:1문의</button>
-										</div>
-									</div>
+									
+									<c:forEach var="wishDTO" items="${wishList}">
+									<div class="md-box">
+                                   <div class="img-box"><div class="img-box2"><img src="/mdImage/${wishDTO.md_image }"></div></div>
+                                   <div class="detail-box">
+                                      <div>상품이름 : ${wishDTO.wish_item }</div>
+                                      <div>가격 : <fmt:formatNumber value="${wishDTO.wish_price }" type="number"/> 원</div>
+                                      <div>
+                                         <span>찜한 날짜 :  <fmt:formatDate value = "${wishDTO.wish_date }"  type="date" dateStyle="full"/></span>
+                                      </div>
+                                   </div>
+                                   <div class="btn-box">
+                                      <button>담기</button>
+                                   </div>
+                                   <div class="btn-box">
+                                      <button>삭제</button>
+                                   </div>
+                                </div>
 									<br>
 									</c:forEach>
 									<div class="navigator" style="margin:auto; display:block;">

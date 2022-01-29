@@ -38,4 +38,12 @@
   <insert id="insertRecomendadoMemberPoint">
   	insert into point values(point_id_seq.nextval,'5000','추천인 입력받음',default,#{value})
   </insert>
+  
+  <select id="selectByBound" resultType="kh.spring.dto.PointDTO">
+  	select * from (select * from (select target.*, row_number() over(order by point_date desc) rn from (select * from point where member_id = #{member_id}) target)) where rn between #{start} and #{end}
+  </select>
+  
+  <select id="selectRecordCount" resultType="int">
+  	select count(*) from point where member_id = #{value}
+  </select>
   </mapper>

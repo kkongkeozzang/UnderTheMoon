@@ -1,0 +1,26 @@
+package kh.spring.service;
+
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
+import kh.spring.dao.WishDAO;
+import kh.spring.dto.WishDTO;
+
+@Service
+public class WishService {
+	
+	private final WishDAO wishDAO;
+	
+	public WishService(WishDAO wishDAO) {
+		this.wishDAO = wishDAO;
+	}
+	
+	public List<WishDTO> selectByBound(Integer member_id, int start, int end) {
+		return wishDAO.selectByBound(member_id, start, end);
+	}
+	
+	public int selectRecordCount(Integer member_id) {
+		return wishDAO.selectRecordCount(member_id);
+	}
+}

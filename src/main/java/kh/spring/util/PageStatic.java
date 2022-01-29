@@ -39,4 +39,22 @@ public class PageStatic {
 		
 	// 마이페이지 주문내역 모아보기 네비게이터 몇 개
 	public static final int MYPAGELIST_NAVI_COUNT_PER_PAGE = 3;
+	
+	// 마이페이지 적립금내역 모아보기 한 페이지에 몇 개
+	public static final int POINT_COUNT_PER_PAGE = 8;
+			
+	// 마이페이지 적립금내역 모아보기 네비게이터 몇 개
+	public static final int POINT_NAVI_COUNT_PER_PAGE = 3;
+	
+	// 마이페이지 상품문의 내역 모아보기 한 페이지에 몇 개
+	public static final int MYPAGEQUESTION_COUNT_PER_PAGE = 8;
+				
+	// 마이페이지 상품문의 내역 모아보기 네비게이터 몇 개
+	public static final int MYPAGEQUESTION_NAVI_COUNT_PER_PAGE = 3;
+	
+	// 마이페이지 찜한상품 내역 모아보기 한 페이지에 몇 개
+	public static final int MYPAGEWISH_COUNT_PER_PAGE = 5;
+					
+	// 마이페이지 찜한상품 내역 모아보기 네비게이터 몇 개
+	public static final int MYPAGEWISH_NAVI_COUNT_PER_PAGE = 3;
 }

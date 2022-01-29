@@ -245,12 +245,12 @@ ul{
   .popup{
     width: 70%;
   }
-  
+
 }
-  
-  
+   
+
 /* 상품 박스 CSS */
-  
+
 .md-box {
 	display: flex; 
 }
@@ -258,7 +258,7 @@ ul{
 .md-box>div {
 	padding:5px;
 }  
-  
+
 .img-box {
 	display:flex;
 	flex: 1 1;
@@ -315,17 +315,3 @@ ul{
 .detail-box span{margin-right:5px;}
 .detail-box span::after{padding-left:5px;content:"|"}
 .detail-box span:last-child::after{content:""}
-
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  

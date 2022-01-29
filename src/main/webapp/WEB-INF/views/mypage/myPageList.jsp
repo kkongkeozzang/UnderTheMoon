@@ -68,21 +68,24 @@
 									</table>
 									<c:forEach var="purchaseList" items="#{purchaseList}">
 									<div class="row">
-										<div class="col-sm-12" id="purchase-name"><a href="/md/detail/page?md_id=${purchaseList.md_id }">${purchaseList.md_name }</a>											
-											<hr>
+										<%-- <div class="col-sm-12" id="purchase-name"><a href="/md/detail/page?md_id=${purchaseList.md_id }">${purchaseList.md_name }</a>											
+											<hr> --%>
+										<div>
+											주문번호: <span>${purchaseList.purchase_id}</span>
 										</div>										
-										<div class="col-sm-2" id="purchase-img"><img src="/mdImage/${purchaseList.md_image}" alt="" width="90" height="90">
+										<%-- <div class="col-sm-2" id="purchase-img">${purchaseList.purchase_id} 
 										<input type="hidden" id="md-id" name="md_id" value="${purchaseList.md_id}">
+										</div> --%>
+										<div class="col-sm-7" id="purchase-information">
+											<ul>
+												<li>주문 날짜 : <fmt:formatDate value = "${purchaseList.purchase_date }"  type="date" dateStyle="full"/></li>
+												<br>
+												<li>결제 금액 : <fmt:formatNumber value="${purchaseList.purchase_payment }" type="number"/> 원</li>
+											</ul>
 										</div>
-										<div class="col-sm-7" id="purchase-information"><ul>
-											<li>주문 날짜 : <fmt:formatDate value = "${purchaseList.purchase_date }"  type="date" dateStyle="full"/></li>
-											<br>
-											<li>결제 금액 : <fmt:formatNumber value="${purchaseList.purchase_payment }" type="number"/> 원</li>
-										</ul></div>
 										<div class="col-sm-3" id="purchase-option">
-											<button type="button" class="btn btn-light">1:1문의</button><br>
+											<a href="/mypage/myPagePurchaseDetail?cPage=1&purchase_id=${purchaseList.purchase_id }"><button type="button" class="btn btn-light">상세보기</button></a><br>
 											<button type="button" class="btn btn-light" id="md-delete">주문취소</button><br>
-											<button type="button" class="btn btn-light" id="md-review">상품후기</button>
 										</div>
 									</div>
 									<br>									

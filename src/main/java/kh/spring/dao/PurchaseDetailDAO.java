@@ -29,4 +29,9 @@ private final SqlSessionTemplate mybatis;
 	public List<PurchaseDetailDTO> selectAll(){
 		return mybatis.selectList("PurchaseDetail.selectAll");
 	}
+
+	public Integer selectRecordCount(int purchase_id) {
+		
+		return mybatis.selectOne("PurchaseDetail.selectRecordCount",purchase_id);
+	}
 }

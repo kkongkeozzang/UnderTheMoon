@@ -28,6 +28,9 @@
 		href="https://cdn.jsdelivr.net/npm/boxicons@2.0.7/css/boxicons.min.css"
 		rel="stylesheet" />
 <link rel="stylesheet" href="/resources/mypage/css/mypage.css">	
+<!-- jQuery UI -->
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
+<script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 </head>
 
 <body>
@@ -46,7 +49,7 @@
 											<div class="detail">
                                                 <h6 class="detail-title-one">${memberDTO.member_username }회원님</h6>
 												<button type="button" class="btn btn-light" id="all-grade">나의등급 보기</button>
-												<input type="hidden" value="${memberDTO.member_id }">
+												<input type="hidden" name="member_id" value="${memberDTO.member_id }">
 											</div>
 										</div>
 									</div>
@@ -82,18 +85,17 @@
 									<div class="card-body" align=center>
 										<div class="d-flex">										
 											<div class="detail">
-												<h6 class="detail-title"><a href="">1:1문의 ></a></h6>
+												<h6 class="detail-title"><a href="/qna/qnaList">1:1문의 ></a></h6>
 												<p class="detail-detail"><span>도움이 필요하신가요?</span></p>
 											</div>
 										</div>
 									</div>
 								</div>
 							</div>
-            </div>
-            
-            </div>    
+            			</div>            
+            		</div>    
 
-        
+
 	<div class="row">
 			<div class="col-12 col-md-4 col-lg-3">
 				<div class="card">
@@ -111,46 +113,103 @@
                                 <a href="/mypage/myPageModifyProfile" class="list-group-item py-1"><span>개인정보 수정</span></a>
                                 <br>
                                 <br>
-								<a href="" class="list-group-item py-1"><span>도움이 필요하신가요?<br>1:1 문의하기</span></a>
+								<a href="/qna/qnaList" class="list-group-item py-1"><span>도움이 필요하신가요?<br>1:1 문의하기</span></a>
 							</div>
 						</div>
 					</div>
 				</div>
-
 			</div>
 
 			<div class="col-12 col-md-8 col-lg-9">
 				<div class="card">
-					<div class="card-body">											
-							<div class="drive-wrapper drive-list-view">
-								<div class="table-responsive drive-items-table-wrapper">
-									<table class="table">
-										<thead>
-											<tr>
-												<th class="name truncate" colspan=4>상품후기 작성                                               
-											</tr>
-											<tr>
-												<th class="grade-list" style="text-align:center">mdDTO.</th>                                           
-											</tr>
-										</thead>										
-										<tbody>
-											<c:forEach var="pointDTO" items="${pointList }">
-											<c:choose>
-												<c:when test="${pointDTO.point_event == '이벤트 미입력' }">
-												</c:when>
-												<c:otherwise>
-													<tr>												
-														<td class="grade-list" style="text-align:center">${pointDTO.point_event}</td>
-														<td class="grade-list" style="text-align:center"><fmt:formatNumber value="${pointDTO.point_used_saved}" type="number"/></td>
-														<td class="grade-list" style="text-align:center"><fmt:formatDate value = "${pointDTO.point_date}"  type="date" dateStyle="full"/></td>													
-													</tr>
-												</c:otherwise>
-											</c:choose>
-											</c:forEach>			
-										</tbody>
-									</table>							
+					<div class="card-body">						
+							<div class="drive-wrapper drive-list-view">								
+								<div>상품 후기</div>
+								<div>
+									후기 작성 시 50원을 적립해드립니다.<br>
+									별, 해 등급은 2배 적립(100원)<br>
+									후기 작성은 배송 완료일로부터 30일 이내 가능합니다.
 								</div>
-							</div>						
+
+								    <div class="container">
+									    <div id="tabs">
+										  <ul>
+										    <li><a href="#fragment-3"><span>작성가능 후기(${notReviewMdCount})</span></a></li>
+										    <li><a href="#fragment-4"><span>작성완료 후기(${reviewMdCount})</span></a></li>
+										  </ul>
+										  <div id="fragment-3">
+												  <c:if test="${notReviewMdCount eq '0'}"><div style="text-align:center">작성가능 후기가 없습니다.</div></c:if>
+											  <c:forEach var="md" items="${mds}">
+												  <div class="md-box">
+												  	<div class="img-box"><div class="img-box2"><a href="/md/detail/page?md_id=${md.md_id}"><img src="/mdImage/a.png"></a></div></div>
+												  	<div class="detail-box">
+												  		<div><a href="/md/detail/page?md_id=${md.md_id}">${md.md_name }</a></div>
+												  		<div><a href="/md/detail/page?md_id=${md.md_id}">${md.md_content }</a></div>
+												  		<div>
+													  		<span>${md.purchase_detail_price}원</span><span>${md.purchase_detail_quantity}개</span>
+												  		</div>
+												  	</div>
+												  	<div class="status-box">
+												  		<span class=status>배송완료</span>
+												  	</div>
+												  	<div class="btn-box">
+												  		<button id="writeMdReview" style="font-size:15px">후기작성</button>
+												  	</div>
+												  </div>
+											  </c:forEach>
+											<div id="page-box">${pageNavi }</div>
+										</div>
+
+										<div id="fragment-4">
+											<c:forEach var="md" items="${mds}">
+												<div class="md-box">
+													<div class="img-box">
+														<div class="img-box2">
+															<img src="/mdImage/a.png">
+														</div>
+													</div>
+													<div class="detail-box">
+														<div>${md.md_name }</div>
+														<div>${md.md_content }</div>
+														<div>
+															<span>${md.purchase_detail_price}원</span><span>${md.purchase_detail_quantity}개</span>
+														</div>
+													</div>
+													<div class="status-box">
+														<span class=status>배송완료</span>
+													</div>
+													<div class="btn-box">
+														<button id="writeMdReview" style="font-size: 15px">후기작성</button>
+													</div>
+												</div>
+											</c:forEach>
+											<div id="page-box">${pageNavi }</div>
+										</div>
+										</div>
+									</div>
+
+									<script>
+										$('#tabs').tabs({
+								            activate: function(event ,ui){
+								                let selectTab = ui.newTab.index();
+								                console.log(selectTab);
+								                if (selectTab == 0) {
+								                	location.href ="/mypage/myPageMdReview?cPage=1";
+								                } else if (selectTab == 1) {
+								                	location.href ="/mypage/myPageAfterMdReview?cPage=1";
+								                }
+									        }
+										});
+								
+										
+									</script>
+
+
+
+
+
+
+						</div>						
 					</div>
 				</div>
 			</div>
@@ -163,6 +222,12 @@
 	$("#all-grade").on("click",function(){
 		location="/mypage/myPageGrade"
 	})
+	
+	$("#md-review").on("click",function(){
+		
+		location="/mypage/writeReview"
+	})
+	
 </script>
 </body>
 </html>

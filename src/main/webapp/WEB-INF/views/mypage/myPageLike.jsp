@@ -38,7 +38,6 @@
             <div class="col-12">
                 <div class="card">
 					<jsp:include page="myPageNavBar.jsp" flush="false" /> 
-
         
 	<div class="row">
 			<div class="col-12 col-md-4 col-lg-3">
@@ -60,8 +59,7 @@
 										</thead>										
 										<tbody>														
 										</tbody>
-									</table>
-									
+									</table>				
 									<c:forEach var="wishDTO" items="${wishList}">
 									<div class="md-box">
                                    <div class="img-box"><div class="img-box2"><img src="/mdImage/${wishDTO.md_image }"></div></div>

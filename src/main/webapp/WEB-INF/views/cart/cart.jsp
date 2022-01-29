@@ -16,6 +16,43 @@
 .table>tbody>tr>td, .table>tfoot>tr>td{
     vertical-align: middle;
 }
+
+.count{
+
+ 
+  font-size: 15px;
+  border: 0;
+  border-radius: 15px;
+  outline: none;
+  background-color: rgb(233, 233, 233);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+   width:130px;
+ 
+}
+
+ .minus{
+  width:40px;
+ 
+}
+
+.plus{
+  width:40px;
+ 
+}
+.flex{
+  display: flex;
+}
+
+#totalPrice{
+	
+  font-size: 15px;
+  border: 0;
+  border-radius: 15px;
+  outline: none;
+  background-color: rgb(233, 233, 233);
+}
 @media screen and (max-width: 600px) {
     table#cart tbody td .form-control{
 		width:20%;
@@ -159,7 +196,14 @@ $(function(){
 </sec:authorize>
 </head>
 <body>
+
+<!-- #userMenu 는 상단 로그인, 회원가입, 고객센터 메뉴-->
+<jsp:include page="/WEB-INF/views/homeHeader.jsp"></jsp:include>
+
+
 <div class="container">
+	<h2 class="text-center">장바구니</h2>
+			<h3>주문상품</h3>
 	<table id="cart" class="table table-hover table-condensed">
     				<thead>
 						<tr>
@@ -167,7 +211,7 @@ $(function(){
 							 
 							<th style="width:8%"></th>
 							<th style="width:22%" class="text-center">수량</th>
-							<th style="width:10%">가격</th>
+							<th style="width:10%" class="text-center">가격</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -183,15 +227,16 @@ $(function(){
 							</td>
 							<td data-th="Price"></td>
 							<td data-th="Quantity">
-								<button class="plus" type ="button">+</button>
-									 <input type="hidden" class="cart_id" value="${cart.cart_id}">
 									 <input id="member_username" type=hidden value=${principal.username }>
-									<input type="number" class="count form-control text-center" value="${cart.cart_item_count}" readonly>
-								<button class="minus" type="button">-</button>
+									 <input type="hidden" class="cart_id" value="${cart.cart_id}">
+									<div class="flex">
+										<div style="display:inline" class="minus btn btn-primary">-</div>
+										<input style="display:inline" type="number" class="count form-control text-center" value="${cart.cart_item_count}" readonly>
+										<div  style="display:inline" class="plus btn btn-primary">+</div>
+									</div>
 							</td>
 							<td data-th="Subtotal" class="cart_price text-center">${cart.cart_price}</td>
-							<td class="actions" data-th="">
-								<button class="btn btn-info btn-sm"><i class="fa fa-refresh"></i></button>
+							<td class="actions" data-th="">						
 								<button class="delete btn btn-danger btn-sm"><i class="fa fa-trash-o"></i></button>								
 							</td>
 						</tr>
@@ -203,13 +248,17 @@ $(function(){
 							
 						</tr>
 						<tr>
-							<td><a href="#" class="btn btn-warning"><i class="fa fa-angle-left"></i> 쇼핑계속하기</a></td>
+							<td><a href="/md/list" class="btn btn-primary"><i class="fa fa-angle-left"></i> 쇼핑계속하기</a></td>
 							<td colspan="2" class="hidden-xs"></td>
-							<td class="hidden-xs text-center">Total <input type="text" id="totalPrice" value="${ totalPrice}" readonly> </td>
-							<td><a href="#" id="order" class="btn btn-success btn-block">주문하기 <i class="fa fa-angle-right"></i></a></td>
+							<td class="hidden-xs text-center">주문금액 <input type="text" class="text-center" id="totalPrice" value="${ totalPrice}" readonly> </td>
+							<td><a href="#" id="order" class="btn btn btn-primary">주문하기 <i class="fa fa-angle-right"></i></a></td>
 						</tr>
 					</tfoot>
 				</table>
+			
 </div>
+
+<!--footer 시작 -->
+<jsp:include page="/WEB-INF/views/homeFooter.jsp"></jsp:include>
 </body>
 </html>

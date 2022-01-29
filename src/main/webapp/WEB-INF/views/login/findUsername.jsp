@@ -141,6 +141,10 @@ $(function(){
 </script>
 </head>
 <body>
+
+<!-- #userMenu 는 상단 로그인, 회원가입, 고객센터 메뉴-->
+<jsp:include page="/WEB-INF/views/homeHeader.jsp"></jsp:include>
+
    <div class="signup-form">
     <form
          class="form-horizontal">
@@ -173,5 +177,8 @@ $(function(){
          아이디가 없으신가요? <a href="#">회원가입</a><br>
       </div>
    </div>
+   
+   <!--footer 시작 -->
+<jsp:include page="/WEB-INF/views/homeFooter.jsp"></jsp:include>
 </body>
 </html>

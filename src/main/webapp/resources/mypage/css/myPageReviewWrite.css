@@ -1,0 +1,9 @@
+@charset "UTF-8";
+
+#md-box {
+	display:flex;
+}
+
+#md-img-box {
+	width: 20%;
+}

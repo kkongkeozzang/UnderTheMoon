@@ -308,4 +308,17 @@ public class MyPageController {
 		return "/mypage/myPageAfterMdReview";
 	}
 	
+	@RequestMapping("myPageReviewWrite")
+	public String myPageReviewWrite(Model model) throws Exception{
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal(); 
+        String username = ((UserDetails)principal).getUsername();
+		MemberDTO memberDTO = memberService.selectByUsername(username);
+		int pointSum = pointService.selectPointById(username).get();
+		int couponSum = couponService.selectCouponPossibleById(memberDTO.getMember_id());
+		model.addAttribute("memberDTO",memberDTO);
+		model.addAttribute("pointSum",pointSum);
+		model.addAttribute("couponSum", couponSum);
+		return "/mypage/myPageReviewWrite";
+	}
+	
 }

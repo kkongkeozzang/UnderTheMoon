@@ -410,7 +410,7 @@ function getPage(pageNavi, select, sort) {
 						</tr>
 					</tbody>
 				</table>
-				<button>후기쓰기</button>
+				<a href="/mypage/myPageReviewWrite"><button>후기쓰기</button></a>
 				<div id="page-box">
 				<ul class="pages" id="pages" ></ul>
 				</div>

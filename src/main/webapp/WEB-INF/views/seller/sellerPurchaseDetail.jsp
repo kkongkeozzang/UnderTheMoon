@@ -166,20 +166,22 @@
                              				alert("선택된 주문내역이 없습니다.");
                              				return false;
                              			}else{
-                             				var checkArr = [];
-                             				$("table input[name='check']:checked").each(function(i){
-                             					checkArr.push($(this).val());
-                             				});
-                             				$.ajax({
-                             			        url: '/seller/completeDelivery',
-                             			        
-                             			        data: {
-                             			            valueArrTest: checkArr
-                             			        }
-                             			    }).done(function(resp){
- 	                         					location.reload();
-	                         					alert("업데이트가 완료되었습니다.");
-	                         				})
+                             				if(confirm("선택하신 주문내역을 배송확정 하시겠습니까?")){
+                             					var checkArr = [];
+                                 				$("table input[name='check']:checked").each(function(i){
+                                 					checkArr.push($(this).val());
+                                 				});
+                                 				$.ajax({
+                                 			        url: '/seller/completeDelivery',
+                                 			        
+                                 			        data: {
+                                 			            valueArrTest: checkArr
+                                 			        }
+                                 			    }).done(function(resp){
+     	                         					location.reload();
+    	                         					alert("업데이트가 완료되었습니다.");
+    	                         				})	
+                             				}
                              			}	
                             		})
                             		

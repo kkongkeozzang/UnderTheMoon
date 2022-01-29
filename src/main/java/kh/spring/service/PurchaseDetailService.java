@@ -35,7 +35,8 @@ public class PurchaseDetailService {
 	
 	public int cancelDelivery(int purchase_detail_id){
 		return purchaseDetailDAO.cancelDelivery(purchase_detail_id);
-
+	}
+	
 	public Integer selectRecordCount(int purchase_id) {
 	
 		return purchaseDetailDAO.selectRecordCount(purchase_id);

@@ -48,7 +48,7 @@
                 <a class="nav-link collapsed" href="/admin/adminOffice" data-target="#collapse-one"
                     aria-expanded="true" aria-controls="collapse-one">
                     <i class="fas fa-fw fa-chart-area"></i>
-                    <span>대쉬 보드</span>
+                    <span>대시 보드</span>
                 </a>
             </li>
             

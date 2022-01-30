@@ -1,6 +1,8 @@
 package kh.spring.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
@@ -24,4 +26,35 @@ public class MdInqryService {
 		return mdInqryDAO.selectCount(md_id);
 	}
 	
+	public List<MdInqryDTO> selectAll() {
+		return mdInqryDAO.selectAll();
+	}
+	
+	public int deleteMdInqry(int md_question_id) {
+		return mdInqryDAO.deleteMdInqry(md_question_id);
+	}
+	
+	public int deleteMdResp(int md_question_id) {
+		return mdInqryDAO.deleteMdResp(md_question_id);
+	}
+	
+	public int updateWait(int md_question_id) {
+		return mdInqryDAO.updateWait(md_question_id);
+	}
+	
+	public int updateComplete(int md_question_id) {
+		return mdInqryDAO.updateComplete(md_question_id);
+	}
+	
+	public int insertResp(MdInqryDTO inqrys, int member_id) {		
+		return mdInqryDAO.insertResp(inqrys, member_id);
+	}
+	
+	public int selectMemberId(String username) {
+		return mdInqryDAO.selectMemberId(username);
+	}
+	
+	public int updateResp(MdInqryDTO inqrys) {		
+		return mdInqryDAO.updateResp(inqrys);
+	}
 }

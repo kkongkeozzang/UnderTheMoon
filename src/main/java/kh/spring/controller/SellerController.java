@@ -10,11 +10,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import kh.spring.dto.CouponDTO;
 import kh.spring.dto.MdDTO;
+import kh.spring.dto.MdInqryDTO;
 import kh.spring.dto.MdReviewDTO;
 import kh.spring.dto.PointDTO;
 import kh.spring.dto.PurchaseDTO;
 import kh.spring.dto.PurchaseDetailDTO;
 import kh.spring.service.CouponService;
+import kh.spring.service.MdInqryService;
 import kh.spring.service.MdReviewService;
 import kh.spring.service.MdService;
 import kh.spring.service.PointService;
@@ -31,14 +33,16 @@ public class SellerController {
 	private final PointService pointService;
 	private final CouponService couponService;
 	private final MdReviewService mdReviewService;
+	private final MdInqryService mdInqryService;
 	
-	public SellerController(MdService mdService, PurchaseService purchaseService, PurchaseDetailService purchaseDetailService, PointService pointService, CouponService couponService, MdReviewService mdReviewService) {
+	public SellerController(MdService mdService, PurchaseService purchaseService, PurchaseDetailService purchaseDetailService, PointService pointService, CouponService couponService, MdReviewService mdReviewService, MdInqryService mdInqryService) {
 		this.mdService = mdService;
 		this.purchaseService = purchaseService;
 		this.purchaseDetailService = purchaseDetailService;
 		this.pointService = pointService;
 		this.couponService = couponService;
 		this.mdReviewService = mdReviewService;
+		this.mdInqryService = mdInqryService;
 	}
 	
 	@RequestMapping("sellerOffice")
@@ -177,5 +181,51 @@ public class SellerController {
 		List<MdReviewDTO> mdReviews = mdReviewService.selectAll();
 		model.addAttribute("mdReviews", mdReviews);
 	    return "/seller/sellerMdReview";
+	}
+	
+	@RequestMapping("mdInqry")
+	public String sellerMdInqry(Model model) throws Exception {
+		List<MdInqryDTO> mdInqrys = mdInqryService.selectAll();
+		model.addAttribute("mdInqrys", mdInqrys);
+	    return "/seller/sellerMdInqry";
+	}
+	
+	@RequestMapping("deleteMdInqry")
+	public String deleteMdInqry(int md_question_id) throws Exception {
+		int result = mdInqryService.deleteMdInqry(md_question_id);
+	    return "redirect:/seller/mdInqry";
+	}
+	
+	@RequestMapping("deleteMdResp")
+	public String deleteMdResp(int md_question_id) throws Exception {
+		int result1 = mdInqryService.deleteMdResp(md_question_id);
+		if(result1 > 0) {
+			int result2 = mdInqryService.updateWait(md_question_id);
+		}
+	    return "redirect:/seller/mdInqry";
+	}
+	@RequestMapping("deleteMdBoth")
+	public String deleteMdBoth(int md_question_id) throws Exception {
+		int result1 = mdInqryService.deleteMdInqry(md_question_id);
+		if(result1 > 0) {
+			int result2 = mdInqryService.deleteMdResp(md_question_id);
+		}
+	    return "redirect:/seller/mdInqry";
+	}
+	
+	@RequestMapping("insertResp")
+	public String insertResp(MdInqryDTO inqrys) throws Exception {
+		int member_id = mdInqryService.selectMemberId(inqrys.getMd_response_username());
+		int result1 = mdInqryService.insertResp(inqrys, member_id);
+		if(result1 > 0) {
+			int result2 = mdInqryService.updateComplete(inqrys.getSort_md_question_id());
+		}
+	    return "redirect:/seller/mdInqry";
+	}
+	
+	@RequestMapping("updateResp")
+	public String updateResp(MdInqryDTO inqrys) throws Exception {
+		int result = mdInqryService.updateResp(inqrys);
+	    return "redirect:/seller/mdInqry";
 	}
 }

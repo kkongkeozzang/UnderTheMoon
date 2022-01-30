@@ -48,7 +48,7 @@
                 <a class="nav-link collapsed" href="/seller/sellerOffice" data-target="#collapse-one"
                     aria-expanded="true" aria-controls="collapse-one">
                     <i class="fas fa-fw fa-chart-area"></i>
-                    <span>대쉬 보드</span>
+                    <span>대시 보드</span>
                 </a>
             </li>
             
@@ -78,16 +78,25 @@
             <!-- Nav Item - Utilities Collapse Menu -->
             <li class="nav-item">
                 <a class="nav-link collapsed" href="/seller/mdReview" data-target="#collapse-four"
-                    aria-expanded="true" aria-controls="collapse-five">
+                    aria-expanded="true" aria-controls="collapse-four">
                     <i class="fas fa-fw fa-table"></i>
                     <span>리뷰 관리</span>
+                </a>
+            </li>
+            
+            <!-- Nav Item - Utilities Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="/seller/mdInqry" data-target="#collapse-five"
+                    aria-expanded="true" aria-controls="collapse-five">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>상품 문의 관리</span>
                 </a>
             </li>
             
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse-six"
-                    aria-expanded="true" aria-controls="collapse-seven">
+                    aria-expanded="true" aria-controls="collapse-six">
                     <i class="fas fa-fw fa-table"></i>
                     <span>포인트/쿠폰 관리</span>
                 </a>

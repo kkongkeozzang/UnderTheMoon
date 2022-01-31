@@ -1,3 +1,156 @@
 /*
 Custom Css
 */
+
+#won {
+	display:inline-block;
+	font-size:14px;
+	margin-bottom:0px;
+}
+
+#price-box p {
+	margin:0;
+	padding:0 !important;
+}
+
+#price-box {
+	display:flex;
+	align-items: baseline;
+	border-bottom:1px solid black;
+	padding-bottom:20px;
+}
+
+#price-box .h3 {
+	font-size: 30px !important;
+}
+
+#md-detail {
+	height: 700px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 20px;
+}
+
+h1.h2 {
+	margin:0px;
+	padding-bottom: 30px;
+	font-weight:bold;
+}
+
+.detail-box {
+	display:flex;
+}
+
+.detail-content {
+	margin: 10px 0px;
+	flex: 5;
+}
+
+.detail-box:last-child {
+	padding-top:10px;
+	padding-bottom:30px;
+	border-bottom:1px solid black;
+}
+
+.detail-title {
+	margin: 10px 0px;
+	flex: 1;
+}
+
+.md-detail-box {
+	margin-top: 20px;
+	margin-bottom: 20px;
+	margin-left:10px;
+}
+
+.badge {
+	color:black !important;
+	background-color:white !important;
+}
+
+#cart_item_count {
+    font-size: 20px;
+    font-weight: 400;
+}
+
+.btn {
+	background-color : #406882 !important;
+	border-color: #1A374D !important;
+}
+
+#gnb .gnbPick{
+  display: inline-block;
+  position: absolute;
+  right: 51px;
+  top: 10px;
+  width: 36px;
+  height: 36px;
+  font-size: 0px;
+}
+.btn_pick{
+  display: inline-block;
+  width: 36px;
+  height: 36px;
+  border: none;
+  color: transparent;
+  background: url(https://res.kurly.com/pc/service/pick/btn-heart-off.svg) no-repeat 50% 50%;
+  cursor: pointer;
+}
+.btn_pick:hover{
+  background: url(https://res.kurly.com/pc/service/pick/btn-heart-hover.svg) no-repeat 50% 50%;
+}
+
+.col.d-flex button:first-child {
+	flex:1 1;
+	padding-left: 0px;
+    padding-right: 0px;
+    margin-right: 20px;
+}
+#cart {
+	flex: 9 1;
+	height:50px;
+	font-size:20px;
+}
+.d-flex {
+    align-items: center;
+}
+.pick_icon_button {
+    width: 56px;
+    height: 56px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    color: transparent!important;
+    background: url(https://res.kurly.com/pc/service/pick/btn-itemdetail-like.svg) no-repeat center;
+    background-size: 32px;
+    cursor: pointer;
+}
+.pick_icon_button.on {
+    background: url(https://res.kurly.com/pc/service/pick/btn-itemdetail-like-on.svg) no-repeat center;
+}
+
+.related-img-box {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding-top: 20px;
+}
+
+.related-img-box img {
+    height: 300px;
+    width: auto;
+}
+
+#carousel-related-product .product-wap {
+	box-shadow:none;
+	border: 1px solid gray;
+}
+
+.relatedMd-box:hover {
+	cursor:pointer;
+}
+
+#carousel-related-product .relatedMd-name {
+	font-weight:bolder !important;
+	margin:0px;
+}

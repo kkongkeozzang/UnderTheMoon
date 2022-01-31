@@ -11,11 +11,22 @@
   		</insert>
   		
 		<select id="selectAll" resultType="kh.spring.dto.PurchaseDetailDTO">
-  			select e1.*, e2.member_id, e3.member_username from purchase_detail e1, purchase e2, member e3 where e1.purchase_id=e2.purchase_id and e2.member_id=e3.member_id
+  			select e1.*, e2.member_id, e3.member_username, e4.md_name from purchase_detail e1, purchase e2, member e3, md e4 where e1.purchase_id=e2.purchase_id and e2.member_id=e3.member_id and e1.md_id=e4.md_id order by purchase_detail_id asc
   		</select>
   		
-  		<delete id="deletePurchase">
+  		<delete id="deletePurchaseDetail">
   			delete from purchase_detail where purchase_detail_id = #{purchase_detail_id}
   		</delete>
-  
+  		
+  		<update id="completeDelivery">
+  			update purchase_detail set purchase_detail_result = 'Y', purchase_detail_delivery_date = sysdate where purchase_detail_id = #{purchase_detail_id}
+  		</update>
+  		<update id="cancelDelivery">
+  			update purchase_detail set purchase_detail_result = 'N', purchase_detail_delivery_date = '' where purchase_detail_id = #{purchase_detail_id}
+  		</update>
+  		
+  		<select id="selectRecordCount" resultType= "int">
+  			select count(*) from purchase_detail where purchase_id = #{purchase_id}
+  		</select>
+
   </mapper>

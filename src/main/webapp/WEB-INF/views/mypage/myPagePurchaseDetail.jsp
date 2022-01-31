@@ -28,6 +28,325 @@
 		href="https://cdn.jsdelivr.net/npm/boxicons@2.0.7/css/boxicons.min.css"
 		rel="stylesheet" />
 <link rel="stylesheet" href="/resources/mypage/css/mypage.css">	
+
+<style type="text/css">
+body {
+	margin-top: 20px;
+}
+
+.card {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	min-width: 0;
+	word-wrap: break-word;
+	background-color: #fff;
+	background-clip: border-box;
+	border: 0px solid rgba(0, 0, 0, 0);
+	border-radius: .25rem;
+	margin-bottom: 1.5rem;
+	box-shadow: 0 2px 6px 0 rgb(218 218 253/ 65%), 0 2px 6px 0
+		rgb(206 206 238/ 54%);
+}
+
+.fm-file-box {
+	font-size: 25px;
+	background: #e9ecef;
+	width: 44px;
+	height: 44px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: .25rem;
+}
+
+.ms-2 {
+	margin-left: .5rem !important;
+}
+
+.fm-menu .list-group a {
+	font-size: 16px;
+	color: #5f5f5f;
+	display: flex;
+	align-items: center;
+}
+
+.list-group-flush>.list-group-item {
+	border-width: 0 0 1px;
+}
+
+.list-group-item+.list-group-item {
+	border-top-width: 0;
+}
+
+.py-1 {
+	padding-top: .25rem !important;
+	padding-bottom: .25rem !important;
+}
+
+.list-group-item {
+	position: relative;
+	display: block;
+	padding: .5rem 1rem;
+	text-decoration: none;
+	background-color: #fff;
+	border: 1px solid rgba(0, 0, 0, .125);
+}
+
+.radius-15 {
+	border-radius: 15px;
+}
+
+.fm-icon-box {
+	font-size: 32px;
+	background: #ffffff;
+	width: 52px;
+	height: 52px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: .25rem;
+}
+
+.font-24 {
+	font-size: 24px;
+}
+
+.ms-auto {
+	margin-left: auto !important;
+}
+
+.font-30 {
+	font-size: 30px;
+}
+
+.user-groups img {
+	margin-left: -14px;
+	border: 1px solid #e4e4e4;
+	padding: 2px;
+	cursor: pointer;
+}
+
+.rounded-circle {
+	border-radius: 50% !important;
+}
+
+#header {
+	margin-bottom: 100px;
+}
+
+#profile-box {
+	display: flex;
+	justify-content: center;
+}
+
+.img-profile {
+	border-radius: 70%;
+	width: 100%;
+	height: 100%;
+}
+
+.profile-detail {
+	text-align: center;
+}
+
+.name {
+	font-weight: bold;
+}
+
+.list li {
+	margin-top: 5px;
+}
+
+.label {
+	font-size: 12px;
+}
+.grade{
+	display:flex;
+	justify-content: center;
+	font-weight: bold;
+}
+.detail{
+	display:flex;
+	flex-direction:column;
+	flex:1 1;
+	justify-content: flex-end;
+    height:120px;
+}
+
+.detail-title{
+	line-height:90px;
+}
+
+.detail-title a{
+	text-decoration:none;
+	color:black;
+}
+
+.icon-box{
+	flex:1 1;
+	height:100px;
+}
+.icon-icon{
+	flex:1 1;
+}
+
+.detail-title-one{
+	display:flex;
+	flex-direction:column;
+	flex:1 1;
+	justify-content: center;
+}
+
+.form-select{
+	float:right;
+}
+
+#profile-box{
+	flex-wrap: wrap;
+}
+ul{
+	list-style:none;
+
+}
+
+.purchase-list{
+	border: 1px solid black;
+
+}
+
+.navigator > button.btn btn-outline-primary{
+	float:center;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.7);
+  transition: opacity 500ms;
+  visibility: hidden;
+  opacity: 0;
+}
+.overlay:target {
+  visibility: visible;
+  opacity: 1;
+}
+
+.popup {
+  margin: 70px auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 5px;
+  width: 30%;
+  position: relative;
+  transition: all 5s ease-in-out;
+}
+
+.popup h2 {
+  margin-top: 0;
+  color: #333;
+  font-family: Tahoma, Arial, sans-serif;
+}
+.popup .close {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  transition: all 200ms;
+  font-size: 30px;
+  font-weight: bold;
+  text-decoration: none;
+  color: #333;
+}
+.popup .close:hover {
+  color: #06D85F;
+}
+.popup .content {
+  max-height: 30%;
+  overflow: auto;
+}
+
+@media screen and (max-width: 700px){
+  .box{
+    width: 70%;
+  }
+  .popup{
+    width: 70%;
+  }
+  
+}
+  
+  
+/* 상품 박스 CSS */
+  
+.md-box {
+	display: flex; 
+}
+
+.md-box>div {
+	padding:5px;
+}  
+  
+.img-box {
+	display:flex;
+	flex: 1 1;
+	align-items: center;
+	text-align: center;
+	justify-content: space-around;
+}
+
+.img-box .img-box2 {
+	display:flex;
+	align-items: center;
+	text-align: center;
+}
+
+.img-box2 {
+	width:80px;
+	height:100px;
+}
+
+.img-box2 img {
+	width:100%;
+	height:100%;
+}
+
+.detail-box {
+	flex: 5 1;
+	display: flex;
+	flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.status-box {
+	display:flex;
+	flex: 1 1;
+	align-items: center;
+	text-align: center;
+}
+
+.status-box>span {
+	flex: 1 1;
+}
+
+.btn-box {
+	display:flex;
+	flex: 1 1;
+	align-items: center;
+	text-align: center;
+}
+
+.btn-box>button {
+	flex: 1 1;
+}
+  
+.detail-box span{margin-right:5px;}
+.detail-box span::after{padding-left:5px;content:"|"}
+.detail-box span:last-child::after{content:""}
+
+</style>
 </head>
 
 <body>
@@ -46,7 +365,7 @@
 											<div class="detail">
                                                 <h6 class="detail-title-one">${memberDTO.member_username }회원님</h6>
 												<button type="button" class="btn btn-light" id="all-grade">나의등급 보기</button>
-												<input type="hidden" name="member_id" value="${memberDTO.member_id }">
+												<%-- <input type="hidden" name="member_id" value="${memberDTO.member_id }"> --%>
 											</div>
 										</div>
 									</div>
@@ -106,7 +425,7 @@
 								<a href="/mypage/myPagePoint" class="list-group-item py-1"><span>적립금</span></a>
                                 <a href="/mypage/myPageCoupon?cPage=1" class="list-group-item py-1"><span>쿠폰</span></a>
                                 <a href="" class="list-group-item py-1"><span>상품 문의</span></a>
-                                <a href="/mypage/myPageMdReview?cPage=1" class="list-group-item py-1"><span>상품 후기</span></a>
+                                <a href="/mypage/myPageReview" class="list-group-item py-1"><span>상품 후기</span></a>
                                 <a href="/mypage/myPageModifyProfile" class="list-group-item py-1"><span>개인정보 수정</span></a>
                                 <br>
                                 <br>
@@ -137,28 +456,26 @@
 										</tbody>
 									</table>
 									<c:forEach var="purchaseList" items="#{purchaseList}">
-									<div class="row">
-										<%-- <div class="col-sm-12" id="purchase-name"><a href="/md/detail/page?md_id=${purchaseList.md_id }">${purchaseList.md_name }</a>											
-											<hr> --%>
-										<div>
-											주문번호: <span>${purchaseList.purchase_id}</span>
-										</div>										
-										<%-- <div class="col-sm-2" id="purchase-img">${purchaseList.purchase_id} 
-										<input type="hidden" id="md-id" name="md_id" value="${purchaseList.md_id}">
-										</div> --%>
-										<div class="col-sm-7" id="purchase-information">
-											<ul>
-												<li>주문 날짜 : <fmt:formatDate value = "${purchaseList.purchase_date }"  type="date" dateStyle="full"/></li>
-												<br>
-												<li>결제 금액 : <fmt:formatNumber value="${purchaseList.purchase_payment }" type="number"/> 원</li>
-											</ul>
-										</div>
-										<div class="col-sm-3" id="purchase-option">
-											<a href="/mypage/myPagePurchaseDetail?cPage=1&purchase_id=${purchaseList.purchase_id }"><button type="button" class="btn btn-light">상세보기</button></a><br>
-											<button type="button" class="btn btn-light" id="md-delete">주문취소</button><br>
-										</div>
-									</div>
-									<br>									
+									<div class="md-box">
+                                       <div class="img-box">
+                                          <div class="img-box2">
+                                             <a href="/md/detail/page?md_id=${purchaseList.md_id}"><img src="${purchaseList.md_image} }"></a>
+                                          </div>
+                                       </div>
+                                       <div class="detail-box">
+                                          <div><a href="/md/detail/page?md_id=${purchaseList.md_id}">${purchaseList.md_name }</a></div>
+                                          <div><a href="/md/detail/page?md_id=${purchaseList.md_id}">${purchaseList.md_content }</a></div>
+                                          <div>
+                                             <span>${purchaseList.purchase_detail_price}원</span><span>${purchaseList.purchase_detail_quantity}개</span>
+                                          </div>
+                                       </div>
+                                       <div class="status-box">
+                                          <span class=status>배송완료</span>
+                                       </div>
+                                       <div class="btn-box">
+                                          <button id="readMdReview" style="font-size: 15px">후기보기</button>
+                                       </div>
+                                    </div>			
 									</c:forEach>
 									<div class="navigator" style="margin:auto; display:block;">
 									${pageNavi}

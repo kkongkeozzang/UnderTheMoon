@@ -30,7 +30,6 @@ public class PointAPIController {
 	
 	@PostMapping("/savePoints/{member_id}/{productTotal}")
 	public ResponseEntity<Integer> savePoints(@PathVariable Integer member_id,@PathVariable Integer productTotal){
-		System.out.println("포인트"+member_id+productTotal);
 		
 		Integer result = pointService.savePoints(member_id,productTotal);
 		

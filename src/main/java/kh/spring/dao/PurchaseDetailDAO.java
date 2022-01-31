@@ -29,4 +29,19 @@ private final SqlSessionTemplate mybatis;
 	public List<PurchaseDetailDTO> selectAll(){
 		return mybatis.selectList("PurchaseDetail.selectAll");
 	}
+	
+	public int deletePurchaseDetail(int purchase_detail_id){
+		return mybatis.delete("PurchaseDetail.deletePurchaseDetail",purchase_detail_id);
+	}
+	public int completeDelivery(String purchase_detail_id){
+		return mybatis.update("PurchaseDetail.completeDelivery",purchase_detail_id);
+	}
+	public int cancelDelivery(int purchase_detail_id){
+		return mybatis.update("PurchaseDetail.cancelDelivery",purchase_detail_id);
+	}
+	
+	public Integer selectRecordCount(int purchase_id) {
+		
+		return mybatis.selectOne("PurchaseDetail.selectRecordCount",purchase_id);
+	}
 }

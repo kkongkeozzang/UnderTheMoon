@@ -26,7 +26,7 @@
 
 	<resources mapping="/resources/**" location="/resources/" />
 	<resources mapping="/summernoteImage/**" location="file:///C:/summernoteImage/" />
-	<resources mapping="/mdImage/**" location="file:///E:\SpringWorkspace\tempImageFolder/" />
+	<resources mapping="/mdImage/**" location="file:///E:\FinalProjectUnderTheMoon\tempImageFolder/" />
 
 
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->

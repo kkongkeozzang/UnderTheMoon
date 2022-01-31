@@ -23,4 +23,20 @@ public class WishService {
 	public int selectRecordCount(Integer member_id) {
 		return wishDAO.selectRecordCount(member_id);
 	}
+	
+	public int insertMdWish(WishDTO wishDTO) {
+		return wishDAO.insertMdWish(wishDTO);
+	}
+	
+	public int deleteMdWish(int wish_id) {
+		return wishDAO.deleteMdWish(wish_id);
+	}
+	
+	public int deleteByMdIdWish(String md_id) {
+		return wishDAO.deleteByMdIdWish(md_id);
+	}
+	
+	public int selectByMdId(String md_id) {
+		return wishDAO.selectByMdId(md_id);
+	}
 }

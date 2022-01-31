@@ -64,6 +64,7 @@
 									<div class="md-box">
                                    <div class="img-box"><div class="img-box2"><img src="/mdImage/${wishDTO.md_image }"></div></div>
                                    <div class="detail-box">
+                                   	<input type="hidden" id="wish_id" name="wish_id" value="${wishDTO.wish_id }">
                                       <div>상품이름 : ${wishDTO.wish_item }</div>
                                       <div>가격 : <fmt:formatNumber value="${wishDTO.wish_price }" type="number"/> 원</div>
                                       <div>
@@ -74,7 +75,20 @@
                                       <button>담기</button>
                                    </div>
                                    <div class="btn-box">
-                                      <button>삭제</button>
+                                      <button id="delete-wish">삭제</button>
+                                      <script>
+                                      	$("#delete-wish").on("click",function(){
+                                      		$.ajax({
+                                      			type: "post",
+                                      			url:"/md/detail/deleteWishMd",
+                                      			data:{
+                                      				wish_id:$("#wish_id").val()
+                                      			}
+                                      		}).done(function(resp){
+                                      			$(this).parent(".md-box").remove();
+                                      		})
+                                      	})
+                                      </script>
                                    </div>
                                 </div>
 									<br>

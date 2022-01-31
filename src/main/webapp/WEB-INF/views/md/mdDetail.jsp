@@ -279,8 +279,10 @@ function getPage(pageNavi, select, sort) {
                 <div class="col-lg-7 mt-5">
                     <div class="card">
                         <div class="card-body" id="md-detail">
-                        	<input id="md_id" type="hidden" value="${mdDetails.md_id }">
-                        	<input id="member_username" type=hidden value=${principal.username }>
+                        	<input id="md_id" name="md_id" type="hidden" value="${mdDetails.md_id }">
+                        	<input id="member_username" name="member_username" type=hidden value=${principal.username }>
+                        	<input id="wish_item" name="wish_item" type=hidden value=${mdDetails.md_name }>
+                        	<input id="wish_price" name="wish_price"type=hidden value=${mdDetails.md_price }>
                             <h1 class="h2">${mdDetails.md_name }</h1>
                             <div id="price-box">
                             	<p class="h3 py-2"><fmt:formatNumber value="${mdDetails.md_price }" pattern="#,###" /></p>
@@ -326,11 +328,41 @@ function getPage(pageNavi, select, sort) {
                                     <div class="gnbPick">
 									</div>
                                     <div class="col d-flex">
+                                    	<c:choose>
+                                    	<c:when test="${wishResult == 1}">
+										<button type="button" class="btn_pick pick_icon_button on" ></button>
+										</c:when>
+										<c:otherwise>
 										<button type="button" class="btn_pick pick_icon_button" ></button>
+										</c:otherwise>
+										</c:choose>
                                         <button type="button" id="cart" class=" btn btn-success btn-lg" name="submit" value="addtocard">장바구니 담기</button>
                                         <script>
                                     	$(".pick_icon_button").on("click", function(){
                                     		$(this).toggleClass("on");
+                                    		if($(this).hasClass("on")){
+                                    		$.ajax({
+                                  		  	  type: 'post',
+                                  		        url:"/md/detail/wishMd",
+                                  		        data: {
+                                  		      	  wish_item: $("#wish_item").val(),
+                                  		          md_id: $("#md_id").val(),
+                                  		          wish_price: $("#wish_price").val()
+                                  		        }
+                                  		     }).done(function(resp){
+                                  		    	 alert("상품이 찜하기 되었습니다.");
+                                  		     })
+                                    		}else{
+                                    			$.ajax({
+                                        		  type: 'post',
+                                        		  url:"/md/detail/cancelWishMd",
+                                        		  	data: {
+                                        		      md_id: $("#md_id").val(),
+                                        		        }
+                                        		     }).done(function(resp){
+                                        		    	 alert("상품이 찜하기 취소 되었습니다.");
+                                        		     })
+                                    		}
                                     	})
                                         </script>
                                     </div>

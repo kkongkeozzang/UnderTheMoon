@@ -12,4 +12,20 @@
   	<select id="selectRecordCount" resultType="int">
   		select count(*) from wish where member_id = #{value}
   	</select>
+  	
+  	<insert id="insertMdWish">
+  		insert into wish values(wish_id_seq.nextval, #{member_id}, #{md_id}, #{wish_item}, #{wish_price}, default)
+  	</insert>
+  	
+  	<delete id="deleteMdWish">
+  		delete from wish where wish_id = #{wish_id} 
+  	</delete>
+  	
+  	<delete id="deleteByMdIdWish">
+  		delete from wish where md_id = #{md_id} 
+  	</delete>
+  	
+  	<select id="selectByMdId" resultType="int">
+  		select count(*) from wish where md_id = #{md_id}
+  	</select>
   </mapper>

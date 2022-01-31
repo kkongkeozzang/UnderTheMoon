@@ -32,4 +32,24 @@ public class WishDAO {
 		
 		return mybatis.selectOne("Wish.selectRecordCount", member_id);
 	}
+	
+	public int insertMdWish(WishDTO wishDTO) {
+		
+		return mybatis.insert("Wish.insertMdWish", wishDTO);
+	}
+	
+	public int deleteMdWish(int wish_id) {
+		
+		return mybatis.delete("Wish.deleteMdWish", wish_id);
+	}
+	
+	public int deleteByMdIdWish(String md_id) {
+		
+		return mybatis.delete("Wish.deleteByMdIdWish", md_id);
+	}
+	
+	public int selectByMdId(String md_id) {
+		
+		return mybatis.selectOne("Wish.selectByMdId", md_id);
+	}
 }

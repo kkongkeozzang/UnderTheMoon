@@ -164,7 +164,7 @@ $(function(){
      	        var formData=new FormData(); //폼 객체
      	        formData.append("file",file); //만들어진 폼 객체에 위에서 저장한 file를 file이란 이름의 변수로 저장한다
      	        //서버에 파일 업로드(백그라운드에서 실행됨)
-     	        
+     	        console.log(file);
      	        //    processData : false => post 방식
      	        //    contentType : false => multipart/form-data로 처리됨
      	        $.ajax({
@@ -241,35 +241,39 @@ $(function(){
         //그러니까 파일의 확장명을 검사해서 jpg,png,jpeg형식이 있으면 fileName과 매칭해서 true를 리턴한다.
     }
 	$("#write-review-btn").on("click",function(){
-		$.ajax({
-			url:"/md/detail/review/rest/write",
-			type:"post",
-			dataType:"json",
-			data:{
-				md_id:$("#md_id").val(),
-				md_review_title:$("#md_review_title").val(),
-				md_review_content:$("#md_review_content").val(),
-				purchase_detail_id:$("#purchase_detail_id").val()
-			}
-		}).done(function(resp){
-			//resp : md_review_id
-			if(fileNames.length()!=0){
-				$.ajax({
-					   url:"/upload/fileNames",
-					   type:"post",
-					   data: {
-						   fileNames:(fileNames.dataStore).join(),
-						   md_id: $("#md_id").val(),
-						   md_review_id: resp
-						   },
-					   dataType: "json"
-				   })
-			}
-		   console.log(111111);
-		   location.href="/mypage/myPageAfterMdReview?cPage=1";
+		if($("#md_review_title").val()=="") {
+			alert("제목을 입력해주세요.");
+		} else if($("#md_review_content").val()=="") {
+			alert("내용을 입력해주세요.");
+		} else {
+			$.ajax({
+				url:"/md/detail/review/rest/write",
+				type:"post",
+				dataType:"json",
+				data:{
+					md_id:$("#md_id").val(),
+					md_review_title:$("#md_review_title").val(),
+					md_review_content:$("#md_review_content").val(),
+					purchase_detail_id:$("#purchase_detail_id").val()
+				}
+			}).done(function(resp){
+				//resp : md_review_id
+				if(fileNames.length()!=0){
+					$.ajax({
+						   url:"/upload/fileNames",
+						   type:"post",
+						   data: {
+							   fileNames:(fileNames.dataStore).join(),
+							   md_id: $("#md_id").val(),
+							   md_review_id: resp
+							   },
+						   dataType: "json"
+					   })
+				}
+			   location.href="/mypage/myPageAfterMdReview?cPage=1";
+			})
 			
-		})
-		
+		}
 		   
 	})
 });
@@ -390,14 +394,14 @@ $(function(){
            <table class="table table-boardered">
                <tr>
                    <th id="tableHead">제목</th>
-                   <td><input type="text" class="form-control" id="md_review_title" name="md_review_title" placeholder="제목을 입력해주세요.">
+                   <td><input type="text" maxlength="30" class="form-control" id="md_review_title" name="md_review_title" placeholder="제목을 입력해주세요.">
                     </td>        
                </tr>
                 
                <tr>
                 <th id="tableHead">후기 작성</th>
                 <td>
-                 <textarea rows="10" cols="40" id="md_review_content" placeholder="자세한 후기는 다른 고객의 구매에 많은 도움이 되며,&#13;&#10;오해 소지가 있는 내용을 작성 시 검토 후 비공개 조치될 수 있습니다." name="md_review_content" class="form-control"></textarea>
+                 <textarea rows="10" cols="40" maxlength="1000" id="md_review_content" placeholder="자세한 후기는 다른 고객의 구매에 많은 도움이 되며,&#13;&#10;오해 소지가 있는 내용을 작성 시 검토 후 비공개 조치될 수 있습니다." name="md_review_content" class="form-control"></textarea>
                 </td>     
             </tr>
                 

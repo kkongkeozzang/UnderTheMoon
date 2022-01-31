@@ -45,7 +45,7 @@ public class MdController {
 					String[] temp = cookie.getValue().split("/");
 					for(String md_id : temp) {
 						String str = "";
-						str += "<div class=\'img-box\'>";
+						str += "<div class=\'img-box\' style='display:flex'>";
 						str += "<a href='";
 						str += "/md/detail/page?md_id=";
 						str += md_id;

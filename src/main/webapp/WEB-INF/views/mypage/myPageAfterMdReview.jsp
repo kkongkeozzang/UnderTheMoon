@@ -28,6 +28,9 @@
 		href="https://cdn.jsdelivr.net/npm/boxicons@2.0.7/css/boxicons.min.css"
 		rel="stylesheet" />
 <link rel="stylesheet" href="/resources/mypage/css/mypage.css">	
+<!-- jQuery UI -->
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
+<script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 </head>
 
 <body>
@@ -92,7 +95,7 @@
             			</div>            
             		</div>    
 
-        
+
 	<div class="row">
 			<div class="col-12 col-md-4 col-lg-3">
 				<div class="card">
@@ -106,7 +109,7 @@
 								<a href="/mypage/myPagePoint" class="list-group-item py-1"><span>적립금</span></a>
                                 <a href="/mypage/myPageCoupon?cPage=1" class="list-group-item py-1"><span>쿠폰</span></a>
                                 <a href="" class="list-group-item py-1"><span>상품 문의</span></a>
-                                <a href="/mypage/myPageMdReview?cPage=1" class="list-group-item py-1"><span>상품 후기</span></a>
+                                <a href="/mypage/myPageReview" class="list-group-item py-1"><span>상품 후기</span></a>
                                 <a href="/mypage/myPageModifyProfile" class="list-group-item py-1"><span>개인정보 수정</span></a>
                                 <br>
                                 <br>
@@ -121,53 +124,80 @@
 				<div class="card">
 					<div class="card-body">						
 							<div class="drive-wrapper drive-list-view">								
-									<table class="table">
-										<thead>
-											<tr>
-												<th class="name truncate" colspan=4>주문 내역 (지난 3개월 간 주문 내역 조회가 가능합니다) 
-                                                    <select class="form-select form-select-sm" aria-label=".form-select-sm example">
-                                                    <option value="1" selected>전체기간</option>
-                                                    <option value="2">1개월전</option>
-                                                    <option value="3">2개월전</option>
-													<option value="4">3개월전</option>
-                                                  </select></th>
-											</tr>
-										</thead>										
-										<tbody>														
-										</tbody>
-									</table>
-									<c:forEach var="purchaseList" items="#{purchaseList}">
-									<div class="row">
-										<%-- <div class="col-sm-12" id="purchase-name"><a href="/md/detail/page?md_id=${purchaseList.md_id }">${purchaseList.md_name }</a>											
-											<hr> --%>
-										<div>
-											주문번호: <span>${purchaseList.purchase_id}</span>
-										</div>										
-										<%-- <div class="col-sm-2" id="purchase-img">${purchaseList.purchase_id} 
-										<input type="hidden" id="md-id" name="md_id" value="${purchaseList.md_id}">
-										</div> --%>
-										<div class="col-sm-7" id="purchase-information">
-											<ul>
-												<li>주문 날짜 : <fmt:formatDate value = "${purchaseList.purchase_date }"  type="date" dateStyle="full"/></li>
-												<br>
-												<li>결제 금액 : <fmt:formatNumber value="${purchaseList.purchase_payment }" type="number"/> 원</li>
-											</ul>
+								<div>상품 후기</div>
+								<div>
+									후기 작성 시 50원을 적립해드립니다.<br>
+									별, 해 등급은 2배 적립(100원)<br>
+									후기 작성은 배송 완료일로부터 30일 이내 가능합니다.
+								</div>
+
+								    <div class="container">
+									    <div id="tabs">
+										  <ul>
+										    <li><a href="#fragment-3"><span>작성가능 후기(${notReviewMdCount})</span></a></li>
+										    <li><a href="#fragment-4"><span>작성완료 후기(${reviewMdCount})</span></a></li>
+										  </ul>
+										  <div id="fragment-3">
+
 										</div>
-										<div class="col-sm-3" id="purchase-option">
-											<a href="/mypage/myPagePurchaseDetail?cPage=1&purchase_id=${purchaseList.purchase_id }"><button type="button" class="btn btn-light">상세보기</button></a><br>
-											<button type="button" class="btn btn-light" id="md-delete">주문취소</button><br>
+
+										<div id="fragment-4">
+											<c:if test="${reviewMdCount eq '0'}"><div style="text-align:center">작성완료 후기가 없습니다.</div></c:if>
+											<c:forEach var="md" items="${mds}">
+												<div class="md-box">
+													<div class="img-box">
+														<div class="img-box2">
+															<a href="/md/detail/page?md_id=${md.md_id}"><img src="/mdImage/a.png"></a>
+														</div>
+													</div>
+													<div class="detail-box">
+														<div><a href="/md/detail/page?md_id=${md.md_id}">${md.md_name }</a></div>
+														<div><a href="/md/detail/page?md_id=${md.md_id}">${md.md_content }</a></div>
+														<div>
+															<span>${md.purchase_detail_price}원</span><span>${md.purchase_detail_quantity}개</span>
+														</div>
+													</div>
+													<div class="status-box">
+														<span class=status>배송완료</span>
+													</div>
+													<div class="btn-box">
+														<button id="readMdReview" style="font-size: 15px">후기보기</button>
+													</div>
+												</div>
+											</c:forEach>
+											<div id="page-box">${pageNavi }</div>
+										</div>
 										</div>
 									</div>
-									<br>									
-									</c:forEach>
-									<div class="navigator" style="margin:auto; display:block;">
-									${pageNavi}
-									</div>																									
-							</div>						
+
+									<script>
+										$('#tabs').tabs({
+											active:1,
+								            activate: function(event ,ui){
+								                let selectTab = ui.newTab.index();
+								                console.log(selectTab);
+								                if (selectTab == 0) {
+								                	location.href ="/mypage/myPageMdReview?cPage=1";
+								                } else if (selectTab == 1) {
+								                	location.href ="/mypage/myPageAfterMdReview?cPage=1";
+								                }
+									        }
+										});
+								
+										
+									</script>
+
+
+
+
+
+
+						</div>						
 					</div>
 				</div>
 			</div>
 		</div>
+	</div>
 	</div>
 	</div>
 	</div>

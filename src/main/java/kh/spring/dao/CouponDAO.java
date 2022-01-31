@@ -95,4 +95,20 @@ public class CouponDAO {
 	public Integer updateCouponUsed(Integer coupon_id) {
 		return mybatis.update("Coupon.updateCouponUsed", coupon_id);
 	}
+	
+	public List<CouponDTO> selectAll() {
+		return mybatis.selectList("Coupon.selectAll");
+	}
+	
+	public int insertCoupon(CouponDTO coupons) {
+		return mybatis.insert("Coupon.insertCoupon", coupons);
+	}
+	
+	public int deleteCoupon(int coupon_id) {
+		return mybatis.delete("Coupon.deleteCoupon", coupon_id);
+	}
+	
+	public int updateCoupon(CouponDTO coupons) {
+		return mybatis.update("Coupon.updateCoupon", coupons);
+	}
 }

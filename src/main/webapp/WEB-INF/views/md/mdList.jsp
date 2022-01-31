@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,12 +31,18 @@
 .product-item:hover { 
 	cursor: pointer; !important
 }
-.img-box img {
-	width:100%;
-	height:100px;
+.img-box  {
+    display: flex;
+    justify-content: space-evenly;
 }
-.md-img-box img {
-	height:350px;
+.slick-slide img{ 
+	height:100px; !important
+}
+.products {
+	margin-top:10px;
+}
+.container {
+	max-width:1100px !important;
 }
 </style>
 <script>
@@ -57,6 +65,9 @@ $(document).ready(function(){
 	    $("#recently-md-view-box").stop().animate({"top":position+currentPosition+"px"},1000);
 	});
 })
+function priceToString(price) {
+    return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+}
 function sortFunc(select, sort) {
 	if (select != "all") {
 		select = $(this).html();
@@ -88,20 +99,16 @@ function sortFuncDetail(select, sort) {
 		for(let i = 0;i < mdsSize; i++) {
 			str += "<div class='col-lg-4 col-md-4 all des'>";
 			str += "<div class='product-item'>";
-			str += "<a ><img  alt=''></a>";
+			str += "<div class='img-box'>";
+			str += "<a ><img src="
+			str += "'/mdImage/";
+			str += resp.mds[i].md_image;
+			str += "' alt=''></a></div>";
 			str += "<div class='down-content'>";
 			str += "<input type=hidden id='md_id' value="+resp.mds[i].md_id+">"
-			str += "<a ><h4>"+resp.mds[i].md_name+"</h4></a>";
-			str += "<h6>"+resp.mds[i].md_price+"</h6>";
+			str += "<h4>"+resp.mds[i].md_name+"</h4>";
+			str += "<h6>"+priceToString(resp.mds[i].md_price)+"</h6>";
 			str += "<p>"+resp.mds[i].md_content+"</p>";
-			str += "<ul class='stars'>";
-			str += "<li><i class='fa fa-star'></i></li>";
-			str += "<li><i class='fa fa-star'></i></li>";
-			str += "<li><i class='fa fa-star'></i></li>";
-			str += "<li><i class='fa fa-star'></i></li>";
-			str += "<li><i class='fa fa-star'></i></li>";
-			str += "</ul>";
-			str += "<span>Reviews (12)</span>";
 			str += "</div>";
 			str += "</div>";
 			str += "</div>";
@@ -128,20 +135,16 @@ function getPage(pageNavi, select, sort) {
 		for(let i = 0; i < mdsSize; i++) {
 			str += "<div class='col-lg-4 col-md-4 all des'>";
 			str += "<div class='product-item'>";
-			str += "<a><img alt=''></a>";
+			str += "<div class='img-box'>";
+			str += "<a ><img src="
+			str += "'/mdImage/";
+			str += resp.mds[i].md_image;
+			str += "' alt=''></a></div>";
 			str += "<div class='down-content'>";
 			str += "<input type=hidden id='md_id' value="+resp.mds[i].md_id+">"
-			str += "<a><h4>"+resp.mds[i].md_name+"</h4></a>";
-			str += "<h6>"+resp.mds[i].md_price+"</h6>";
+			str += "<h4>"+resp.mds[i].md_name+"</h4>";
+			str += "<h6>"+priceToString(resp.mds[i].md_price)+"</h6>";
 			str += "<p>"+resp.mds[i].md_content+"</p>";
-			str += "<ul class='stars'>";
-			str += "<li><i class='fa fa-star'></i></li>";
-			str += "<li><i class='fa fa-star'></i></li>";
-			str += "<li><i class='fa fa-star'></i></li>";
-			str += "<li><i class='fa fa-star'></i></li>";
-			str += "<li><i class='fa fa-star'></i></li>";
-			str += "</ul>";
-			str += "<span>Reviews (12)</span>";
 			str += "</div>";
 			str += "</div>";
 			str += "</div>";
@@ -161,9 +164,10 @@ function getPage(pageNavi, select, sort) {
 </script>
 </head>
 <body>
-	
-	<div id="recently-md-view-box">
-			<div id="recently-md-view-title">최근본상품</div>
+<jsp:include page="/WEB-INF/views/homeHeader.jsp"></jsp:include>
+	<c:if test="${fn:length(mdImgs) != 0}">
+		<div id="recently-md-view-box" style="z-index:100;margin-right:10px;background-color:white;">
+			<div id="recently-md-view-title" style="background-color:white;">최근본상품</div>
 			<div id="recently-md-view-content">
 			
 			</div>
@@ -185,42 +189,42 @@ function getPage(pageNavi, select, sort) {
 	                    breakpoint: 1024,  //화면 사이즈 
 	                    settings: {
 	                    	//위에 옵션이 디폴트 , 여기에 추가하면 그걸로 변경
-	                        slidesToShow: 3,
-	                        slidesToScroll: 3
+	                        slidesToShow: 1,
+	                        slidesToScroll: 1
 	                    }
 	                },
 	                {
 	                    breakpoint: 600,
 	                    settings: {
-	                        slidesToShow: 2,
-	                        slidesToScroll: 3
+	                        slidesToShow: 1,
+	                        slidesToScroll: 1
 	                    }
 	                },
 	                {
 	                    breakpoint: 480,
 	                    settings: {
-	                        slidesToShow: 2,
-	                        slidesToScroll: 3
+	                        slidesToShow: 1,
+	                        slidesToScroll: 1
 	                    }
 	                }
 	            ]
 			});
 			</script>
 		</div>
-	
-	
+	</c:if>
     <div class="products">
       <div class="container">
-      <div id="event-box"></div>
+      <div id="event-box"><img src="/resources/mdList/images/khEvent.png"></div>
+      <div id="mdList-title">지역별 전통주</div>
       	<div class="row region-sort">
-			<ul class="nav justify-content-between" style="flex:1 1 100%">
+			<ul class="nav" >
 				<li class="nav-item">서울</li>
 				<li class="nav-item">부산</li>
 				<li class="nav-item">인천</li>
 				<li class="nav-item">대전</li>
 				<li class="nav-item">울산</li>
 			</ul>
-			<ul class="nav justify-content-between" style="flex:1 1 100%">
+			<ul class="nav">
 				<li class="nav-item">경기도</li>
 				<li class="nav-item">강원도</li>
 				<li class="nav-item">충청북도</li>
@@ -228,7 +232,7 @@ function getPage(pageNavi, select, sort) {
 				<li class="nav-item">전라북도</li>
 				
 			</ul>
-			<ul class="nav justify-content-between" style="flex:1 1 100%">
+			<ul class="nav">
 				<li class="nav-item">전라남도</li>
 				<li class="nav-item">경상북도</li>
 				<li class="nav-item">경상남도</li>
@@ -241,9 +245,21 @@ function getPage(pageNavi, select, sort) {
             <div class="filters">
             <div class=count id=count>총 ${allMdCount } 개</div>
             <div class=sort id=review-sort>리뷰순</div>
+            <div class="sort sort-none">|</div>
             <div class=sort id=new-sort>최신순</div>
+            <script>
+            	$(".sort").on("click", function(){
+            		$(".sort").removeClass("on");
+            		$(this).addClass("on");
+            	})
+            	$(".nav-item").on("click", function(){
+            		$(".nav-item").removeClass("on");
+            		$(".sort").removeClass("on");
+            		$(this).addClass("on");
+            	})
+            </script>
             </div>
-          </div>
+          </div>	
           <div class="col-md-12">
             <div class="filters-content">
                 <div class="row grid" id="list-page">
@@ -251,20 +267,12 @@ function getPage(pageNavi, select, sort) {
                 	<c:forEach var="md" items="${mds }">
 	                    <div class="col-lg-4 col-md-4 all des">
 	                      <div class="product-item">
-	                        <a ><img src="/mdImage/${md.md_image}" alt=""></a>
+	                        <div class="img-box"><a ><img src="/mdImage/${md.md_image}" alt=""></a></div>
 	                        <div class="down-content">
 	                          <input type=hidden id="md_id" value=${md.md_id }>
 	                          <a><h4>${md.md_name }</h4></a>
-	                          <h6>${md.md_price }</h6>
+	                          <h6><fmt:formatNumber value="${md.md_price }" pattern="#,###" /></h6>
 	                          <p>${md.md_content }</p>
-	                          <ul class="stars">
-	                            <li><i class="fa fa-star"></i></li>
-	                            <li><i class="fa fa-star"></i></li>
-	                            <li><i class="fa fa-star"></i></li>
-	                            <li><i class="fa fa-star"></i></li>
-	                            <li><i class="fa fa-star"></i></li>
-	                          </ul>
-	                          <span>Reviews (12)</span>
 	                        </div>
 	                      </div>
 	                    </div>
@@ -283,6 +291,15 @@ function getPage(pageNavi, select, sort) {
         </div>
       </div>
     </div>
+    <script>
+    $("body").on("click",".navi-btn", function(){
+    	console.log($(this).text());
+		$(this).text(11);
+	})
+    </script>
+    
+    <jsp:include page="/WEB-INF/views/homeFooter.jsp"></jsp:include>
+    
     <!-- Bootstrap core JavaScript -->
     <script src="/resources/mdList/vendor/jquery/jquery.min.js"></script>
     <script src="/resources/mdList/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

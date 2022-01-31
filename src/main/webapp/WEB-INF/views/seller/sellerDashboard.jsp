@@ -20,8 +20,10 @@
 
     <!-- Page Wrapper -->
     <div id="wrapper">
-
+    
+		<!-- Sidebar -->
         <jsp:include page="sellerSideBar.jsp"></jsp:include>
+        <!-- End of Sidebar -->
 
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">

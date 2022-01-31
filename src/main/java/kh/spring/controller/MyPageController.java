@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import kh.spring.dto.CouponDTO;
 import kh.spring.dto.GradeDTO;
 import kh.spring.dto.MdAndReviewDTO;
+import kh.spring.dto.MdDTO;
 import kh.spring.dto.MemberDTO;
 import kh.spring.dto.MyPagePurchaseDTO;
 import kh.spring.dto.MyPagePurchaseDetailDTO;
@@ -275,6 +276,7 @@ public class MyPageController {
 		Integer notReviewMdCount = mdService.selectByBoundNotReviewMdCountByMemberId(String.valueOf(memberDTO.getMember_id()));
 		Integer reviewMdCount = mdService.selectByBoundReviewMdCountByMemberId(String.valueOf(memberDTO.getMember_id()));
 		String pageNavi = PageNavigator.getPageNavigator(notReviewMdCount, cPage, PageStatic.MYPAGEMDREVIEW_COUNT_PER_PAGE, PageStatic.MYPAGEMDREVIEW_NAVI_COUNT_PER_PAGE, "myPageMdReview", "all" ,"","");
+		System.out.println(mds.get(0).getD_purchase_detail_id());
 		model.addAttribute("memberDTO",memberDTO);
 		model.addAttribute("pointSum",pointSum);
 		model.addAttribute("couponSum", couponSum);
@@ -309,15 +311,18 @@ public class MyPageController {
 	}
 	
 	@RequestMapping("myPageReviewWrite")
-	public String myPageReviewWrite(Model model) throws Exception{
+	public String myPageReviewWrite(Model model, int md_id, int d_purchase_detail_id) throws Exception{
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal(); 
         String username = ((UserDetails)principal).getUsername();
 		MemberDTO memberDTO = memberService.selectByUsername(username);
 		int pointSum = pointService.selectPointById(username).get();
 		int couponSum = couponService.selectCouponPossibleById(memberDTO.getMember_id());
+		List<MdDTO> md = mdService.selectMdById(md_id);
 		model.addAttribute("memberDTO",memberDTO);
 		model.addAttribute("pointSum",pointSum);
 		model.addAttribute("couponSum", couponSum);
+		model.addAttribute("md",md);
+		model.addAttribute("d_purchase_detail_id",d_purchase_detail_id);
 		return "/mypage/myPageReviewWrite";
 	}
 	

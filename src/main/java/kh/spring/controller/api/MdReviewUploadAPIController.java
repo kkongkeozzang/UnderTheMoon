@@ -3,6 +3,8 @@ package kh.spring.controller.api;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.annotation.Resource;
 
@@ -11,6 +13,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -121,6 +124,17 @@ public class MdReviewUploadAPIController {
         
         return new ResponseEntity<String>("deleted"
                 ,HttpStatus.OK);
+    }
+    
+    @PostMapping(value = "fileNames")
+    public ResponseEntity<String> fileNames(String fileNames, String md_id, String md_review_id) {
+    	List<String> fileNameArr = new ArrayList<>();
+    	String[] temp = fileNames.split(",");
+    	for(String i : temp) {
+    		fileNameArr.add(i);
+    	}
+    	mdReviewImageService.insertMdReviewImage(fileNameArr, md_id, md_review_id);
+    	return new ResponseEntity<String>(HttpStatus.OK);
     }
 }
 

@@ -56,6 +56,9 @@
 
 	<insert id="insertMdReview">
 		insert into md_review values(md_review_id_seq.nextval,#{md_id},#{md_review_title},#{member_id},#{md_review_content},
-		default,#{md_review_like},default)
+		default,default,default,#{purchase_detail_id})
+		<selectKey resultType="int" order="AFTER" keyProperty="md_review_id">
+			SELECT md_review_id_seq.currval FROM dual
+		</selectKey>
 	</insert>
 </mapper>

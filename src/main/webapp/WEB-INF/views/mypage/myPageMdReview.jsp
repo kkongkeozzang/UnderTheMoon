@@ -153,7 +153,9 @@
 												  		<span class=status>배송완료</span>
 												  	</div>
 												  	<div class="btn-box">
-												  		<button id="writeMdReview" style="font-size:15px">후기작성</button>
+												  		<input type="hidden" value="${md.md_id }">
+												  		<button class="write-md-review" style="font-size:15px">후기작성</button>
+												  		<input type="hidden" id="d_purchase_detail_id" value="${md.d_purchase_detail_id }">
 												  	</div>
 												  </div>
 											  </c:forEach>
@@ -179,7 +181,7 @@
 														<span class=status>배송완료</span>
 													</div>
 													<div class="btn-box">
-														<button id="writeMdReview" style="font-size: 15px">후기작성</button>
+														<button class="write-md-review" style="font-size: 15px">후기작성</button>
 													</div>
 												</div>
 											</c:forEach>
@@ -200,6 +202,11 @@
 								                }
 									        }
 										});
+										$("body").on("click",".write-md-review", function(){
+											let md_id = $(this).prev().val();
+											let d_purchase_detail_id = $(this).next().val();
+											location.href="/mypage/myPageReviewWrite?md_id="+md_id+"&d_purchase_detail_id="+d_purchase_detail_id;
+										})
 								
 										
 									</script>

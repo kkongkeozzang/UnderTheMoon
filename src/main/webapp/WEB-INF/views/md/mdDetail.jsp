@@ -84,11 +84,7 @@ ul.pages li {
 	text-align:right;
 	padding-top: 10px;
 }
-.img-box {
-	height:500px;
-	justify-content: space-evenly;
-    align-content: space-around;
-}
+
 .container {
 	max-width:1100px !important;
 }
@@ -270,8 +266,8 @@ function getPage(pageNavi, select, sort) {
     <section class="bg-light">
         <div class="container pb-5">
             <div class="row">
-                <div class="col-lg-5 mt-5">
-                    <div class="card mb-3 img-box">
+                <div class="col-lg-5 mt-5 img-box">
+                    <div class="card mb-3 img-box2">
                         <img class="card-img img-fluid" src="/mdImage/${mdDetails.md_image}" alt="Card image cap" id="product-detail">
                     </div>
                 </div>

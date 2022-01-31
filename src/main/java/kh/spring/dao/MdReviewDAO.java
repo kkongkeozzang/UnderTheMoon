@@ -60,6 +60,8 @@ public class MdReviewDAO {
 	}
 
 	public int insertMdReview(MdReviewDTO dto) {
-		return mybatis.insert("MdReview.insertMdReview", dto);
+		int result = mybatis.insert("MdReview.insertMdReview", dto);
+		return dto.getMd_review_id();
 	}
+	
 }

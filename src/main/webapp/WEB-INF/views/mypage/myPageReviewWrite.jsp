@@ -40,7 +40,7 @@
 		rel="stylesheet" />
 <link rel="stylesheet" href="/resources/mypage/css/mypage.css">	
 <link rel="stylesheet" href="/resources/mypage/css/myPageReviewWrite.css">	
-
+<script src="/resources/mypage/js/myPageReviewWrite.js"></script>
 
 <style> 
 
@@ -143,6 +143,8 @@ color:white;
 </style>
 <script>
 $(function(){
+	//업로드 할 파일명 리스트 생성
+    let fileNames = new List();
     //드래그 기본 효과를 막음
     $(".fileDrop").on("dragenter dragover", function(event){
         event.preventDefault(); //기본효과를 막는다.
@@ -152,41 +154,47 @@ $(function(){
         //drop이 될 때 기본 효과를 막음
         event.preventDefault();
         //드래그된 파일의 정보
-        
+        console.log(fileNames);
         //첨부파일 배열
         var files=event.originalEvent.dataTransfer.files; //드래그된 파일정보를 files변수에 저장
         var file=files[0]; //첫번째 첨부파일 (컨트롤을 누르고 파일을 여러개를 올릴수도 있기 때문에, 첫번째 첨부파일이라고 지정한다.)
         
-        //파일 크기 제한
- 		if(file.size < 1024 * 1024 * 2) {
- 			//ajax로 전달할 폼 객체
- 	        var formData=new FormData(); //폼 객체
- 	        formData.append("file",file); //만들어진 폼 객체에 위에서 저장한 file를 file이란 이름의 변수로 저장한다
- 	        //서버에 파일 업로드(백그라운드에서 실행됨)
- 	        
- 	        //    processData : false => post 방식
- 	        //    contentType : false => multipart/form-data로 처리됨
- 	        $.ajax({
- 	            type: "post", 
- 	            url: "/upload/uploadAjax", 
- 	            data: formData, 
- 	            dataType: "text",
- 	            processData: false,
- 	            contentType: false,
- 	            success: function(data,status,req){
- 	            	var str="";
- 	            	if(checkImageType(data)){
- 	            		str += "<div><img src='${path}/upload/displayFile?fileName="+data+"'>"; //이미지 파일일때는 이미지 자체를 보여준다.
- 	            		str += "<span data-src="+data+">[삭제]</span></div>"; 
- 		            	$(".uploadedList").append(str);
- 	            	} else {
- 	            		alert("img 형식의 파일만 업로드해주세요.");
- 	            	}
- 	            }
- 	        });
- 		} else {
- 			alert("파일 크기는 2MB를 넘을 수 없습니다.");
- 		}
+        //파일 크기 제한, 갯수 제한
+        if(fileNames.length() < 8 ) {
+        	if(file.size < 1024 * 1024 * 2) {
+     			//ajax로 전달할 폼 객체
+     	        var formData=new FormData(); //폼 객체
+     	        formData.append("file",file); //만들어진 폼 객체에 위에서 저장한 file를 file이란 이름의 변수로 저장한다
+     	        //서버에 파일 업로드(백그라운드에서 실행됨)
+     	        
+     	        //    processData : false => post 방식
+     	        //    contentType : false => multipart/form-data로 처리됨
+     	        $.ajax({
+     	            type: "post", 
+     	            url: "/upload/uploadAjax", 
+     	            data: formData, 
+     	            dataType: "text",
+     	            processData: false,
+     	            contentType: false,
+     	            success: function(data,status,req){
+     	            	var str="";
+     	            	if(checkImageType(data)){
+     	            		fileNames.append(data); // 배열에 파일명 저장
+     	            		str += "<div><img src='${path}/upload/displayFile?fileName="+data+"'>"; //이미지 파일일때는 이미지 자체를 보여준다.
+     	            		str += "<span data-src="+data+">[삭제]</span></div>"; 
+     		            	$(".uploadedList").append(str);
+     	            	} else {
+     	            		alert("img 형식의 파일만 업로드해주세요.");
+     	            	}
+     	            }
+     	        });
+     		} else {
+     			alert("파일 크기는 2MB를 넘을 수 없습니다.");
+     		}
+        } else {
+        	alert("사진은 8장 이상 등록할 수 없습니다.");
+        }
+ 		
         
     });
     
@@ -201,6 +209,8 @@ $(function(){
             dataType: "text",
             success: function(result){
                 if(result=="deleted"){
+                	fileNames.remove(that.attr("data-src"));
+                	console.log(fileNames);
                     that.parent("div").remove();
                 }
             }
@@ -233,7 +243,37 @@ $(function(){
         return fileName.match(pattern); //규칙에 맞으면 true
         //그러니까 파일의 확장명을 검사해서 jpg,png,jpeg형식이 있으면 fileName과 매칭해서 true를 리턴한다.
     }
+	$("#write-review-btn").on("click",function(){
+		$.ajax({
+			url:"/md/detail/review/rest/write",
+			type:"post",
+			dataType:"json",
+			data:{
+				md_id:$("#md_id").val(),
+				md_review_title:$("#md_review_title").val(),
+				md_review_content:$("#md_review_content").val(),
+				purchase_detail_id:$("#purchase_detail_id").val()
+			}
+		}).done(function(resp){
+			//resp : md_review_id
+			$.ajax({
+				   url:"/upload/fileNames",
+				   type:"post",
+				   data: {
+					   fileNames:(fileNames.dataStore).join(),
+					   md_id: $("#md_id").val(),
+					   md_review_id: resp
+					   },
+				   dataType: "json"
+			   }).done(function(){
+				   location.href="/mypage/myPageAfterMdReview?cPage=1";
+			   })
+		})
+		
+		   
+	})
 });
+
 </script>
 
 </head>
@@ -340,23 +380,24 @@ $(function(){
        <div class="col-sm-12">
        <div id="md-box">
            <div id="md-img-box">
-           		이미지
+           		<div id="img-box2">
+           			<img src="/mdImage/${md[0].md_image }">
+           		</div>
            </div>
-           <span>상품이름</span>
+           <span>${md[0].md_name }</span>
        </div>
-       <form action="/qna/writeProc" method="post" enctype="multipart/form-data">
+       <form action="/md/detail/review/write" method="post">
            <table class="table table-boardered">
                <tr>
                    <th id="tableHead">제목</th>
-                   <td>
-                      <input type="text" class="form-control" name="qa_question_title" placeholder="제목을 입력해주세요.">
+                   <td><input type="text" class="form-control" id="md_review_title" name="md_review_title" placeholder="제목을 입력해주세요.">
                     </td>        
                </tr>
                 
                <tr>
                 <th id="tableHead">후기 작성</th>
                 <td>
-                 <textarea rows="10" cols="40" name="qa_question_content" class="form-control"></textarea>
+                 <textarea rows="10" cols="40" id="md_review_content" placeholder="자세한 후기는 다른 고객의 구매에 많은 도움이 되며,&#13;&#10;오해 소지가 있는 내용을 작성 시 검토 후 비공개 조치될 수 있습니다." name="md_review_content" class="form-control"></textarea>
                 </td>     
             </tr>
                 
@@ -367,7 +408,7 @@ $(function(){
 						<!-- 파일을 업로드할 영역 -->
 						<div class="fileDrop"> 
 						
-						<span>등록할 사진을 이곳에 넣어주세요.</span>
+						<span>등록할 사진을 이곳에 넣어주세요.${d_purchase_detail_id}</span>
 						
 						</div>
 						<!-- 업로드된 파일 목록을 출력할 영역 -->
@@ -376,12 +417,14 @@ $(function(){
         </tr>
                <tr>
                    <td colspan="2">
-                   <input type="submit" class="btn btn-primary sharp" value="전송">
-                   <input type="reset" class="btn btn-danger sharp" value="취소">
+                   <input type="button" id="write-review-btn" class="btn btn-primary sharp" value="등록하기">
+                   <input type="hidden" name="md_id" id="md_id" value="${md[0].md_id }">
+                   <input type="hidden" name="purchase_detail_id" id="purchase_detail_id" value="${d_purchase_detail_id}">
                    </td>
                </tr>
            </table>
        </form>
+                   
        
        </div>
         

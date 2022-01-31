@@ -111,7 +111,6 @@ $(document).ready(function(){
     $("body").on("click",".relatedMd-box", function(){
     	let relatedMd_id = $(this).find(".relatedMd_id").val()
     	location.href="/md/detail/page?md_id="+relatedMd_id;
-    	
     })
 })
 function viewCount(md_review_id, target) {
@@ -494,6 +493,22 @@ function getPage(pageNavi, select, sort) {
             				}
             				$(".pages").html(pageStr);
             			} 
+            			$("body").on("click",".review-title",function(){
+            				let md_review_id = $(this).find(".md_review_id").text();
+            				let content = $(this).next().find(".helpful-box");
+            				$.ajax({
+            					url:"/md/detail/review/rest/board/image/"+md_review_id,
+            					type:"get",
+            					dataType:"json"
+            				}).done(function(resp){
+            					console.log(resp);
+            					let imgStr = "";
+            					for(let i=0; i<resp.images.length; i++) {
+	            					imgStr += "<img src='/mdReviewImage" + resp.images[i].md_review_image + "'>"
+            					}
+            					content.before(imgStr);
+            				})
+            			})
             			$("body").on("change","#sort-box",function(){
             				let selectSort = this.value;
        						$.ajax({

@@ -12,4 +12,8 @@
 	<insert id="insertImage">
 		insert into md_review_image values(md_review_image_id_seq.nextval, #{md_review_id},#{md_review_image})
 	</insert>
+	
+	<select id="selectAllByMdReviewId" resultType="kh.spring.dto.MdReviewImageDTO">
+		select * from md_review_image where md_review_id = #{value}
+	</select>
 </mapper>

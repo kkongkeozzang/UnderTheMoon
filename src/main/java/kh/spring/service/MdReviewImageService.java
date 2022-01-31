@@ -7,6 +7,7 @@ import java.util.Map;
 import org.springframework.stereotype.Service;
 
 import kh.spring.dao.MdReviewImageDAO;
+import kh.spring.dto.MdReviewImageDTO;
 
 @Service
 public class MdReviewImageService {
@@ -28,5 +29,9 @@ public class MdReviewImageService {
 			map.put("md_review_id", md_review_id);
 			int result = mdReviewImageDAO.insertMdReviewImage(map);
 		}
+	}
+	
+	public List<MdReviewImageDTO> selectAllByMdReviewId(String md_review_id) {
+		return mdReviewImageDAO.selectAllByMdReviewId(md_review_id);
 	}
 }

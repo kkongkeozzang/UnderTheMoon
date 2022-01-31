@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import kh.spring.dto.MdReviewDTO;
+import kh.spring.dto.MdReviewImageDTO;
+import kh.spring.service.MdReviewImageService;
 import kh.spring.service.MdReviewService;
 import kh.spring.service.MemberService;
 import kh.spring.util.PageNavigator;
@@ -31,10 +33,12 @@ public class MdReviewAPIController {
 	
 	private final MdReviewService mdReviewService;
 	private final MemberService memberService;
+	private final MdReviewImageService mdReviewImageService;
 	
-	public MdReviewAPIController(MdReviewService mdReviewService, MemberService memberService) {
+	public MdReviewAPIController(MdReviewService mdReviewService, MemberService memberService, MdReviewImageService mdReviewImageService) {
 		this.mdReviewService = mdReviewService;
 		this.memberService = memberService;
+		this.mdReviewImageService = mdReviewImageService;
 	}
 	
 	
@@ -135,6 +139,14 @@ public class MdReviewAPIController {
 	public String exceptionHandler(Exception e) {
 		e.printStackTrace();
 		return "redirect:/";
+	}
+	
+	@GetMapping(value="board/image/{md_review_id}", produces = "application/json")
+	public ResponseEntity<Map<String,Object>> getImages(@PathVariable String md_review_id) throws Exception {
+		List<MdReviewImageDTO> images = mdReviewImageService.selectAllByMdReviewId(md_review_id);
+		Map<String,Object> result = new HashMap<>();
+		result.put("images", images);
+		return new ResponseEntity<>(result, HttpStatus.OK);
 	}
 	
 }

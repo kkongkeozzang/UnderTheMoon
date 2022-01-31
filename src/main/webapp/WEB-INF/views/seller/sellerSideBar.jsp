@@ -47,7 +47,7 @@
             <li class="nav-item">
                 <a class="nav-link collapsed" href="/seller/sellerOffice" data-target="#collapse-one"
                     aria-expanded="true" aria-controls="collapse-one">
-                    <i class="fas fa-fw fa-chart-area"></i>
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>대시 보드</span>
                 </a>
             </li>
@@ -106,6 +106,14 @@
                         <a class="collapse-item" href="/seller/coupon">쿠폰</a>
                     </div>
                 </div>
+            </li>
+            
+            <li class="nav-item">
+            	<a class="nav-link collapsed" href="/" data-target="#collapse-seven"
+                    aria-expanded="true" aria-controls="collapse-seven">
+                    <i class="fas fa-fw fa-folder"></i>
+                    <span>홈으로</span>
+                </a>
             </li>
 
             <!-- Divider -->

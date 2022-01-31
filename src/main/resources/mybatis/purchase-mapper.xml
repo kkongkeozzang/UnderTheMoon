@@ -56,5 +56,17 @@
   		<select id="selectPurchaseDetailByBound" resultType="kh.spring.dto.MyPagePurchaseDetailDTO">
   		select * from (select target.*, row_number() over(order by purchase_detail_id desc) rn from (select * from (select * from purchase_detail d join md m on d.md_id = m.md_id where purchase_id = #{purchase_id})) target) where rn between #{start} and #{end}
   		</select>
+  		
+		<select id="selectYear" resultType="kh.spring.dto.PurchaseDTO">
+  			select * from (select substr(purchase_date,1,2) purchase_date_str, sum(purchase_amount) purchase_amount, sum(purchase_delivery_fee) purchase_delivery_fee, sum(purchase_used_point) purchase_used_point, sum(purchase_coupon) purchase_coupon from purchase group by substr(purchase_date,1,2)) where purchase_date_str=substr(sysdate,1,2)
+  		</select>
+		
+  		<select id="selectMonth" resultType="kh.spring.dto.PurchaseDTO">
+  			select * from (select substr(purchase_date,1,5) purchase_date_str, sum(purchase_amount) purchase_amount, sum(purchase_delivery_fee) purchase_delivery_fee, sum(purchase_used_point) purchase_used_point, sum(purchase_coupon) purchase_coupon from purchase group by substr(purchase_date,1,5)) where purchase_date_str=substr(sysdate,1,5)
+  		</select>
+  		
+  		<select id="selectMonths" resultType="kh.spring.dto.PurchaseDTO">
+  			select * from (select substr(purchase_date,1,5) purchase_date_str, sum(purchase_amount) purchase_amount, sum(purchase_delivery_fee) purchase_delivery_fee, sum(purchase_used_point) purchase_used_point, sum(purchase_coupon) purchase_coupon from purchase group by substr(purchase_date,1,5)) order by purchase_date_str
+  		</select>
 
   </mapper>

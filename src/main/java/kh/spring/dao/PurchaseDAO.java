@@ -96,4 +96,15 @@ private final SqlSessionTemplate mybatis;
 		
 		return mybatis.selectList("Purchase.selectPurchaseDetailByBound", map);
 	}
+	public PurchaseDTO selectYear(){
+		return mybatis.selectOne("Purchase.selectYear");
+	}
+	
+	public PurchaseDTO selectMonth(){
+		return mybatis.selectOne("Purchase.selectMonth");
+	}
+	
+	public List<PurchaseDTO> selectMonths(){
+		return mybatis.selectList("Purchase.selectMonths");
+	}
 }

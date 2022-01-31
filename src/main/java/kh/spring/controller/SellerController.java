@@ -46,7 +46,17 @@ public class SellerController {
 	}
 	
 	@RequestMapping("sellerOffice")
-	public String sellerOffice() throws Exception {
+	public String sellerOffice(Model model) throws Exception {
+		PurchaseDTO year = purchaseService.selectYear();
+		PurchaseDTO month = purchaseService.selectMonth();
+		List<PurchaseDTO> months = purchaseService.selectMonths();
+		int total = purchaseDetailService.selectCount();
+		List<PurchaseDetailDTO> ranks = purchaseDetailService.salesRank();
+		model.addAttribute("year", year);
+		model.addAttribute("month", month);
+		model.addAttribute("months", months);
+		model.addAttribute("total", total);
+		model.addAttribute("ranks", ranks);
 	    return "/seller/sellerDashboard";
 	}
 	

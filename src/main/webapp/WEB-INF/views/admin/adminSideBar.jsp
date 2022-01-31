@@ -84,6 +84,14 @@
                     <span>등급 관리</span>
                 </a>
             </li>
+            
+            <li class="nav-item">
+            	<a class="nav-link collapsed" href="/" data-target="#collapse-seven"
+                    aria-expanded="true" aria-controls="collapse-seven">
+                    <i class="fas fa-fw fa-folder"></i>
+                    <span>홈으로</span>
+                </a>
+            </li>
 
             <!-- Divider -->
             <hr class="sidebar-divider">

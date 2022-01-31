@@ -153,8 +153,6 @@ $(function(){
     $(".fileDrop").on("drop",function(event){
         //drop이 될 때 기본 효과를 막음
         event.preventDefault();
-        //드래그된 파일의 정보
-        console.log(fileNames);
         //첨부파일 배열
         var files=event.originalEvent.dataTransfer.files; //드래그된 파일정보를 files변수에 저장
         var file=files[0]; //첫번째 첨부파일 (컨트롤을 누르고 파일을 여러개를 올릴수도 있기 때문에, 첫번째 첨부파일이라고 지정한다.)
@@ -210,7 +208,6 @@ $(function(){
             success: function(result){
                 if(result=="deleted"){
                 	fileNames.remove(that.attr("data-src"));
-                	console.log(fileNames);
                     that.parent("div").remove();
                 }
             }
@@ -256,18 +253,21 @@ $(function(){
 			}
 		}).done(function(resp){
 			//resp : md_review_id
-			$.ajax({
-				   url:"/upload/fileNames",
-				   type:"post",
-				   data: {
-					   fileNames:(fileNames.dataStore).join(),
-					   md_id: $("#md_id").val(),
-					   md_review_id: resp
-					   },
-				   dataType: "json"
-			   }).done(function(){
-				   location.href="/mypage/myPageAfterMdReview?cPage=1";
-			   })
+			if(fileNames.length()!=0){
+				$.ajax({
+					   url:"/upload/fileNames",
+					   type:"post",
+					   data: {
+						   fileNames:(fileNames.dataStore).join(),
+						   md_id: $("#md_id").val(),
+						   md_review_id: resp
+						   },
+					   dataType: "json"
+				   })
+			}
+		   console.log(111111);
+		   location.href="/mypage/myPageAfterMdReview?cPage=1";
+			
 		})
 		
 		   
@@ -408,7 +408,8 @@ $(function(){
 						<!-- 파일을 업로드할 영역 -->
 						<div class="fileDrop"> 
 						
-						<span>등록할 사진을 이곳에 넣어주세요.${d_purchase_detail_id}</span>
+						<span>등록할 사진을 이곳에 넣어주세요</span>
+						<span>최대 8장, 2MB 이하</span>
 						
 						</div>
 						<!-- 업로드된 파일 목록을 출력할 영역 -->

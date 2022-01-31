@@ -38,107 +38,7 @@
 		href="https://cdn.jsdelivr.net/npm/boxicons@2.0.7/css/boxicons.min.css"
 		rel="stylesheet" />
 <link rel="stylesheet" href="/resources/mypage/css/mypage.css">	
-
-
-<style> 
-
-#tableHead{
-    background-color: #406882;
-}
-
-
-/*버튼 관련 */
-
-.btn {
-  display: inline-block;
-  padding: 6px 12px;
-  margin-bottom: 0;
-  font-size: 14px;
-  font-weight: normal;
-  line-height: 1.42857143;
-  text-align: center;
-  white-space: nowrap;
-  vertical-align: middle;
-  cursor: pointer;
-  -webkit-user-select: none;
-     -moz-user-select: none;
-      -ms-user-select: none;
-          user-select: none;
-  background-image: none;
-  border: 1px solid transparent;
-  border-radius: 4px;
-  padding: 10px 16px;
-}
-  
-.btn-lg {
-  font-size: 18px;
-  line-height: 1.33;
-  border-radius: 6px;
-}
-
-.btn-primary {
-  color: #fff;
-  background-color: #1A374D;
-  border-color: #1A374D;
-}
-
-.btn-primary:hover,
-.btn-primary:focus,
-.btn-primary:active,
-.btn-primary.active,
-.open .dropdown-toggle.btn-primary {
-  color: #fff;
-  background-color: #1A374D;
-  border-color: #1A374D;
-}
-
-/***********************
-  SHARP BUTTONS
-************************/
-.sharp {
-  border-radius:0;
-}
-
-/***********************
-  CUSTON BTN VALUES
-************************/
-
-.btn {
-  padding: 14px 24px;
-  border: 0 none;
-  font-weight: 700;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-}
-.btn:focus, .btn:active:focus, .btn.active:focus {
-  outline: 0 none;
-}
-
-.btn-primary {
-  background: #406882;
-  color: #ffffff;
-}
-.btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open > .dropdown-toggle.btn-primary {
-  background: #1A374D;
-}
-.btn-primary:active, .btn-primary.active {
-  background: #1A374D;
-  box-shadow: none;
-}
-
-textarea {
-    width: 100%;
-    height: 6.25em;
-    border: none;
-    resize: none;
-  }
-  
-#tableHead{
-color:white;
-}
-
-
-</style>
+<link rel="stylesheet" href="/resources/qna/css/qnaWrite.css">
 
 
 </head>
@@ -249,22 +149,21 @@ color:white;
                <tr>
                    <th id="tableHead">제목</th>
                    <td>
-                    <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name="qa_question_category">
-                        <option selected>문의 종류를 선택해주세요.</option>
+                    <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name="qa_question_category" id="qa_question_category">
+                        <option value="기타" selected>기타문의</option>
                         <option value="배송지연/불만">배송지연/불만</option>
                         <option value="이벤트문의">이벤트문의</option>
                         <option value="상품제안">상품제안</option>
-                        <option value="기타">기타문의</option>
                       </select>
                       <input type="hidden" name=member_id value=${member_id}> 
-                      <input type="text" class="form-control" name="qa_question_title" placeholder="제목을 입력해주세요.">
+                      <input type="text" class="form-control" name="qa_question_title" id="qa_question_title" placeholder="제목을 입력해주세요.">
                     </td>        
                </tr>
                 
                <tr>
                    <th id="tableHead">문자메세지</th> <!--placeholder에 사용자 휴대폰 번호 띄우기-->
                    <td>
-                       <input readonly type="text" class="form-control" name="" placeholder="${memberDTO.member_phone }">
+                       <input readonly type="text" class="form-control"  placeholder="${memberDTO.member_phone }">
                        <input type="checkbox"  name="qa_question_sms_yn" id="sms_yn" value="Y">답변 수신을 문자메세지로 받겠습니다. &nbsp;&nbsp;
                     </td>        
                </tr>
@@ -283,7 +182,7 @@ color:white;
                     - 배송 및 배송시간 지정은 불가능합니다.<br>
                     
                 </div>
-                 <textarea rows="5" cols="40" name="qa_question_content" class="form-control"></textarea>
+                 <textarea rows="5" cols="40" name="qa_question_content" id="qa_question_content" class="form-control"></textarea>
                 </td>     
             </tr>
                 
@@ -297,8 +196,8 @@ color:white;
         </tr>
                <tr>
                    <td colspan="2">
-                   <input type="submit" class="btn btn-primary sharp" value="전송">
-                   <input type="reset" class="btn btn-danger sharp" value="취소">
+                   <button type="submit" id="submit" class="btn btn-primary sharp">입력</button>
+                   <button type="reset" class="btn btn-danger sharp">취소</button>
                    </td>
                </tr>
                 
@@ -328,17 +227,60 @@ color:white;
 		location="/mypage/myPageGrade"
 	});
 	
+	
+	//휴대폰 인증 API 관련
 	$("#sms_yn").change(function(){
 		
 		if($("#sms_yn").is(":checked")){
 			console.log("성공");
 		}
-	})
+	});
+	
+	//공백 유효성 검사
+	$("#submit").on("click",function(){
+		console.log($("#qa_question_title").val().trim());
+		let f_flag = false;
+			if($("#qa_question_title").val().trim() == "")
+			{
+				console.log($("#qa_question_title").val().trim());
+    			alert("아이디는 필수 입력사항입니다.");
+    			$("#qa_question_title").focus();
+    			f_flag = true;
+    		}
+
+			else if($("#qa_question_content").val().trim() == ""){
+				console.log($("#qa_question_content").val().trim());
+    			alert("글 내용을 작성해 주세요.");
+    			$("#qa_question_content").focus();
+  				f_flag = true;
+    			}
+			
+			if(f_flag === true)
+				{
+				f_flag = false;
+				 return false;
+				}
+			else{
+				f_flag = false;
+				return true;
+			}
+				
+			
+		
+
+    	
+
+    			
+		});
+			
+	
+
 
 
 
 
 </script>
 </div>
+
 </body>
 </html>

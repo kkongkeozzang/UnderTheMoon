@@ -38,6 +38,9 @@ public class QnaResponseDAO {
 		return mybatis.selectList("QnaResponse.selectAll", result);
 	}
 	
+	public String selectResponseContent(QnaDTO dto) {
+		return mybatis.selectOne("QnaResponse.selectResponseContent",dto);
+	}
 	
 
 }

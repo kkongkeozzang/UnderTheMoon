@@ -25,6 +25,8 @@
 <!--Body 시작 부분 -->
 <body class="main-index" oncontextmenu="return false" ondragstart="return false" onselectstart="return !disableSelection">
 
+
+
 <!--전체를 감싸는 태그-->
 <div id="wrap" class="">
 <div id="pos_scroll"></div>
@@ -36,6 +38,7 @@
 <jsp:include page="homeHeader.jsp"></jsp:include>
 
 </div>
+
 
 <!--Main 내용 시작 부분-->
 <div id="main">

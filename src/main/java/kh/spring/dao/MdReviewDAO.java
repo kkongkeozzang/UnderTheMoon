@@ -64,4 +64,8 @@ public class MdReviewDAO {
 		return dto.getMd_review_id();
 	}
 	
+	public List<MdReviewDTO> selectMdReviewByMdReviewId(String md_review_id) {
+		return mybatis.selectList("MdReview.selectMdReviewByMdReviewId", md_review_id);
+	}
+	
 }

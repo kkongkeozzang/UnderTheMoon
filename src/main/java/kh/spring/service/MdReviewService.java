@@ -54,5 +54,8 @@ public class MdReviewService {
 		return mdReviewDAO.insertMdReview(dto);
 	}
 	
+	public List<MdReviewDTO> selectMdReviewByMdReviewId(String md_review_id) {
+		return mdReviewDAO.selectMdReviewByMdReviewId(md_review_id);
+	}
 	
 }

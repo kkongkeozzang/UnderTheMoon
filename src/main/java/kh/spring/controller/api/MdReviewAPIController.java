@@ -149,6 +149,16 @@ public class MdReviewAPIController {
 		return new ResponseEntity<>(result, HttpStatus.OK);
 	}
 	
+	@GetMapping(value="read/{md_review_id}",produces = "application/json")
+	public ResponseEntity<Map<String,Object>> board(@PathVariable String md_review_id) {
+		List<MdReviewDTO> review = mdReviewService.selectMdReviewByMdReviewId(md_review_id);
+		List<MdReviewImageDTO> images = mdReviewImageService.selectAllByMdReviewId(md_review_id);
+		Map<String,Object> result = new HashMap<>();
+		result.put("review", review);
+		result.put("images", images);
+		return new ResponseEntity<>(result,HttpStatus.OK);
+	}
+	
 }
 
 

@@ -61,4 +61,8 @@
 			SELECT md_review_id_seq.currval FROM dual
 		</selectKey>
 	</insert>
+	
+	<select id="selectMdReviewByMdReviewId" resultType="kh.spring.dto.MdReviewDTO">
+		select * from md_review where md_review_id = #{value}
+	</select>
 </mapper>

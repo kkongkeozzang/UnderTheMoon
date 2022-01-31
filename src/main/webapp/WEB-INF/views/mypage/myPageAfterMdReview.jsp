@@ -31,6 +31,19 @@
 <!-- jQuery UI -->
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
 <script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<style>
+.popup {
+	width:60% !important;
+	max-height: 80%;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.popup img {
+	height:auto;
+	max-width:100%;
+}
+</style>
 </head>
 
 <body>
@@ -147,6 +160,7 @@
 												<div class="md-box">
 													<div class="img-box">
 														<div class="img-box2">
+															<input type=hidden class="md_review_id" value="${md.md_review_id }">
 															<a href="/md/detail/page?md_id=${md.md_id}"><img src="/mdImage/a.png"></a>
 														</div>
 													</div>
@@ -161,10 +175,58 @@
 														<span class=status>배송완료</span>
 													</div>
 													<div class="btn-box">
-														<button id="readMdReview" style="font-size: 15px">후기보기</button>
+														<a href="#popup${md.md_review_id }"><button class="read-review" type=button style="font-size: 15px">후기보기</button></a>
 													</div>
+													<div id="popup${md.md_review_id }" class="overlay">
+									                    <div class="popup">
+									                        <h2>제목</h2>
+									                        <a class="close" href="javascript:history.back()">&times;</a>
+									                        <div class="content" style="text-align:center;">
+									                            작성일 : | 도움 : | 조회수 : <br>
+									                            <br>
+									                            
+									                            
+									                        </div>
+									                    </div>
+												    </div>
 												</div>
 											</c:forEach>
+											<script>
+												$("body").on("click",".read-review",function(){
+													let md_review_id = $(this).closest(".md-box").find(".md_review_id").val();
+													let popupBox = $(this).closest(".md-box").find(".popup");
+													$.ajax({
+														url:"/md/detail/review/rest/read/"+md_review_id,
+														type:"get",
+														dataType:"json"
+													}).done(function(resp){
+														console.log(resp);
+														popupBox.find("h2").text(resp.review[0].md_review_title);
+														str = "";
+														str += "<div>"
+														str += "작성일 : " + resp.review[0].formedDate + " | ";
+														str += "도움 : " + resp.review[0].md_review_like + " | ";
+														str += "조회수 : " + resp.review[0].md_review_view_count;
+														str += "</div>"
+														popupBox.find(".content").html(str);
+														popupBox.find(".content").append("<br/>");
+														str = "";
+														str += "<div>";
+														str += resp.review[0].md_review_content;
+														str += "</div>";
+														popupBox.find(".content").append(str);
+														let imgs = $("<div>");
+														for(let i = 0; i < resp.images.length; i++) {
+															str = "";
+															str += "<div>";
+															str += "<img src='/mdReviewImage" + resp.images[i].md_review_image + "'>";
+															str += "</div>";
+															imgs.append(str);
+														}
+														popupBox.find(".content").append(imgs);
+													})
+												})
+											</script>
 											<div id="page-box">${pageNavi }</div>
 										</div>
 										</div>

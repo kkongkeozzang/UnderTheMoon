@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -135,12 +136,6 @@ public class MdReviewAPIController {
 		return new ResponseEntity<>(md_review_id,HttpStatus.OK);
 	}
 	
-	@ExceptionHandler(Exception.class)
-	public String exceptionHandler(Exception e) {
-		e.printStackTrace();
-		return "redirect:/";
-	}
-	
 	@GetMapping(value="board/image/{md_review_id}", produces = "application/json")
 	public ResponseEntity<Map<String,Object>> getImages(@PathVariable String md_review_id) throws Exception {
 		List<MdReviewImageDTO> images = mdReviewImageService.selectAllByMdReviewId(md_review_id);
@@ -159,6 +154,22 @@ public class MdReviewAPIController {
 		return new ResponseEntity<>(result,HttpStatus.OK);
 	}
 	
+	@DeleteMapping(value="delete/{md_review_id}",produces = "application/json")
+	public ResponseEntity<String> delete(@PathVariable String md_review_id) {
+		int result = mdReviewService.deleteByMdReviewId(md_review_id);
+		return new ResponseEntity<>(HttpStatus.OK);
+	}
+	
+	
+	
+	
+	
+	
+	@ExceptionHandler(Exception.class)
+	public String exceptionHandler(Exception e) {
+		e.printStackTrace();
+		return "redirect:/";
+	}
 }
 
 

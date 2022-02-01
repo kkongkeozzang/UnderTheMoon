@@ -199,7 +199,7 @@ function getPage(pageNavi, select, sort) {
 					str += "<tr class='review-title'>";
 					str += "<td style='width:5%;' class='md_review_id'>"+resp.reviews[i].md_review_id+"</td>";
 					str += "<td style='width:60%'>"+resp.reviews[i].md_review_title+"</td>";
-					str += "<td>"+ resp.reviews[i].member_username +"</td>";
+					str += "<td class='member_username'>"+ resp.reviews[i].member_username +"</td>";
 					str += "<td>"+ resp.reviews[i].formedDate +"</td>";
 					str += "<td class='md_review_like'>"+ resp.reviews[i].md_review_like+"</td>";
 					str += "<td class='md_review_view_count'>"+ resp.reviews[i].md_review_view_count +"</td>";
@@ -466,7 +466,7 @@ function getPage(pageNavi, select, sort) {
 	            				str += "<tr class='review-title'>";
 	            				str += "<td style='width:5%;' class='md_review_id'>"+resp.reviews[i].md_review_id+"</td>";
 	            				str += "<td style='width:60%'>"+resp.reviews[i].md_review_title+"</td>";
-	            				str += "<td>"+ resp.reviews[i].member_username +"</td>";
+	            				str += "<td class='member_username'>"+ resp.reviews[i].member_username +"</td>";
 	            				str += "<td>"+ resp.reviews[i].formedDate +"</td>";
 	            				str += "<td class='md_review_like'>"+ resp.reviews[i].md_review_like+"</td>";
 	            				str += "<td class='md_review_view_count'>"+ resp.reviews[i].md_review_view_count +"</td>";
@@ -509,6 +509,30 @@ function getPage(pageNavi, select, sort) {
                 					content.before(imgStr);
                 				})
             				}
+            				
+            				// 로그인한 회원의 글일 때
+            				let member_username = $(this).find(".member_username").text();
+            				let helpfulBtn = $(this).next().find(".helpful");
+            				let helpfulBox = $(this).next().find(".helpful-box");
+            				if(member_username == "${principal.username}") {
+            					helpfulBtn.hide();
+            					str = "";
+            					str += "<button class='deleteBtn'>삭제</button>";
+            					helpfulBox.html(str);
+            				}
+            			})
+            			$("body").on("click",".deleteBtn",function(){
+            				let md_review_id = $(this).closest(".review-content").prev().find(".md_review_id").text();
+            				let reviewTitleBox = $(this).closest(".review-content").prev();
+            				let reviewContentBox = $(this).closest(".review-content");
+            				$.ajax({
+            					url:"/md/detail/review/rest/delete/"+md_review_id,
+            					type:"delete",
+            					dataType:"json"
+            				}).done(function(){
+            					reviewTitleBox.remove();
+            					reviewContentBox.remove();
+            				})
             			})
             			$("body").on("change","#sort-box",function(){
             				let selectSort = this.value;
@@ -525,7 +549,7 @@ function getPage(pageNavi, select, sort) {
        	            					str += "<tr class='review-title'>";
        		            				str += "<td style='width:5%;' class='md_review_id'>"+resp.reviews[i].md_review_id+"</td>";
        		            				str += "<td style='width:60%'>"+resp.reviews[i].md_review_title+"</td>";
-       		            				str += "<td>"+ resp.reviews[i].member_username +"</td>";
+       		            				str += "<td class='member_username'>"+ resp.reviews[i].member_username +"</td>";
        		            				str += "<td>"+ resp.reviews[i].formedDate +"</td>";
        		            				str += "<td class='md_review_like'>"+ resp.reviews[i].md_review_like+"</td>";
        		            				str += "<td class='md_review_view_count'>"+ resp.reviews[i].md_review_view_count +"</td>";

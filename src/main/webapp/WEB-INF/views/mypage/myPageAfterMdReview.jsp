@@ -176,13 +176,13 @@
 													</div>
 													<div class="btn-box">
 														<a href="#popup${md.md_review_id }"><button class="read-review" type=button style="font-size: 15px">후기보기</button></a>
+														<input type=button class="delete-btn" style="font-size: 15px" value="후기삭제">
 													</div>
 													<div id="popup${md.md_review_id }" class="overlay">
 									                    <div class="popup">
-									                        <h2>제목</h2>
+									                        <h2></h2>
 									                        <a class="close" href="javascript:history.back()">&times;</a>
 									                        <div class="content" style="text-align:center;">
-									                            작성일 : | 도움 : | 조회수 : <br>
 									                            <br>
 									                            
 									                            
@@ -192,6 +192,18 @@
 												</div>
 											</c:forEach>
 											<script>
+												$("body").on("click",".delete-btn",function(){
+													let mdBox = $(this).closest(".md-box");
+													let md_review_id = $(this).closest(".md-box").find(".md_review_id").val();
+													mdBox.remove();
+													$.ajax({
+						            					url:"/md/detail/review/rest/delete/"+md_review_id,
+						            					type:"delete",
+						            					dataType:"json"
+						            				}).done(function(){
+						            					mdBox.remove();
+													})
+												})
 												$("body").on("click",".read-review",function(){
 													let md_review_id = $(this).closest(".md-box").find(".md_review_id").val();
 													let popupBox = $(this).closest(".md-box").find(".popup");

@@ -302,10 +302,12 @@ ul{
 }
 
 .btn-box {
-	display:flex;
-	flex: 1 1;
-	align-items: center;
-	text-align: center;
+	display: flex;
+    flex: 1 1;
+    align-items: center;
+    text-align: center;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .btn-box>button {

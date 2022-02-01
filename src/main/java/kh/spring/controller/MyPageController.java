@@ -276,7 +276,6 @@ public class MyPageController {
 		Integer notReviewMdCount = mdService.selectByBoundNotReviewMdCountByMemberId(String.valueOf(memberDTO.getMember_id()));
 		Integer reviewMdCount = mdService.selectByBoundReviewMdCountByMemberId(String.valueOf(memberDTO.getMember_id()));
 		String pageNavi = PageNavigator.getPageNavigator(notReviewMdCount, cPage, PageStatic.MYPAGEMDREVIEW_COUNT_PER_PAGE, PageStatic.MYPAGEMDREVIEW_NAVI_COUNT_PER_PAGE, "myPageMdReview", "all" ,"","");
-		System.out.println(mds.get(0).getD_purchase_detail_id());
 		model.addAttribute("memberDTO",memberDTO);
 		model.addAttribute("pointSum",pointSum);
 		model.addAttribute("couponSum", couponSum);

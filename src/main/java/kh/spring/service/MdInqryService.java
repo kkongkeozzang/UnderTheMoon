@@ -24,4 +24,7 @@ public class MdInqryService {
 		return mdInqryDAO.selectCount(md_id);
 	}
 	
+	public int insert(MdInqryDTO inqry) {
+		return mdInqryDAO.insert(inqry);
+	}
 }

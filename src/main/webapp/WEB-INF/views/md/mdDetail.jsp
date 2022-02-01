@@ -455,7 +455,7 @@ function getPage(pageNavi, select, sort) {
 					           </div>
 					           <span>${mdDetails.md_name}</span>
 					       </div>
-                            <form action="/md/detail/review/write" method="post">
+                            <form action="/md/detail/inqry/insert" method="post" id="inqry-frm">
 					           <table class="table table-boardered">
 					               <tr>
 					                   <th id="tableHead">제목</th>
@@ -478,7 +478,13 @@ function getPage(pageNavi, select, sort) {
 					               </tr>
 					           </table>
 					       </form>
-                            
+                            <script>
+                            $("#write-review-btn").on("click",function(){
+                            	if(confirm("문의를 등록하시겠습니까?\n문의글은 수정이 불가합니다.")) {
+                            		$("#inqry-frm").submit();
+                            	}
+                            })
+                            </script>
                         </div>
                     </div>
 			    </div>

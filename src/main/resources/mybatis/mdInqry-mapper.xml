@@ -22,5 +22,9 @@
 		select count(*) from md_question where md_id = #{value}
 	</select>
 	
+	<insert id="insert">
+		insert into md_question values(md_question_id_seq.nextval, #{md_id}, #{member_id}, #{md_question_title},#{md_question_content},default,default)
+	</insert>
+	
 	
 </mapper>

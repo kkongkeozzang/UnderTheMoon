@@ -30,5 +30,7 @@ private final SqlSessionTemplate mybatis;
 		return mybatis.selectOne("MdInqry.selectCount",md_id);
 	}
 	
-	
+	public int insert(MdInqryDTO inqry) {
+		return mybatis.insert("MdInqry.insert",inqry);
+	}
 }

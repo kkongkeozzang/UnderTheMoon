@@ -80,4 +80,8 @@ public class MdService {
 	public int selectByBoundReviewMdCountByMemberId(String member_id) {
 		return mdDAO.selectByBoundReviewMdCountByMemberId(member_id);
 	}
+
+	public int selectSerchResultCount(String search) {
+		return mdDAO.selectSerchResultCount(search);
+	}
 }

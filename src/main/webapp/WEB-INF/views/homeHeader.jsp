@@ -97,19 +97,8 @@
 </ul>
 <!-- searchbar 검색바 -->
 <div id="side_search" class="gnb_search">
-<!-- <form action="/shop/goods/goods_search.php?&" onsubmit="return searchTracking(this)">
-<input type=hidden name=searched value="Y">
-<input type=hidden name=log value="1">
-<input type=hidden name=skey value="all">
-<input type="hidden" name="hid_pr_text" value="">
-<input type="hidden" name="hid_link_url" value="">
-<input type="hidden" id="edit" name="edit" value=""> -->
 <input name="search" type="text" id="search" class="inp_search" value="" required label="검색어" placeholder="검색어를 입력해주세요.">
 <a href="javascript:void(0);" id="search-button"><input type=image src="https://res.kurly.com/pc/service/common/1908/ico_search_x2.png" class="btn_search"></a>
-<!-- <div class="init">
-<button type="button" class="btn_delete" id="searchInit">검색어 삭제하기</button>
-</div> -->
-<!-- </form> -->
 </div>
 
 <!-- 찜한 상품 -->
@@ -132,7 +121,15 @@
 <script src="/common_js/gnb_v1.js?ver=1.63.2"></script>
 <script type="text/javascript">
 
-  /*  gnbMenu.update();  */
+
+//검색하기..
+	$('#search-button').on('click', function() {
+	  
+	  location.href = "/md/search?search="+$('#search').val(); 
+	  });
+
+    gnbMenu.update();  
+
 
   // 검색창 클래스 추가/삭제
   var searchInputAction = (function(){
@@ -230,11 +227,6 @@
     location.href = $(this).attr('href');
   });
   
-  //검색하기..
-  $('#search-button').on('click', function() {
-	  
-	  location.href = "/md/search?search="+$('#search').val(); 
-	  });
 </script>
 </div>
 

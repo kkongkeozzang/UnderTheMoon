@@ -39,9 +39,13 @@ private final SqlSessionTemplate mybatis;
 	public int cancelDelivery(int purchase_detail_id){
 		return mybatis.update("PurchaseDetail.cancelDelivery",purchase_detail_id);
 	}
-	
 	public Integer selectRecordCount(int purchase_id) {
 		
 		return mybatis.selectOne("PurchaseDetail.selectRecordCount",purchase_id);
+	}
+
+	public void cancelOrder(Long purchase_id) {
+		
+		mybatis.selectOne("PurchaseDetail.cancelOrder",purchase_id);
 	}
 }

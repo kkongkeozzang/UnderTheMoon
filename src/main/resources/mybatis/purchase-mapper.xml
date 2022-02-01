@@ -61,4 +61,8 @@
 			update purchase set receipt_id = #{receipt_id } where purchase_id = #{purchase_id}
 		</update>
 		
+		<select id="selectPurchaseDateByBound" resultType="kh.spring.dto.PurchaseDateDTO">
+		select * from (select target.*, row_number() over(order by purchase_date desc) rn from (select * from purchase where member_id = #{member_id} and purchase_date <![CDATA[<]]> sysdate-#{selectDate}) target) where rn between #{start} and #{end}
+		</select>
+
   </mapper>

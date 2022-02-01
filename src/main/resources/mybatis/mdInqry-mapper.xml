@@ -22,5 +22,11 @@
 		select count(*) from md_question where md_id = #{value}
 	</select>
 	
+	<select id="selectRecordCount" resultType="int">
+		select count(*) from md_question where member_id = #{value}
+	</select>
 	
+	<select id="selectByBoundByMemberId" resultType="kh.spring.dto.MdInqryDTO">
+		select * from (select * from (select target.*, row_number() over(order by md_question_write_date) rn from (select * from md_question where member_id = #{member_id}) target)) where rn between #{start} and #{end}
+	</select>
 </mapper>

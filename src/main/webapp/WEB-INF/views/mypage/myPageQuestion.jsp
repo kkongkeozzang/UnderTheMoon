@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
 <jsp:include page="/WEB-INF/views/homeHeader.jsp"></jsp:include>
 <!DOCTYPE html>
 <html>
@@ -36,7 +37,7 @@
         <div class="row">
             <div class="col-12">
                 <div class="card">
-					   <jsp:include page="myPageNavBar.jsp" flush="false" />
+					<jsp:include page="myPageNavBar.jsp" flush="false" />
 
         
 	<div class="row">
@@ -55,28 +56,22 @@
 									<table class="table">
 										<thead>
 											<tr>
-												<th class="name truncate" colspan=4>적립금                                                
+												<th class="name truncate" colspan=4>상품문의                                                
 											</tr>
 											<tr>
-												<th class="grade-list" style="text-align:center">적립/사용 내역</th>
-												<th class="grade-list" style="text-align:center">금액</th>
-												<th class="grade-list" style="text-align:center">날짜</th>                                           
+												<th class="grade-list" style="text-align:center">제목</th>
+												<th class="grade-list" style="text-align:center">작성일</th>
+												<th class="grade-list" style="text-align:center">답변상태</th>                                         
 											</tr>
 										</thead>										
 										<tbody>
-											<c:forEach var="pointDTO" items="${pointList }">
-											<c:choose>
-												<c:when test="${pointDTO.point_event == '이벤트 미입력' }">
-												</c:when>
-												<c:otherwise>
-													<tr>												
-														<td class="grade-list" style="text-align:center">${pointDTO.point_event}</td>
-														<td class="grade-list" style="text-align:center"><fmt:formatNumber value="${pointDTO.point_used_saved}" type="number"/></td>
-														<td class="grade-list" style="text-align:center"><fmt:formatDate value = "${pointDTO.point_date}"  type="date" dateStyle="full"/></td>													
-													</tr>
-												</c:otherwise>
-											</c:choose>
-											</c:forEach>			
+											<c:forEach var="MdInqryDTO" items="${mdInqryList }">
+											<tr>												
+												<td class="grade-list" style="text-align:center" ><a href="/md/detail/page?md_id=${MdInqryDTO.md_id}">${MdInqryDTO.md_question_title}</a></td>
+												<td class="grade-list" style="text-align:center"><fmt:formatDate value = "${MdInqryDTO.md_question_write_date}"  type="date" dateStyle="full"/></td>
+												<td class="grade-list" style="text-align:center">${MdInqryDTO.md_question_reply_yn}</td>									
+											</tr>
+											</c:forEach>														
 										</tbody>
 									</table>
 									<div class="navigator" style="margin:auto; display:block;">

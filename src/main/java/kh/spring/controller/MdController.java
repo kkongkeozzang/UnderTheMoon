@@ -89,6 +89,7 @@ public class MdController {
 	
 	@RequestMapping("search")
 	public String search(Model model, String search, HttpServletRequest request, HttpServletResponse response) {
+
 		int cPage = 1;
 		int start = cPage*PageStatic.MD_COUNT_PER_PAGE-(PageStatic.MD_COUNT_PER_PAGE);
 		int end = cPage*PageStatic.MD_COUNT_PER_PAGE;
@@ -128,6 +129,7 @@ public class MdController {
 		model.addAttribute("mdImgs",mdImgs);
 		model.addAttribute("search",search);
 		return "/md/mdSearchList";
+
 	}
 	
 	@ResponseBody

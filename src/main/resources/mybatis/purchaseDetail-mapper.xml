@@ -22,7 +22,7 @@
   			select count(*) from purchase_detail where purchase_id = #{purchase_id}
   		</select>
   		
-  		<select id="selectCount" resultType= "int">
+  		<select id="selectCountDetail" resultType= "int">
   			select count(*) from purchase_detail
   		</select>
   		

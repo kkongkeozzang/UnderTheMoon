@@ -45,7 +45,7 @@ private final SqlSessionTemplate mybatis;
 	}
 	
 	public Integer selectCount() {
-		return mybatis.selectOne("PurchaseDetail.selectCount");
+		return mybatis.selectOne("PurchaseDetail.selectCountDetail");
 	}
 	
 	public List<PurchaseDetailDTO> salesRank(){

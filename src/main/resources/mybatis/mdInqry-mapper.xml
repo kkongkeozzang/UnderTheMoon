@@ -61,5 +61,20 @@
 	<update id="updateResp">
 		update md_response set md_response_content=#{md_response_content} where md_question_id=#{sort_md_question_id}
 	</update>
+
+	<insert id="insert">
+		insert into md_question values(md_question_id_seq.nextval, #{md_id}, #{member_id}, #{md_question_title},#{md_question_content},default,default)
+	</insert>
 	
+	<delete id="delete">
+		delete from md_question where md_question_id = #{value}
+	</delete>
+	
+	<select id="selectRecordCount" resultType="int">
+		select count(*) from md_question where member_id = #{value}
+	</select>
+	
+	<select id="selectByBoundByMemberId" resultType="kh.spring.dto.MdInqryDTO">
+		select * from (select * from (select target.*, row_number() over(order by md_question_write_date) rn from (select * from md_question where member_id = #{member_id}) target)) where rn between #{start} and #{end}
+	</select>
 </mapper>

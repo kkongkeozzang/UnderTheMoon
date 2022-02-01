@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<jsp:include page="/WEB-INF/views/homeHeader.jsp"></jsp:include>
 <!DOCTYPE html>
 <html>
 <head>
@@ -470,7 +471,20 @@ ul{
                                           </div>
                                        </div>
                                        <div class="status-box">
-                                          <span class=status>배송완료</span>
+                                          <span class=status>
+                                          <c:choose>
+                                          	<c:when test="${purchaseList.purchase_detail_cancel_order == 'Y'}">
+                                          		주문취소완료
+                                          	</c:when>
+                                          	<c:otherwise>
+                                          		<c:if test=" ${purchaseList.purchase_detail_result == 'Y'}">
+                                          				배송완료                                
+                                          		</c:if>
+                                          		배송중
+                                          	</c:otherwise>
+                                          </c:choose>
+                                         
+                                          </span>
                                        </div>
                                        <div class="btn-box">
                                           <button id="readMdReview" style="font-size: 15px">후기보기</button>

@@ -111,4 +111,8 @@ public class CouponDAO {
 	public int updateCoupon(CouponDTO coupons) {
 		return mybatis.update("Coupon.updateCoupon", coupons);
 	}
+	
+	public int deleteCouponByMemberId(String member_id) {
+		return mybatis.delete("Coupon.deleteCouponByMemberId", member_id);
+	}
 }

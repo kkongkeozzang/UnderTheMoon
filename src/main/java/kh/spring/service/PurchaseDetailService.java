@@ -49,4 +49,9 @@ public class PurchaseDetailService {
 	public List<PurchaseDetailDTO> salesRank(){
 		return purchaseDetailDAO.salesRank();
 	}
+	
+	public void cancelOrder(Long purchase_id) {
+		
+		purchaseDetailDAO.cancelOrder(purchase_id);
+	}
 }

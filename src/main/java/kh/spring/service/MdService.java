@@ -64,7 +64,7 @@ public class MdService {
 	public List<MdDTO> selectMdById(int md_id) {
 		return mdDAO.selectMdById(md_id);
 	}
-	
+
 	public List<MdAndReviewDTO> selectByBoundNotReviewMdByMemberId(String member_id, int start, int end) {
 		return mdDAO.selectByBoundNotReviewMdByMemberId(member_id, start, end);
 	}
@@ -79,5 +79,9 @@ public class MdService {
 
 	public int selectByBoundReviewMdCountByMemberId(String member_id) {
 		return mdDAO.selectByBoundReviewMdCountByMemberId(member_id);
+	}
+
+	public int selectSerchResultCount(String search) {
+		return mdDAO.selectSerchResultCount(search);
 	}
 }

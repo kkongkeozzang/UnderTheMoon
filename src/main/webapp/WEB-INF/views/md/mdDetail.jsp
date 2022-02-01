@@ -521,7 +521,6 @@ function getPage(pageNavi, select, sort) {
 		$('#tabs').tabs({
             activate: function(event ,ui){
                 let selectTab = ui.newTab.index();
-                console.log(selectTab);
                 <%-- 상품후기 탭 클릭시 게시판 보이기 --%>
                 if(selectTab == 1) {
                 	$.ajax({
@@ -663,7 +662,6 @@ function getPage(pageNavi, select, sort) {
             			type:"get",
             			dataType:"json"
             		}).done(function(resp){
-            			console.log(resp);
             			let inqrysSize = resp.inqrys.length;
             			let naviSize = resp.pageNavis.length;
         				let str = "";

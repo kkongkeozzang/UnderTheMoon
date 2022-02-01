@@ -164,7 +164,7 @@ $(function(){
      	        var formData=new FormData(); //폼 객체
      	        formData.append("file",file); //만들어진 폼 객체에 위에서 저장한 file를 file이란 이름의 변수로 저장한다
      	        //서버에 파일 업로드(백그라운드에서 실행됨)
-     	        console.log(file);
+     	        //console.log(file);
      	        //    processData : false => post 방식
      	        //    contentType : false => multipart/form-data로 처리됨
      	        $.ajax({

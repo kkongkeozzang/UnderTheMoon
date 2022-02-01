@@ -88,6 +88,9 @@ ul.pages li {
 .container {
 	max-width:1100px !important;
 }
+.popup {
+	width:80% !important;
+}
 </style>
 <script>
 document.cookie = "safeCookie1=foo; SameSite=Lax"; 
@@ -434,10 +437,51 @@ function getPage(pageNavi, select, sort) {
 						</tr>
 					</tbody>
 				</table>
-				<button>문의하기</button>
+				<a href="#popup-inqry-write"><button id="md-inqry-write">문의하기</button></a>
 				<div id="page-box">
 				<ul class="pages" ></ul>
 				</div>
+				<div id="popup-inqry-write" class="overlay">
+                    <div class="popup">
+                        <h2>상품 문의하기</h2>
+                        <a class="close" href="javascript:history.back()">&times;</a>
+                        <div class="content" style="text-align:center;">
+                            <br>
+                            <div id="md-box">
+					           <div id="md-img-box">
+					           		<div id="img-box2">
+					           			<img src="/mdImage/${mdDetails.md_image}">
+					           		</div>
+					           </div>
+					           <span>${mdDetails.md_name}</span>
+					       </div>
+                            <form action="/md/detail/review/write" method="post">
+					           <table class="table table-boardered">
+					               <tr>
+					                   <th id="tableHead">제목</th>
+					                   <td><input type="text" maxlength="30" class="form-control" id="md_question_title" name="md_question_title" placeholder="제목을 입력해주세요.">
+					                    </td>        
+					               </tr>
+					                
+					               <tr>
+						                <th id="tableHead">후기 작성</th>
+						                <td>
+						                 <textarea rows="10" cols="40" maxlength="1000" id="md_question_content" placeholder="상품문의 작성 전 확인해주세요&#13;&#10;- 답변은 영업일 기준 2~3일 소요됩니다.&#13;&#10;- 해당 게시판의 성격과 다른 글은 사전동의 없이 담당 게시판으로 이동될 수 있습니다.&#13;&#10;- 배송관련, 주문(취소/교환/환불)관련 문의 및 요청사항은 마이컬리 내 1:1 문의에 남겨주세요.
+						                 " name="md_question_content" class="form-control"></textarea>
+						                </td>     
+						            </tr>
+					               <tr>
+					                   <td colspan="2">
+					                   <input type="button" id="write-review-btn" class="btn btn-primary sharp" value="등록하기">
+					                   <input type="hidden" name="md_id" id="md_id" value="${mdDetails.md_id }">
+					                   </td>
+					               </tr>
+					           </table>
+					       </form>
+                            
+                        </div>
+                    </div>
+			    </div>
 		  </div>
 		
 	</div>

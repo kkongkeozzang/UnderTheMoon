@@ -453,10 +453,7 @@ $(document).ready(function(){
 						   $("#point-input").val("");
 		                	
                 })  
-
-
 //=========================================================================================================================================================================                
-
                  //select 클릭 시 결제금액 초기화
                 $("body").on("change","#coupon",function(){
                 
@@ -496,10 +493,7 @@ $(document).ready(function(){
                      $("#totalPrice").text(initialTotalPrice);
                   }
                }) 
-
-
  //=========================================================================================================================================================================
-
 					 
 				//결제API
 				$("body").on("click","#purchase",function(){
@@ -619,7 +613,7 @@ $(document).ready(function(){
 										 		
 										 		BootPay.request({
 													price: document.getElementById("totalPrice").innerHTML, //실제 결제되는 가격
-													application_id: "61eab9c3e38c3000227b8107",
+													application_id: "61e73d6de38c3000217b806f",
 													name: document.getElementById("item").innerHTML + '외', //결제창에서 보여질 이름
 													pg: 'nicepay',
 													method: 'card',//결제수단, 입력하지 않으면 결제수단 선택부터 화면이 시작합니다.
@@ -677,14 +671,19 @@ $(document).ready(function(){
 											      	        		type:"post",
 											      	        		url:"/point/rest/"+member_id+"/"+$("#point-num").text(), //포인트쓴만큼 차감.
 											      	        		success : function(resp){
-											      	        			$.ajax({
+											      	        			$.ajax({ 
 													      	        		type:"post",//포인트적립.
-													      	        		url:"/point/rest/savePoints/"+member_id+"/"+$("#productsTotalPrice").text()
+													      	        		url:"/point/rest/savePoints/"+member_id+"/"+$("#productsTotalPrice").text(),
+													      	        		success : function(resp){
+													      	        			$.ajax({
+																				  	  type: 'patch',
+																				      url:'/purchase/rest/updatePurchase/'+data.receipt_id+"/"+data.order_id
+													      	        			})
+													      	        		}
 													      	        	})
 													      	        }
 											      	        	
 												      	    	})
-
 												      	    	//location.replace("/pay/rest/confirm?receipt_id="+data.receipt_id);
 												      	    	location.replace("/pay/confirm?receipt_id="+data.receipt_id);
 												      	    })
@@ -817,7 +816,7 @@ $(document).ready(function(){
 										 		
 										 		BootPay.request({
 										 			price: document.getElementById("totalPrice").innerHTML,
-										 			application_id: "61eab9c3e38c3000227b8107",
+										 			application_id: "61e73d6de38c3000217b806f",
 										 			name: document.getElementById("item").innerHTML + '외', //결제창에서 보여질 이름
 										 			pg: 'nicepay',
 										 			method: 'kakao', //결제수단, 입력하지 않으면 결제수단 선택부터 화면이 시작합니다.
@@ -865,14 +864,19 @@ $(document).ready(function(){
 											      	        		type:"post",
 											      	        		url:"/point/rest/"+member_id+"/"+$("#point-num").text(), //포인트쓴만큼 차감.
 											      	        		success : function(resp){
-											      	        			$.ajax({
+											      	        			$.ajax({ 
 													      	        		type:"post",//포인트적립.
-													      	        		url:"/point/rest/savePoints/"+member_id+"/"+$("#productsTotalPrice").text()
+													      	        		url:"/point/rest/savePoints/"+member_id+"/"+$("#productsTotalPrice").text(),
+													      	        		success : function(resp){
+													      	        			$.ajax({
+																				  	  type: 'patch',
+																				      url:'/purchase/rest/updatePurchase/'+data.receipt_id+"/"+data.order_id
+													      	        			})
+													      	        		}
 													      	        	})
 													      	        }
 											      	        	
 												      	    	})
-
 												      	    	//location.replace("/pay/rest/confirm?receipt_id="+data.receipt_id);
 												      	    	location.replace("/pay/confirm?receipt_id="+data.receipt_id);
 												      	    })

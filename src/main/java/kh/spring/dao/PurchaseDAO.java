@@ -80,6 +80,7 @@ private final SqlSessionTemplate mybatis;
 		return mybatis.delete("Purchase.deletePurchase",purchase_id);
 	}
 
+
 	public List<PurchaseDTO> selectPurchaseByBound(Integer member_id, int start, int end) {
 		Map<String, String> map = new HashMap<>();
 		map.put("member_id", String.valueOf(member_id));
@@ -97,6 +98,19 @@ private final SqlSessionTemplate mybatis;
 		
 		return mybatis.selectList("Purchase.selectPurchaseDetailByBound", map);
 	}
+<<<<<<< HEAD
+=======
+
+
+	public Integer updatePurchase(String receipt_id, Integer purchase_id) {
+		
+		Map<String, String> map = new HashMap<>();
+		map.put("receipt_id",receipt_id);
+		map.put("purchase_id", String.valueOf(purchase_id));
+		
+		return mybatis.update("Purchase.updatePurchase", map);
+}
+>>>>>>> 284309e08e22c9f22f24ba97004498a728c850ac
 	
 	public List<PurchaseDateDTO> selectPurchaseDateByBound(Integer member_id, int selectDate, int start, int end) {
 		Map<String, String> map = new HashMap<>();
@@ -106,5 +120,9 @@ private final SqlSessionTemplate mybatis;
 		map.put("end", String.valueOf(end));
 		
 		return mybatis.selectList("Purchase.selectPurchaseDateByBound", map);
+<<<<<<< HEAD
+=======
+
+>>>>>>> 284309e08e22c9f22f24ba97004498a728c850ac
 	}
 }

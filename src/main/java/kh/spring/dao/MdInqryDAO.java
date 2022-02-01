@@ -33,4 +33,8 @@ private final SqlSessionTemplate mybatis;
 	public int insert(MdInqryDTO inqry) {
 		return mybatis.insert("MdInqry.insert",inqry);
 	}
+	
+	public int delete(String md_inqry_id) {
+		return mybatis.delete("MdInqry.delete",md_inqry_id);
+	}
 }

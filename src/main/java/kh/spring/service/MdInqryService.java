@@ -27,4 +27,8 @@ public class MdInqryService {
 	public int insert(MdInqryDTO inqry) {
 		return mdInqryDAO.insert(inqry);
 	}
+	
+	public int delete(String md_inqry_id) {
+		return mdInqryDAO.delete(md_inqry_id);
+	}
 }

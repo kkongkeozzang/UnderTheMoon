@@ -161,15 +161,6 @@ public class MdReviewAPIController {
 	}
 	
 	
-	
-	
-	
-	
-	@ExceptionHandler(Exception.class)
-	public String exceptionHandler(Exception e) {
-		e.printStackTrace();
-		return "redirect:/";
-	}
 }
 
 

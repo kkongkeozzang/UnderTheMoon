@@ -32,6 +32,9 @@
 <script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<sec:authorize access="isAuthenticated()">
+    <sec:authentication property="principal" var="principal"/>
+</sec:authorize>
 <style>
 .hiddenRow {
     padding: 0 !important;
@@ -110,11 +113,32 @@ $(document).ready(function(){
 	$("body").on("click",".inqry-title",function(){
  		$(this).next().toggleClass("hide-toggle");
      	$(this).parent("#inqry-board").find(".inqry-content").not($(this).next()).addClass("hide-toggle");
+     	 // 로그인한 회원의 글일 때
+        let member_username2 = $(this).find(".member_username").text();
+        let deleteInqryBox = $(this).next().find(".delete-inqry-box");
+        if(member_username2 == "${principal.username}") {
+        	str = "";
+        	str += "<button class='delete-inqry-btn'>삭제</button>";
+        	deleteInqryBox.html(str);
+        }
     })
     $("body").on("click",".relatedMd-box", function(){
     	let relatedMd_id = $(this).find(".relatedMd_id").val()
     	location.href="/md/detail/page?md_id="+relatedMd_id;
     })
+})
+$("body").on("click",".delete-inqry-btn",function(){
+	let md_inqry_id = $(this).closest(".inqry-content").prev().find(".md_inqry_id").text();
+	let inqryTitleBox = $(this).closest(".inqry-content").prev();
+	let inqryContentBox = $(this).closest(".inqry-content");
+	$.ajax({
+		url:"/md/detail/inqry/rest/delete/"+md_inqry_id,
+		type:"delete",
+		dataType:"json"
+	}).done(function(){
+		inqryTitleBox.remove();
+		inqryContentBox.remove();
+	})
 })
 function viewCount(md_review_id, target) {
 	$.ajax({
@@ -153,9 +177,9 @@ function getPage(pageNavi, select, sort) {
 				for(let i = 0; i < inqrysSize; i++) {
 					
     				str += "<tr class='inqry-title'>";
-    				str += "<td style='width:5%;'>"+resp.inqrys[i].sort_md_question_id+"</td>";
+    				str += "<td class='md_inqry_id' style='width:5%;'>"+resp.inqrys[i].sort_md_question_id+"</td>";
     				str += "<td style='width:60%'>"+resp.inqrys[i].md_question_title+"</td>";
-    				str += "<td>"+ resp.inqrys[i].md_question_username +"</td>";
+    				str += "<td class='member_username'>"+ resp.inqrys[i].md_question_username +"</td>";
     				str += "<td>"+ resp.inqrys[i].questionFormedDate +"</td>";
     				str += "<td>"+ resp.inqrys[i].md_question_reply_yn +"</td>";
     				str += "</td>";
@@ -173,6 +197,7 @@ function getPage(pageNavi, select, sort) {
 	    				str += resp.inqrys[i].responseFormedDate;
     				}
     				str += "</div>";
+    				str += "<div class='delete-inqry-box'></div>";
     				str += "</tr>";
     				
     				str += "</tr>";
@@ -255,9 +280,6 @@ function getPage(pageNavi, select, sort) {
 		   })
 		})
 </script>
-<sec:authorize access="isAuthenticated()">
-    <sec:authentication property="principal" var="principal"/>
-</sec:authorize>
 </head>
 <body>
 
@@ -649,9 +671,9 @@ function getPage(pageNavi, select, sort) {
             				for(let i = 0; i < inqrysSize; i++) {
             					
 	            				str += "<tr class='inqry-title'>";
-	            				str += "<td style='width:5%;'>"+resp.inqrys[i].sort_md_question_id+"</td>";
+	            				str += "<td class='md_inqry_id' style='width:5%;'>"+resp.inqrys[i].sort_md_question_id+"</td>";
 	            				str += "<td style='width:60%'>"+resp.inqrys[i].md_question_title+"</td>";
-	            				str += "<td>"+ resp.inqrys[i].md_question_username +"</td>";
+	            				str += "<td class='member_username'>"+ resp.inqrys[i].md_question_username +"</td>";
 	            				str += "<td>"+ resp.inqrys[i].questionFormedDate +"</td>";
 	            				str += "<td>"+ resp.inqrys[i].md_question_reply_yn +"</td>";
 	            				str += "</td>";
@@ -669,6 +691,7 @@ function getPage(pageNavi, select, sort) {
             	    				str += resp.inqrys[i].responseFormedDate;
                 				}
 	            				str += "</div>";
+	            				str += "<div class='delete-inqry-box'></div>";
 	            				str += "</tr>";
 	            				
 	            				str += "</tr>";

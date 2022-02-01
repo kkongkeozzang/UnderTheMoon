@@ -273,3 +273,13 @@ h1.h2 {
   }
 
 }
+
+.delete-inqry-box {
+	text-align: right;
+    padding-top: 10px;
+}
+
+.inqry-content>td>div {
+	padding: 10px 50px;
+}
+

@@ -346,12 +346,15 @@ public class MyPageController {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal(); 
         String username = ((UserDetails)principal).getUsername();
 		MemberDTO memberDTO = memberService.selectByUsername(username);
+		int pointSum = pointService.selectPointById(username).get();
+		int couponSum = couponService.selectCouponPossibleById(memberDTO.getMember_id());
 		int start = cPage * PageStatic.MYPAGEQUESTION_COUNT_PER_PAGE-(PageStatic.MYPAGEQUESTION_COUNT_PER_PAGE - 1); 
 		int end = cPage * PageStatic.MYPAGEQUESTION_COUNT_PER_PAGE;
 		List<MdInqryDTO> mdInqryList = mdInqryService.selectByBoundByMemberId(memberDTO.getMember_id(), start, end);
 		Integer allMdInqryCount = mdInqryService.selectRecordCount(memberDTO.getMember_id());
 		String pageNavi = PageNavigator.getPageNavigator(allMdInqryCount, cPage, PageStatic.MYPAGEQUESTION_COUNT_PER_PAGE, PageStatic.MYPAGEQUESTION_NAVI_COUNT_PER_PAGE, "question", "all" ,"","");
-		
+		model.addAttribute("pointSum",pointSum);
+		model.addAttribute("couponSum", couponSum);
 		model.addAttribute("memberDTO",memberDTO);
 		model.addAttribute("mdInqryList", mdInqryList);
 		model.addAttribute("pageNavi", pageNavi);

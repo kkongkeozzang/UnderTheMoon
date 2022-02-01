@@ -87,6 +87,7 @@ ul.pages li {
 	text-align:right;
 	padding-top: 10px;
 }
+<<<<<<< HEAD
 
 .container {
 	max-width:1100px !important;
@@ -94,6 +95,16 @@ ul.pages li {
 .popup {
 	width:80% !important;
 }
+=======
+.img-box {
+	height:500px;
+	justify-content: space-evenly;
+    align-content: space-around;
+}
+.container {
+	max-width:1100px !important;
+}
+>>>>>>> 55f35a76c5561f2c5f7737eea4feb6fa142d97fc
 </style>
 <script>
 document.cookie = "safeCookie1=foo; SameSite=Lax"; 
@@ -290,8 +301,13 @@ function getPage(pageNavi, select, sort) {
     <section class="bg-light">
         <div class="container pb-5">
             <div class="row">
+<<<<<<< HEAD
                 <div class="col-lg-5 mt-5 img-box">
                     <div class="card mb-3 img-box2">
+=======
+                <div class="col-lg-5 mt-5">
+                    <div class="card mb-3 img-box">
+>>>>>>> 55f35a76c5561f2c5f7737eea4feb6fa142d97fc
                         <img class="card-img img-fluid" src="/mdImage/${mdDetails.md_image}" alt="Card image cap" id="product-detail">
                     </div>
                 </div>
@@ -299,8 +315,15 @@ function getPage(pageNavi, select, sort) {
                 <div class="col-lg-7 mt-5">
                     <div class="card">
                         <div class="card-body" id="md-detail">
+<<<<<<< HEAD
                         	<input id="md_id" type="hidden" value="${mdDetails.md_id }">
                         	<input id="member_username" type=hidden value=${principal.username }>
+=======
+                        	<input id="md_id" name="md_id" type="hidden" value="${mdDetails.md_id }">
+                        	<input id="member_username" name="member_username" type=hidden value=${principal.username }>
+                        	<input id="wish_item" name="wish_item" type=hidden value=${mdDetails.md_name }>
+                        	<input id="wish_price" name="wish_price"type=hidden value=${mdDetails.md_price }>
+>>>>>>> 55f35a76c5561f2c5f7737eea4feb6fa142d97fc
                             <h1 class="h2">${mdDetails.md_name }</h1>
                             <div id="price-box">
                             	<p class="h3 py-2"><fmt:formatNumber value="${mdDetails.md_price }" pattern="#,###" /></p>
@@ -346,11 +369,44 @@ function getPage(pageNavi, select, sort) {
                                     <div class="gnbPick">
 									</div>
                                     <div class="col d-flex">
+<<<<<<< HEAD
 										<button type="button" class="btn_pick pick_icon_button" ></button>
+=======
+                                    	<c:choose>
+                                    	<c:when test="${wishResult == 1}">
+										<button type="button" class="btn_pick pick_icon_button on" ></button>
+										</c:when>
+										<c:otherwise>
+										<button type="button" class="btn_pick pick_icon_button" ></button>
+										</c:otherwise>
+										</c:choose>
+>>>>>>> 55f35a76c5561f2c5f7737eea4feb6fa142d97fc
                                         <button type="button" id="cart" class=" btn btn-success btn-lg" name="submit" value="addtocard">장바구니 담기</button>
                                         <script>
                                     	$(".pick_icon_button").on("click", function(){
                                     		$(this).toggleClass("on");
+<<<<<<< HEAD
+=======
+                                    		if($(this).hasClass("on")){
+                                    		$.ajax({
+                                  		  	  type: 'post',
+                                  		        url:"/md/detail/wishMd",
+                                  		        data: {
+                                  		      	  wish_item: $("#wish_item").val(),
+                                  		          md_id: $("#md_id").val(),
+                                  		          wish_price: $("#wish_price").val()
+                                  		        }
+                                  		     })
+                                    		}else{
+                                    			$.ajax({
+                                        		  type: 'post',
+                                        		  url:"/md/detail/cancelWishMd",
+                                        		  	data: {
+                                        		      md_id: $("#md_id").val(),
+                                        		        }
+                                        		     })
+                                    		}
+>>>>>>> 55f35a76c5561f2c5f7737eea4feb6fa142d97fc
                                     	})
                                         </script>
                                     </div>

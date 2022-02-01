@@ -31,4 +31,12 @@ public class MdInqryService {
 	public int delete(String md_inqry_id) {
 		return mdInqryDAO.delete(md_inqry_id);
 	}
+	
+	public List<MdInqryDTO> selectByBoundByMemberId(Integer member_id, int start, int end) {
+		return mdInqryDAO.selectByBoundByMemberId(member_id, start, end);
+	}
+	
+	public int selectRecordCount(Integer member_id) {
+		return mdInqryDAO.selectRecordCount(member_id);
+	}
 }

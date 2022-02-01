@@ -13,10 +13,15 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import kh.spring.dto.MdDTO;
+import kh.spring.dto.MemberDTO;
+import kh.spring.dto.WishDTO;
 import kh.spring.service.MdReviewService;
 import kh.spring.service.MdService;
+import kh.spring.service.MemberService;
+import kh.spring.service.WishService;
 import kh.spring.util.PageStatic;
 
 @Controller
@@ -25,10 +30,14 @@ public class MdDetailController {
 	
 private final MdService mdService;
 private final MdReviewService mdReviewService;
+private final WishService wishService;
+private final MemberService memberService;
 	
-	public MdDetailController(MdService mdService, MdReviewService mdReviewService) {
+	public MdDetailController(MdService mdService, MdReviewService mdReviewService, WishService wishService, MemberService memberService) {
 		this.mdService = mdService;
 		this.mdReviewService = mdReviewService;
+		this.wishService = wishService;
+		this.memberService = memberService;
 	}
 	
 	@RequestMapping(value = "page")
@@ -37,6 +46,7 @@ private final MdReviewService mdReviewService;
 		MdDTO mdDetails = mdService.selectMdDetailById(md_id);
 		int allMdReviewCount = mdReviewService.selectCount(md_id);
 		List<MdDTO> relatedMds = mdService.selectSameRegionMdsExceptForSelectMd(md_id);
+		int wishResult = wishService.selectByMdId(md_id);
 		
 		// 상품 번호 쿠키에 추가
 		
@@ -92,8 +102,34 @@ private final MdReviewService mdReviewService;
 		model.addAttribute("relatedMds", relatedMds);
 		model.addAttribute("mdDetails", mdDetails);
 		model.addAttribute("allMdReviewCount", allMdReviewCount);
+		model.addAttribute("wishResult", wishResult);
 		return "/md/mdDetail";
 	}
 	
+	@ResponseBody
+	@RequestMapping(value="wishMd", produces="text/html;charset=utf8")
+	public void wishMd (String wish_item, String md_id, String wish_price) {
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal(); 
+        String username = ((UserDetails)principal).getUsername();
+		MemberDTO memberDTO = memberService.selectByUsername(username);
+		WishDTO wishDTO = new WishDTO();
+		wishDTO.setMember_id(memberDTO.getMember_id());
+		wishDTO.setMd_id(Integer.parseInt(md_id));
+		wishDTO.setWish_item(wish_item);
+		wishDTO.setWish_price(Integer.parseInt(wish_price));
+
+		wishService.insertMdWish(wishDTO);
+	}
 	
+	@ResponseBody
+	@RequestMapping(value="deleteWishMd", produces="text/html;charset=utf8")
+	public void deleteWishMd(int wish_id) {
+		wishService.deleteMdWish(wish_id);
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="cancelWishMd", produces="text/html;charset=utf8")
+	public void cancelWishMd(String md_id) {
+		wishService.deleteByMdIdWish(md_id);
+	}
 }

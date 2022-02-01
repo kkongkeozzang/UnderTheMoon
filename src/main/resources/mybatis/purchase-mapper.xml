@@ -10,7 +10,7 @@
 	  		<selectKey resultType="Integer" order="BEFORE" keyProperty="delivery_id">
 						SELECT delivery_id_seq.currval FROM dual  
 			</selectKey>
-  			insert into purchase values(purchase_id_seq.nextval,#{member_id},sysdate,#{delivery_id},#{purchase_amount},#{purchase_delivery_fee},#{purchase_used_point},#{purchase_coupon},#{purchase_payment},#{purchase_method})
+  			insert into purchase values(purchase_id_seq.nextval,#{member_id},sysdate,#{delivery_id},#{purchase_amount},#{purchase_delivery_fee},#{purchase_used_point},#{purchase_coupon},#{purchase_payment},#{purchase_method},'')
   		
   		</insert>
   
@@ -56,5 +56,13 @@
   		<select id="selectPurchaseDetailByBound" resultType="kh.spring.dto.MyPagePurchaseDetailDTO">
   		select * from (select target.*, row_number() over(order by purchase_detail_id desc) rn from (select * from (select * from purchase_detail d join md m on d.md_id = m.md_id where purchase_id = #{purchase_id})) target) where rn between #{start} and #{end}
   		</select>
+
+		<update id="updatePurchase">
+			update purchase set receipt_id = #{receipt_id } where purchase_id = #{purchase_id}
+		</update>
+		
+		<select id="selectPurchaseDateByBound" resultType="kh.spring.dto.PurchaseDateDTO">
+		select * from (select target.*, row_number() over(order by purchase_date desc) rn from (select * from purchase where member_id = #{member_id} and purchase_date <![CDATA[<]]> sysdate-#{selectDate}) target) where rn between #{start} and #{end}
+		</select>
 
   </mapper>

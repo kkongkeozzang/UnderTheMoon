@@ -37,4 +37,18 @@ private final SqlSessionTemplate mybatis;
 	public int delete(String md_inqry_id) {
 		return mybatis.delete("MdInqry.delete",md_inqry_id);
 	}
+	
+	public int selectRecordCount(Integer member_id) {
+		return mybatis.selectOne("MdInqry.selectRecordCount", member_id);
+	}
+	
+	public List<MdInqryDTO> selectByBoundByMemberId(Integer member_id, int start, int end) {
+		
+		Map<String, String> map = new HashMap<>();
+		map.put("member_id", String.valueOf(member_id));
+		map.put("start", String.valueOf(start));
+		map.put("end", String.valueOf(end));
+		
+		return mybatis.selectList("MdInqry.selectByBoundByMemberId", map);
+	}
 }

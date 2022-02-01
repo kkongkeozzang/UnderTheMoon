@@ -256,4 +256,13 @@
 		and md_review_id is not null) target) -- 상품 후기 쓴것 
 	</select>
 	
+	<select id="selectSearchResult" resultType="kh.spring.dto.MdDTO" >
+		select * from (select md.*, row_number() over(order by md_id) rn from md where md_region like '%' || #{select} || '%' or md_name like '%' || #{select} || '%' or md_content like '%' || #{select} || '%')
+		where rn between #{start} and #{end}
+	</select>
+	
+	<select id="selectSerchResultCount" resultType="int">
+		SELECT count(*) FROM md WHERE md_region LIKE '%' || #{search} || '%' or md_name Like '%' || #{search} || '%' or md_content like '%' || #{search} || '%'
+	</select>
+	
 </mapper>

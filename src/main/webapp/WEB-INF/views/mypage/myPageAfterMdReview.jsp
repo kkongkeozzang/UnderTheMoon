@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<jsp:include page="/WEB-INF/views/homeHeader.jsp"></jsp:include>
 <!DOCTYPE html>
 <html>
 <head>
@@ -212,7 +213,6 @@
 														type:"get",
 														dataType:"json"
 													}).done(function(resp){
-														console.log(resp);
 														popupBox.find("h2").text(resp.review[0].md_review_title);
 														str = "";
 														str += "<div>"
@@ -249,7 +249,6 @@
 											active:1,
 								            activate: function(event ,ui){
 								                let selectTab = ui.newTab.index();
-								                console.log(selectTab);
 								                if (selectTab == 0) {
 								                	location.href ="/mypage/myPageMdReview?cPage=1";
 								                } else if (selectTab == 1) {

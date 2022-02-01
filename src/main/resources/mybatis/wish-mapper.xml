@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace ="Wish">
+  	<select id="selectByBound" resultType="kh.spring.dto.WishDTO">
+  		select * from (select * from (select target.*, row_number() over(order by wish_date desc) rn from 
+  		(select * from wish w join md m on w.md_id = m.md_id where member_id = #{member_id}) target)) where rn between #{start} and #{end}
+  	</select>
+  	
+  	<select id="selectRecordCount" resultType="int">
+  		select count(*) from wish where member_id = #{value}
+  	</select>
+  	
+  	<insert id="insertMdWish">
+  		insert into wish values(wish_id_seq.nextval, #{member_id}, #{md_id}, #{wish_item}, #{wish_price}, default)
+  	</insert>
+  	
+  	<delete id="deleteMdWish">
+  		delete from wish where wish_id = #{wish_id} 
+  	</delete>
+  	
+  	<delete id="deleteByMdIdWish">
+  		delete from wish where md_id = #{md_id} 
+  	</delete>
+  	
+  	<select id="selectByMdId" resultType="int">
+  		select count(*) from wish where md_id = #{md_id}
+  	</select>
+  </mapper>

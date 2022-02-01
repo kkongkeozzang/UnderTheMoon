@@ -174,9 +174,9 @@
 													<div class="status-box">
 														<span class=status>배송완료</span>
 													</div>
-													<div class="btn-box">
+													<div class="btn-box" style="flex-direction: column; justify-content: center;">
 														<a href="#popup${md.md_review_id }"><button class="read-review" type=button style="font-size: 15px">후기보기</button></a>
-														<input type=button class="delete-btn" style="font-size: 15px" value="후기삭제">
+														<input type=button class="delete-btn" style="font-size: 15px;" value="후기삭제">
 													</div>
 													<div id="popup${md.md_review_id }" class="overlay">
 									                    <div class="popup">

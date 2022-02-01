@@ -113,7 +113,7 @@
 		location="/mypage/writeReview"
 	})
 	
-<<<<<<< HEAD
+
 	
 	//주문취소..
 	$("body").on("click",".cancel",function(){
@@ -139,7 +139,7 @@
 	     })
 	   })
 	
-=======
+
 	$("#select-date").on("change",function(){
 		var page = "1";
 		$.ajax({
@@ -153,7 +153,7 @@
 		    	 alert("테스트");
 		     })
 	})
->>>>>>> bad143af6c4e31c89798c8054fab54ed1bfb6ccf
+
 </script>
 </body>
 </html>

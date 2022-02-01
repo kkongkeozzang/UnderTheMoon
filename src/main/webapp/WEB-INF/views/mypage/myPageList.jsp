@@ -6,6 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<jsp:include page="/WEB-INF/views/homeHeader.jsp"></jsp:include>
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <link
@@ -31,89 +32,18 @@
 </head>
 
 <body>
+
 	<div class="container">
-	<div class="row" id="header">
-		</div>
         <div class="row">
             <div class="col-12">
                 <div class="card">
-					<div class="card-body">
-						<div class="row mt-3">
-							<div class="col-12 col-lg-3">
-								<div class="card shadow-none border radius-15">
-									<div class="card-body" align=center>
-										<div class="d-flex">										
-											<div class="detail">
-                                                <h6 class="detail-title-one">${memberDTO.member_username }회원님</h6>
-												<button type="button" class="btn btn-light" id="all-grade">나의등급 보기</button>
-												<input type="hidden" name="member_id" value="${memberDTO.member_id }">
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-                            <div class="col-12 col-lg-3">
-								<div class="card shadow-none border radius-15">
-									<div class="card-body" align=center>
-										<div class="d-flex">
-
-											<div class="detail">
-												<h6 class="detail-title"><a href="/mypage/myPagePoint">적립금 ></a></h6>
-												<p class="detail-detail"><span><fmt:formatNumber value="${pointSum}" type="number"/> 원</span></p>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-                            <div class="col-12 col-lg-3">
-								<div class="card shadow-none border radius-15">
-									<div class="card-body" align=center>
-										<div class="d-flex">											
-											<div class="detail">
-												<h6 class="detail-title"><a href="/mypage/myPageCoupon?cPage=1">쿠폰 ></a></h6>
-												<p class="detail-detail"><span>${couponSum } 개</span></p>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-                            <div class="col-12 col-lg-3">
-								<div class="card shadow-none border radius-15">
-									<div class="card-body" align=center>
-										<div class="d-flex">										
-											<div class="detail">
-												<h6 class="detail-title"><a href="/qna/qnaList">1:1문의 ></a></h6>
-												<p class="detail-detail"><span>도움이 필요하신가요?</span></p>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-            			</div>            
-            		</div>    
+					   <jsp:include page="myPageNavBar.jsp" flush="false" /> 
 
         
 	<div class="row">
 			<div class="col-12 col-md-4 col-lg-3">
 				<div class="card">
-					<div class="card-body">
-						<div class="d-grid"></div>
-						<h5 class="my-3">My Page</h5>
-						<div class="fm-menu">
-							<div class="list-group list-group-flush">
-								<a href="/mypage/myPageList?cPage=1" class="list-group-item py-1"><span>주문 내역</span></a> 													
-								<a href="/mypage/myPageLike" class="list-group-item py-1"><span>찜한 상품</span></a>
-								<a href="/mypage/myPagePoint" class="list-group-item py-1"><span>적립금</span></a>
-                                <a href="/mypage/myPageCoupon?cPage=1" class="list-group-item py-1"><span>쿠폰</span></a>
-                                <a href="" class="list-group-item py-1"><span>상품 문의</span></a>
-                                <a href="/mypage/myPageMdReview?cPage=1" class="list-group-item py-1"><span>상품 후기</span></a>
-                                <a href="/mypage/myPageModifyProfile" class="list-group-item py-1"><span>개인정보 수정</span></a>
-                                <br>
-                                <br>
-								<a href="/qna/qnaList" class="list-group-item py-1"><span>도움이 필요하신가요?<br>1:1 문의하기</span></a>
-							</div>
-						</div>
-					</div>
+					<jsp:include page="myPageSideBar.jsp" flush="false" />
 				</div>
 			</div>
 
@@ -125,11 +55,11 @@
 										<thead>
 											<tr>
 												<th class="name truncate" colspan=4>주문 내역 (지난 3개월 간 주문 내역 조회가 가능합니다) 
-                                                    <select class="form-select form-select-sm" aria-label=".form-select-sm example">
+                                                    <select class="form-select form-select-sm" aria-label=".form-select-sm example" id="select-date" onchange="changeList();">
                                                     <option value="1" selected>전체기간</option>
-                                                    <option value="2">1개월전</option>
-                                                    <option value="3">2개월전</option>
-													<option value="4">3개월전</option>
+                                                    <option id="one-month" value="30">1개월전</option>
+                                                    <option id="two-month" value="60">2개월전</option>
+													<option id="three-month" value="90">3개월전</option>
                                                   </select></th>
 											</tr>
 										</thead>										
@@ -181,6 +111,19 @@
 		location="/mypage/writeReview"
 	})
 	
+	$("#select-date").on("change",function(){
+		var page = "1";
+		$.ajax({
+		  	  type: 'post',
+		        url:"/mypage/myPageListselectDate",
+		        data: {
+		        	selectDate: $("#select-date option:selected").val(),
+		        	cPage: page
+		        }
+		     }).done(function(resp){
+		    	 alert("테스트");
+		     })
+	})
 </script>
 </body>
 </html>

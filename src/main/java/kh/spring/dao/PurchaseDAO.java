@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import kh.spring.dto.MyPagePurchaseDTO;
 import kh.spring.dto.MyPagePurchaseDetailDTO;
 import kh.spring.dto.PurchaseDTO;
+import kh.spring.dto.PurchaseDateDTO;
 
 
 @Repository
@@ -95,5 +96,15 @@ private final SqlSessionTemplate mybatis;
 		map.put("end", String.valueOf(end));
 		
 		return mybatis.selectList("Purchase.selectPurchaseDetailByBound", map);
+	}
+	
+	public List<PurchaseDateDTO> selectPurchaseDateByBound(Integer member_id, int selectDate, int start, int end) {
+		Map<String, String> map = new HashMap<>();
+		map.put("member_id", String.valueOf(member_id));
+		map.put("selectDate", String.valueOf(selectDate));
+		map.put("start", String.valueOf(start));
+		map.put("end", String.valueOf(end));
+		
+		return mybatis.selectList("Purchase.selectPurchaseDateByBound", map);
 	}
 }

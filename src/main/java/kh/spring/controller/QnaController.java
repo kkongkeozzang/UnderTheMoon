@@ -31,37 +31,72 @@ public class QnaController {
 		this.qnaResponseService = qnaResponseService; 
 	}
 	
+	private int writer_id;
+	
 	@ResponseBody
 	@RequestMapping("username")
-	public String username(String member_id) {
+	public String writerName(String member_id, int writer_id) {
 		String username = qnaService.selectUsername(member_id);
+		this.writer_id= writer_id;
 		return username;
 	}
 
 	
 	
 	@RequestMapping("qnaList") //글 목록
-	public String myPage(Model model) {
-        System.out.println("null1");
+	public String myPage(QnaResponseDTO dto, QnaDTO qdto, Model model) {
+		
+		System.out.println(dto);
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal(); 
-        String username = ((UserDetails)principal).getUsername();
-        System.out.println("null2");
+		String username = ((UserDetails)principal).getUsername();
+		System.out.println("null2");
 		MemberDTO memberDTO = memberService.selectByUsername(username);
 		int result = qnaService.selectMemberId(username);
-		//int qa_question_id = qnaResponseService.selectQuestionId(result);
+		
+		if(result == 1)
+		{
+		String content = qnaResponseService.selectResponseContent(qdto);
+        System.out.println(content);
+        //int qa_question_id= this.writer_id;
+		int qa_question_id= this.writer_id;
+        System.out.println(qa_question_id);
 		List<QnaDTO> qnas = qnaService.selectAllByUsername(result);
+		System.out.println("null3");
 		List<QnaDTO> qnasAdmin = qnaService.selectAllAsAdmin();
-        System.out.println("null3");
-
-		//List<QnaResponseDTO> response = qnaResponseService.selectAll(result);
+        List<QnaResponseDTO> response = qnaResponseService.selectAll(result);
+		System.out.println(response);
 		model.addAttribute("memberDTO",memberDTO);
 		model.addAttribute("qnas", qnas); 
 		model.addAttribute("member_id", result);
 		model.addAttribute("qnasAdmin", qnasAdmin); 
-		//model.addAttribute("qa_question_id", qa_question_id);
-		//model.addAttribute("response", response);
+		model.addAttribute("qa_question_id", qa_question_id);
+		model.addAttribute("response", response);
+		model.addAttribute("content", content);
         System.out.println("null");
 		return "/qna/qnaList";
+
+		}else {
+		List<QnaDTO> qnas = qnaService.selectAllByUsername(result);
+		System.out.println("null3");
+		List<QnaDTO> qnasAdmin = qnaService.selectAllAsAdmin();
+        List<QnaResponseDTO> response = qnaResponseService.selectAll(result);
+		System.out.println(response);
+		int qa_question_id= this.writer_id;
+		String content = qnaResponseService.selectResponseContent(qdto);
+
+
+        
+		model.addAttribute("memberDTO",memberDTO);
+		model.addAttribute("qnas", qnas); 
+		model.addAttribute("member_id", result);
+		model.addAttribute("qnasAdmin", qnasAdmin); 
+		model.addAttribute("qa_question_id", qa_question_id);
+		model.addAttribute("response", response);
+		model.addAttribute("content", content);
+
+        System.out.println("null");
+		return "/qna/qnaList";
+		}
 	}
 	
 	
@@ -98,16 +133,21 @@ public class QnaController {
 	}
 	
 	@RequestMapping("adminWriteProc")
-	public String adminWriteProc(QnaResponseDTO dto, Model model) {
-		int resultResponse = qnaResponseService.insert(dto);
-
-		
+	public String adminWriteProc(QnaResponseDTO dto, QnaDTO qdto, Model model) {
+		qnaResponseService.insert(dto);
 		System.out.println("성공");
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal(); 
         String username = ((UserDetails)principal).getUsername();
 		MemberDTO memberDTO = memberService.selectByUsername(username);
+		String content = qnaResponseService.selectResponseContent(qdto);
+		System.out.print(content);
 		int result = qnaService.selectMemberId(username);
-		int qa_question_id = qnaResponseService.selectQuestionId(result);
+		System.out.print(result);
+
+		int qa_question_id= this.writer_id;
+		//int qa_question_id = qnaResponseService.selectQuestionId(result);
+		System.out.print(qa_question_id);
+
 		List<QnaDTO> qnas = qnaService.selectAllByUsername(result);
 		List<QnaDTO> qnasAdmin = qnaService.selectAllAsAdmin();
 		List<QnaResponseDTO> response = qnaResponseService.selectAll(result);
@@ -117,7 +157,9 @@ public class QnaController {
 		model.addAttribute("member_id", result);
 		model.addAttribute("qnasAdmin", qnasAdmin); 
 		model.addAttribute("qa_question_id", qa_question_id);
-		model.addAttribute("response", response);
+		System.out.print(model);
+
+		model.addAttribute("response", response); 
 
 		return "redirect:/qna/qnaList";
 	}

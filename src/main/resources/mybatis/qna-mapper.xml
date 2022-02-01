@@ -26,7 +26,7 @@ select * from qa_question
 	</select>	
 	
 		<select id="selectMemberId" resultType="int">
-		select * from member where member_username = #{username}
+		select member_id from member where member_username = #{username}
 	</select>
 	
 	<delete id="delete">

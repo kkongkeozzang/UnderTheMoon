@@ -36,4 +36,9 @@ public class QnaResponseService {
 	public List<QnaResponseDTO> selectAll(int result){
 		return qnaResponseDAO.selectAll(result);
 	} 	
+	
+	public String selectResponseContent(QnaDTO dto) {
+		return qnaResponseDAO.selectResponseContent(dto);
+	}
+	
 }

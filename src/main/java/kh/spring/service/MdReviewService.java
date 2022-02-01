@@ -1,6 +1,8 @@
 package kh.spring.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
@@ -51,4 +53,9 @@ public class MdReviewService {
 	public int insertMdReview(MdReviewDTO dto) {
 		return mdReviewDAO.insertMdReview(dto);
 	}
+	
+	public List<MdReviewDTO> selectMdReviewByMdReviewId(String md_review_id) {
+		return mdReviewDAO.selectMdReviewByMdReviewId(md_review_id);
+	}
+	
 }

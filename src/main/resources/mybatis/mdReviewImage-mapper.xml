@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="MdReviewImage">
+	
+	<delete id="deleteImage">
+		delete from md_review_image where md_review_image = ${value}
+	</delete>
+	
+	<insert id="insertImage">
+		insert into md_review_image values(md_review_image_id_seq.nextval, #{md_review_id},#{md_review_image})
+	</insert>
+	
+	<select id="selectAllByMdReviewId" resultType="kh.spring.dto.MdReviewImageDTO">
+		select * from md_review_image where md_review_id = #{value}
+	</select>
+</mapper>

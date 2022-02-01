@@ -107,7 +107,7 @@
 		(select target.*, row_number() over(order by purchase_detail_delivery_date desc) as rn 
 		from 
 		(select 
-		dpr.purchase_detail_id,
+		dpr.d_purchase_detail_id,
 		dpr.d_purchase_id,
 		dpr.purchase_detail_quantity,
 		dpr.purchase_detail_price,
@@ -116,12 +116,13 @@
 		dpr.purchase_id,
 		dpr.p_member_id,
 		dpr.md_review_id,
-		m.md_id, 
+		m.md_id, -- 이거 수상함
 		m.md_name, m.md_content, m.md_image
 		from md m join 
-		(select * from 
+		(
+		select * from 
 		(select 
-		d.purchase_detail_id, d.purchase_id d_purchase_id, d.md_id d_md_id, d.purchase_detail_quantity,
+		d.purchase_detail_id d_purchase_detail_id, d.purchase_id d_purchase_id, d.md_id d_md_id, d.purchase_detail_quantity,
 		d.purchase_detail_price, d.purchase_detail_result, d.purchase_detail_delivery_date,
 		p.purchase_id, p.member_id p_member_id
 		from purchase_detail d 
@@ -129,14 +130,15 @@
 		on d.purchase_id = p.purchase_id) dp 
 		left outer join 
 		md_review r 
-		on dp.d_md_id = r.md_id
-		order by d_purchase_id desc) dpr
+		on dp.d_purchase_detail_id = r.purchase_detail_id
+		order by d_purchase_id desc
+		) dpr
 		on m.md_id = dpr.d_md_id
-		where p_member_id = #{member_id}
-		and purchase_detail_result = 'Y' 
-		<![CDATA[and floor((cast(purchase_detail_delivery_date as date)) - sysdate) <= 30]]>
-		and md_review_id is null) target) 
-		where rn between #{start} and #{end}
+		where p_member_id = #{member_id} -- 멤버 아이디로 구분
+		and purchase_detail_result = 'Y' -- 배송결과 Y인것만
+		<![CDATA[and floor((cast(purchase_detail_delivery_date as date)) - sysdate) <= 30]]> -- 배송완료일부터 30일 이전까지만
+		and md_review_id is null) target) -- 상품 후기 안쓴것
+		where rn between #{start} and #{end} -- 페이징 처리
 	</select>
 
 	<select id="selectByBoundReviewMdByMemberId" resultType="kh.spring.dto.MdAndReviewDTO">
@@ -144,7 +146,7 @@
 		(select target.*, row_number() over(order by purchase_detail_delivery_date desc) as rn 
 		from 
 		(select 
-		dpr.purchase_detail_id,
+		dpr.d_purchase_detail_id,
 		dpr.d_purchase_id,
 		dpr.purchase_detail_quantity,
 		dpr.purchase_detail_price,
@@ -153,12 +155,13 @@
 		dpr.purchase_id,
 		dpr.p_member_id,
 		dpr.md_review_id,
-		m.md_id, 
+		m.md_id, -- 이거 수상함
 		m.md_name, m.md_content, m.md_image
 		from md m join 
-		(select * from 
+		(
+		select * from 
 		(select 
-		d.purchase_detail_id, d.purchase_id d_purchase_id, d.md_id d_md_id, d.purchase_detail_quantity,
+		d.purchase_detail_id d_purchase_detail_id, d.purchase_id d_purchase_id, d.md_id d_md_id, d.purchase_detail_quantity,
 		d.purchase_detail_price, d.purchase_detail_result, d.purchase_detail_delivery_date,
 		p.purchase_id, p.member_id p_member_id
 		from purchase_detail d 
@@ -166,14 +169,15 @@
 		on d.purchase_id = p.purchase_id) dp 
 		left outer join 
 		md_review r 
-		on dp.d_md_id = r.md_id
-		order by d_purchase_id desc) dpr
+		on dp.d_purchase_detail_id = r.purchase_detail_id
+		order by d_purchase_id desc
+		) dpr
 		on m.md_id = dpr.d_md_id
-		where p_member_id = #{member_id}
-		and purchase_detail_result = 'Y' 
-		<![CDATA[and floor((cast(purchase_detail_delivery_date as date)) - sysdate) <= 30]]>
-		and md_review_id is not null) target) 
-		where rn between #{start} and #{end}
+		where p_member_id = #{member_id} -- 멤버 아이디로 구분
+		and purchase_detail_result = 'Y' -- 배송결과 Y인것만
+		<![CDATA[and floor((cast(purchase_detail_delivery_date as date)) - sysdate) <= 30]]> -- 배송완료일부터 30일 이전까지만
+		and md_review_id is not null) target) -- 상품 후기 쓴것
+		where rn between #{start} and #{end} -- 페이징 처리
 	</select>
 
 	<select id="selectByBoundNotReviewMdCountByMemberId" resultType="int">
@@ -181,7 +185,7 @@
 		(select target.*, row_number() over(order by purchase_detail_delivery_date desc) as rn 
 		from 
 		(select 
-		dpr.purchase_detail_id,
+		dpr.d_purchase_detail_id,
 		dpr.d_purchase_id,
 		dpr.purchase_detail_quantity,
 		dpr.purchase_detail_price,
@@ -190,12 +194,13 @@
 		dpr.purchase_id,
 		dpr.p_member_id,
 		dpr.md_review_id,
-		m.md_id, 
+		m.md_id, -- 이거 수상함
 		m.md_name, m.md_content, m.md_image
 		from md m join 
-		(select * from 
+		(
+		select * from 
 		(select 
-		d.purchase_detail_id, d.purchase_id d_purchase_id, d.md_id d_md_id, d.purchase_detail_quantity,
+		d.purchase_detail_id d_purchase_detail_id, d.purchase_id d_purchase_id, d.md_id d_md_id, d.purchase_detail_quantity,
 		d.purchase_detail_price, d.purchase_detail_result, d.purchase_detail_delivery_date,
 		p.purchase_id, p.member_id p_member_id
 		from purchase_detail d 
@@ -203,13 +208,14 @@
 		on d.purchase_id = p.purchase_id) dp 
 		left outer join 
 		md_review r 
-		on dp.d_md_id = r.md_id
-		order by d_purchase_id desc) dpr
+		on dp.d_purchase_detail_id = r.purchase_detail_id
+		order by d_purchase_id desc
+		) dpr
 		on m.md_id = dpr.d_md_id
-		where p_member_id = #{value}
-		and purchase_detail_result = 'Y' 
-		<![CDATA[and floor((cast(purchase_detail_delivery_date as date)) - sysdate) <= 30]]>
-		and md_review_id is null) target) 
+		where p_member_id = #{member_id} -- 멤버 아이디로 구분
+		and purchase_detail_result = 'Y' -- 배송결과 Y인것만
+		<![CDATA[and floor((cast(purchase_detail_delivery_date as date)) - sysdate) <= 30]]> -- 배송완료일부터 30일 이전까지만
+		and md_review_id is null) target) -- 상품 후기 안쓴것
 	</select>
 
 	<select id="selectByBoundReviewMdCountByMemberId" resultType="int">
@@ -217,7 +223,7 @@
 		(select target.*, row_number() over(order by purchase_detail_delivery_date desc) as rn 
 		from 
 		(select 
-		dpr.purchase_detail_id,
+		dpr.d_purchase_detail_id,
 		dpr.d_purchase_id,
 		dpr.purchase_detail_quantity,
 		dpr.purchase_detail_price,
@@ -226,12 +232,13 @@
 		dpr.purchase_id,
 		dpr.p_member_id,
 		dpr.md_review_id,
-		m.md_id, 
+		m.md_id, -- 이거 수상함
 		m.md_name, m.md_content, m.md_image
 		from md m join 
-		(select * from 
+		(
+		select * from 
 		(select 
-		d.purchase_detail_id, d.purchase_id d_purchase_id, d.md_id d_md_id, d.purchase_detail_quantity,
+		d.purchase_detail_id d_purchase_detail_id, d.purchase_id d_purchase_id, d.md_id d_md_id, d.purchase_detail_quantity,
 		d.purchase_detail_price, d.purchase_detail_result, d.purchase_detail_delivery_date,
 		p.purchase_id, p.member_id p_member_id
 		from purchase_detail d 
@@ -239,13 +246,14 @@
 		on d.purchase_id = p.purchase_id) dp 
 		left outer join 
 		md_review r 
-		on dp.d_md_id = r.md_id
-		order by d_purchase_id desc) dpr
+		on dp.d_purchase_detail_id = r.purchase_detail_id
+		order by d_purchase_id desc
+		) dpr
 		on m.md_id = dpr.d_md_id
-		where p_member_id = #{value}
-		and purchase_detail_result = 'Y' 
-		<![CDATA[and floor((cast(purchase_detail_delivery_date as date)) - sysdate) <= 30]]>
-		and md_review_id is not null) target) 
+		where p_member_id = #{member_id} -- 멤버 아이디로 구분
+		and purchase_detail_result = 'Y' -- 배송결과 Y인것만
+		<![CDATA[and floor((cast(purchase_detail_delivery_date as date)) - sysdate) <= 30]]> -- 배송완료일부터 30일 이전까지만
+		and md_review_id is not null) target) -- 상품 후기 쓴것 
 	</select>
 	
 	<select id="selectSearchResult" resultType="kh.spring.dto.MdDTO" >

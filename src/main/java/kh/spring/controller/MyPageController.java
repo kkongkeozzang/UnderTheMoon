@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import kh.spring.dto.CouponDTO;
 import kh.spring.dto.GradeDTO;
 import kh.spring.dto.MdAndReviewDTO;
+import kh.spring.dto.MdDTO;
 import kh.spring.dto.MdInqryDTO;
 import kh.spring.dto.MemberDTO;
 import kh.spring.dto.MyPagePurchaseDetailDTO;
@@ -324,6 +325,22 @@ public class MyPageController {
 		return "/mypage/myPageAfterMdReview";
 	}
 	
+	@RequestMapping("myPageReviewWrite")
+	public String myPageReviewWrite(Model model, int md_id, int d_purchase_detail_id) throws Exception{
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal(); 
+        String username = ((UserDetails)principal).getUsername();
+		MemberDTO memberDTO = memberService.selectByUsername(username);
+		int pointSum = pointService.selectPointById(username).get();
+		int couponSum = couponService.selectCouponPossibleById(memberDTO.getMember_id());
+		List<MdDTO> md = mdService.selectMdById(md_id);
+		model.addAttribute("memberDTO",memberDTO);
+		model.addAttribute("pointSum",pointSum);
+		model.addAttribute("couponSum", couponSum);
+		model.addAttribute("md",md);
+		model.addAttribute("d_purchase_detail_id",d_purchase_detail_id);
+		return "/mypage/myPageReviewWrite";
+	}
+	
 	@RequestMapping("myPageQuestion")
 	public String myPageQuestion(Model model, int cPage) throws Exception{
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal(); 
@@ -336,10 +353,9 @@ public class MyPageController {
 		List<MdInqryDTO> mdInqryList = mdInqryService.selectByBoundByMemberId(memberDTO.getMember_id(), start, end);
 		Integer allMdInqryCount = mdInqryService.selectRecordCount(memberDTO.getMember_id());
 		String pageNavi = PageNavigator.getPageNavigator(allMdInqryCount, cPage, PageStatic.MYPAGEQUESTION_COUNT_PER_PAGE, PageStatic.MYPAGEQUESTION_NAVI_COUNT_PER_PAGE, "question", "all" ,"","");
-		
-		model.addAttribute("memberDTO",memberDTO);
 		model.addAttribute("pointSum",pointSum);
 		model.addAttribute("couponSum", couponSum);
+		model.addAttribute("memberDTO",memberDTO);
 		model.addAttribute("mdInqryList", mdInqryList);
 		model.addAttribute("pageNavi", pageNavi);
 		

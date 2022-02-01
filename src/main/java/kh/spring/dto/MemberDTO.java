@@ -19,12 +19,13 @@ public class MemberDTO {
 	   private String grade_name;
 	   private String role;
 	   private String member_email;
+	   private int count;
 	   
 	   public MemberDTO() {}
 	   
 	   public MemberDTO(Integer member_id, String member_username, String member_password, String member_name,
 	         String member_birth_date, String member_phone, String member_zipcode, String member_address1,
-	         String member_address2, Timestamp member_signup_date, String grade_name, String role, String member_email) {
+	         String member_address2, Timestamp member_signup_date, String grade_name, String role, String member_email, int count) {
 	      super();
 	      this.member_id = member_id;
 	      this.member_username = member_username;
@@ -39,6 +40,7 @@ public class MemberDTO {
 	      this.grade_name = grade_name;
 	      this.role = role;
 	      this.member_email = member_email;
+	      this.count = count;
 	   }
 
 	   public Integer getMember_id() {
@@ -150,6 +152,12 @@ public class MemberDTO {
 			return sdf.format(getMember_signup_date().getTime());
 	   }
 	   
-	   
+	   public int getCount() {
+	      return count;
+	   }
+
+	   public void setCount(int count) {
+	      this.count = count;
+	   }
 }
 

@@ -7,10 +7,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import kh.spring.dao.VisitCountDAO;
 import kh.spring.dto.FaqDTO;
 import kh.spring.dto.GradeDTO;
 import kh.spring.dto.MemberDTO;
 import kh.spring.dto.NoticeDTO;
+import kh.spring.dto.VisitCountDTO;
 import kh.spring.service.FaqService;
 import kh.spring.service.GradeService;
 import kh.spring.service.MemberService;
@@ -24,16 +26,31 @@ public class AdminController {
 	private final MemberService memberService;
 	private final NoticeService noticeService;
 	private final FaqService faqService;
+	private final VisitCountDAO visitCountDAO;
 	
-	public AdminController(GradeService gradeService, MemberService memberService, NoticeService noticeService, FaqService faqService) {
+	public AdminController(GradeService gradeService, MemberService memberService, NoticeService noticeService, FaqService faqService, VisitCountDAO visitCountDAO) {
 		this.gradeService = gradeService;
 		this.memberService = memberService;
 		this.noticeService = noticeService;
 		this.faqService = faqService;
+		this.visitCountDAO = visitCountDAO;
 	}
 	
 	@RequestMapping("adminOffice")
-	public String adminOffice() throws Exception {
+	public String adminOffice(Model model) throws Exception {
+		int totalMember = memberService.selectTotalMember();
+		int todayMember = memberService.selectTodayMember();
+		List<MemberDTO> memberByGrade = memberService.selectByGrade();
+		int totalVisitor = visitCountDAO.selectTotalVisitor();
+		int todayVisitor = visitCountDAO.selectTodayVisitor();
+		List<VisitCountDTO> monthVisitor = visitCountDAO.selectMonthlyVisitor();
+		
+		model.addAttribute("totalMember", totalMember);
+		model.addAttribute("todayMember", todayMember);
+		model.addAttribute("memberByGrade", memberByGrade);
+		model.addAttribute("totalVisitor", totalVisitor);
+		model.addAttribute("todayVisitor", todayVisitor);
+		model.addAttribute("monthVisitor", monthVisitor);
 	    return "/admin/adminDashboard";
 	}
 	

@@ -113,7 +113,6 @@
 		location="/mypage/writeReview"
 	})
 	
-
 	
 	//주문취소..
 	$("body").on("click",".cancel",function(){
@@ -139,7 +138,6 @@
 	     })
 	   })
 	
-
 	$("#select-date").on("change",function(){
 		var page = "1";
 		$.ajax({

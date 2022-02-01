@@ -280,23 +280,32 @@
                </sec:authorize>
              </c:when>  
             <c:when test="${!empty qnas}">
-				<sec:authorize access="hasRole('ROLE_ADMIN')">            
-				<c:forEach var="qnasAdmin" items="${qnasAdmin}" varStatus="status" >
-				${ response[status.index].qa_response_content } 
+            <sec:authorize access="hasRole('ROLE_ADMIN')">            
+            <c:forEach var="qnasAdmin" items="${qnasAdmin}" varStatus="status" >
 
-				<div class="card-body py-3 " style="justify-content: space-around; margin:0px;">
+            <div class="card-body py-3 " style="justify-content: space-around; margin:0px;">
                   <input type="hidden" value="${qnasAdmin.member_id}" name="member_id" id="member_id${qnasAdmin.qa_question_id}">
-                  <input type="hidden" value="${qnasAdmin.qa_question_id}" name="qa_question_id">
+                  <input type="hidden" value="${qnasAdmin.qa_question_id}" name="qa_question_id" id="qa_question_id${qnasAdmin.qa_question_id} ">
                   <input type="hidden" value="${username}" id="username${qnasAdmin.qa_question_id}">
                   
                   <script>
+                  console.log(${qnasAdmin.qa_question_id});
                   str = "";
                   $(document).ready(function() {
                      $.ajax({
                         url:"/qna/username",
-                        data:{member_id: $("#member_id${qnasAdmin.qa_question_id}").val()}
+                        data:{
+                        member_id:   $("#member_id${qnasAdmin.qa_question_id}").val(),   
+                        writer_id:	 ${qnasAdmin.qa_question_id},    
+                        },
+                        
+                        success : function(data) {
+                           	console.log("data.member_id" , data);
+                            console.log(${qnasAdmin.qa_question_id});  
+                        }
+                            	
                      }).done(function(resp){
-                         $(username${qnasAdmin.qa_question_id}).val(resp);
+                         //$(username${qnasAdmin.qa_question_id}).val(resp);
                         username = resp;
                         let str = "";
                         if(principal == username) {
@@ -307,8 +316,8 @@
                         }else{
                            str += "<div class='col-sm-12' style='text-align: right; margin-top:15px;margin-bottom:15px;'>";
                            str += "<form action='adminWriteProc' method='post'>";
-                           str += "<input type='hidden' name=member_id value=${member_id}>";
-                           str += "<input type='hidden' name=qa_question_id value=${qa_question_id}>";
+                           str += "<input type='hidden' name=member_id value=${qnasAdmin.member_id}>";
+                           str += "<input type='hidden' name=qa_question_id value=${qnasAdmin.qa_question_id}>";
                            str += "<div><textarea name='qa_response_content'></textarea></div>";
 
                            str += "<button type=\"submit\" class=\"btn btn-dark\" id=\"insert${qnasAdmin.qa_question_id}\" style=\"background-color: #406882;\">답변하기</button>";
@@ -360,32 +369,48 @@
                    </div>
                    <div class="col-sm-12" style="text-align: right; margin-top:15px;margin-bottom:15px;">
                    <hr>
-		<button  type='button' class='btn btn-dark' id='write-response'>문자로 알리기 test</button>
+      <button  type='button' class='btn btn-dark' id='write-response'>문자로 알리기 test</button>
+            <button  type='button' class='btn btn-dark' id='write-response'>here</button>
+      
                      <script>
                         username = $("#username${qnasAdmin.qa_question_id}").val();
                         principal = $("#principal${qnasAdmin.qa_question_id}").val();
                      </script>
                   </div>
-                 ↳  ${memberDTO.member_phone} ${ response[status.index].qa_response_content }
+                 ↳  ${qnasAdmin.qa_question_content } 
                 </div>
                <hr class="m-0">
             </c:forEach>
             </sec:authorize>
             
+            
 <!-- 일반 권한으로 로그인 시, 본인이 작성한 글만 조회 가능 -->
-			<c:forEach var="qnas" items="${qnas}">
-				<div class="card-body py-3 " style="justify-content: space-around; margin:0px;">
+            <sec:authorize access="hasRole('ROLE_USER')">
+         
+                        
+         <c:forEach var="qnas" items="${qnas}" varStatus="status">
+            <div class="card-body py-3 " style="justify-content: space-around; margin:0px;">
                   <input type="hidden" value="${qnas.member_id}" name="member_id" id="member_id${qnas.qa_question_id}">
-                  <input type="hidden" value="${qnas.qa_question_id}" name="qa_question_id">
+                  <input type="hidden" value="${qnas.qa_question_id}" name="qa_question_id" id="qa_question_id${qnas.qa_question_id} ">
                   <input type="hidden" value="${username}" id="username${qnas.qa_question_id}">
-                  <input type="hidden" value="${memberDTO.member_phone}" id="${memberDTO.member_phone}">
                   
                   <script>
+
+                  
                   str = "";
                   $(document).ready(function() {
-                     $.ajax({
-                        url:"/qna/username",
-                        data:{member_id: $("#member_id${qnas.qa_question_id}").val()}
+                	  $.ajax({
+                          url:"/qna/username",
+                          data:{
+                          member_id:   $("#member_id${qnas.qa_question_id}").val(),   
+                          writer_id:	 ${qnas.qa_question_id},    
+                          },
+                          
+                          success : function(data) {
+                             	console.log("data.member_id" , data);
+                              console.log(${qnas.qa_question_id});  
+                          }
+                              	
                      }).done(function(resp){
                          $(username${qnas.qa_question_id}).val(resp);
                         username = resp;
@@ -393,7 +418,7 @@
                         if(principal == username) {
                            str += "<div class='col-sm-12' style='text-align: right; margin-top:15px;margin-bottom:15px;'>";
                            str += "<button type='button' class='btn btn-dark' id='delete${qnas.qa_question_id}' style='background-color: #406882;'>내 글 삭제하기</button>";
-                           str += "<hr>";
+                           
                            str += "<div>${ response[status.index].qa_response_content }</div>";
                            str += "</div>";
                            $(".buttons${qnas.qa_question_id}").html(str);   
@@ -418,7 +443,7 @@
                      style="justify-content: space-around" data-toggle="collapse"> <!-- data-target="#demo2" --> 
    
                      <%-- 웹버전 seq --%>
-                     <div class="col-1 d-none d-md-block" align=left>${qnas.qa_question_id }</div>
+                     <div class="col-1 d-none d-md-block" align=left>${status.count }</div>
                      <%-- 웹버전 category --%>
                      <div class="col-2 d-none d-md-block" align=left>${qnas.qa_question_category }</div>
                      <%-- 웹버전 title --%>
@@ -438,22 +463,21 @@
                </div>
                <%-- 웹버전 내용 --%>
                 <div class="hidden-row" style="border-top:1px solid rgba(0,0,0,.125);display:none;padding:30px;">
-                   <span style="margin-right:10px;"></span>${qnas.qa_question_content }
+                   <span style="margin-right:10px;"></span>
                    <div class=buttons${qnas.qa_question_id}>
                    </div>
                    <div class="col-sm-12" style="text-align: right; margin-top:15px;margin-bottom:15px;">
                    <hr>
-		<button  type='button' class='btn btn-dark' id='write-response'>here</button>
                      <script>
                         username = $("#username${qnas.qa_question_id}").val();
                         principal = $("#principal${qnas.qa_question_id}").val();
                      </script>
                   </div>
-                 ↳   ${memberDTO.member_phone} 
+                 ↳  답변 준비 중입니다. 
                 </div>
                <hr class="m-0">
             </c:forEach>
-            
+            </sec:authorize>
             </c:when>
             <c:otherwise>
             
@@ -464,31 +488,33 @@
     
 
 <script>
-	         			$(".btn-write").on("click",function(){
-	         				location.href="/faq/toWrite";
-	         			});
-	         			let search = function(){
-	         				let select = $(".select").val();
-	         				let keyword = $(".input-search").val();
-	         				location.href="/faq/search?cPage=1&select="+select+"&keyword="+keyword;
-	         			};
-	         			$(".btn-search").on("click",search);
-	         			$(".input-search").on("keyup",function(key){
-	         				if(key.keyCode==13){
-	         					let select = $(".select").val();
-		         				let keyword = $(".input-search").val();
-		         				location.href="/faq/search?cPage=1&select="+select+"&keyword="+keyword;
-	         				}
-	         			})
-	         			
-	         			$(".card-body.py-3").on("click",function(){
-            				$(this).next(".hidden-row").slideToggle(0);
-             				$(this).siblings(".hidden-row").not($(this).next(".hidden-row")).slideUp(0);
-            			})
-	         		
-            			
-            			
-            			//API 관련 
+                     $(".btn-write").on("click",function(){
+                        location.href="/faq/toWrite";
+                     });
+                     let search = function(){
+                        let select = $(".select").val();
+                        let keyword = $(".input-search").val();
+                        location.href="/faq/search?cPage=1&select="+select+"&keyword="+keyword;
+                     };
+                     $(".btn-search").on("click",search);
+                     $(".input-search").on("keyup",function(key){
+                        if(key.keyCode==13){
+                           let select = $(".select").val();
+                           let keyword = $(".input-search").val();
+                           location.href="/faq/search?cPage=1&select="+select+"&keyword="+keyword;
+                        }
+                     })
+                     
+                     $(".card-body.py-3").on("click",function(){
+                        $(this).next(".hidden-row").slideToggle(0);
+                         $(this).siblings(".hidden-row").not($(this).next(".hidden-row")).slideUp(0);
+                     })
+                  
+                     
+                     /*
+                     //API 관련 
+
+
             			
             			var phone = ${memberDTO.member_phone};
       $("#write-response").on("click",function(){
@@ -501,7 +527,7 @@
          }).done(function(resp){
             console.log(resp); 
          })
-      })			
+      })			*/
             			</script>
   </tbody>
 </table>

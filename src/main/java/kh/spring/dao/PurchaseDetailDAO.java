@@ -43,4 +43,9 @@ private final SqlSessionTemplate mybatis;
 		
 		return mybatis.selectOne("PurchaseDetail.selectRecordCount",purchase_id);
 	}
+
+	public void cancelOrder(Long purchase_id) {
+		
+		mybatis.selectOne("PurchaseDetail.cancelOrder",purchase_id);
+	}
 }

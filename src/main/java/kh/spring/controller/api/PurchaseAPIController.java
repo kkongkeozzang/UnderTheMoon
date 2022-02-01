@@ -1,14 +1,19 @@
 package kh.spring.controller.api;
 
 import java.io.IOException;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
+import org.apache.commons.io.IOUtils;
+import org.apache.http.HttpResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,22 +24,27 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-
+import kh.spring.dto.BootpayApiDTO;
 import kh.spring.dto.DeliveryDTO;
 import kh.spring.dto.PurchaseDTO;
+import kh.spring.dto.request.Cancel;
 import kh.spring.service.DeliveryService;
+import kh.spring.service.PurchaseDetailService;
 import kh.spring.service.PurchaseService;
+import kh.spring.util.ApiKey;
 
 @RestController
 @RequestMapping("/purchase/rest/")
 public class PurchaseAPIController {
 	
 	private final PurchaseService purchaseService;
+	private final PurchaseDetailService purchaseDetailService;
 	private final DeliveryService deliveryService;
 	
-	public PurchaseAPIController(PurchaseService purchaseService,DeliveryService deliveryService) {
+	public PurchaseAPIController(PurchaseService purchaseService,DeliveryService deliveryService,PurchaseDetailService purchaseDetailService) {
 		this.purchaseService = purchaseService;
 		this.deliveryService = deliveryService;
+		this.purchaseDetailService = purchaseDetailService;
 	}
 	
 	@PostMapping(value="insertPurchase", produces = "application/json")
@@ -74,6 +84,44 @@ public class PurchaseAPIController {
 		int result2 = purchaseService.deleteById(order_id);
 		
 		return new ResponseEntity<Integer>(HttpStatus.OK);
+		
+	}
+	
+	@PatchMapping("updatePurchase/{receipt_id}/{purchase_id}")
+	public ResponseEntity<Integer> updatePurchase(@PathVariable("receipt_id") String receipt_id,@PathVariable("purchase_id") Integer purchase_id) throws InterruptedException{
+			System.out.println(receipt_id+" "+purchase_id);
+			Integer result = purchaseService.updatePurchase(receipt_id,purchase_id);
+			
+			return new ResponseEntity<Integer>(result,HttpStatus.OK);
+	}
+	
+	@GetMapping("cancel/{purchase_id}/{receipt_id}")
+	public ResponseEntity<String> cancelPurchase(@PathVariable Long purchase_id,@PathVariable String receipt_id) throws Exception{
+		
+		BootpayApiDTO api = new BootpayApiDTO(ApiKey.BOOT_PAY_APPLICATION_ID,ApiKey.BOOT_PAY_PRIVATE_KEY);   
+		api.getAccessToken();
+		
+		String str = "";
+		
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal(); 
+		String username = ((UserDetails)principal).getUsername();
+		
+		Cancel cancel = new Cancel();
+		cancel.receipt_id = receipt_id;
+		cancel.name = username;
+		cancel.reason = "사용자취소.";
+
+		try {
+		    HttpResponse res = api.cancel(cancel);
+		    str = IOUtils.toString(res.getEntity().getContent(), "UTF-8");
+		    System.out.println(str);
+		} catch (Exception e) {
+		    e.printStackTrace();
+		}
+		
+		purchaseDetailService.cancelOrder(purchase_id);
+		
+		return new ResponseEntity<String>(str,HttpStatus.OK);
 		
 	}
 }

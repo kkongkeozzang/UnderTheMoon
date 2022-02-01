@@ -44,7 +44,7 @@ public class PurchaseService {
 
 	public void completeOrder(long orderId) {
 		PurchaseDTO purchaseDTO = purchaseDAO.findId(orderId);
-		purchaseDTO.completeOrder();
+		purchaseDTO.completeOrder(); 
 		
 	}
 	
@@ -83,6 +83,11 @@ public class PurchaseService {
 	public List<MyPagePurchaseDetailDTO> selectPurchaseDetailByBound(Integer purchase_id, int start, int end) {
 		// TODO Auto-generated method stub
 		return purchaseDAO.selectPurchaseDetailByBound(purchase_id, start, end);
+	}
+
+	public Integer updatePurchase(String receipt_id, Integer purchase_id) {
+		
+		return purchaseDAO.updatePurchase(receipt_id,purchase_id);
 	}
 
 }

@@ -41,4 +41,10 @@ public class PurchaseDetailService {
 	
 		return purchaseDetailDAO.selectRecordCount(purchase_id);
 	}
+
+	public void cancelOrder(Long purchase_id) {
+		
+		purchaseDetailDAO.cancelOrder(purchase_id);
+		
+	}
 }

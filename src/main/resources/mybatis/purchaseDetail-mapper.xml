@@ -25,9 +25,13 @@
   		<update id="completeDelivery">
   			update purchase_detail set purchase_detail_result = 'Y', purchase_detail_delivery_date = sysdate where purchase_detail_id = #{purchase_detail_id}
   		</update>
+  		
   		<update id="cancelDelivery">
   			update purchase_detail set purchase_detail_result = 'N', purchase_detail_delivery_date = '' where purchase_detail_id = #{purchase_detail_id}
   		</update>
 
+		<update id="cancelOrder">
+  			update purchase_detail set purchase_detail_cancel_order = 'Y' where purchase_id = #{purchase_id}
+  		</update>
 
   </mapper>

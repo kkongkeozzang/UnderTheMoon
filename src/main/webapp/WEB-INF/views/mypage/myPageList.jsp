@@ -137,7 +137,7 @@
 										</tbody>
 									</table>
 									<c:forEach var="purchaseList" items="#{purchaseList}">
-									<div class="row">
+									<div class="purchase-unit row">
 										<%-- <div class="col-sm-12" id="purchase-name"><a href="/md/detail/page?md_id=${purchaseList.md_id }">${purchaseList.md_name }</a>											
 											<hr> --%>
 										<div>
@@ -153,9 +153,11 @@
 												<li>결제 금액 : <fmt:formatNumber value="${purchaseList.purchase_payment }" type="number"/> 원</li>
 											</ul>
 										</div>
-										<div class="col-sm-3" id="purchase-option">
+										<div class="option col-sm-3" id="purchase-option">
+											<input type="hidden" class="purchase_id" name="purchase_id" value="${purchaseList.purchase_id}">
+											<input type="hidden" class="receipt_id" name="receipt_id" value="${purchaseList.receipt_id}">
 											<a href="/mypage/myPagePurchaseDetail?cPage=1&purchase_id=${purchaseList.purchase_id }"><button type="button" class="btn btn-light">상세보기</button></a><br>
-											<button type="button" class="btn btn-light" id="md-delete">주문취소</button><br>
+											<button type="button" class="cancel btn btn-light" id="md-delete">주문취소</button><br>
 										</div>
 									</div>
 									<br>									
@@ -180,6 +182,31 @@
 		
 		location="/mypage/writeReview"
 	})
+	
+	
+	//주문취소..
+	$("body").on("click",".cancel",function(){
+		
+		let purchase_id = $(this).closest(".option").find(".purchase_id").val();
+		let receipt_id = $(this).closest(".option").find(".receipt_id").val();
+			//선택한 주문 삭제..
+	    	/*  $(this).closest(".option").closest(".purchase-unit").remove(); */
+	    	 
+	   if(confirm("주문을 취소하시겠습니까?"))
+		$.ajax({
+	  	  type: 'get',
+	        url:"/purchase/rest/cancel/"+purchase_id+"/"+receipt_id,
+	        dataType:"json"
+	     }).done(function(resp){
+	    	 if(resp.message==""){
+	    		 alert("취소가 완료되었습니다.")  
+	    		 return false;
+	    	 }else{
+	    	  alert(resp.message)  
+	    	  }
+	    	 
+	     })
+	   })
 	
 </script>
 </body>

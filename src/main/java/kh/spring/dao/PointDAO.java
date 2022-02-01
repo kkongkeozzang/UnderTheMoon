@@ -88,6 +88,10 @@ public class PointDAO {
 		return mybatis.update("Point.updatePoint",points);
 
 	}
+	
+	public int deletePointByMemberId(String member_id) {
+		return mybatis.delete("Point.deletePointByMemberId", member_id);
+	}
 }
 
 

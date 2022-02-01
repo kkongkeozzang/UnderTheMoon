@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<jsp:include page="/WEB-INF/views/homeHeader.jsp"></jsp:include>
 <!DOCTYPE html>
 <html>
 <head>
@@ -32,8 +33,6 @@
 
 <body>
 	<div class="container">
-	<div class="row" id="header">
-		</div>
         <div class="row">
             <div class="col-12">
                 <div class="card">
@@ -59,36 +58,62 @@
 										</thead>										
 										<tbody>														
 										</tbody>
-									</table>				
+									</table>
+									<input type="hidden" id="member_username" name="member_username" value="${memberDTO.member_username} ">
+									<input type="hidden" id="member_id" name="member_id" value="${memberDTO.member_id} ">					
 									<c:forEach var="wishDTO" items="${wishList}">
 									<div class="md-box">
                                    <div class="img-box"><div class="img-box2"><img src="/mdImage/${wishDTO.md_image }"></div></div>
                                    <div class="detail-box">
                                    	<input type="hidden" id="wish_id" name="wish_id" value="${wishDTO.wish_id }">
-                                      <div>상품이름 : ${wishDTO.wish_item }</div>
-                                      <div>가격 : <fmt:formatNumber value="${wishDTO.wish_price }" type="number"/> 원</div>
+                                   	<input type="hidden" id="md_id" name="md_id" value="${wishDTO.md_id }">                                   	
+                                   	<input type="hidden" id="cart_item_count" name="cart_item_count" value="1">
+                                      <div><a href="/md/detail/page?md_id=${wishDTO.md_id}">상품이름 : ${wishDTO.wish_item }</a></div>
+                                      <div><a href="/md/detail/page?md_id=${wishDTO.md_id}">가격 : <fmt:formatNumber value="${wishDTO.wish_price }" type="number"/> 원</a></div>                                      
                                       <div>
                                          <span>찜한 날짜 :  <fmt:formatDate value = "${wishDTO.wish_date }"  type="date" dateStyle="full"/></span>
                                       </div>
                                    </div>
                                    <div class="btn-box">
-                                      <button>담기</button>
+                                      <button class="cart-wish">담기</button>
                                    </div>
                                    <div class="btn-box">
-                                      <button id="delete-wish">삭제</button>
+                                      <button class="delete-wish">삭제 </button>
                                       <script>
-                                      	$("#delete-wish").on("click",function(){
+                                      $("body").on("click",".delete-wish",function(){
                                       		$.ajax({
                                       			type: "post",
                                       			url:"/md/detail/deleteWishMd",
                                       			data:{
                                       				wish_id:$("#wish_id").val()
                                       			}
-                                      		}).done(function(resp){
-                                      			$(this).parent(".md-box").remove();
                                       		})
-                                      	})
+                                      		$(this).closest(".md-box").remove();
+                                      		})
+                                      
+                                      		$(function(){
+		let cart_item_count = $("#cart_item_count").text();
+		let cart_item_count_int = Number(cart_item_count);
+		
+		$("body").on("click",".cart-wish",function(){
+			$.ajax({
+		  	  type: 'post',
+		        url:"/cart/rest/addToCart",
+		        data: {
+		      	  member_username: $("#member_username").val(),
+		           md_id: $("#md_id").val(),
+		            cart_item_count: $("#cart_item_count").text(),
+		            member_id:$("#member_id").val()
+		        }
+		     }).done(function(resp){
+		    	  if(confirm("장바구니에 선택하신 상품을 추가하였습니다. 장바구니로 이동하시겠습니까?")){ 
+		    		 document.location.href="/cart/cart";
+		    		} 
+		     })
+		   })
+		})
                                       </script>
+                                      
                                    </div>
                                 </div>
 									<br>
@@ -101,6 +126,7 @@
 				</div>
 			</div>
 		</div>
+	</div>
 	</div>
 	</div>
 	</div>

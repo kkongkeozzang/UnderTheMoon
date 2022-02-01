@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<jsp:include page="/WEB-INF/views/homeHeader.jsp"></jsp:include>
 <!DOCTYPE html>
 <html>
 <head>
@@ -27,6 +28,7 @@
         <div class="form-group row">
          <label class="col-form-label col-3">아이디*</label>
          <div class="col-6">
+         		<input type="hidden" id="member-id" value="${memberDTO.member_id }">
                 <input type="text" class="form-control" id="member-username" name="member_username" value="${memberDTO.member_username }" readonly>
                <div id="idCheckResult" class="idCondition"></div>
                <div id="idCheckResult2" class="idCondition"></div> <!-- 아이디 유효성 검사 필요 시 -->
@@ -111,8 +113,9 @@
         </div>        
         <div class="form-group row">
          <div class="col-8 offset-4">
-            <p><label class="form-check-label"><input type="checkbox"> <a href="#popup1"> 개인정보 활용 동의서</a> 에 동의합니다.</label></p>
-            <button type="submit" id="submit" class="btn btn-primary btn-lg">회원정보 수정</button>
+            <p><label class="form-check-label"><input type="checkbox"> <a href="#popup1"> 개인정보 활용 동의서</a> 에 동의합니다.</label></p>            
+            <button type="submit" id="submit" class="btn btn-primary btn-lg" style="margin:auto; display:inline-block;">회원정보 수정</button>
+            <button type="button" id="deleteMember" class="btn btn-primary btn-lg" style="margin:auto; display:inline-block;">회원 탈퇴</button>
          </div>  
       </div>            
     </form>
@@ -370,7 +373,18 @@
       })
    })   
    
-       
+   $("#deleteMember").on("click",function(){
+	   if(confirm("회원탈퇴를 하시겠습니까?")){
+		   $.ajax({
+			   type: 'post',
+			   url:"/mypage/deleteMember",
+			   data:{member_id:$("#member-id").val()}
+		   }).done(function(result){
+			   alert("저희 월하합작을 이용해주셔서 감사합니다.");
+			   location.href="/"
+		   })
+	   }
+   })    
 </script>
 </body>
 </html>

@@ -349,8 +349,6 @@ function getPage(pageNavi, select, sort) {
                                   		          md_id: $("#md_id").val(),
                                   		          wish_price: $("#wish_price").val()
                                   		        }
-                                  		     }).done(function(resp){
-                                  		    	 alert("상품이 찜하기 되었습니다.");
                                   		     })
                                     		}else{
                                     			$.ajax({
@@ -359,8 +357,6 @@ function getPage(pageNavi, select, sort) {
                                         		  	data: {
                                         		      md_id: $("#md_id").val(),
                                         		        }
-                                        		     }).done(function(resp){
-                                        		    	 alert("상품이 찜하기 취소 되었습니다.");
                                         		     })
                                     		}
                                     	})

@@ -82,4 +82,7 @@
   	update coupon set coupon_name=#{coupon_name}, coupon_discount_rate=#{coupon_discount_rate}, coupon_event=#{coupon_event}, coupon_valid_date=#{coupon_valid_date}, member_id=#{member_id}, coupon_used_yn=#{coupon_used_yn} where coupon_id=#{coupon_id}
   </update>
   
+  <delete id="deleteCouponByMemberId">
+  	delete from coupon where member_id=#{member_id}
+  </delete>
   </mapper>

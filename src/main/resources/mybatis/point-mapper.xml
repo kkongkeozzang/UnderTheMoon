@@ -63,4 +63,8 @@
   	update point set point_used_saved = #{point_used_saved}, point_event = #{point_event}, member_id=#{member_id} where point_id = #{point_id}
   </update>
 
+  <delete id="deletePointByMemberId">
+  	delete from point where member_id=#{member_id}
+  </delete>
+  
   </mapper>

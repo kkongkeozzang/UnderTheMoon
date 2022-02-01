@@ -6,6 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<jsp:include page="/WEB-INF/views/homeHeader.jsp"></jsp:include>
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <link
@@ -31,14 +32,12 @@
 </head>
 
 <body>
-<jsp:include page="/WEB-INF/views/homeHeader.jsp"></jsp:include>
+
 	<div class="container">
-	<div class="row" id="header">		
-		</div>
         <div class="row">
             <div class="col-12">
                 <div class="card">
-					    <jsp:include page="myPageNavBar.jsp" flush="false" />
+					   <jsp:include page="myPageNavBar.jsp" flush="false" /> 
 
         
 	<div class="row">
@@ -56,11 +55,11 @@
 										<thead>
 											<tr>
 												<th class="name truncate" colspan=4>주문 내역 (지난 3개월 간 주문 내역 조회가 가능합니다) 
-                                                    <select class="form-select form-select-sm" aria-label=".form-select-sm example">
+                                                    <select class="form-select form-select-sm" aria-label=".form-select-sm example" id="select-date" onchange="changeList();">
                                                     <option value="1" selected>전체기간</option>
-                                                    <option value="2">1개월전</option>
-                                                    <option value="3">2개월전</option>
-													<option value="4">3개월전</option>
+                                                    <option id="one-month" value="30">1개월전</option>
+                                                    <option id="two-month" value="60">2개월전</option>
+													<option id="three-month" value="90">3개월전</option>
                                                   </select></th>
 											</tr>
 										</thead>										
@@ -112,6 +111,19 @@
 		location="/mypage/writeReview"
 	})
 	
+	$("#select-date").on("change",function(){
+		var page = "1";
+		$.ajax({
+		  	  type: 'post',
+		        url:"/mypage/myPageListselectDate",
+		        data: {
+		        	selectDate: $("#select-date option:selected").val(),
+		        	cPage: page
+		        }
+		     }).done(function(resp){
+		    	 alert("테스트");
+		     })
+	})
 </script>
 </body>
 </html>

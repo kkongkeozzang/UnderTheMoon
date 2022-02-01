@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import kh.spring.dto.CouponDTO;
 import kh.spring.dto.GradeDTO;
@@ -22,6 +23,7 @@ import kh.spring.dto.MemberDTO;
 import kh.spring.dto.MyPagePurchaseDetailDTO;
 import kh.spring.dto.PointDTO;
 import kh.spring.dto.PurchaseDTO;
+import kh.spring.dto.PurchaseDateDTO;
 import kh.spring.dto.WishDTO;
 import kh.spring.service.CouponService;
 import kh.spring.service.GradeService;
@@ -366,4 +368,35 @@ public class MyPageController {
 		return "/mypage/myPageLike";
 	}
 
+	@ResponseBody
+	@RequestMapping(value="myPageListselectDate", produces="text/html;charset=utf8")
+	public void myPageListselectDate(Model model,int selectDate, int cPage) {
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal(); 
+        String username = ((UserDetails)principal).getUsername();
+		MemberDTO memberDTO = memberService.selectByUsername(username);
+		int pointSum = pointService.selectPointById(username).get();
+		int couponSum = couponService.selectCouponPossibleById(memberDTO.getMember_id());
+		int start = cPage * PageStatic.MYPAGELIST_COUNT_PER_PAGE-(PageStatic.MYPAGELIST_COUNT_PER_PAGE - 1); 
+		int end = cPage * PageStatic.MYPAGELIST_COUNT_PER_PAGE;
+		List<PurchaseDateDTO> purchaseList = purchaseService.selectPurchaseDateByBound(memberDTO.getMember_id(), selectDate, start, end);
+		Integer allPurchaseCount = purchaseService.selectRecordCount(memberDTO.getMember_id());
+		String pageNavi = PageNavigator.getPageNavigator(allPurchaseCount, cPage, PageStatic.MYPAGELIST_COUNT_PER_PAGE, PageStatic.MYPAGELIST_NAVI_COUNT_PER_PAGE, "myPageList", "all" ,"","");
+		
+		model.addAttribute("memberDTO",memberDTO);
+		model.addAttribute("pointSum",pointSum);
+		model.addAttribute("couponSum", couponSum);
+		model.addAttribute("purchaseList", purchaseList);
+		model.addAttribute("pageNavi", pageNavi);
+        
+		//return purchaseList;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="deleteMember", produces="text/html;charset=utf8")
+	public void deleteMember(String member_id) {
+		
+		memberService.deleteByMemberId(member_id);
+		couponService.deleteCouponByMemberId(member_id);
+		pointService.deletePointByMemberId(member_id);
+	}
 }

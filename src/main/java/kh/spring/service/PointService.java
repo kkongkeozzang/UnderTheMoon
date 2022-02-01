@@ -86,4 +86,8 @@ public Integer savePoints(Integer member_id, Integer productTotal) {
 		return  pointDAO.updatePoint(points);
 
 	}
+	
+	public int deletePointByMemberId(String member_id) {
+		return pointDAO.deletePointByMemberId(member_id);
+	}
 }

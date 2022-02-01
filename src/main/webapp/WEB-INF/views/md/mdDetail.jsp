@@ -87,24 +87,12 @@ ul.pages li {
 	text-align:right;
 	padding-top: 10px;
 }
-<<<<<<< HEAD
-
 .container {
 	max-width:1100px !important;
 }
 .popup {
 	width:80% !important;
 }
-=======
-.img-box {
-	height:500px;
-	justify-content: space-evenly;
-    align-content: space-around;
-}
-.container {
-	max-width:1100px !important;
-}
->>>>>>> 55f35a76c5561f2c5f7737eea4feb6fa142d97fc
 </style>
 <script>
 document.cookie = "safeCookie1=foo; SameSite=Lax"; 

@@ -864,9 +864,15 @@ $(document).ready(function(){
 											      	        		type:"post",
 											      	        		url:"/point/rest/"+member_id+"/"+$("#point-num").text(), //포인트쓴만큼 차감.
 											      	        		success : function(resp){
-											      	        			$.ajax({
+											      	        			$.ajax({ 
 													      	        		type:"post",//포인트적립.
-													      	        		url:"/point/rest/savePoints/"+member_id+"/"+$("#productsTotalPrice").text()
+													      	        		url:"/point/rest/savePoints/"+member_id+"/"+$("#productsTotalPrice").text(),
+													      	        		success : function(resp){
+													      	        			$.ajax({
+																				  	  type: 'patch',
+																				      url:'/purchase/rest/updatePurchase/'+data.receipt_id+"/"+data.order_id
+													      	        			})
+													      	        		}
 													      	        	})
 													      	        }
 											      	        	

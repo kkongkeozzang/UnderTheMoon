@@ -371,13 +371,7 @@ ul{
 									<table class="table">
 										<thead>
 											<tr>
-												<th class="name truncate" colspan=4>주문 내역 (지난 3개월 간 주문 내역 조회가 가능합니다) 
-                                                    <select class="form-select form-select-sm" aria-label=".form-select-sm example">
-                                                    <option value="1" selected>전체기간</option>
-                                                    <option value="2">1개월전</option>
-                                                    <option value="3">2개월전</option>
-													<option value="4">3개월전</option>
-                                                  </select></th>
+												<th class="name truncate" colspan=4>상세 주문 내역 
 											</tr>
 										</thead>										
 										<tbody>														

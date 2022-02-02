@@ -63,7 +63,16 @@ public Integer savePoints(Integer member_id, Integer productTotal) {
 	public Integer insertRecomendadoMemberPoint(Integer id) {
 		return pointDAO.insertRecomendadoMemberPoint(id);
 	}
+	
+	public int selectRecordCount(Integer member_id) {
+		return pointDAO.selectRecordCount(member_id);
+	}
 
+
+	public List<PointDTO> selectByBound(Integer member_id, int start, int end) {
+		return pointDAO.selectByBound(member_id, start, end);
+	}
+	
 	public List<PointDTO> selectAll(){
 		return pointDAO.selectAll();
 	}
@@ -75,5 +84,18 @@ public Integer savePoints(Integer member_id, Integer productTotal) {
 	}
 	public int updatePoint(PointDTO points) {
 		return  pointDAO.updatePoint(points);
+
+	}
+	
+	public int deletePointByMemberId(String member_id) {
+		return pointDAO.deletePointByMemberId(member_id);
+	}
+	
+	public Integer insertKhEventMemberPoint(String id) {
+		   return pointDAO.insertKhEventMemberPoint(id);
+	}
+	 
+	public int selectByIdandCheckKhEvent(String id) {
+		return pointDAO.selectByIdandCheckKhEvent(id);
 	}
 }

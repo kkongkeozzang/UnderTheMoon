@@ -3,7 +3,7 @@
 
 /*header*/
 
-#header{
+#homeheader{
 	padding-top:100px;
 	padding-bottom:20px;
 	
@@ -12,9 +12,7 @@
 
 
 /*header-head login-signup-CS*/
-*{
-	text-decoration:none;
-}
+
 
 #userMenu {
     width: 1050px;
@@ -812,8 +810,6 @@ html {
 }
 
 
-element.style {
-}
 #gnb .gnb_main .menu1 a {
     width: 148px;
 }
@@ -970,7 +966,6 @@ li {
  
 
 /*body*/
-body
 
 
 .container-fluid {
@@ -1258,6 +1253,10 @@ only screen and (min-resolution: 1.5dppx) {
 }
 .footer-bs .footer-ns p { font-size:12px; color:4c4c4c; }
 
-@media (min-width: 768px) {
-	.footer-bs .footer-nav, .footer-bs .footer-social, .footer-bs .footer-ns { border-left:solid 1px 4c4c4c; }
+
+
+#dropdown-index{
+text-align:center;
 }
+
+a{text-decoration:none}

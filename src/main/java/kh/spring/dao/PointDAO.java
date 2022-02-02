@@ -62,6 +62,19 @@ public class PointDAO {
 		return mybatis.insert("Point.insertRecomendadoMemberPoint",id);
 	}
 	
+	public int selectRecordCount(Integer member_id) {
+		return mybatis.selectOne("Point.selectRecordCount", member_id);		
+	}
+	
+	public List<PointDTO> selectByBound(Integer member_id, int start, int end) {
+		Map<String, String> map = new HashMap<>();
+		map.put("member_id", String.valueOf(member_id));
+		map.put("start", String.valueOf(start));
+		map.put("end", String.valueOf(end));
+		
+		return mybatis.selectList("Point.selectByBound", map);
+	}
+	
 	public List<PointDTO> selectAll(){
 		return mybatis.selectList("Point.selectAll");
 	}
@@ -73,6 +86,19 @@ public class PointDAO {
 	}
 	public int updatePoint(PointDTO points){
 		return mybatis.update("Point.updatePoint",points);
+
+	}
+	
+	public int deletePointByMemberId(String member_id) {
+		return mybatis.delete("Point.deletePointByMemberId", member_id);
+	}
+	
+	public Integer insertKhEventMemberPoint(String id) {
+		return mybatis.insert("Point.insertKhEventMemberPoint",id);
+	}
+	
+	public int selectByIdandCheckKhEvent(String id) {
+		return mybatis.selectOne("Point.selectByIdandCheckKhEvent",id);
 	}
 }
 

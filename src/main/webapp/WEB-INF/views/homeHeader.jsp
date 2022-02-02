@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,12 +23,26 @@
 <div id="userMenu">
     <ul class="list_menu">
         <li class="menu none_sub menu_join"><a href="/signup" class="link_menu">회원가입</a></li>
-        <li class="menu none_sub menu_login"><a href="/login" class="link_menu">로그인</a> </li>
+        
+			<sec:authorize access="isAuthenticated()">
+				<li class="menu none_sub menu_logout"><a href="/logout" class="link_menu">로그아웃</a> </li>
+			</sec:authorize>
+			<sec:authorize access="isAnonymous()">
+				 <li class="menu none_sub menu_login"><a href="/login" class="link_menu">로그인</a> </li>
+			</sec:authorize>
+			<sec:authorize access="hasRole('ROLE_ADMIN')">
+				<li class="menu none_sub menu_logout"><a href="/admin/adminOffice" class="link_menu">관리자페이지</a> </li>
+			</sec:authorize>
+			<sec:authorize access="hasRole('ROLE_SELLER')">
+				<li class="menu none_sub menu_logout"><a href="/seller/sellerOffice" class="link_menu">판매자페이지</a> </li>
+			</sec:authorize>
+						
+       
         <li class="menu lst"><a href="" class="link_menu">
                 <div class="dropdown">
-        <span>고객센터</span>
-        <div class="dropdown-content" id="dropdown-index">
-                            <p><a href="/faq/toFaq?cPage=1">FQA</a></p>
+                    <span>고객센터</span>
+                    <div class="dropdown-content" id="dropdown-index">
+                            <p><a href="/faq/toFaq?cPage=1">FAQ</a></p>
                             <p><a href="/notice/toNotice?cPage=1">공지</a></p>
                             <p><a href="/qna/qnaList">1:1 문의</a></p>
                     </div>
@@ -42,7 +57,7 @@
 <h1 class="logo">
 <a href="/" class="link_main">
 <span id="gnbLogoContainer"></span>
-<img src="/resources/home/img/dorothy.png" alt="월하합작 로고">
+<img src="" alt="월하합작 로고">
 </a>
 </h1>
 <a href="/shop/board/view.php?id=notice&no=64" onclick="ga('send','event','etc','main_gif_btn_click');" class="bnr_delivery">
@@ -91,19 +106,8 @@
 </ul>
 <!-- searchbar 검색바 -->
 <div id="side_search" class="gnb_search">
-<form action="/shop/goods/goods_search.php?&" onsubmit="return searchTracking(this)">
-<input type=hidden name=searched value="Y">
-<input type=hidden name=log value="1">
-<input type=hidden name=skey value="all">
-<input type="hidden" name="hid_pr_text" value="">
-<input type="hidden" name="hid_link_url" value="">
-<input type="hidden" id="edit" name="edit" value="">
-<input name="sword" type="text" id="sword" class="inp_search" value="" required label="검색어" placeholder="검색어를 입력해주세요.">
-<input type=image src="https://res.kurly.com/pc/service/common/1908/ico_search_x2.png" class="btn_search">
-<div class="init">
-<button type="button" class="btn_delete" id="searchInit">검색어 삭제하기</button>
-</div>
-</form>
+<input name="search" type="text" id="search" class="inp_search" value="" required label="검색어" placeholder="검색어를 입력해주세요.">
+<a href="javascript:void(0);" id="search-button"><input type=image src="https://res.kurly.com/pc/service/common/1908/ico_search_x2.png" class="btn_search"></a>
 </div>
 
 <!-- 찜한 상품 -->
@@ -126,7 +130,15 @@
 <script src="/common_js/gnb_v1.js?ver=1.63.2"></script>
 <script type="text/javascript">
 
-  gnbMenu.update();
+
+//검색하기..
+	$('#search-button').on('click', function() {
+	  
+	  location.href = "/md/search?search="+$('#search').val(); 
+	  });
+
+    gnbMenu.update();  
+
 
   // 검색창 클래스 추가/삭제
   var searchInputAction = (function(){
@@ -216,25 +228,7 @@
     location.href = _event_info;
   });
   
-  //nav scroll 이벤트
-  function navigo (){
-  const header = document.querySelector('headerLogo'); //헤더부분획득
-  const headerheight = header.clientHeight;//헤더높이
-document.addEventListener('scroll', onScroll, { passive: true });//스크롤 이벤트
- function onScroll () {
-     const scrollposition = pageYOffset;//스크롤 위치
-   const nav = document.querySelector('gnb');//네비게이션
-   if (headerheight<=scrollposition){//만약 헤더높이<=스크롤위치라면
-     nav.classList.add('fix')//fix클래스를 네비에 추가
-   }
-   else {//그 외의 경우
-     nav.classList.remove('fix');//fix클래스를 네비에서 제거
-   }
- } 
-  
-}
-navigo()
-  
+
 
 
   // 찜하기 아이콘 클릭이벤트
@@ -243,8 +237,8 @@ navigo()
     KurlyTracker.setAction('select_my_kurly_pick_list', { selection_type: 'header' }).sendData();
     location.href = $(this).attr('href');
   });
+  
 </script>
-</div>
 
 </body>
 </html>

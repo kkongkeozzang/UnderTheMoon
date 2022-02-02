@@ -41,4 +41,17 @@ public class PurchaseDetailService {
 	
 		return purchaseDetailDAO.selectRecordCount(purchase_id);
 	}
+	
+	public Integer selectCount() {	
+		return purchaseDetailDAO.selectCount();
+	}
+	
+	public List<PurchaseDetailDTO> salesRank(){
+		return purchaseDetailDAO.salesRank();
+	}
+	
+	public void cancelOrder(Long purchase_id) {
+		
+		purchaseDetailDAO.cancelOrder(purchase_id);
+	}
 }

@@ -13,7 +13,9 @@ import org.springframework.web.multipart.MultipartFile;
 import kh.spring.dto.MemberDTO;
 import kh.spring.dto.QnaDTO;
 import kh.spring.dto.QnaResponseDTO;
+import kh.spring.service.CouponService;
 import kh.spring.service.MemberService;
+import kh.spring.service.PointService;
 import kh.spring.service.QnaResponseService;
 import kh.spring.service.QnaService;
 
@@ -24,11 +26,16 @@ public class QnaController {
 	private final QnaService qnaService;
 	private final MemberService memberService;
 	private final QnaResponseService qnaResponseService;
+	private final CouponService couponService;
+	private final PointService pointService;
 	
-	public QnaController(QnaService qnaService,  MemberService memberService, QnaResponseService qnaResponseService) {
+	public QnaController(QnaService qnaService,  MemberService memberService, QnaResponseService qnaResponseService,
+			CouponService couponService, PointService pointService) {
 		this.qnaService = qnaService;
 		this.memberService = memberService;
-		this.qnaResponseService = qnaResponseService; 
+		this.qnaResponseService = qnaResponseService;
+		this.couponService = couponService;
+		this.pointService = pointService;
 	}
 	
 	private int writer_id;
@@ -52,6 +59,9 @@ public class QnaController {
 		System.out.println("null2");
 		MemberDTO memberDTO = memberService.selectByUsername(username);
 		int result = qnaService.selectMemberId(username);
+
+		int pointSum = pointService.selectPointById(username).get();
+		int couponSum = couponService.selectCouponPossibleById(memberDTO.getMember_id());
 		
 		if(result == 1)
 		{
@@ -94,6 +104,9 @@ public class QnaController {
 		model.addAttribute("response", response);
 		model.addAttribute("content", content);
 
+		model.addAttribute("pointSum",pointSum);
+		model.addAttribute("couponSum", couponSum);
+
         System.out.println("null");
 		return "/qna/qnaList";
 		}
@@ -108,8 +121,12 @@ public class QnaController {
 		String username = ((UserDetails)principal).getUsername();
 		MemberDTO memberDTO = memberService.selectByUsername(username);
 		int result = qnaService.selectMemberId(username);
+		int pointSum = pointService.selectPointById(username).get();
+		int couponSum = couponService.selectCouponPossibleById(memberDTO.getMember_id());
 		model.addAttribute("memberDTO", memberDTO);
 		model.addAttribute("member_id", result);
+		model.addAttribute("pointSum",pointSum);
+		model.addAttribute("couponSum", couponSum);
 		System.out.println(result);
 		return "/qna/qnaWrite";
 	}

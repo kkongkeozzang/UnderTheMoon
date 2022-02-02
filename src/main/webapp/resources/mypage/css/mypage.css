@@ -247,7 +247,7 @@ ul{
   }
 
 }
-
+   
 
 /* 상품 박스 CSS */
 
@@ -311,7 +311,7 @@ ul{
 .btn-box>button {
 	flex: 1 1;
 }
-
+  
 .detail-box span{margin-right:5px;}
 .detail-box span::after{padding-left:5px;content:"|"}
 .detail-box span:last-child::after{content:""}

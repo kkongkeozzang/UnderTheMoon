@@ -21,7 +21,16 @@
 </sec:authorize>
 <style>
 .popup {
-	z-index:100; !important;
+z-index:100; !important;
+	width:60% !important;
+	max-height: 80%;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.popup img {
+	height:auto;
+	max-width:100%;
 }
 </style>
 </head>
@@ -77,7 +86,17 @@
 	                                        <tr style="text-align:center">
 	                                        <td class="md_review_id">${mdReview.md_review_id }
 	                                        <td>${mdReview.md_id }
-	                                        <td><a href="#popup${mdReview.md_review_id }">${mdReview.md_review_title }</a>
+	                                        <td><a class="review-title" href="#popup${mdReview.md_review_id }">${mdReview.md_review_title }</a>
+	                                        <div id="popup${mdReview.md_review_id }" class="overlay">
+							                    <div class="popup">
+							                        <h2>${mdReview.md_review_title }</h2>
+							                        <a class="close" href="javascript:history.back()">&times;</a>
+							                        <div class="content" style="text-align:center;">
+							                            <br>
+							                            ${mdReview.md_review_content }
+							                        </div>
+							                    </div>
+										    </div>
 	                                        <td>${mdReview.member_username }
 	                                        <td>${mdReview.formedDate }
 	                                        <td>${mdReview.md_review_like}
@@ -89,21 +108,31 @@
 		                                        <span class="text">삭제</span>
 		                                    </a>
 	                                        </tr>
-	                                        <div id="popup${mdReview.md_review_id }" class="overlay">
-							                    <div class="popup">
-							                        <h2>${mdReview.md_review_title }</h2>
-							                        <a class="close" href="javascript:history.back()">&times;</a>
-							                        <div class="content" style="text-align:center;">
-							                            <br>
-							                            ${mdReview.md_review_content }
-							                        </div>
-							                    </div>
-										    </div>
 	                                    </c:forEach>
 	                                    </tbody>
 	                                </table>
                                 </form>
                                 <script>
+                                	$("body").on("click",".review-title",function(){
+                                		let md_review_id = $(this).parent("td").prev().prev().text();
+                                		let content = $(this).parent("td").find(".content");
+                                		if(content.find("img").length==0) {
+                        					$.ajax({
+                            					url:"/md/detail/review/rest/board/image/"+md_review_id,
+                            					type:"get",
+                            					dataType:"json"
+                            				}).done(function(resp){
+                            					let imgStr = "";
+                            					for(let i=0; i<resp.images.length; i++) {
+                            						imgStr += "<div>";
+                	            					imgStr += "<img src='/mdReviewImage" + resp.images[i].md_review_image + "'>"
+                	            					imgStr += "</div>";
+                            					}
+                            					content.append(imgStr);
+                            				})
+                        				}
+                                		
+                                	})
 									$("body").on("click",".delete",function(){
 										let member_id = $(this).closest("tr").find(".md_review_id").text();
 										let target = $(this).closest("tr");

@@ -102,4 +102,12 @@ public class CouponService {
 	public int updateCoupon(CouponDTO coupons) {
 		return couponDAO.updateCoupon(coupons);
 	}
+	
+	public int deleteCouponByMemberId(String member_id) {
+		return couponDAO.deleteCouponByMemberId(member_id);
+	}
+	
+	public Integer insertBirthCoupon(Integer id) {
+		return couponDAO.insertBirthCoupon(id);
+	}
 }

@@ -35,8 +35,6 @@
 
 <body>
 	<div class="container">
-	<div class="row" id="header">
-		</div>
         <div class="row">
             <div class="col-12">
                 <div class="card">
@@ -105,11 +103,11 @@
 						<div class="fm-menu">
 							<div class="list-group list-group-flush">
 								<a href="/mypage/myPageList?cPage=1" class="list-group-item py-1"><span>주문 내역</span></a> 													
-								<a href="/mypage/myPageLike" class="list-group-item py-1"><span>찜한 상품</span></a>
-								<a href="/mypage/myPagePoint" class="list-group-item py-1"><span>적립금</span></a>
+								<a href="/mypage/myPageLike?cPage=1" class="list-group-item py-1"><span>찜한 상품</span></a>
+								<a href="/mypage/myPagePoint?cPage=1" class="list-group-item py-1"><span>적립금</span></a>
                                 <a href="/mypage/myPageCoupon?cPage=1" class="list-group-item py-1"><span>쿠폰</span></a>
-                                <a href="" class="list-group-item py-1"><span>상품 문의</span></a>
-                                <a href="/mypage/myPageReview" class="list-group-item py-1"><span>상품 후기</span></a>
+                                <a href="/mypage/myPageQuestion?cPage=1" class="list-group-item py-1"><span>상품 문의</span></a>
+                                <a href="/mypage/myPageMdReview?cPage=1" class="list-group-item py-1"><span>상품 후기</span></a>
                                 <a href="/mypage/myPageModifyProfile" class="list-group-item py-1"><span>개인정보 수정</span></a>
                                 <br>
                                 <br>
@@ -127,7 +125,7 @@
 								<div>상품 후기</div>
 								<div>
 									후기 작성 시 50원을 적립해드립니다.<br>
-									별, 해 등급은 2배 적립(100원)<br>
+									달, 해 등급은 2배 적립(100원)<br>
 									후기 작성은 배송 완료일로부터 30일 이내 가능합니다.
 								</div>
 
@@ -153,7 +151,9 @@
 												  		<span class=status>배송완료</span>
 												  	</div>
 												  	<div class="btn-box">
-												  		<button id="writeMdReview" style="font-size:15px">후기작성</button>
+												  		<input type="hidden" value="${md.md_id }">
+												  		<button class="write-md-review" style="font-size:15px">후기작성</button>
+												  		<input type="hidden" id="d_purchase_detail_id" value="${md.d_purchase_detail_id }">
 												  	</div>
 												  </div>
 											  </c:forEach>
@@ -179,7 +179,7 @@
 														<span class=status>배송완료</span>
 													</div>
 													<div class="btn-box">
-														<button id="writeMdReview" style="font-size: 15px">후기작성</button>
+														<button class="write-md-review" style="font-size: 15px">후기작성</button>
 													</div>
 												</div>
 											</c:forEach>
@@ -200,6 +200,11 @@
 								                }
 									        }
 										});
+										$("body").on("click",".write-md-review", function(){
+											let md_id = $(this).prev().val();
+											let d_purchase_detail_id = $(this).next().val();
+											location.href="/mypage/myPageReviewWrite?md_id="+md_id+"&d_purchase_detail_id="+d_purchase_detail_id;
+										})
 								
 										
 									</script>

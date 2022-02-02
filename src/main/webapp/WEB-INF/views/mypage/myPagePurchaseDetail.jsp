@@ -351,88 +351,15 @@ ul{
 
 <body>
 	<div class="container">
-	<div class="row" id="header">
-		</div>
         <div class="row">
             <div class="col-12">
                 <div class="card">
-					<div class="card-body">
-						<div class="row mt-3">
-							<div class="col-12 col-lg-3">
-								<div class="card shadow-none border radius-15">
-									<div class="card-body" align=center>
-										<div class="d-flex">										
-											<div class="detail">
-                                                <h6 class="detail-title-one">${memberDTO.member_username }회원님</h6>
-												<button type="button" class="btn btn-light" id="all-grade">나의등급 보기</button>
-												<%-- <input type="hidden" name="member_id" value="${memberDTO.member_id }"> --%>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-                            <div class="col-12 col-lg-3">
-								<div class="card shadow-none border radius-15">
-									<div class="card-body" align=center>
-										<div class="d-flex">
-
-											<div class="detail">
-												<h6 class="detail-title"><a href="/mypage/myPagePoint">적립금 ></a></h6>
-												<p class="detail-detail"><span><fmt:formatNumber value="${pointSum}" type="number"/> 원</span></p>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-                            <div class="col-12 col-lg-3">
-								<div class="card shadow-none border radius-15">
-									<div class="card-body" align=center>
-										<div class="d-flex">											
-											<div class="detail">
-												<h6 class="detail-title"><a href="/mypage/myPageCoupon?cPage=1">쿠폰 ></a></h6>
-												<p class="detail-detail"><span>${couponSum } 개</span></p>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-                            <div class="col-12 col-lg-3">
-								<div class="card shadow-none border radius-15">
-									<div class="card-body" align=center>
-										<div class="d-flex">										
-											<div class="detail">
-												<h6 class="detail-title"><a href="/qna/qnaList">1:1문의 ></a></h6>
-												<p class="detail-detail"><span>도움이 필요하신가요?</span></p>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-            			</div>            
-            		</div>    
-
-        
+					<jsp:include page="myPageNavBar.jsp" flush="false" />  
+       
 	<div class="row">
 			<div class="col-12 col-md-4 col-lg-3">
 				<div class="card">
-					<div class="card-body">
-						<div class="d-grid"></div>
-						<h5 class="my-3">My Page</h5>
-						<div class="fm-menu">
-							<div class="list-group list-group-flush">
-								<a href="/mypage/myPageList?cPage=1" class="list-group-item py-1"><span>주문 내역</span></a> 													
-								<a href="/mypage/myPageLike" class="list-group-item py-1"><span>찜한 상품</span></a>
-								<a href="/mypage/myPagePoint" class="list-group-item py-1"><span>적립금</span></a>
-                                <a href="/mypage/myPageCoupon?cPage=1" class="list-group-item py-1"><span>쿠폰</span></a>
-                                <a href="" class="list-group-item py-1"><span>상품 문의</span></a>
-                                <a href="/mypage/myPageReview" class="list-group-item py-1"><span>상품 후기</span></a>
-                                <a href="/mypage/myPageModifyProfile" class="list-group-item py-1"><span>개인정보 수정</span></a>
-                                <br>
-                                <br>
-								<a href="/qna/qnaList" class="list-group-item py-1"><span>도움이 필요하신가요?<br>1:1 문의하기</span></a>
-							</div>
-						</div>
-					</div>
+					<jsp:include page="myPageSideBar.jsp" flush="false" />
 				</div>
 			</div>
 
@@ -470,7 +397,20 @@ ul{
                                           </div>
                                        </div>
                                        <div class="status-box">
-                                          <span class=status>배송완료</span>
+                                          <span class=status>
+                                          <c:choose>
+                                          	<c:when test="${purchaseList.purchase_detail_cancel_order == 'Y'}">
+                                          		주문취소완료
+                                          	</c:when>
+                                          	<c:otherwise>
+                                          		<c:if test=" ${purchaseList.purchase_detail_result == 'Y'}">
+                                          				배송완료                                
+                                          		</c:if>
+                                          		배송중
+                                          	</c:otherwise>
+                                          </c:choose>
+                                         
+                                          </span>
                                        </div>
                                        <div class="btn-box">
                                           <button id="readMdReview" style="font-size: 15px">후기보기</button>
@@ -485,6 +425,7 @@ ul{
 				</div>
 			</div>
 		</div>
+	</div>
 	</div>
 	</div>
 	</div>

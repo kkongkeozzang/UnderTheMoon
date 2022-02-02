@@ -203,7 +203,9 @@ body {
 </style>
 </head>
 <body>
-
+	<!-- #userMenu 는 상단 로그인, 회원가입, 고객센터 메뉴-->
+	<jsp:include page="/WEB-INF/views/homeHeader.jsp"></jsp:include>
+	
 	<!-- 타이틀  -->
 	<div class="container-fluid mt-100">
 		<div id="board-title">
@@ -408,5 +410,7 @@ body {
 
 	</script>
 	</div>
+	<!--footer 시작 -->
+	<jsp:include page="/WEB-INF/views/homeFooter.jsp"></jsp:include>
 </body>
 </html>

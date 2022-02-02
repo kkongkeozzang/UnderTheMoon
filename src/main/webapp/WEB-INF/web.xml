@@ -16,6 +16,7 @@
    <!-- Creates the Spring Container shared by all Servlets and Filters -->
    <listener>
       <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+      <listener-class>kh.spring.util.VisitCounter</listener-class>
    </listener>
 
    <!-- Processes application requests -->
@@ -66,5 +67,6 @@
     <url-pattern>/*</url-pattern> 
     </filter-mapping> 
     
+
    
 </web-app>

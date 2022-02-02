@@ -57,7 +57,10 @@ private final SqlSessionTemplate mybatis;
 			} else if (sort.equals("newSort")) {
 				System.out.println("최신순");
 				return mybatis.selectList("Md.selectRegionByBoundNewSort", map);
-			} 
+			} else if(sort.equals("search")) {
+				System.out.println("검색..");
+				return mybatis.selectList("Md.selectSearchResult",map);
+			}
 			return mybatis.selectList("Md.selectRegionByBound", map);
 		}
 	}
@@ -112,6 +115,10 @@ private final SqlSessionTemplate mybatis;
 
 	public int selectByBoundReviewMdCountByMemberId(String member_id) {
 		return mybatis.selectOne("Md.selectByBoundReviewMdCountByMemberId", member_id);
+	}
+	
+	public int selectSerchResultCount(String search) {
+		return mybatis.selectOne("Md.selectSerchResultCount",search);
 	}
 }
 

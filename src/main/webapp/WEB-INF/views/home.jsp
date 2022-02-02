@@ -37,7 +37,7 @@
 <div id="container">
 
 <!-- header -->
-<div id="header">
+<div id="homeheader">
 
 
 <!-- #userMenu 는 상단 로그인, 회원가입, 고객센터 메뉴-->

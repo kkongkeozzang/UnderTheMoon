@@ -32,6 +32,9 @@
 <script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<sec:authorize access="isAuthenticated()">
+    <sec:authentication property="principal" var="principal"/>
+</sec:authorize>
 <style>
 .hiddenRow {
     padding: 0 !important;
@@ -84,13 +87,11 @@ ul.pages li {
 	text-align:right;
 	padding-top: 10px;
 }
-.img-box {
-	height:500px;
-	justify-content: space-evenly;
-    align-content: space-around;
-}
 .container {
 	max-width:1100px !important;
+}
+.popup {
+	width:80% !important;
 }
 </style>
 <script>
@@ -111,12 +112,32 @@ $(document).ready(function(){
 	$("body").on("click",".inqry-title",function(){
  		$(this).next().toggleClass("hide-toggle");
      	$(this).parent("#inqry-board").find(".inqry-content").not($(this).next()).addClass("hide-toggle");
+     	 // 로그인한 회원의 글일 때
+        let member_username2 = $(this).find(".member_username").text();
+        let deleteInqryBox = $(this).next().find(".delete-inqry-box");
+        if(member_username2 == "${principal.username}") {
+        	str = "";
+        	str += "<button class='delete-inqry-btn'>삭제</button>";
+        	deleteInqryBox.html(str);
+        }
     })
     $("body").on("click",".relatedMd-box", function(){
     	let relatedMd_id = $(this).find(".relatedMd_id").val()
     	location.href="/md/detail/page?md_id="+relatedMd_id;
-    	
     })
+})
+$("body").on("click",".delete-inqry-btn",function(){
+	let md_inqry_id = $(this).closest(".inqry-content").prev().find(".md_inqry_id").text();
+	let inqryTitleBox = $(this).closest(".inqry-content").prev();
+	let inqryContentBox = $(this).closest(".inqry-content");
+	$.ajax({
+		url:"/md/detail/inqry/rest/delete/"+md_inqry_id,
+		type:"delete",
+		dataType:"json"
+	}).done(function(){
+		inqryTitleBox.remove();
+		inqryContentBox.remove();
+	})
 })
 function viewCount(md_review_id, target) {
 	$.ajax({
@@ -155,9 +176,9 @@ function getPage(pageNavi, select, sort) {
 				for(let i = 0; i < inqrysSize; i++) {
 					
     				str += "<tr class='inqry-title'>";
-    				str += "<td style='width:5%;'>"+resp.inqrys[i].sort_md_question_id+"</td>";
+    				str += "<td class='md_inqry_id' style='width:5%;'>"+resp.inqrys[i].sort_md_question_id+"</td>";
     				str += "<td style='width:60%'>"+resp.inqrys[i].md_question_title+"</td>";
-    				str += "<td>"+ resp.inqrys[i].md_question_username +"</td>";
+    				str += "<td class='member_username'>"+ resp.inqrys[i].md_question_username +"</td>";
     				str += "<td>"+ resp.inqrys[i].questionFormedDate +"</td>";
     				str += "<td>"+ resp.inqrys[i].md_question_reply_yn +"</td>";
     				str += "</td>";
@@ -175,6 +196,7 @@ function getPage(pageNavi, select, sort) {
 	    				str += resp.inqrys[i].responseFormedDate;
     				}
     				str += "</div>";
+    				str += "<div class='delete-inqry-box'></div>";
     				str += "</tr>";
     				
     				str += "</tr>";
@@ -204,7 +226,7 @@ function getPage(pageNavi, select, sort) {
 					str += "<tr class='review-title'>";
 					str += "<td style='width:5%;' class='md_review_id'>"+resp.reviews[i].md_review_id+"</td>";
 					str += "<td style='width:60%'>"+resp.reviews[i].md_review_title+"</td>";
-					str += "<td>"+ resp.reviews[i].member_username +"</td>";
+					str += "<td class='member_username'>"+ resp.reviews[i].member_username +"</td>";
 					str += "<td>"+ resp.reviews[i].formedDate +"</td>";
 					str += "<td class='md_review_like'>"+ resp.reviews[i].md_review_like+"</td>";
 					str += "<td class='md_review_view_count'>"+ resp.reviews[i].md_review_view_count +"</td>";
@@ -257,9 +279,6 @@ function getPage(pageNavi, select, sort) {
 		   })
 		})
 </script>
-<sec:authorize access="isAuthenticated()">
-    <sec:authentication property="principal" var="principal"/>
-</sec:authorize>
 </head>
 <body>
 
@@ -270,8 +289,8 @@ function getPage(pageNavi, select, sort) {
     <section class="bg-light">
         <div class="container pb-5">
             <div class="row">
-                <div class="col-lg-5 mt-5">
-                    <div class="card mb-3 img-box">
+                <div class="col-lg-5 mt-5 img-box">
+                    <div class="card mb-3 img-box2">
                         <img class="card-img img-fluid" src="/mdImage/${mdDetails.md_image}" alt="Card image cap" id="product-detail">
                     </div>
                 </div>
@@ -279,8 +298,10 @@ function getPage(pageNavi, select, sort) {
                 <div class="col-lg-7 mt-5">
                     <div class="card">
                         <div class="card-body" id="md-detail">
-                        	<input id="md_id" type="hidden" value="${mdDetails.md_id }">
-                        	<input id="member_username" type=hidden value=${principal.username }>
+                        	<input id="md_id" name="md_id" type="hidden" value="${mdDetails.md_id }">
+                        	<input id="member_username" name="member_username" type=hidden value=${principal.username }>
+                        	<input id="wish_item" name="wish_item" type=hidden value=${mdDetails.md_name }>
+                        	<input id="wish_price" name="wish_price"type=hidden value=${mdDetails.md_price }>
                             <h1 class="h2">${mdDetails.md_name }</h1>
                             <div id="price-box">
                             	<p class="h3 py-2"><fmt:formatNumber value="${mdDetails.md_price }" pattern="#,###" /></p>
@@ -326,11 +347,37 @@ function getPage(pageNavi, select, sort) {
                                     <div class="gnbPick">
 									</div>
                                     <div class="col d-flex">
+                                    	<c:choose>
+                                    	<c:when test="${wishResult == 1}">
+										<button type="button" class="btn_pick pick_icon_button on" ></button>
+										</c:when>
+										<c:otherwise>
 										<button type="button" class="btn_pick pick_icon_button" ></button>
+										</c:otherwise>
+										</c:choose>
                                         <button type="button" id="cart" class=" btn btn-success btn-lg" name="submit" value="addtocard">장바구니 담기</button>
                                         <script>
                                     	$(".pick_icon_button").on("click", function(){
                                     		$(this).toggleClass("on");
+                                    		if($(this).hasClass("on")){
+                                    		$.ajax({
+                                  		  	  type: 'post',
+                                  		        url:"/md/detail/wishMd",
+                                  		        data: {
+                                  		      	  wish_item: $("#wish_item").val(),
+                                  		          md_id: $("#md_id").val(),
+                                  		          wish_price: $("#wish_price").val()
+                                  		        }
+                                  		     })
+                                    		}else{
+                                    			$.ajax({
+                                        		  type: 'post',
+                                        		  url:"/md/detail/cancelWishMd",
+                                        		  	data: {
+                                        		      md_id: $("#md_id").val(),
+                                        		        }
+                                        		     })
+                                    		}
                                     	})
                                         </script>
                                     </div>
@@ -410,7 +457,7 @@ function getPage(pageNavi, select, sort) {
 						</tr>
 					</tbody>
 				</table>
-				<button>후기쓰기</button>
+				<a href="/mypage/myPageReviewWrite"><button>후기쓰기</button></a>
 				<div id="page-box">
 				<ul class="pages" id="pages" ></ul>
 				</div>
@@ -439,10 +486,57 @@ function getPage(pageNavi, select, sort) {
 						</tr>
 					</tbody>
 				</table>
-				<button>문의하기</button>
+				<a href="#popup-inqry-write"><button id="md-inqry-write">문의하기</button></a>
 				<div id="page-box">
 				<ul class="pages" ></ul>
 				</div>
+				<div id="popup-inqry-write" class="overlay">
+                    <div class="popup">
+                        <h2>상품 문의하기</h2>
+                        <a class="close" href="javascript:history.back()">&times;</a>
+                        <div class="content" style="text-align:center;">
+                            <br>
+                            <div id="md-box">
+					           <div id="md-img-box">
+					           		<div id="img-box2">
+					           			<img src="/mdImage/${mdDetails.md_image}">
+					           		</div>
+					           </div>
+					           <span>${mdDetails.md_name}</span>
+					       </div>
+                            <form action="/md/detail/inqry/insert" method="post" id="inqry-frm">
+					           <table class="table table-boardered">
+					               <tr>
+					                   <th id="tableHead">제목</th>
+					                   <td><input type="text" maxlength="30" class="form-control" id="md_question_title" name="md_question_title" placeholder="제목을 입력해주세요.">
+					                    </td>        
+					               </tr>
+					                
+					               <tr>
+						                <th id="tableHead">후기 작성</th>
+						                <td>
+						                 <textarea rows="10" cols="40" maxlength="1000" id="md_question_content" placeholder="상품문의 작성 전 확인해주세요&#13;&#10;- 답변은 영업일 기준 2~3일 소요됩니다.&#13;&#10;- 해당 게시판의 성격과 다른 글은 사전동의 없이 담당 게시판으로 이동될 수 있습니다.&#13;&#10;- 배송관련, 주문(취소/교환/환불)관련 문의 및 요청사항은 마이컬리 내 1:1 문의에 남겨주세요.
+						                 " name="md_question_content" class="form-control"></textarea>
+						                </td>     
+						            </tr>
+					               <tr>
+					                   <td colspan="2">
+					                   <input type="button" id="write-review-btn" class="btn btn-primary sharp" value="등록하기">
+					                   <input type="hidden" name="md_id" id="md_id" value="${mdDetails.md_id }">
+					                   </td>
+					               </tr>
+					           </table>
+					       </form>
+                            <script>
+                            $("#write-review-btn").on("click",function(){
+                            	if(confirm("문의를 등록하시겠습니까?\n문의글은 수정이 불가합니다.")) {
+                            		$("#inqry-frm").submit();
+                            	}
+                            })
+                            </script>
+                        </div>
+                    </div>
+			    </div>
 		  </div>
 		
 	</div>
@@ -454,7 +548,6 @@ function getPage(pageNavi, select, sort) {
 		$('#tabs').tabs({
             activate: function(event ,ui){
                 let selectTab = ui.newTab.index();
-                console.log(selectTab);
                 <%-- 상품후기 탭 클릭시 게시판 보이기 --%>
                 if(selectTab == 1) {
                 	$.ajax({
@@ -471,7 +564,7 @@ function getPage(pageNavi, select, sort) {
 	            				str += "<tr class='review-title'>";
 	            				str += "<td style='width:5%;' class='md_review_id'>"+resp.reviews[i].md_review_id+"</td>";
 	            				str += "<td style='width:60%'>"+resp.reviews[i].md_review_title+"</td>";
-	            				str += "<td>"+ resp.reviews[i].member_username +"</td>";
+	            				str += "<td class='member_username'>"+ resp.reviews[i].member_username +"</td>";
 	            				str += "<td>"+ resp.reviews[i].formedDate +"</td>";
 	            				str += "<td class='md_review_like'>"+ resp.reviews[i].md_review_like+"</td>";
 	            				str += "<td class='md_review_view_count'>"+ resp.reviews[i].md_review_view_count +"</td>";
@@ -498,6 +591,47 @@ function getPage(pageNavi, select, sort) {
             				}
             				$(".pages").html(pageStr);
             			} 
+            			$("body").on("click",".review-title",function(){
+            				let md_review_id = $(this).find(".md_review_id").text();
+            				let content = $(this).next().find(".helpful-box");
+            				if($(this).next().find("img").length==0) {
+            					$.ajax({
+                					url:"/md/detail/review/rest/board/image/"+md_review_id,
+                					type:"get",
+                					dataType:"json"
+                				}).done(function(resp){
+                					let imgStr = "";
+                					for(let i=0; i<resp.images.length; i++) {
+    	            					imgStr += "<img src='/mdReviewImage" + resp.images[i].md_review_image + "'>"
+                					}
+                					content.before(imgStr);
+                				})
+            				}
+            				
+            				// 로그인한 회원의 글일 때
+            				let member_username = $(this).find(".member_username").text();
+            				let helpfulBtn = $(this).next().find(".helpful");
+            				let helpfulBox = $(this).next().find(".helpful-box");
+            				if(member_username == "${principal.username}") {
+            					helpfulBtn.hide();
+            					str = "";
+            					str += "<button class='deleteBtn'>삭제</button>";
+            					helpfulBox.html(str);
+            				}
+            			})
+            			$("body").on("click",".deleteBtn",function(){
+            				let md_review_id = $(this).closest(".review-content").prev().find(".md_review_id").text();
+            				let reviewTitleBox = $(this).closest(".review-content").prev();
+            				let reviewContentBox = $(this).closest(".review-content");
+            				$.ajax({
+            					url:"/md/detail/review/rest/delete/"+md_review_id,
+            					type:"delete",
+            					dataType:"json"
+            				}).done(function(){
+            					reviewTitleBox.remove();
+            					reviewContentBox.remove();
+            				})
+            			})
             			$("body").on("change","#sort-box",function(){
             				let selectSort = this.value;
        						$.ajax({
@@ -513,7 +647,7 @@ function getPage(pageNavi, select, sort) {
        	            					str += "<tr class='review-title'>";
        		            				str += "<td style='width:5%;' class='md_review_id'>"+resp.reviews[i].md_review_id+"</td>";
        		            				str += "<td style='width:60%'>"+resp.reviews[i].md_review_title+"</td>";
-       		            				str += "<td>"+ resp.reviews[i].member_username +"</td>";
+       		            				str += "<td class='member_username'>"+ resp.reviews[i].member_username +"</td>";
        		            				str += "<td>"+ resp.reviews[i].formedDate +"</td>";
        		            				str += "<td class='md_review_like'>"+ resp.reviews[i].md_review_like+"</td>";
        		            				str += "<td class='md_review_view_count'>"+ resp.reviews[i].md_review_view_count +"</td>";
@@ -555,7 +689,6 @@ function getPage(pageNavi, select, sort) {
             			type:"get",
             			dataType:"json"
             		}).done(function(resp){
-            			console.log(resp);
             			let inqrysSize = resp.inqrys.length;
             			let naviSize = resp.pageNavis.length;
         				let str = "";
@@ -563,9 +696,9 @@ function getPage(pageNavi, select, sort) {
             				for(let i = 0; i < inqrysSize; i++) {
             					
 	            				str += "<tr class='inqry-title'>";
-	            				str += "<td style='width:5%;'>"+resp.inqrys[i].sort_md_question_id+"</td>";
+	            				str += "<td class='md_inqry_id' style='width:5%;'>"+resp.inqrys[i].sort_md_question_id+"</td>";
 	            				str += "<td style='width:60%'>"+resp.inqrys[i].md_question_title+"</td>";
-	            				str += "<td>"+ resp.inqrys[i].md_question_username +"</td>";
+	            				str += "<td class='member_username'>"+ resp.inqrys[i].md_question_username +"</td>";
 	            				str += "<td>"+ resp.inqrys[i].questionFormedDate +"</td>";
 	            				str += "<td>"+ resp.inqrys[i].md_question_reply_yn +"</td>";
 	            				str += "</td>";
@@ -583,6 +716,7 @@ function getPage(pageNavi, select, sort) {
             	    				str += resp.inqrys[i].responseFormedDate;
                 				}
 	            				str += "</div>";
+	            				str += "<div class='delete-inqry-box'></div>";
 	            				str += "</tr>";
 	            				
 	            				str += "</tr>";

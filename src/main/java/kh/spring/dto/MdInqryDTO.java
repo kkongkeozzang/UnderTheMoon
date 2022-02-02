@@ -138,7 +138,6 @@ public class MdInqryDTO {
 		this.md_name = md_name;
 		this.member_id = member_id;
 	}
-
 	public String getQuestionFormedDate() {
 		SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-dd");
 		if(getMd_question_write_date() == null) {

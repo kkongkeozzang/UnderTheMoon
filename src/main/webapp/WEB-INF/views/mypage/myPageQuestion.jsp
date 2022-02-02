@@ -30,6 +30,68 @@
 		href="https://cdn.jsdelivr.net/npm/boxicons@2.0.7/css/boxicons.min.css"
 		rel="stylesheet" />
 <link rel="stylesheet" href="/resources/mypage/css/mypage.css">	
+<link rel="stylesheet" href="/resources/mypage/css/myPageQuestion.css">	
+<style>
+.overlay {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.7);
+  transition: opacity 500ms;
+  visibility: hidden;
+  opacity: 0;
+}
+.overlay:target {
+  visibility: visible;
+  opacity: 1;
+  z-index:1000;
+}
+
+.popup {
+  z-index:1000 !important;
+  margin: 70px auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 5px;
+  width: 50%;
+  position: relative;
+  transition: all 5s ease-in-out;
+}
+
+.popup h2 {
+  margin-top: 0;
+  color: #333;
+  font-family: Tahoma, Arial, sans-serif;
+}
+.popup .close {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  transition: all 200ms;
+  font-size: 30px;
+  font-weight: bold;
+  text-decoration: none;
+  color: #333;
+}
+.popup .close:hover {
+  color: #06D85F;
+}
+.popup .content {
+  max-height: 30%;
+  overflow: auto;
+}
+
+@media screen and (max-width: 700px){
+  .box{
+    width: 70%;
+  }
+  .popup{
+    width: 70%;
+  }
+}
+</style>
 </head>
 
 <body>
@@ -67,10 +129,11 @@
 										<tbody>
 											<c:forEach var="MdInqryDTO" items="${mdInqryList }">
 											<tr>												
-												<td class="grade-list" style="text-align:center" ><a href="/md/detail/page?md_id=${MdInqryDTO.md_id}">${MdInqryDTO.md_question_title}</a></td>
+												<td class="grade-list" style="text-align:center" ><a href="#popup${MdInqryDTO.md_id}">${MdInqryDTO.md_question_title}</a></td>
 												<td class="grade-list" style="text-align:center"><fmt:formatDate value = "${MdInqryDTO.md_question_write_date}"  type="date" dateStyle="full"/></td>
 												<td class="grade-list" style="text-align:center">${MdInqryDTO.md_question_reply_yn}</td>									
 											</tr>
+											
 											</c:forEach>														
 										</tbody>
 									</table>
@@ -87,6 +150,27 @@
 	</div>
 	</div>
 	</div>
+	
+	<c:forEach var="MdInqryDTO" items="${mdInqryList }">
+		<div id="popup${MdInqryDTO.md_id }" class="overlay">
+	       <div class="popup">
+	           <h2>${MdInqryDTO.md_question_title}</h2>
+	           <a class="close" href="javascript:history.back()">&times;</a>
+	           <div class="content" style="text-align:center;">
+	               <br>
+	               ${MdInqryDTO.md_question_content}
+	               <br>
+	               <br>
+	               ${MdInqryDTO.md_response_content}<br><br>
+	               ${MdInqryDTO.responseFormedDate }
+	              <br>
+	              <br>
+	              <a href="/md/detail/page?md_id=${MdInqryDTO.md_id }">상품으로 바로가기</a>
+	           </div>
+	       </div>
+	    </div>
+	</c:forEach>
+	
 <script>
 	$("#all-grade").on("click",function(){
 		location="/mypage/myPageGrade"

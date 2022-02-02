@@ -115,7 +115,7 @@ a {
 }
 
 img {
-	width: 100%;
+	width: 100% !important;
 	height: auto;
 }
 
@@ -136,8 +136,9 @@ img {
 </sec:authorize>
 </head>
 <body>
-
-	<jsp:include page="navi.jsp"></jsp:include>
+	<!-- #userMenu 는 상단 로그인, 회원가입, 고객센터 메뉴-->
+	<jsp:include page="/WEB-INF/views/homeHeader.jsp"></jsp:include>
+	<jsp:include page="/WEB-INF/views/event/navi.jsp"></jsp:include>
 
 	<!-- 타이틀  -->
 	<div class="container-fluid mt-100">
@@ -164,18 +165,18 @@ img {
 
 					<%-- 웹버전 --%>
 					<div class="col-12 d-none d-md-block" align=center style="padding-left:0px;">
-						<a href="/event/eventTiger"><img src="/resources/event/새해이벤트.png" width=100% height=20%></a>
-						<a href="/event/eventWelcome"><img src="/resources/event/월하합작_가입이벤트.png" width=100% height=20%></a>
-						<a href="/event/eventKH"><img src="/resources/event/kh 콜라보.png" width=100% height=20%></a>
-						<a href="/event/eventRecommend"><img src="/resources/event/월하합작_추천인.png" width=100% height=20%></a>
+						<a href="/event/eventTiger"><img src="/resources/event/새해이벤트.png"></a>
+						<a href="/event/eventWelcome"><img src="/resources/event/월하합작_가입이벤트.png"></a>
+						<a href="/event/eventKH"><img src="/resources/event/kh 콜라보.png"></a>
+						<a href="/event/eventRecommend"><img src="/resources/event/월하합작_추천인.png"></a>
 					</div>
 					
 					<!--모바일버전 -->
 					<div class="col-12 d-md-none">
-						<a href="/event/eventTiger"><img src="/resources/event/새해이벤트.png" width=100% height=20%></a>
-						<a href="/event/eventWelcome"><img src="/resources/event/월하합작_가입이벤트.png" width=100% height=20%></a>
-						<a href="/event/eventKH"><img src="/resources/event/kh 콜라보.png" width=100% height=20%></a>
-						<a href="/event/eventRecommend"><img src="/resources/event/월하합작_추천인.png" width=100% height=20%></a>
+						<a href="/event/eventTiger"><img src="/resources/event/새해이벤트.png"></a>
+						<a href="/event/eventWelcome"><img src="/resources/event/월하합작_가입이벤트.png"></a>
+						<a href="/event/eventKH"><img src="/resources/event/kh 콜라보.png"></a>
+						<a href="/event/eventRecommend"><img src="/resources/event/월하합작_추천인.png"></a>
 					</div>
 				</div>
 			</div>
@@ -188,17 +189,12 @@ img {
 		<div class="row search-bar" style="justify-content: space-around;">
 			<div class="col-xl-8 col-md-12 d-none d-md-block">
 				<div class="row">
-					<sec:authorize access="hasRole('ROLE_ADMIN')">
-						<div class="col-12" align=right style="padding-right:0px;">
-							<button type="button"
-								class="btn-write btn btn-shadow btn-wide btn-primary"
-								style="background-color: #406882; border-color: #406882;">
-								글 쓰기</button>
-						</div>
-					</sec:authorize>
+
 				</div>
 			</div>
 		</div>
 	</div>
+	<!--footer 시작 -->
+	<jsp:include page="/WEB-INF/views/homeFooter.jsp"></jsp:include>	
 </body>
 </html>

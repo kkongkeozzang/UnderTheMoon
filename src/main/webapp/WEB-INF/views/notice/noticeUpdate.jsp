@@ -203,7 +203,9 @@ body {
 </style>
 </head>
 <body>
-
+	<!-- #userMenu 는 상단 로그인, 회원가입, 고객센터 메뉴-->
+	
+	
 	<!-- 타이틀  -->
 	<div class="container-fluid mt-100">
 		<div id="board-title">
@@ -391,5 +393,7 @@ body {
 
 	</script>
 	</div>
+	<!--footer 시작 -->
+	
 </body>
 </html>

@@ -43,6 +43,14 @@ private final SqlSessionTemplate mybatis;
 		
 		return mybatis.selectOne("PurchaseDetail.selectRecordCount",purchase_id);
 	}
+	
+	public Integer selectCount() {
+		return mybatis.selectOne("PurchaseDetail.selectCountDetail");
+	}
+	
+	public List<PurchaseDetailDTO> salesRank(){
+		return mybatis.selectList("PurchaseDetail.salesRank");
+	}
 
 	public void cancelOrder(Long purchase_id) {
 		

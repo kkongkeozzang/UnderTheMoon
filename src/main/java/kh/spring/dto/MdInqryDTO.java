@@ -19,6 +19,28 @@ public class MdInqryDTO {
 	private String md_name;
 	private int member_id;
 	
+	public MdInqryDTO() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	public MdInqryDTO(int sort_md_question_id, int md_id, String md_question_username, String md_question_title,
+			String md_question_content, Timestamp md_question_write_date, String md_question_reply_yn,
+			String md_response_username, String md_response_content, Timestamp md_response_write_date, String md_name, int member_id) {
+		super();
+		this.sort_md_question_id = sort_md_question_id;
+		this.md_id = md_id;
+		this.md_question_username = md_question_username;
+		this.md_question_title = md_question_title;
+		this.md_question_content = md_question_content;
+		this.md_question_write_date = md_question_write_date;
+		this.md_question_reply_yn = md_question_reply_yn;
+		this.md_response_username = md_response_username;
+		this.md_response_content = md_response_content;
+		this.md_response_write_date = md_response_write_date;
+		this.md_name = md_name;
+		this.member_id = member_id;
+	}
+
 	public int getSort_md_question_id() {
 		return sort_md_question_id;
 	}
@@ -116,10 +138,6 @@ public class MdInqryDTO {
 		this.md_name = md_name;
 		this.member_id = member_id;
 	}
-	public MdInqryDTO() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
 	public String getQuestionFormedDate() {
 		SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-dd");
 		if(getMd_question_write_date() == null) {
@@ -134,6 +152,5 @@ public class MdInqryDTO {
 		}
 		return sdf.format(getMd_response_write_date().getTime());
 	}
-	
 }
 

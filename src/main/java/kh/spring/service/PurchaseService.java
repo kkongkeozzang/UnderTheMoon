@@ -86,22 +86,15 @@ public class PurchaseService {
 		return purchaseDAO.selectPurchaseDetailByBound(purchase_id, start, end);
 	}
 
-<<<<<<< HEAD
-=======
-
 	public Integer updatePurchase(String receipt_id, Integer purchase_id) {
 		
 		return purchaseDAO.updatePurchase(receipt_id,purchase_id);
 	}
 
 
->>>>>>> 284309e08e22c9f22f24ba97004498a728c850ac
 	public List<PurchaseDateDTO> selectPurchaseDateByBound(Integer member_id, int selectDate, int start, int end) {
 
 		return purchaseDAO.selectPurchaseDateByBound(member_id,selectDate, start, end);
 	}
-<<<<<<< HEAD
-=======
 
->>>>>>> 284309e08e22c9f22f24ba97004498a728c850ac
 }

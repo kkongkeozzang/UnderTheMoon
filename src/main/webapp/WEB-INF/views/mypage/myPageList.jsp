@@ -49,23 +49,19 @@
 
 			<div class="col-12 col-md-8 col-lg-9">
 				<div class="card">
-					<div class="card-body">						
-							<div class="drive-wrapper drive-list-view">								
-									<table class="table">
+					<div class="card-body">
+						<table class="table">
 										<thead>
 											<tr>
-												<th class="name truncate" colspan=4>주문 내역 (지난 3개월 간 주문 내역 조회가 가능합니다) 
-                                                    <select class="form-select form-select-sm" aria-label=".form-select-sm example" id="select-date" onchange="changeList();">
-                                                    <option value="1" selected>전체기간</option>
-                                                    <option id="one-month" value="30">1개월전</option>
-                                                    <option id="two-month" value="60">2개월전</option>
-													<option id="three-month" value="90">3개월전</option>
-                                                  </select></th>
+												<th class="name truncate" colspan=4>주문 내역  
+                                                   </th>
 											</tr>
 										</thead>										
 										<tbody>														
 										</tbody>
-									</table>
+									</table>						
+							<div class="drive-wrapper drive-list-view" id="update-list">								
+									
 									<c:forEach var="purchaseList" items="#{purchaseList}">
 									<div class="purchase-unit row">
 										<%-- <div class="col-sm-12" id="purchase-name"><a href="/md/detail/page?md_id=${purchaseList.md_id }">${purchaseList.md_name }</a>											
@@ -136,20 +132,7 @@
 	    	 
 	     })
 	   })
-	
-	$("#select-date").on("change",function(){
-		var page = "1";
-		$.ajax({
-		  	  type: 'post',
-		        url:"/mypage/myPageListselectDate",
-		        data: {
-		        	selectDate: $("#select-date option:selected").val(),
-		        	cPage: page
-		        }
-		     }).done(function(resp){
-		    	 alert("테스트");
-		     })
-	})
+	   
 </script>
 </body>
 </html>

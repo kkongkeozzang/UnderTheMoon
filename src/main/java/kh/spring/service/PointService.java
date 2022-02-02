@@ -90,4 +90,8 @@ public Integer savePoints(Integer member_id, Integer productTotal) {
 	public int deletePointByMemberId(String member_id) {
 		return pointDAO.deletePointByMemberId(member_id);
 	}
+	
+	 public Integer insertKhEventMemberPoint(String id) {
+		   return pointDAO.insertKhEventMemberPoint(id);
+	 }
 }

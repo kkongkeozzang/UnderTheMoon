@@ -61,7 +61,8 @@ public class MemberController {
 	
 	@RequestMapping("member/signup")
 	public String signup(MemberDTO dto, @RequestParam(value = "recommend_id", required=false, defaultValue="") String recommend_id
-			,@RequestParam(value = "event", required=false, defaultValue="") String event) throws Exception{
+			,@RequestParam(value = "event", required=false, defaultValue="") String event,
+			@RequestParam(value = "member_birth_date", required=false, defaultValue="") String member_birth_date) throws Exception{
 		memberService.insertMember(dto); // 멤버
 		System.out.println(dto.getMember_id());
 		couponService.insertSignUpEventDelivery(dto.getMember_id());
@@ -79,6 +80,10 @@ public class MemberController {
 
 		if(event.equals("월하합작")) {
 			pointService.insertEventMemberPoint(dto.getMember_id());
+		}
+		String eventBirth = member_birth_date.substring(0, 4);
+		if(eventBirth.equals("1998")||eventBirth.equals("1986")||eventBirth.equals("1974")||eventBirth.equals("1962")||eventBirth.equals("1950")) {
+			couponService.insertBirthCoupon(dto.getMember_id());
 		}
 		return "redirect:/";
 	}

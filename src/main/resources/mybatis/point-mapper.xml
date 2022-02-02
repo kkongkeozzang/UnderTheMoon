@@ -67,4 +67,7 @@
   	delete from point where member_id=#{member_id}
   </delete>
   
+  <insert id="insertKhEventMemberPoint">
+     insert into point values(point_id_seq.nextval,'5000','KH콜라보',default,#{value})
+  </insert>
   </mapper>

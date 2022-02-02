@@ -65,5 +65,4 @@
 		select * from (select target.*, row_number() over(order by purchase_date desc) rn from (select * from purchase where member_id = #{member_id} and purchase_date <![CDATA[<]]> sysdate-#{selectDate}) target) where rn between #{start} and #{end}
 		</select>
 
->>>>>>> 284309e08e22c9f22f24ba97004498a728c850ac
   </mapper>

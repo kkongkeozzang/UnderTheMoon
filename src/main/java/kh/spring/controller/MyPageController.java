@@ -104,6 +104,7 @@ public class MyPageController {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal(); 
         String username = ((UserDetails)principal).getUsername();
         Integer member_id = memberService.selectIdByUsername(username);
+        MemberDTO memberDTO = memberService.selectByUsername(username);
 		int pointSum = pointService.selectPointById(username).get();
 		int couponSum = couponService.selectCouponPossibleById(member_id);
 		int start = cPage * PageStatic.MYPAGELIST_COUNT_PER_PAGE-(PageStatic.MYPAGELIST_COUNT_PER_PAGE - 1); 
@@ -116,6 +117,7 @@ public class MyPageController {
 		model.addAttribute("couponSum", couponSum);
 		model.addAttribute("purchaseList", purchaseList);
 		model.addAttribute("pageNavi", pageNavi);
+		model.addAttribute("memberDTO",memberDTO);
         
 		return "/mypage/myPagePurchaseDetail";
 	}
@@ -414,5 +416,18 @@ public class MyPageController {
 		memberService.deleteByMemberId(member_id);
 		couponService.deleteCouponByMemberId(member_id);
 		pointService.deletePointByMemberId(member_id);
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="khCollaboration", produces="text/html;charset=utf8")
+	public void khCollaboration(String member_id) {
+		pointService.insertKhEventMemberPoint(member_id);
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="khCollaborationCheck", produces="text/html;charset=utf8")
+	public String khCollaborationCheck(String member_id) {
+		int result = pointService.selectByIdandCheckKhEvent(member_id);
+		return String.valueOf(result);
 	}
 }

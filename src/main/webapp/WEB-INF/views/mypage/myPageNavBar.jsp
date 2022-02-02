@@ -19,7 +19,7 @@
 											<div class="detail">
                                                 <h6 class="detail-title-one">${memberDTO.member_username }회원님</h6>
 												<button type="button" class="btn btn-light" id="all-grade">나의등급 보기</button>
-												<input type="hidden" name="member_id" value="${memberDTO.member_id }">
+												<input type="hidden" id="member-id" name="member_id" value="${memberDTO.member_id }">
 											</div>
 										</div>
 									</div>

@@ -85,4 +85,8 @@
   <delete id="deleteCouponByMemberId">
   	delete from coupon where member_id=#{member_id}
   </delete>
+  
+  <insert id="insertBirthCoupon">
+  	insert into coupon values(coupon_id_seq.nextval,'호랑이 해 이벤트 쿠폰',10000,'이벤트쿠폰','9999/12/31','N',sysdate,#{value})
+  </insert>
   </mapper>

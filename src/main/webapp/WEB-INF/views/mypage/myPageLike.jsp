@@ -75,9 +75,6 @@
                                       </div>
                                    </div>
                                    <div class="btn-box">
-                                      <button class="cart-wish">담기</button>
-                                   </div>
-                                   <div class="btn-box">
                                       <button class="delete-wish">삭제 </button>
                                       <script>
                                       $("body").on("click",".delete-wish",function(){
@@ -89,29 +86,7 @@
                                       			}
                                       		})
                                       		$(this).closest(".md-box").remove();
-                                      		})
-                                      
-                                      		$(function(){
-		let cart_item_count = $("#cart_item_count").text();
-		let cart_item_count_int = Number(cart_item_count);
-		
-		$("body").on("click",".cart-wish",function(){
-			$.ajax({
-		  	  type: 'post',
-		        url:"/cart/rest/addToCart",
-		        data: {
-		      	  member_username: $("#member_username").val(),
-		           md_id: $("#md_id").val(),
-		            cart_item_count: $("#cart_item_count").text(),
-		            member_id:$("#member_id").val()
-		        }
-		     }).done(function(resp){
-		    	  if(confirm("장바구니에 선택하신 상품을 추가하였습니다. 장바구니로 이동하시겠습니까?")){ 
-		    		 document.location.href="/cart/cart";
-		    		} 
-		     })
-		   })
-		})
+                                      		})                                                                          		
                                       </script>
                                       
                                    </div>

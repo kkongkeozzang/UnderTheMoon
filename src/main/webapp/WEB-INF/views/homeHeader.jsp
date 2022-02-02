@@ -34,10 +34,10 @@
 				 <li class="menu none_sub menu_login"><a href="/login" class="link_menu">로그인</a> </li>
 			</sec:authorize>
 			<sec:authorize access="hasRole('ROLE_ADMIN')">
-				<li class="menu none_sub menu_logout"><a href="#" class="link_menu">관리자페이지</a> </li>
+				<li class="menu none_sub menu_logout"><a href="/admin/adminOffice" class="link_menu">관리자페이지</a> </li>
 			</sec:authorize>
 			<sec:authorize access="hasRole('ROLE_SELLER')">
-				<li class="menu none_sub menu_logout"><a href="#" class="link_menu">판매자페이지</a> </li>
+				<li class="menu none_sub menu_logout"><a href="/seller/sellerOffice" class="link_menu">판매자페이지</a> </li>
 			</sec:authorize>
 						
        
@@ -46,7 +46,7 @@
                     <span>고객센터</span>
                     <div class="dropdown-content">
                         <ul>
-                            <li><a href="/faq/toFaq?cPage=1">FQA</a></li>
+                            <li><a href="/faq/toFaq?cPage=1">FAQ</a></li>
                             <li><a href="/notice/toNotice?cPage=1">공지</a></li>
                             <li><a href="/qna/qnaList">1:1 문의</a></li>
                         </ul>

@@ -45,7 +45,6 @@
 			  <li class="list-group-item"><a href="/event/toEvent">이벤트<i class="fa fa-chevron-right" aria-hidden="true"></i></a></li>
 			  <li class="list-group-item"><a href="/notice/toNotice?cPage=1">공지사항<i class="fa fa-chevron-right" aria-hidden="true"></i></a></li>
 			  <li class="list-group-item"><a href="/faq/toFaq?cPage=1">자주묻는게시판<i class="fa fa-chevron-right" aria-hidden="true"></i></a></li>
-			  <li class="list-group-item"><a href="#">1:1문의<i class="fa fa-chevron-right" aria-hidden="true"></i></a></li>
 			</ul>
 		</div>
 	</div>

@@ -48,7 +48,7 @@
                 <a class="nav-link collapsed" href="/admin/adminOffice" data-target="#collapse-one"
                     aria-expanded="true" aria-controls="collapse-one">
                     <i class="fas fa-fw fa-chart-area"></i>
-                    <span>대쉬 보드</span>
+                    <span>대시 보드</span>
                 </a>
             </li>
             
@@ -82,6 +82,14 @@
                     aria-expanded="true" aria-controls="collapse-six">
                     <i class="fas fa-fw fa-table"></i>
                     <span>등급 관리</span>
+                </a>
+            </li>
+            
+            <li class="nav-item">
+            	<a class="nav-link collapsed" href="/" data-target="#collapse-seven"
+                    aria-expanded="true" aria-controls="collapse-seven">
+                    <i class="fas fa-fw fa-folder"></i>
+                    <span>홈으로</span>
                 </a>
             </li>
 

@@ -22,6 +22,46 @@
 		select count(*) from md_question where md_id = #{value}
 	</select>
 	
+	<select id="selectAll" resultType="kh.spring.dto.MdInqryDTO">
+		select * from
+		(select target.*, mn.md_name from 
+		(select * from 
+		(select q.md_question_id sort_md_question_id, q.md_id, q.member_id, q.md_question_title, q.md_question_content, q.md_question_write_date, q.md_question_reply_yn, m.member_username md_question_username from md_question q join member m on q.member_id = m.member_id) mq
+		left outer join 
+		(select r.*, m.member_username md_response_username from md_response r join member m on r.member_id = m.member_id) mr
+		on mq.sort_md_question_id = mr.md_question_id ) target
+		left outer join (select md_id, md_name from md) mn on target.md_id=mn.md_id)
+		order by sort_md_question_id
+	</select>
+	
+	<delete id="deleteMdInqry">
+		delete from md_question where md_question_id=#{md_question_id}
+	</delete>
+	
+	<delete id="deleteMdResp">
+		delete from md_response where md_question_id=#{md_question_id}
+	</delete>
+	
+	<update id="updateWait">
+		update md_question set md_question_reply_yn='답변대기' where md_question_id=#{md_question_id}
+	</update>
+	
+	<update id="updateComplete">
+		update md_question set md_question_reply_yn='답변완료' where md_question_id=#{md_question_id}
+	</update>
+	
+	<insert id="insertResp">
+		insert into md_response values(#{md_question_id}, #{member_id}, #{md_response_content}, default)
+	</insert>
+	
+	<select id="selectMemberId" resultType="int">
+		select member_id from member where member_username=#{username}
+	</select>
+	
+	<update id="updateResp">
+		update md_response set md_response_content=#{md_response_content} where md_question_id=#{sort_md_question_id}
+	</update>
+
 	<insert id="insert">
 		insert into md_question values(md_question_id_seq.nextval, #{md_id}, #{member_id}, #{md_question_title},#{md_question_content},default,default)
 	</insert>

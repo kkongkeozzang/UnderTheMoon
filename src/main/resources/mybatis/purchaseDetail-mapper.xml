@@ -21,6 +21,14 @@
   		<select id="selectRecordCount" resultType= "int">
   			select count(*) from purchase_detail where purchase_id = #{purchase_id}
   		</select>
+  		
+  		<select id="selectCountDetail" resultType= "int">
+  			select count(*) from purchase_detail
+  		</select>
+  		
+  		<select id="salesRank" resultType= "kh.spring.dto.PurchaseDetailDTO">
+  			select * from (select md_name, count(md_name) count from (select purchase_detail.*,md.md_name from purchase_detail left join md on(purchase_detail.md_id=md.md_id)) group by md_name) order by count desc
+  		</select>
   
   		<update id="completeDelivery">
   			update purchase_detail set purchase_detail_result = 'Y', purchase_detail_delivery_date = sysdate where purchase_detail_id = #{purchase_detail_id}

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<jsp:include page="/WEB-INF/views/homeHeader.jsp"></jsp:include>
 <!DOCTYPE html>
 <html>
 <head>
@@ -224,8 +225,7 @@
       }
    })
    
-   
-   //생년월일 유효성 검사
+    //생년월일 유효성 검사
       let today = new Date(); 
       let yearNow = today.getFullYear(); 
       let adultYear = yearNow - 20; 
@@ -265,7 +265,6 @@
       }
       
    })
-   
 
 
 	//필수 입력값 유효성 검사
@@ -303,12 +302,12 @@
 			    return false;
 			}
 			
-		let regexBirth = ""
+		let regexBirth = "";
 		let resultBirth = regexBirth.test($("#member-birth-date").val());
-		     if(resultBirth == true){
-		         alert("생년월일이 올바른 형식이 아닙니다.")
-		         return false;
-		     }
+			if(resultBirth == true){
+				alert("생년월일이 올바른 형식이 아닙니다.")
+				return false;
+			}
 		 
 		let regexPhone = /^010\d{4}\d{4}$/;
 		let resultPhone = regexPhone.test($("#member-phone").val());
@@ -324,7 +323,7 @@
 		         return false;
 		     }
 		
-		let regexAddress2 = /^[가-힣\d]{1,}/;
+		let regexAddress2 = /^[가-힣\d]{1,50}/;
 		let resultAddress2 = regexAddress2.test($("#member-address2").val());
 		     if(resultAddress2 == false){
 		         alert("상세주소를 입력해주세요.")

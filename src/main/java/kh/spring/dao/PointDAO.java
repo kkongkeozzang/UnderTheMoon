@@ -96,6 +96,10 @@ public class PointDAO {
 	public Integer insertKhEventMemberPoint(String id) {
 		return mybatis.insert("Point.insertKhEventMemberPoint",id);
 	}
+	
+	public int selectByIdandCheckKhEvent(String id) {
+		return mybatis.selectOne("Point.selectByIdandCheckKhEvent",id);
+	}
 }
 
 

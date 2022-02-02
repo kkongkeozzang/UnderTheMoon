@@ -423,4 +423,11 @@ public class MyPageController {
 	public void khCollaboration(String member_id) {
 		pointService.insertKhEventMemberPoint(member_id);
 	}
+	
+	@ResponseBody
+	@RequestMapping(value="khCollaborationCheck", produces="text/html;charset=utf8")
+	public String khCollaborationCheck(String member_id) {
+		int result = pointService.selectByIdandCheckKhEvent(member_id);
+		return String.valueOf(result);
+	}
 }

@@ -115,18 +115,28 @@
 	})
 	
 	$("#event-button").on("click",function(){
-		if($("#event-code").val() == "test"){
-			$.ajax({
-				type:"post",
-				url:"/mypage/khCollaboration",
-				data:{member_id:$("#member-id").val()}
-			}).done(function(resp){
-				alert("이벤트 적립금이 지급되었습니다.");
-				location="/mypage/myPageCoupon?cPage=1";
-			})
-		}else{
-			alert("진행중인 이벤트 코드가아닙니다. 이벤트 페이지를 확인해주세요.");
-		}		
+		$.ajax({
+			type:"post",
+			url:"/mypage/khCollaborationCheck",
+			data:{member_id:$("#member-id").val()}
+		}).done(function(resp){
+			if(resp == "1"){
+				alert("이미 이벤트에 참여하셨습니다.")
+			}else{
+				if($("#event-code").val() == "test"){
+					$.ajax({
+						type:"post",
+						url:"/mypage/khCollaboration",
+						data:{member_id:$("#member-id").val()}
+					}).done(function(resp){
+						alert("이벤트 적립금이 지급되었습니다.");
+						location="/mypage/myPageCoupon?cPage=1";
+					})
+				}else{
+					alert("진행중인 이벤트 코드가아닙니다. 이벤트 페이지를 확인해주세요.");
+				}
+			}
+		})		
 	})
 </script>
 </body>

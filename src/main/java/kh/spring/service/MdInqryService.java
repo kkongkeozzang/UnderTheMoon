@@ -24,6 +24,14 @@ public class MdInqryService {
 		return mdInqryDAO.selectCount(md_id);
 	}
 	
+	public int insert(MdInqryDTO inqry) {
+		return mdInqryDAO.insert(inqry);
+	}
+	
+	public int delete(String md_inqry_id) {
+		return mdInqryDAO.delete(md_inqry_id);
+	}
+	
 	public List<MdInqryDTO> selectByBoundByMemberId(Integer member_id, int start, int end) {
 		return mdInqryDAO.selectByBoundByMemberId(member_id, start, end);
 	}

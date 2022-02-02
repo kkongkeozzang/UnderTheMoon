@@ -32,92 +32,33 @@
 <!-- jQuery UI -->
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
 <script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<style>
+.popup {
+	width:60% !important;
+	max-height: 80%;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.popup img {
+	height:auto;
+	max-width:100%;
+}
+</style>
 </head>
 
 <body>
-	<div class="container">
-	<div class="row" id="header">
-		</div>
+	<div class="container">	
         <div class="row">
             <div class="col-12">
                 <div class="card">
-					<div class="card-body">
-						<div class="row mt-3">
-							<div class="col-12 col-lg-3">
-								<div class="card shadow-none border radius-15">
-									<div class="card-body" align=center>
-										<div class="d-flex">										
-											<div class="detail">
-                                                <h6 class="detail-title-one">${memberDTO.member_username }회원님</h6>
-												<button type="button" class="btn btn-light" id="all-grade">나의등급 보기</button>
-												<input type="hidden" name="member_id" value="${memberDTO.member_id }">
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-                            <div class="col-12 col-lg-3">
-								<div class="card shadow-none border radius-15">
-									<div class="card-body" align=center>
-										<div class="d-flex">
-
-											<div class="detail">
-												<h6 class="detail-title"><a href="/mypage/myPagePoint">적립금 ></a></h6>
-												<p class="detail-detail"><span><fmt:formatNumber value="${pointSum}" type="number"/> 원</span></p>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-                            <div class="col-12 col-lg-3">
-								<div class="card shadow-none border radius-15">
-									<div class="card-body" align=center>
-										<div class="d-flex">											
-											<div class="detail">
-												<h6 class="detail-title"><a href="/mypage/myPageCoupon?cPage=1">쿠폰 ></a></h6>
-												<p class="detail-detail"><span>${couponSum } 개</span></p>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-                            <div class="col-12 col-lg-3">
-								<div class="card shadow-none border radius-15">
-									<div class="card-body" align=center>
-										<div class="d-flex">										
-											<div class="detail">
-												<h6 class="detail-title"><a href="/qna/qnaList">1:1문의 ></a></h6>
-												<p class="detail-detail"><span>도움이 필요하신가요?</span></p>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-            			</div>            
-            		</div>    
+					<jsp:include page="myPageNavBar.jsp" flush="false" />    
 
 
 	<div class="row">
 			<div class="col-12 col-md-4 col-lg-3">
 				<div class="card">
-					<div class="card-body">
-						<div class="d-grid"></div>
-						<h5 class="my-3">My Page</h5>
-						<div class="fm-menu">
-							<div class="list-group list-group-flush">
-								<a href="/mypage/myPageList?cPage=1" class="list-group-item py-1"><span>주문 내역</span></a> 													
-								<a href="/mypage/myPageLike" class="list-group-item py-1"><span>찜한 상품</span></a>
-								<a href="/mypage/myPagePoint" class="list-group-item py-1"><span>적립금</span></a>
-                                <a href="/mypage/myPageCoupon?cPage=1" class="list-group-item py-1"><span>쿠폰</span></a>
-                                <a href="" class="list-group-item py-1"><span>상품 문의</span></a>
-                                <a href="/mypage/myPageReview" class="list-group-item py-1"><span>상품 후기</span></a>
-                                <a href="/mypage/myPageModifyProfile" class="list-group-item py-1"><span>개인정보 수정</span></a>
-                                <br>
-                                <br>
-								<a href="/qna/qnaList" class="list-group-item py-1"><span>도움이 필요하신가요?<br>1:1 문의하기</span></a>
-							</div>
-						</div>
-					</div>
+					<jsp:include page="myPageSideBar.jsp" flush="false" />
 				</div>
 			</div>
 
@@ -148,6 +89,7 @@
 												<div class="md-box">
 													<div class="img-box">
 														<div class="img-box2">
+															<input type=hidden class="md_review_id" value="${md.md_review_id }">
 															<a href="/md/detail/page?md_id=${md.md_id}"><img src="/mdImage/a.png"></a>
 														</div>
 													</div>
@@ -161,11 +103,70 @@
 													<div class="status-box">
 														<span class=status>배송완료</span>
 													</div>
-													<div class="btn-box">
-														<button id="readMdReview" style="font-size: 15px">후기보기</button>
+													<div class="btn-box" style="flex-direction: column; justify-content: center;">
+														<a href="#popup${md.md_review_id }"><button class="read-review" type=button style="font-size: 15px">후기보기</button></a>
+														<input type=button class="delete-btn" style="font-size: 15px;" value="후기삭제">
 													</div>
+													<div id="popup${md.md_review_id }" class="overlay">
+									                    <div class="popup">
+									                        <h2></h2>
+									                        <a class="close" href="javascript:history.back()">&times;</a>
+									                        <div class="content" style="text-align:center;">
+									                            <br>
+									                            
+									                            
+									                        </div>
+									                    </div>
+												    </div>
 												</div>
 											</c:forEach>
+											<script>
+												$("body").on("click",".delete-btn",function(){
+													let mdBox = $(this).closest(".md-box");
+													let md_review_id = $(this).closest(".md-box").find(".md_review_id").val();
+													mdBox.remove();
+													$.ajax({
+						            					url:"/md/detail/review/rest/delete/"+md_review_id,
+						            					type:"delete",
+						            					dataType:"json"
+						            				}).done(function(){
+						            					mdBox.remove();
+													})
+												})
+												$("body").on("click",".read-review",function(){
+													let md_review_id = $(this).closest(".md-box").find(".md_review_id").val();
+													let popupBox = $(this).closest(".md-box").find(".popup");
+													$.ajax({
+														url:"/md/detail/review/rest/read/"+md_review_id,
+														type:"get",
+														dataType:"json"
+													}).done(function(resp){
+														popupBox.find("h2").text(resp.review[0].md_review_title);
+														str = "";
+														str += "<div>"
+														str += "작성일 : " + resp.review[0].formedDate + " | ";
+														str += "도움 : " + resp.review[0].md_review_like + " | ";
+														str += "조회수 : " + resp.review[0].md_review_view_count;
+														str += "</div>"
+														popupBox.find(".content").html(str);
+														popupBox.find(".content").append("<br/>");
+														str = "";
+														str += "<div>";
+														str += resp.review[0].md_review_content;
+														str += "</div>";
+														popupBox.find(".content").append(str);
+														let imgs = $("<div>");
+														for(let i = 0; i < resp.images.length; i++) {
+															str = "";
+															str += "<div>";
+															str += "<img src='/mdReviewImage" + resp.images[i].md_review_image + "'>";
+															str += "</div>";
+															imgs.append(str);
+														}
+														popupBox.find(".content").append(imgs);
+													})
+												})
+											</script>
 											<div id="page-box">${pageNavi }</div>
 										</div>
 										</div>
@@ -176,7 +177,6 @@
 											active:1,
 								            activate: function(event ,ui){
 								                let selectTab = ui.newTab.index();
-								                console.log(selectTab);
 								                if (selectTab == 0) {
 								                	location.href ="/mypage/myPageMdReview?cPage=1";
 								                } else if (selectTab == 1) {

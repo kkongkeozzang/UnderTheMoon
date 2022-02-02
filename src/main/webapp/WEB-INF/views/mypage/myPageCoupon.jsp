@@ -121,11 +121,11 @@
 				url:"/mypage/khCollaboration",
 				data:{member_id:$("#member-id").val()}
 			}).done(function(resp){
-				alert("테스트성공");
+				alert("이벤트 적립금이 지급되었습니다.");
 				location="/mypage/myPageCoupon?cPage=1";
 			})
 		}else{
-			alert("입력값틀림");
+			alert("진행중인 이벤트 코드가아닙니다. 이벤트 페이지를 확인해주세요.");
 		}		
 	})
 </script>

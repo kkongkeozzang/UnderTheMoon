@@ -22,6 +22,14 @@
 		select count(*) from md_question where md_id = #{value}
 	</select>
 	
+	<insert id="insert">
+		insert into md_question values(md_question_id_seq.nextval, #{md_id}, #{member_id}, #{md_question_title},#{md_question_content},default,default)
+	</insert>
+	
+	<delete id="delete">
+		delete from md_question where md_question_id = #{value}
+	</delete>
+	
 	<select id="selectRecordCount" resultType="int">
 		select count(*) from md_question where member_id = #{value}
 	</select>

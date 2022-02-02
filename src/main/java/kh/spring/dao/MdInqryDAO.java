@@ -30,6 +30,14 @@ private final SqlSessionTemplate mybatis;
 		return mybatis.selectOne("MdInqry.selectCount",md_id);
 	}
 	
+	public int insert(MdInqryDTO inqry) {
+		return mybatis.insert("MdInqry.insert",inqry);
+	}
+	
+	public int delete(String md_inqry_id) {
+		return mybatis.delete("MdInqry.delete",md_inqry_id);
+	}
+	
 	public int selectRecordCount(Integer member_id) {
 		return mybatis.selectOne("MdInqry.selectRecordCount", member_id);
 	}

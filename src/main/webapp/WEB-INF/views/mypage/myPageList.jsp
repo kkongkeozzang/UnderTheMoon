@@ -108,7 +108,8 @@
 		
 		location="/mypage/writeReview"
 	})
-		
+
+	
 	//주문취소..
 	$("body").on("click",".cancel",function(){
 		
@@ -132,7 +133,8 @@
 	    	 
 	     })
 	   })
-	   
+
 </script>
 </body>
+
 </html>

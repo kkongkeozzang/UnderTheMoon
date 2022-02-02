@@ -59,6 +59,7 @@ public class QnaController {
 		System.out.println("null2");
 		MemberDTO memberDTO = memberService.selectByUsername(username);
 		int result = qnaService.selectMemberId(username);
+
 		int pointSum = pointService.selectPointById(username).get();
 		int couponSum = couponService.selectCouponPossibleById(memberDTO.getMember_id());
 		
@@ -102,6 +103,7 @@ public class QnaController {
 		model.addAttribute("qa_question_id", qa_question_id);
 		model.addAttribute("response", response);
 		model.addAttribute("content", content);
+
 		model.addAttribute("pointSum",pointSum);
 		model.addAttribute("couponSum", couponSum);
 

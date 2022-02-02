@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<jsp:include page="/WEB-INF/views/homeHeader.jsp"></jsp:include>
 <!DOCTYPE html>
 <html>
 <head>
@@ -103,7 +102,7 @@
                     1:1 문의 작성 전 확인해 주세요!<br><br>
                     
                     반품/환불<br>
-                    - 제품 하자 혹은 이상으로 반품 및 환불이 필요한 경우 사진과 함께 구체적인 내용을 남겨주세요. <br><br>
+                    - 제품 하자 혹은 이상으로 반품 및 환불이 필요한 경우 구체적인 내용을 남겨주세요. <br><br>
 
                     배송<br>
                     - 배송 및 배송시간 지정은 불가능합니다.<br>
@@ -114,13 +113,6 @@
             </tr>
                 
 
-              <tr>
-                  <th id="tableHead">이미지</th>
-                  <td>
-                      <input type="file" name="file" class="form-control" id="customFile" />
-                      <label class="form-label" for="customFile">file 업로드 조건</label>
-        </td>
-        </tr>
                <tr>
                    <td colspan="2">
                    <button type="submit" id="submit" class="btn btn-primary sharp">입력</button>

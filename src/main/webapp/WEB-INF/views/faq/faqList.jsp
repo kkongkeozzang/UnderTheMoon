@@ -151,7 +151,10 @@ select {
 </sec:authorize>
 </head>
 <body>
-
+	<!-- #userMenu 는 상단 로그인, 회원가입, 고객센터 메뉴-->
+	<jsp:include page="/WEB-INF/views/homeHeader.jsp"></jsp:include>
+	<jsp:include page="/WEB-INF/views/event/navi.jsp"></jsp:include>
+	
 	<!-- 타이틀  -->
 	<div class="container-fluid mt-100">
 		<div id="board-title">
@@ -313,7 +316,7 @@ select {
 							class="btn btn-shadow btn-wide btn-primary btn-write"
 							style="background-color: #406882; border-color: #406882;">
 							글쓰기</button>
-					</sec:authorize>
+					</sec:authorize>		
 						<script>
 	         			$(".btn-write").on("click",function(){
 	         				location.href="/faq/toWrite";
@@ -342,5 +345,7 @@ select {
 			</div>
 		</div>
 	</div>
+	<!--footer 시작 -->
+	<jsp:include page="/WEB-INF/views/homeFooter.jsp"></jsp:include>
 </body>
 </html>

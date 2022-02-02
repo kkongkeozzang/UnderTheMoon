@@ -96,5 +96,17 @@ public class MemberService {
 	public Integer deleteByMemberId(String member_id) {
 		return memberDAO.deleteByMemberId(member_id);
 	}
+	
+	public int selectTotalMember() {
+		return memberDAO.selectTotalMember();
+	}
+	
+	public int selectTodayMember() {
+		return memberDAO.selectTodayMember();
+	}
+	
+	public List<MemberDTO> selectByGrade() {
+		return memberDAO.selectByGrade();
+	}
 
 }

@@ -75,6 +75,15 @@
 	</select>
 	
 	<select id="selectByBoundByMemberId" resultType="kh.spring.dto.MdInqryDTO">
-		select * from (select * from (select target.*, row_number() over(order by md_question_write_date) rn from (select * from md_question where member_id = #{member_id}) target)) where rn between #{start} and #{end}
+		select * from (
+		select target.*, row_number() over(order by sort_md_question_id desc) rn
+		from 
+		(select * from 
+		(select q.md_question_id sort_md_question_id, q.md_id, q.member_id, q.md_question_title, q.md_question_content, q.md_question_write_date, q.md_question_reply_yn, m.member_username md_question_username from md_question q join member m on q.member_id = m.member_id) mq
+		left outer join 
+		(select r.*, m.member_username md_response_username from md_response r join member m on r.member_id = m.member_id) mr
+		on mq.sort_md_question_id = mr.md_question_id 
+		where mq.member_id = #{member_id}) target)
+		where rn between #{start} and #{end}
 	</select>
 </mapper>

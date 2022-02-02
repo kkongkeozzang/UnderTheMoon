@@ -65,6 +65,7 @@ private final SqlSessionTemplate mybatis;
 	public int updateResp(MdInqryDTO inqrys) {
 		return mybatis.update("MdInqry.updateResp", inqrys);
 	}
+	
 	public int insert(MdInqryDTO inqry) {
 		return mybatis.insert("MdInqry.insert",inqry);
 	}

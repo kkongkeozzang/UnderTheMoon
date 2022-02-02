@@ -21,9 +21,6 @@
 <body>
 
 <div id="userMenu">
-<user-menu-pc :login-check="loginCheck" :notification-item="notificationItem" :user-info="userInfo" :return-url="returnUrl"></user-menu-pc>
-    
-<div id="userMenu">
     <ul class="list_menu">
         <li class="menu none_sub menu_join"><a href="/signup" class="link_menu">회원가입</a></li>
         
@@ -44,18 +41,15 @@
         <li class="menu lst"><a href="" class="link_menu">
                 <div class="dropdown">
                     <span>고객센터</span>
-                    <div class="dropdown-content">
-                        <ul>
-                            <li><a href="/faq/toFaq?cPage=1">FAQ</a></li>
-                            <li><a href="/notice/toNotice?cPage=1">공지</a></li>
-                            <li><a href="/qna/qnaList">1:1 문의</a></li>
-                        </ul>
+                    <div class="dropdown-content" id="dropdown-index">
+                            <p><a href="/faq/toFaq?cPage=1">FAQ</a></p>
+                            <p><a href="/notice/toNotice?cPage=1">공지</a></p>
+                            <p><a href="/qna/qnaList">1:1 문의</a></p>
                     </div>
                 </div>
             </a>
         </li>
     </ul>
-</div>
 </div>
 
 <!-- 로고 -->
@@ -63,7 +57,7 @@
 <h1 class="logo">
 <a href="/" class="link_main">
 <span id="gnbLogoContainer"></span>
-<img src="dorothy.png" alt="월하합작 로고">
+<img src="" alt="월하합작 로고">
 </a>
 </h1>
 <a href="/shop/board/view.php?id=notice&no=64" onclick="ga('send','event','etc','main_gif_btn_click');" class="bnr_delivery">
@@ -73,7 +67,6 @@
 <!--nav 시작부분 -->
 <div id="gnb">
 <div class="fixed_container">
-<h2 class="screen_out"></h2>
 <div id="gnbMenu" class="gnb_kurly">
 <div class="inner_gnbkurly">
 <div class="gnb_main">
@@ -81,19 +74,35 @@
 
 <!-- dropdown 메뉴 -->
 <li class="menu1"><a href="/md/list">
-    <span class="ico"></span><span class="txt">
+    <span class="ico"></span>
+    <span class="txt">
     <div class="dropdown">
         <span>지역별 전통주</span>
         <div class="dropdown-content" id="dropdown-index">
-          <p>서울</p>
+<p>서울</p>
+<p>인천</p>
+<p>경기</p>
+<p>강원</p>
+<p>충북</p>
+<p>충남</p>
+<p>전북</p>
+<p>전남</p>
+<p>부산</p>
+<p>대전</p>
+<p>울산</p>
+<p>경북</p>
+<p>경남</p>
+<p>제주</p>
         </div>
-      </div>
-</span></a></li>
+    </div>
+</span>
+</a></li>
 
 <!-- 일반 메뉴 -->
 <li class="menu2"><a class="link new " href="/md/list"><span class="txt">전체 상품</span></a></li>
 <li class="menu3"><a class="link best " href="/event/toEvent"><span class="txt">이벤트</span></a></li>
 <li class="menu4"><a class="link bargain " href="/mypage/myPageList?cPage=1"><span class="txt">마이페이지 </span></a></li>
+
 </ul>
 <!-- searchbar 검색바 -->
 <div id="side_search" class="gnb_search">
@@ -218,6 +227,8 @@
     KurlyTracker.setAction(_event_name).sendData();
     location.href = _event_info;
   });
+  
+
 
 
   // 찜하기 아이콘 클릭이벤트
@@ -228,7 +239,6 @@
   });
   
 </script>
-</div>
 
 </body>
 </html>

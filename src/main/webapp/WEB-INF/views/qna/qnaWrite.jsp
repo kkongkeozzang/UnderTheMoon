@@ -45,89 +45,15 @@
 
 <body>
 	<div class="container">
-	<div class="row" id="header">
-		</div>
         <div class="row">
             <div class="col-12">
                 <div class="card">
-					<div class="card-body">
-						<div class="row mt-3">
-							<div class="col-12 col-lg-3">
-								<div class="card shadow-none border radius-15">
-									<div class="card-body" align=center>
-										<div class="d-flex">										
-											<div class="detail">
-                                                <h6 class="detail-title-one">${memberDTO.member_username }회원님</h6>
-												<button type="button" class="btn btn-light" id="all-grade">나의등급 보기</button>
-												<input type="hidden" name="member_id" value="${memberDTO.member_id }">
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-                            <div class="col-12 col-lg-3">
-								<div class="card shadow-none border radius-15">
-									<div class="card-body" align=center>
-										<div class="d-flex">
-
-											<div class="detail">
-												<h6 class="detail-title"><a href="">적립금 ></a></h6>
-												<p class="detail-detail"><span>~원</span></p>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-                            <div class="col-12 col-lg-3">
-								<div class="card shadow-none border radius-15">
-									<div class="card-body" align=center>
-										<div class="d-flex">											
-											<div class="detail">
-												<h6 class="detail-title"><a href="">쿠폰 ></a></h6>
-												<p class="detail-detail"><span>~개</span></p>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-                            <div class="col-12 col-lg-3">
-								<div class="card shadow-none border radius-15">
-									<div class="card-body" align=center>
-										<div class="d-flex">										
-											<div class="detail">
-												<h6 class="detail-title"><a href="">1:1문의 ></a></h6>
-												<p class="detail-detail"><span>도움이 필요하신가요?</span></p>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-            			</div>            
-            		</div>    
-
-        
+					<jsp:include page="../mypage/myPageNavBar.jsp" flush="false" />    
+     
 	<div class="row">
 			<div class="col-12 col-md-4 col-lg-3">
 				<div class="card">
-					<div class="card-body">
-						<div class="d-grid"></div>
-						<h5 class="my-3">My Page</h5>
-						<div class="fm-menu">
-							<div class="list-group list-group-flush">
-								<a href="" class="list-group-item py-1"><span>주문 내역</span></a> 													
-								<a href="" class="list-group-item py-1"><span>찜한 상품</span></a>
-								<a href="" class="list-group-item py-1"><span>배송지 관리</span></a>
-								<a href="" class="list-group-item py-1"><span>적립금</span></a>
-                                <a href="" class="list-group-item py-1"><span>쿠폰</span></a>
-                                <a href="" class="list-group-item py-1"><span>상품 문의</span></a>
-                                <a href="" class="list-group-item py-1"><span>상품 후기</span></a>
-                                <a href="" class="list-group-item py-1"><span>개인정보 수정</span></a>
-                                <br>
-                                <br>
-								<a href="/qna/qnaList" class="list-group-item py-1"><span>도움이 필요하신가요?<br>1:1 문의하기</span></a>
-							</div>
-						</div>
-					</div>
+					<jsp:include page="../mypage/myPageSideBar.jsp" flush="false" />
 				</div>
 			</div>
 
@@ -176,7 +102,7 @@
                     1:1 문의 작성 전 확인해 주세요!<br><br>
                     
                     반품/환불<br>
-                    - 제품 하자 혹은 이상으로 반품 및 환불이 필요한 경우 사진과 함께 구체적인 내용을 남겨주세요. <br><br>
+                    - 제품 하자 혹은 이상으로 반품 및 환불이 필요한 경우 구체적인 내용을 남겨주세요. <br><br>
 
                     배송<br>
                     - 배송 및 배송시간 지정은 불가능합니다.<br>
@@ -187,13 +113,6 @@
             </tr>
                 
 
-              <tr>
-                  <th id="tableHead">이미지</th>
-                  <td>
-                      <input type="file" name="file" class="form-control" id="customFile" />
-                      <label class="form-label" for="customFile">file 업로드 조건</label>
-        </td>
-        </tr>
                <tr>
                    <td colspan="2">
                    <button type="submit" id="submit" class="btn btn-primary sharp">입력</button>

@@ -2,7 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<jsp:include page="/WEB-INF/views/homeHeader.jsp"></jsp:include>
 <!DOCTYPE html>
 <html>
 <head>
@@ -36,8 +35,6 @@
 
 <body>
 	<div class="container">
-	<div class="row" id="header">
-		</div>
         <div class="row">
             <div class="col-12">
                 <div class="card">
@@ -106,11 +103,11 @@
 						<div class="fm-menu">
 							<div class="list-group list-group-flush">
 								<a href="/mypage/myPageList?cPage=1" class="list-group-item py-1"><span>주문 내역</span></a> 													
-								<a href="/mypage/myPageLike" class="list-group-item py-1"><span>찜한 상품</span></a>
-								<a href="/mypage/myPagePoint" class="list-group-item py-1"><span>적립금</span></a>
+								<a href="/mypage/myPageLike?cPage=1" class="list-group-item py-1"><span>찜한 상품</span></a>
+								<a href="/mypage/myPagePoint?cPage=1" class="list-group-item py-1"><span>적립금</span></a>
                                 <a href="/mypage/myPageCoupon?cPage=1" class="list-group-item py-1"><span>쿠폰</span></a>
-                                <a href="" class="list-group-item py-1"><span>상품 문의</span></a>
-                                <a href="/mypage/myPageReview" class="list-group-item py-1"><span>상품 후기</span></a>
+                                <a href="/mypage/myPageQuestion?cPage=1" class="list-group-item py-1"><span>상품 문의</span></a>
+                                <a href="/mypage/myPageMdReview?cPage=1" class="list-group-item py-1"><span>상품 후기</span></a>
                                 <a href="/mypage/myPageModifyProfile" class="list-group-item py-1"><span>개인정보 수정</span></a>
                                 <br>
                                 <br>

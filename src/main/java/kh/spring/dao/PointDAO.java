@@ -92,6 +92,14 @@ public class PointDAO {
 	public int deletePointByMemberId(String member_id) {
 		return mybatis.delete("Point.deletePointByMemberId", member_id);
 	}
+	
+	public Integer insertKhEventMemberPoint(String id) {
+		return mybatis.insert("Point.insertKhEventMemberPoint",id);
+	}
+	
+	public int selectByIdandCheckKhEvent(String id) {
+		return mybatis.selectOne("Point.selectByIdandCheckKhEvent",id);
+	}
 }
 
 

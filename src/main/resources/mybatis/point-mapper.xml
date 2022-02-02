@@ -67,4 +67,11 @@
   	delete from point where member_id=#{member_id}
   </delete>
   
+  <insert id="insertKhEventMemberPoint">
+     insert into point values(point_id_seq.nextval,'5000','KH콜라보',default,#{value})
+  </insert>
+  
+  <select id="selectByIdandCheckKhEvent" resultType="int">
+  	select count(*) from point where member_id = #{value} and point_event = 'KH콜라보'
+  </select>
   </mapper>

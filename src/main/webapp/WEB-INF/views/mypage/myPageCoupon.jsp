@@ -3,7 +3,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
-<jsp:include page="/WEB-INF/views/homeHeader.jsp"></jsp:include>
 <!DOCTYPE html>
 <html>
 <head>
@@ -56,7 +55,7 @@
 									<table class="table">
 										<thead>
 											<tr>
-												<th class="name truncate" colspan=4>쿠폰                                                
+												<th class="name truncate" colspan=4>쿠폰                                             
 											</tr>
 											<tr>
 												<th class="grade-list" style="text-align:center">쿠폰 이름</th>
@@ -90,6 +89,12 @@
 											</c:forEach>														
 										</tbody>
 									</table>
+									<div>
+									<span style="float:right;">
+									이벤트 코드 입력: <input type="text" id="event-code" name="event_code">
+									<button type="button" class='btn btn-outline-primary' id="event-button" style="background-color:#406882;color:white;">입력</button>
+									</span>	
+									</div>
 									<div class="navigator" style="margin:auto; display:block;">
 									${pageNavi}
 									</div>							
@@ -106,6 +111,31 @@
 <script>
 	$("#all-grade").on("click",function(){
 		location="/mypage/myPageGrade"
+	})
+	
+	$("#event-button").on("click",function(){
+		$.ajax({
+			type:"post",
+			url:"/mypage/khCollaborationCheck",
+			data:{member_id:$("#member-id").val()}
+		}).done(function(resp){
+			if(resp == "1"){
+				alert("이미 이벤트에 참여하셨습니다.")
+			}else{
+				if($("#event-code").val() == "test"){
+					$.ajax({
+						type:"post",
+						url:"/mypage/khCollaboration",
+						data:{member_id:$("#member-id").val()}
+					}).done(function(resp){
+						alert("이벤트 적립금이 지급되었습니다.");
+						location="/mypage/myPageCoupon?cPage=1";
+					})
+				}else{
+					alert("진행중인 이벤트 코드가아닙니다. 이벤트 페이지를 확인해주세요.");
+				}
+			}
+		})		
 	})
 </script>
 </body>

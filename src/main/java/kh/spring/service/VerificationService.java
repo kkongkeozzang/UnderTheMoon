@@ -12,7 +12,6 @@ import net.nurigo.java_sdk.exceptions.CoolsmsException;
 public class VerificationService {
 
 	public void verifiedPhoneNumber(String member_phone, String numStr) {
-
 		String api_key = "";
         String api_secret = "";
         Message coolsms = new Message(api_key, api_secret);

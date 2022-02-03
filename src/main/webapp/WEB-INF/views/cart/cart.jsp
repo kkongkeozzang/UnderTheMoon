@@ -84,6 +84,23 @@
 	table#cart tfoot td .btn{display:block;}
 	
 }
+
+.btn {
+    background-color: #406882 !important;
+    border-color: #1A374D !important;
+    border-top-color: rgb(26, 55, 77) !important;
+    border-right-color: rgb(26, 55, 77) !important;
+    border-bottom-color: rgb(26, 55, 77) !important;
+    border-left-color: rgb(26, 55, 77) !important;
+}
+
+a { color:#0000ff; text-decoration: none;}  
+
+a:visited { color:#0000ff; text-decoration: none;} 
+
+a:active { color:#ff0000; text-decoration: none;}
+
+
 </style>
 <script>
 
@@ -248,16 +265,20 @@ $(function(){
 							
 						</tr>
 						<tr>
-							<td><a href="/md/list" class="btn btn-primary"><i class="fa fa-angle-left"></i> 쇼핑계속하기</a></td>
+							<td><button id="mdList" class="btn btn-primary "><i class="fa fa-angle-left"></i> 쇼핑계속하기</button></td>
 							<td colspan="2" class="hidden-xs"></td>
 							<td class="hidden-xs text-center">주문금액 <input type="text" class="text-center" id="totalPrice" value="${ totalPrice}" readonly> </td>
-							<td><a href="#" id="order" class="btn btn btn-primary">주문하기 <i class="fa fa-angle-right"></i></a></td>
+							<td><button id="order" class="btn btn-primary">주문하기 <i class="fa fa-angle-right"></i></button></td>
 						</tr>
 					</tfoot>
 				</table>
 			
 </div>
-
+<script>
+$("#mdList").on("click",function(){
+	location.href = "/md/list";
+})
+</script>
 <!--footer 시작 -->
 <jsp:include page="/WEB-INF/views/homeFooter.jsp"></jsp:include>
 </body>

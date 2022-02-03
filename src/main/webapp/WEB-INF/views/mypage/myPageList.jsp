@@ -6,7 +6,6 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<jsp:include page="/WEB-INF/views/homeHeader.jsp"></jsp:include>
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <link

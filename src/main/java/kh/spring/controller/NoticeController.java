@@ -88,7 +88,7 @@ public class NoticeController {
 		JsonObject jsonObject = new JsonObject();
 		
         
-		String fileRoot = "C:\\summernoteImage\\"; // 외부경로로 저장을 희망할때.
+		String fileRoot = ""; // 외부경로로 저장을 희망할때.
 				
 		// 내부경로로 저장
 //		String contextRoot = new HttpServletRequestWrapper(request).getRealPath("/");

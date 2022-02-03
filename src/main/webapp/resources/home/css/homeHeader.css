@@ -1,0 +1,92 @@
+@charset "UTF-8";
+
+
+
+/* 검색창 */
+#navi .gnb_search{position:absolute;right:174px;top:10px;width:242px}
+#navi .gnb_search .inp_search{width:242px;height:36px;padding:0 60px 0 14px;border:1px solid #f7f7f6;border-radius:18px;background-color:#f7f7f7;font-family: 'Noto Sans';font-weight:400;font-size:12px;color:#666;line-height:16px;outline:none}
+#navi .gnb_search .inp_search.focus{background-color:#fff;color:#333}
+#navi .gnb_search .btn_search{position:absolute;right:5px;top:3px;width:30px;height:30px}
+
+.social-part .fa{
+    padding-right:20px;
+}
+
+#navi ul li a{
+    margin-right: 20px;
+}
+
+#navi{
+	background-color:red;
+ box-shadow: 5px 10px 20px gray;
+ 
+ }
+ 
+ #navi ul {
+ padding-left:20%;
+ 
+ }
+
+#topBar li {
+
+
+	display:inline;
+}
+
+#topBar {
+		position:absolute;
+	right:0;
+}
+
+
+/*navscroll*/
+#navScroll.fixed{
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+}
+
+
+/*topBar*/
+.dropbtn {
+  color: white;
+  padding: 10px;
+  font-size: 16px;
+  border: none;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color:white; 
+  min-width: 80px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 10px;
+  text-decoration: none;
+  display: block;
+}
+
+
+.dropdown:hover .dropdown-content {display: block;}
+
+
+/*main logo*/
+#mainLogo{
+	padding-top:40px;
+	text-align:center;
+}
+
+*{
+	text-decoration:none;
+}

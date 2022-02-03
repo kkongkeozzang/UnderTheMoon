@@ -11,7 +11,7 @@
 	    <property name="url" value="${spring.datasource.url}" />
 	    <property name="username" value="${spring.datasource.username}" />
 	    <property name="password" value="${spring.datasource.password}" />
-		<property name="initialSize" value="5"/>
+		<property name="initialSize" value="30"/>
 	</bean>
 	
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">

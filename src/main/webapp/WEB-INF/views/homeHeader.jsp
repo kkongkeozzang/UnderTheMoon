@@ -27,7 +27,7 @@
 <!-- 로그인, 회원가입, 고객센터 -->
 <div id="topBar">
     <ul>
-        <li><a href="/signup" >회원가입</a></li>
+       
 
         
 			<sec:authorize access="isAuthenticated()">
@@ -35,6 +35,7 @@
 			</sec:authorize>
 			<sec:authorize access="isAnonymous()">
 				 <li><a href="/login" >로그인</a> </li>
+				 <li><a href="/signup" >회원가입</a></li>
 			</sec:authorize>
 			<sec:authorize access="hasRole('ROLE_ADMIN')">
 				<li><a href="/admin/adminOffice" >관리자페이지</a> </li>

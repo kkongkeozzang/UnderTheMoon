@@ -424,14 +424,12 @@ $(document).ready(function(){
 					//적립금전체사용..
 					$("#point-btn").on("click",function(){
 					   
-						console.log(initialTotalPrice<${pointSum});
-						
-						if(initialTotalPrice<${pointSum}){
+
+						if(initialTotalPrice<${pointSum}){ //총액이 적립금보다 작을떄.
 					    	$("#point-input").val(initialTotalPrice);
 					    	$("#point-num").text("- " + initialTotalPrice + " ");
-					    	initialTotalPrice = 0;
-					    
-						}else if( $("#point-input").val()=="" || $("#point-input").val()==0){
+					    	initialTotalPrice = 0;				    
+						}else if( $("#point-input").val()=="" || $("#point-input").val()==0){ //0이나 아무것도 입력안했을때..
 							$("#point-input").val(${pointSum}); 
 							$("#point-num").text("- " + ${pointSum} + " ");
 							initialTotalPrice = initialTotalPrice - Number(${pointSum}); 
@@ -455,12 +453,12 @@ $(document).ready(function(){
 	                
 	                   let current_point = $("#point-input").val();
 	                   let current_point_int = Number(current_point);
-	                   
+	                   	                   
 						initialTotalPrice = initialTotalPrice + current_point_int;
 						
 						 $("#totalPrice").text(initialTotalPrice);
-	                   
 						   $("#point-input").val("");
+						   $("#point-num").text(0);
 		                	
                 })  
 //=========================================================================================================================================================================                

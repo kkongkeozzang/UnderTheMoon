@@ -65,6 +65,18 @@
   <delete id="deleteByMemberId">
   	delete from member where member_id = #{value}
   </delete>
+  
+  <select id="selectTotalMember" resultType="int">
+  	select count(*) count from member
+  </select>
+  
+  <select id="selectTodayMember" resultType="int">
+  	select count(*) count from member where substr(member_signup_date,1,8) = substr(sysdate,1,8) 
+  </select>
+  
+  <select id="selectByGrade" resultType="kh.spring.dto.MemberDTO">
+  	select * from (select grade_name, count(*) count from member group by grade_name) order by grade_name 
+  </select>
 
   </mapper>
   

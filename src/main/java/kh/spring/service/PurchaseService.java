@@ -85,7 +85,18 @@ public class PurchaseService {
 		// TODO Auto-generated method stub
 		return purchaseDAO.selectPurchaseDetailByBound(purchase_id, start, end);
 	}
-
+	
+	public PurchaseDTO selectYear(){
+		return purchaseDAO.selectYear();
+	}
+	
+	public PurchaseDTO selectMonth(){
+		return purchaseDAO.selectMonth();
+	}
+	
+	public List<PurchaseDTO> selectMonths(){
+		return purchaseDAO.selectMonths();
+	}
 
 	public Integer updatePurchase(String receipt_id, Integer purchase_id) {
 		
@@ -97,5 +108,4 @@ public class PurchaseService {
 
 		return purchaseDAO.selectPurchaseDateByBound(member_id,selectDate, start, end);
 	}
-
 }

@@ -4,7 +4,7 @@ import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 
 public class MdAndReviewDTO {
-	private int purchase_detail_id;
+	private int d_purchase_detail_id;
 	private int d_purchase_id;
 	private int purchase_detail_quantity;
 	private int purchase_detail_price;
@@ -18,17 +18,19 @@ public class MdAndReviewDTO {
 	private String md_content;
 	private String md_image;
 
-
-
-	public int getPurchase_detail_id() {
-		return purchase_detail_id;
+	public int getD_purchase_detail_id() {
+		return d_purchase_detail_id;
 	}
 
 
 
-	public void setPurchase_detail_id(int purchase_detail_id) {
-		this.purchase_detail_id = purchase_detail_id;
+
+
+	public void setD_purchase_detail_id(int d_purchase_detail_id) {
+		this.d_purchase_detail_id = d_purchase_detail_id;
 	}
+
+
 
 
 
@@ -38,9 +40,13 @@ public class MdAndReviewDTO {
 
 
 
+
+
 	public void setD_purchase_id(int d_purchase_id) {
 		this.d_purchase_id = d_purchase_id;
 	}
+
+
 
 
 
@@ -50,9 +56,13 @@ public class MdAndReviewDTO {
 
 
 
+
+
 	public void setPurchase_detail_quantity(int purchase_detail_quantity) {
 		this.purchase_detail_quantity = purchase_detail_quantity;
 	}
+
+
 
 
 
@@ -62,9 +72,13 @@ public class MdAndReviewDTO {
 
 
 
+
+
 	public void setPurchase_detail_price(int purchase_detail_price) {
 		this.purchase_detail_price = purchase_detail_price;
 	}
+
+
 
 
 
@@ -74,9 +88,13 @@ public class MdAndReviewDTO {
 
 
 
+
+
 	public void setPurchase_detail_result(String purchase_detail_result) {
 		this.purchase_detail_result = purchase_detail_result;
 	}
+
+
 
 
 
@@ -86,9 +104,13 @@ public class MdAndReviewDTO {
 
 
 
+
+
 	public void setPurchase_detail_delivery_date(Timestamp purchase_detail_delivery_date) {
 		this.purchase_detail_delivery_date = purchase_detail_delivery_date;
 	}
+
+
 
 
 
@@ -98,9 +120,13 @@ public class MdAndReviewDTO {
 
 
 
+
+
 	public void setPurchase_id(int purchase_id) {
 		this.purchase_id = purchase_id;
 	}
+
+
 
 
 
@@ -110,9 +136,13 @@ public class MdAndReviewDTO {
 
 
 
+
+
 	public void setP_member_id(int p_member_id) {
 		this.p_member_id = p_member_id;
 	}
+
+
 
 
 
@@ -122,9 +152,13 @@ public class MdAndReviewDTO {
 
 
 
+
+
 	public void setMd_review_id(int md_review_id) {
 		this.md_review_id = md_review_id;
 	}
+
+
 
 
 
@@ -134,9 +168,13 @@ public class MdAndReviewDTO {
 
 
 
+
+
 	public void setMd_id(int md_id) {
 		this.md_id = md_id;
 	}
+
+
 
 
 
@@ -146,9 +184,13 @@ public class MdAndReviewDTO {
 
 
 
+
+
 	public void setMd_name(String md_name) {
 		this.md_name = md_name;
 	}
+
+
 
 
 
@@ -158,9 +200,13 @@ public class MdAndReviewDTO {
 
 
 
+
+
 	public void setMd_content(String md_content) {
 		this.md_content = md_content;
 	}
+
+
 
 
 
@@ -170,18 +216,22 @@ public class MdAndReviewDTO {
 
 
 
+
+
 	public void setMd_image(String md_image) {
 		this.md_image = md_image;
 	}
 
 
 
-	public MdAndReviewDTO(int purchase_detail_id, int d_purchase_id, int purchase_detail_quantity,
+
+
+	public MdAndReviewDTO(int d_purchase_detail_id, int d_purchase_id, int purchase_detail_quantity,
 			int purchase_detail_price, String purchase_detail_result, Timestamp purchase_detail_delivery_date,
 			int purchase_id, int p_member_id, int md_review_id, int md_id, String md_name, String md_content,
 			String md_image) {
 		super();
-		this.purchase_detail_id = purchase_detail_id;
+		this.d_purchase_detail_id = d_purchase_detail_id;
 		this.d_purchase_id = d_purchase_id;
 		this.purchase_detail_quantity = purchase_detail_quantity;
 		this.purchase_detail_price = purchase_detail_price;
@@ -198,10 +248,14 @@ public class MdAndReviewDTO {
 
 
 
+
+
 	public MdAndReviewDTO() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+
+
 
 
 

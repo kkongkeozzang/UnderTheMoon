@@ -94,6 +94,18 @@ public class MemberDAO {
 		return mybatis.delete("Member.deleteByMemberId", member_id);
 	}
 	
+	public int selectTotalMember() {
+		return mybatis.selectOne("Member.selectTotalMember");
+	}
+	
+	public int selectTodayMember() {
+		return mybatis.selectOne("Member.selectTodayMember");
+	}
+	
+	public List<MemberDTO> selectByGrade() {
+		return mybatis.selectList("Member.selectByGrade");
+	}
+	
 }
 
 

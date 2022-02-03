@@ -54,7 +54,7 @@ public class MemberAPIController {
 			result = "1";
 			
 		}else if(!(opt.isEmpty())){
-		
+			System.out.println(phone);
 		 Random rand  = new Random();
 	        String numStr = "";
 	        for(int i=0; i<4; i++) {

@@ -103,7 +103,7 @@ body {
 }
 
 .signup-form a {
-   color: #5cd3b4;
+   color: #406882;
    text-decoration: underline;
 }
 
@@ -112,7 +112,7 @@ body {
 }
 
 .signup-form form a {
-   color: #5cd3b4;
+   color: #406882;
    text-decoration: none;
 }
 

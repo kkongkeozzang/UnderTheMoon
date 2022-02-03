@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<jsp:include page="/WEB-INF/views/homeHeader.jsp"></jsp:include>
 <!DOCTYPE html>
 <html>
 <head>
@@ -164,7 +165,6 @@ function getPage(pageNavi, select, sort) {
 </script>
 </head>
 <body>
-<jsp:include page="/WEB-INF/views/homeHeader.jsp"></jsp:include>
 	<c:if test="${fn:length(mdImgs) != 0}">
 		<div id="recently-md-view-box" style="z-index:100;margin-right:10px;background-color:white;">
 			<div id="recently-md-view-title" style="background-color:white;">최근본상품</div>
@@ -262,8 +262,8 @@ function getPage(pageNavi, select, sort) {
           </div>	
           <div class="col-md-12">
             <div class="filters-content">
-                <div class="row grid" id="list-page">
-                <div class="forEach">
+                <div class="row" id="list-page">
+                <div class="forEach d-flex">
                 	<c:forEach var="md" items="${mds }">
 	                    <div class="col-lg-4 col-md-4 all des">
 	                      <div class="product-item">
@@ -291,14 +291,7 @@ function getPage(pageNavi, select, sort) {
         </div>
       </div>
     </div>
-    <script>
-    $("body").on("click",".navi-btn", function(){
-    	console.log($(this).text());
-		$(this).text(11);
-	})
-    </script>
     
-    <jsp:include page="/WEB-INF/views/homeFooter.jsp"></jsp:include>
     
     <!-- Bootstrap core JavaScript -->
     <script src="/resources/mdList/vendor/jquery/jquery.min.js"></script>
@@ -314,3 +307,4 @@ function getPage(pageNavi, select, sort) {
 
   </body>
 </html>
+<jsp:include page="/WEB-INF/views/homeFooter.jsp"></jsp:include>

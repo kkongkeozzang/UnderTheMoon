@@ -7,8 +7,11 @@
 <meta charset="UTF-8">
 <title>Under The Moon</title>
 
-<!--CSS 파일-->
+<!--CSS 파일-->										
 <link  rel="stylesheet" href="resources/home/css/home.css">
+<link  rel="stylesheet" href="resources/home/css/homeHeader.css">
+<link  rel="stylesheet" href="resources/home/css/homeFooter.css">
+
 
 <!--CDN-->
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
@@ -27,18 +30,11 @@
 </head>
 
 <!--Body 시작 부분 -->
-<body class="main-index" oncontextmenu="return false" ondragstart="return false" onselectstart="return !disableSelection">
+<body>
 
-
-
-<!--전체를 감싸는 태그-->
-<div id="wrap" class="">
-<div id="pos_scroll"></div>
-<div id="container">
 
 <!-- header -->
 <div id="homeheader">
-
 
 <!-- #userMenu 는 상단 로그인, 회원가입, 고객센터 메뉴-->
 <jsp:include page="homeHeader.jsp"></jsp:include>
@@ -52,6 +48,7 @@
 <!--Main 내용 시작 부분-->
 <div class="row">
 <div class="col">
+
 <!--이벤트 carousel-->
 <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
     <div class="carousel-inner">
@@ -270,7 +267,6 @@
 <!-- 게시글 띄우기 -->
 
 
-</div>
 </div>
 
 

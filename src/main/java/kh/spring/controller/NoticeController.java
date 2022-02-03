@@ -23,6 +23,7 @@ import com.google.gson.JsonObject;
 
 import kh.spring.dto.NoticeDTO;
 import kh.spring.service.NoticeService;
+import kh.spring.util.ApiKey;
 import kh.spring.util.PageNavigator;
 import kh.spring.util.PageStatic;
 
@@ -88,7 +89,7 @@ public class NoticeController {
 		JsonObject jsonObject = new JsonObject();
 		
         
-		String fileRoot = "C:\\summernoteImage\\"; // 외부경로로 저장을 희망할때.
+		String fileRoot = ApiKey.SUMMERNOTE_FILE; // 외부경로로 저장을 희망할때.
 				
 		// 내부경로로 저장
 //		String contextRoot = new HttpServletRequestWrapper(request).getRealPath("/");

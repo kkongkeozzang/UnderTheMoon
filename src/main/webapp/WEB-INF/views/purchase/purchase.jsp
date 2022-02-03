@@ -168,8 +168,6 @@ $(document).ready(function(){
 </script>
 <body>
 
-<!-- #userMenu 는 상단 로그인, 회원가입, 고객센터 메뉴-->
-<jsp:include page="/WEB-INF/views/homeHeader.jsp"></jsp:include>
 
     <div class="container">
 	<div class="row">
@@ -429,7 +427,15 @@ $(document).ready(function(){
 					
 					//적립금전체사용..
 					$("#point-btn").on("click",function(){
-					    if( $("#point-input").val()=="" || $("#point-input").val()==0){
+					   
+						console.log(initialTotalPrice<${pointSum});
+						
+						if(initialTotalPrice<${pointSum}){
+					    	$("#point-input").val(initialTotalPrice);
+					    	$("#point-num").text("- " + initialTotalPrice + " ");
+					    	initialTotalPrice = 0;
+					    
+						}else if( $("#point-input").val()=="" || $("#point-input").val()==0){
 							$("#point-input").val(${pointSum}); 
 							$("#point-num").text("- " + ${pointSum} + " ");
 							initialTotalPrice = initialTotalPrice - Number(${pointSum}); 
@@ -441,7 +447,7 @@ $(document).ready(function(){
 						}else{
 							$("#point-num").text("- " + ${pointSum} + " ");
 					    	$("#point-input").val(${pointSum});
-					    	initialTotalPrice = initialTotalPrice - Number(${pointSum}); 
+					    	initialTotalPrice = initialTotalPrice - Number(${pointSum});
 					    	
 					    }
 					 	// 최종 결제금액 갱신

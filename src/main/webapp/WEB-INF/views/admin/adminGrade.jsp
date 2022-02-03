@@ -64,12 +64,6 @@
 	                             			<td>등급이름</td>
 	                             			<td><input type=text placeholder="예) '해','달','별'" id="grade_name" name="grade_name" maxLength=6></td>
 	                             			<td>
-	                             			<a href="#" class="btn btn-secondary btn-icon-split" id=check>
-		                                        <span class="icon text-white-50">
-		                                            <i class="fas fa-arrow-right"></i>
-		                                        </span>
-		                                        <span class="text">중복확인</span>
-		                                    </a>
 	                             			<span id="checkDbl"></span>
 	                             			</td>
 	                             		</tr>
@@ -201,9 +195,6 @@
                             			if(!nameRegex.test(gradeName)) {
                             				alert("등급이름을 확인해주세요!(문자만 입력하세요. 예)해, 달, 별)");
                             				return false;
-                            			}else if(checkDbl == "") {
-                            				alert("중복확인을 실행해주세요");
-                            				return false;
                             			}else if(checkDbl == "이미 사용중인 등급이름 입니다.") {
                             				alert("등급이름이 중복됐는지 확인해주세요!");
                             				return false;
@@ -292,19 +283,27 @@
                             				}
                             			}
                             		}
-                            		
-                            		
+
                             		$(function(){
-										$("#check").on("click",function(){
+										$("#grade_name").on("blur",function(){
 											$.ajax({
 												url: "/admin/checkGrade",
 												data:{grade_name:$("#grade_name").val()}
 											}).done(function(resp){
-												console.log(resp);
 												if(resp != 0){
+													$("#checkDbl").css("color","red");
 													$("#checkDbl").html("이미 사용중인 등급이름 입니다.");
 												}else{
-													$("#checkDbl").html("사용 가능한 등급이름 입니다.");
+													let gradeName = $("#grade_name").val();
+			                                		let nameRegex = /^[a-zA-Zㄱ-ㅎ가-힣]+$/;
+			                                		
+													if(!nameRegex.test(gradeName)){
+														$("#checkDbl").css("color","red");
+														$("#checkDbl").html("등급이름을 다시 확인해주세요!");	
+													}else{
+														$("#checkDbl").css("color","blue");
+														$("#checkDbl").html("사용 가능한 등급이름 입니다.");
+													}
 												}
 											})
 										});

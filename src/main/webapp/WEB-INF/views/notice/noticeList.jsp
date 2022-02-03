@@ -163,7 +163,7 @@ select {
 		<br>
 
 		<!-- 게시판 박스 -->
-		<div class="card mb-3 col-xl-8 col-md-12">
+		<div class="card mb-3 col-xl-8 col-md-12" style="padding:0px;">
 
 			<!-- 분류 네비 -->
 			<div class="card-header pl-0 pr-0"
@@ -195,7 +195,7 @@ select {
 				<c:forEach var="notices" items="${notices}">
 					<div class="card-body py-3 " style="justify-content: space-around; margin:0px;">
 						<div class="row no-gutters align-items-center"
-							style="justify-content: space-around">
+							style="justify-content: space-around;">
 	
 							<%-- 웹버전 seq --%>
 							<div class="col-2 d-none d-md-block" align=center style="padding-left:0px;">${notices.notice_id }</div>

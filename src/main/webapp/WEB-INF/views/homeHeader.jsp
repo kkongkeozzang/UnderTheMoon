@@ -58,11 +58,14 @@
 <h1>
 <a href="/">
 <img src="" alt="월하합작 로고" >
+
 </a>
 </h1>
 </div>
 
 <!--nav 시작부분 -->
+
+<div class="navScroll">
  <nav class="navbar navbar-expand-sm   navbar-light bg-white" id="navi">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -118,12 +121,11 @@
           </ul>
           
 
-      <!-- searchbar 검색바 -->
+          <!-- searchbar 검색바 -->
 <div id="side_search" class="gnb_search">
 <input name="search" type="text" id="search" class="inp_search" value="" required label="검색어" placeholder="검색어를 입력해주세요.">
 <a href="javascript:void(0);" id="search-button"><input type=image src="https://res.kurly.com/pc/service/common/1908/ico_search_x2.png" class="btn_search"></a>
 </div>
-
 
       <!-- searchbar 아이콘 -->
           <div id="icon">
@@ -133,6 +135,43 @@
         </div>
       </nav>
          
+         
+         
+         
+
+<script src="//code.jquery.com/jquery-1.12.4.min.js"></script>
+<script>
+$(document).ready(function () {
+$('.navbar-light .dmenu').hover(function () {
+        $(this).find('.sm-menu').first().stop(true, true).slideDown(150);
+    }, function () {
+        $(this).find('.sm-menu').first().stop(true, true).slideUp(105)
+    });
+});
+
+
+/*
+$(function() {
+	  var lnb = $("#navScroll").offset().top;
+	 
+	  $(window).scroll(function() {
+	   
+	    var window = $(this).scrollTop();
+	    
+	    if(lnb <= window) {
+	      $("#navScroll").addClass("fixed");
+	    }else{
+	      $("#navScroll").removeClass("fixed");
+	    }
+	  })
+	});*/
+
+
+</script>
+
+
+
+
 
 <script>
 $(document).ready(function () {
@@ -165,7 +204,6 @@ $(function() {
 
 
 
-<!-- 찜한 상품 -->
 
 <script type="text/javascript">
 

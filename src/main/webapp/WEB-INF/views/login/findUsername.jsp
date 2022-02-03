@@ -22,6 +22,14 @@
    src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <style>
+.btn {
+    background-color: #406882 !important;
+    border-color: #1A374D !important;
+    border-top-color: rgb(26, 55, 77) !important;
+    border-right-color: rgb(26, 55, 77) !important;
+    border-bottom-color: rgb(26, 55, 77) !important;
+    border-left-color: rgb(26, 55, 77) !important;
+}
 body {
    color: #999;
    background: #f3f3f3;
@@ -53,7 +61,7 @@ body {
    margin: 0 0 30px 0;
    display: inline-block;
    padding: 0 30px 10px 0;
-   border-bottom: 3px solid #5cd3b4;
+   border-bottom: 3px solid #406882;
 }
 
 .signup-form form {
@@ -95,7 +103,7 @@ body {
 }
 
 .signup-form a {
-   color: #5cd3b4;
+   color: #406882;
    text-decoration: underline;
 }
 
@@ -104,7 +112,7 @@ body {
 }
 
 .signup-form form a {
-   color: #5cd3b4;
+   color: #406882;
    text-decoration: none;
 }
 
@@ -174,7 +182,7 @@ $(function(){
          </div>
         </form>
       <div class="text-center">
-         아이디가 없으신가요? <a href="#">회원가입</a><br>
+         아이디가 없으신가요? <a href="/signup">회원가입</a><br>
       </div>
    </div>
    

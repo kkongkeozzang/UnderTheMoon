@@ -17,9 +17,8 @@
 }
 
 #navi{
-	background-color:red;
  box-shadow: 0px 2px 10px gray;
- 
+
  }
  
  #navi ul {
@@ -134,6 +133,5 @@ position:sticky;
 top:0;	
 z-index:100;
 }
-
 
 

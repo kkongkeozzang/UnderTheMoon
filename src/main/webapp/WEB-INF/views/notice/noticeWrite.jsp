@@ -330,6 +330,8 @@ body {
 				contentType : false,
 				processData: false,
 				success : function(data) {
+					console.log(data.responseCode);
+					console.log(data.url);
 					$(el).summernote('editor.insertImage', data.url); // 게시판에 사진 업로드
 				}
 			});

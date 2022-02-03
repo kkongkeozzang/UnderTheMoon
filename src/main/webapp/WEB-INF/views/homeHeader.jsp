@@ -28,6 +28,7 @@
 <div id="topBar">
     <ul>
         <li><a href="/signup" >회원가입</a></li>
+
         
 			<sec:authorize access="isAuthenticated()">
 				<li><a href="/logout" >로그아웃</a> </li>
@@ -150,7 +151,7 @@ $('.navbar-light .dmenu').hover(function () {
 });
 
 
-
+/*
 $(function() {
 	  var lnb = $("#navScroll").offset().top;
 	 
@@ -164,7 +165,7 @@ $(function() {
 	      $("#navScroll").removeClass("fixed");
 	    }
 	  })
-	});
+	});*/
 
 
 </script>
@@ -175,9 +176,6 @@ $(function() {
 <div class="gnbPick">
 <a class="btn_pick" href="/shop/mypage/mypage_pick.php"></a>
 </div>
-<script src="/asset/js/myp/destination/popup.bundle.js?ver=1.63.2"></script>
-
-<script src="/common_js/gnb_v1.js?ver=1.63.2"></script>
 <script type="text/javascript">
 
 
@@ -187,7 +185,6 @@ $(function() {
 	  location.href = "/md/search?search="+$('#search').val(); 
 	  });
 
-    gnbMenu.update();  
 
 
   // 검색창 클래스 추가/삭제

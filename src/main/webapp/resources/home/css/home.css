@@ -3,6 +3,7 @@
 
 
 
+
 /*body*/
 
 
@@ -56,6 +57,17 @@ padding-top:50px;
 /*body-map*/
 #map{
 	item-align:center;
+
+}
+
+
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+  z-index: 500;
+  text-align: left;
+
 }
 
 /*body - md*/
@@ -68,5 +80,4 @@ padding-top:50px;
         .hover\:grow:hover {
             transform: scale(1.02);
         }
-
 

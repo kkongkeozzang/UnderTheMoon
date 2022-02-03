@@ -10,11 +10,13 @@ https://templatemo.com/tm-546-sixteen-clothing
 	
 #recently-md-view-box {
 	position:absolute;width:90px;top:50%;margin-top:-50px;right:10px;
-	border:1px solid black;
+	border:1px solid #406882;
 }
 
 #recently-md-view-title{
 	text-align:center;
+	color:#406882;
+	font-weight:600;
 }
 	
 /* 커스텀 CSS */
@@ -22,6 +24,7 @@ https://templatemo.com/tm-546-sixteen-clothing
 .row.region-sort {
 	margin:10px 0px;
 	display:flex;
+	border: 1px solid #406882;
 }
 
 .row.region-sort>ul li {
@@ -49,18 +52,29 @@ https://templatemo.com/tm-546-sixteen-clothing
 	text-align:center;
 	padding-top: 70px;
 	padding-bottom: 30px;
+	color: #1A374D;
 }
 
 #review-sort {
 	padding-left:5px;
 }
 
+#review-sort:hover {
+	cursor:pointer;
+}
+
 #new-sort {
 	padding-right:5px;
 }
 
+#new-sort {
+	cursor:pointer;
+}
+
 .on {
-	color:red;
+	color:#1A374D;
+	font-weight:bolder;
+	text-shadow: -1px 0 #B1D0E0, 0 1px #B1D0E0, 1px 0 #B1D0E0, 0 -1px #B1D0E0;
 }
 
 
@@ -98,6 +112,10 @@ body a {
 	padding: 0;
 	margin: 0;
 	list-style: none;
+}
+
+.region-sort li {
+	height:30px;
 }
 
 h1,h2,h3,h4,h5,h6 {
@@ -489,7 +507,7 @@ header .navbar {
 }
 
 .product-item {
-	border: 1px solid #eee;
+	border: 1px solid #6998AB50;
 	margin-bottom: 30px;
 }
 
@@ -498,6 +516,8 @@ header .navbar {
 	position: relative;
 }
 
+
+
 .product-item img {
 	width: 100%;
 	overflow: hidden;
@@ -505,8 +525,9 @@ header .navbar {
 
 .product-item .down-content h4 {
 	font-size: 17px;
-	color: #1a6692;
 	margin-bottom: 20px;
+	color:#1A374D;
+	font-weight:900;
 }
 
 .product-item .down-content h6 {
@@ -519,6 +540,9 @@ header .navbar {
 
 .product-item .down-content p {
 	margin-bottom: 20px;
+	color:#1A374D90;
+	font-weight:600;
+	min-height: 60px /* DB 넣어보고 크기 조정하기 */
 }
 
 .product-item .down-content ul li {
@@ -706,6 +730,7 @@ footer .inner-content p a {
 
 .sort {
 	float:right;
+	color:#1A374D;
 }
 
 .count {
@@ -735,7 +760,7 @@ footer .inner-content p a {
 	border: 1px solid #eee;
 	font-size: 15px;
 	font-weight: 700;
-	color: #121212;
+	color: #1A374D;
 	transition: all .3s;
 }
 
@@ -1140,6 +1165,10 @@ footer .inner-content p a {
 	}
 }
 
+#event-box {
+	height:250px;
+}
+
 #event-box img {
 	width:100%;
 	height:100%;
@@ -1153,3 +1182,22 @@ footer .inner-content p a {
 	flex-direction: row;
     flex-wrap: wrap;
 }
+
+.nav-item-span {
+	color:#1A374D;
+	cursor: pointer;
+}
+
+.nav-item-span:hover {
+	font-size: 1.2em;
+}
+
+.product-item:hover {
+  transform: scale(1.05);
+  -webkit-transform: scale(1.05);
+  -moz-transform: scale(1.05);
+  -ms-transform: scale(1.05);
+  -o-transform: scale(1.05);
+  z-index:100px;
+}
+

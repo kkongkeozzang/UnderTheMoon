@@ -45,6 +45,9 @@
 .container {
 	max-width:1100px !important;
 }
+.slick-prev:before, .slick-next:before {
+	color :#1A374D !important;
+}
 </style>
 <script>
 <%--
@@ -79,8 +82,8 @@ function sortFunc(select, sort) {
 	$("#new-sort").on("click",function(){
 		sortFuncDetail(select, "newSort");
 	});
-	$(".nav-item").on("click",function(){
-		select = $(this).html();
+	$(".nav-item-span").on("click",function(){
+		select = $(this).closest(".nav-item").text();
 		sortFuncDetail(select, "none");
 	})
 }
@@ -108,7 +111,7 @@ function sortFuncDetail(select, sort) {
 			str += "<div class='down-content'>";
 			str += "<input type=hidden id='md_id' value="+resp.mds[i].md_id+">"
 			str += "<h4>"+resp.mds[i].md_name+"</h4>";
-			str += "<h6>"+priceToString(resp.mds[i].md_price)+"</h6>";
+			str += "<h6>"+priceToString(resp.mds[i].md_price)+"원</h6>";
 			str += "<p>"+resp.mds[i].md_content+"</p>";
 			str += "</div>";
 			str += "</div>";
@@ -144,7 +147,7 @@ function getPage(pageNavi, select, sort) {
 			str += "<div class='down-content'>";
 			str += "<input type=hidden id='md_id' value="+resp.mds[i].md_id+">"
 			str += "<h4>"+resp.mds[i].md_name+"</h4>";
-			str += "<h6>"+priceToString(resp.mds[i].md_price)+"</h6>";
+			str += "<h6>"+priceToString(resp.mds[i].md_price)+"원</h6>";
 			str += "<p>"+resp.mds[i].md_content+"</p>";
 			str += "</div>";
 			str += "</div>";
@@ -214,29 +217,29 @@ function getPage(pageNavi, select, sort) {
 	</c:if>
     <div class="products">
       <div class="container">
-      <div id="event-box"><img src="/resources/mdList/images/khEvent.png"></div>
+      <div id="event-box"><a href="/event/eventKH"><img src="/resources/mdList/images/khEvent.png"></a></div>
       <div id="mdList-title">지역별 전통주</div>
       	<div class="row region-sort">
 			<ul class="nav" >
-				<li class="nav-item">서울</li>
-				<li class="nav-item">부산</li>
-				<li class="nav-item">인천</li>
-				<li class="nav-item">대전</li>
-				<li class="nav-item">울산</li>
+				<li class="nav-item"><span class="nav-item-span">서울</span></li>
+				<li class="nav-item"><span class="nav-item-span">부산</span></li>
+				<li class="nav-item"><span class="nav-item-span">인천</span></li>
+				<li class="nav-item"><span class="nav-item-span">대전</span></li>
+				<li class="nav-item"><span class="nav-item-span">울산</span></li>
 			</ul>
 			<ul class="nav">
-				<li class="nav-item">경기도</li>
-				<li class="nav-item">강원도</li>
-				<li class="nav-item">충청북도</li>
-				<li class="nav-item">충청남도</li>
-				<li class="nav-item">전라북도</li>
+				<li class="nav-item"><span class="nav-item-span">경기도</span></li>
+				<li class="nav-item"><span class="nav-item-span">강원도</span></li>
+				<li class="nav-item"><span class="nav-item-span">충청북도</span></li>
+				<li class="nav-item"><span class="nav-item-span">충청남도</span></li>
+				<li class="nav-item"><span class="nav-item-span">전라북도</span></li>
 				
 			</ul>
 			<ul class="nav">
-				<li class="nav-item">전라남도</li>
-				<li class="nav-item">경상북도</li>
-				<li class="nav-item">경상남도</li>
-				<li class="nav-item">제주도</li>
+				<li class="nav-item"><span class="nav-item-span">전라남도</span></li>
+				<li class="nav-item"><span class="nav-item-span">경상북도</span></li>
+				<li class="nav-item"><span class="nav-item-span">경상남도</span></li>
+				<li class="nav-item"><span class="nav-item-span">제주도</span></li>
 				<li class="nav-item"></li>
 			</ul>
 		</div>
@@ -252,8 +255,8 @@ function getPage(pageNavi, select, sort) {
             		$(".sort").removeClass("on");
             		$(this).addClass("on");
             	})
-            	$(".nav-item").on("click", function(){
-            		$(".nav-item").removeClass("on");
+            	$(".nav-item-span").on("click", function(){
+            		$(".nav-item-span").removeClass("on");
             		$(".sort").removeClass("on");
             		$(this).addClass("on");
             	})
@@ -271,7 +274,7 @@ function getPage(pageNavi, select, sort) {
 	                        <div class="down-content">
 	                          <input type=hidden id="md_id" value=${md.md_id }>
 	                          <a><h4>${md.md_name }</h4></a>
-	                          <h6><fmt:formatNumber value="${md.md_price }" pattern="#,###" /></h6>
+	                          <h6><fmt:formatNumber value="${md.md_price }" pattern="#,###" />원</h6>
 	                          <p>${md.md_content }</p>
 	                        </div>
 	                      </div>

@@ -412,9 +412,6 @@ ul{
                                          
                                           </span>
                                        </div>
-                                       <div class="btn-box">
-                                          <button id="readMdReview" style="font-size: 15px">후기보기</button>
-                                       </div>
                                     </div>			
 									</c:forEach>
 									<div class="navigator" style="margin:auto; display:block;">

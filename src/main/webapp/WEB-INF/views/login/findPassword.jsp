@@ -10,18 +10,23 @@
    content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link rel="stylesheet"
    href="https://fonts.googleapis.com/css?family=Roboto:400,700">
-<title>Bootstrap Sign up Form Horizontal</title>
+<title>비밀번호찾기</title>
 <link rel="stylesheet"
    href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
-
-<!-- 화면 분할비  -->
-<title>Insert title here</title>
 <script
    src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
-<script
-   src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
-<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<!-- <script
+   src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script> -->
+ <script src="https://code.jquery.com/jquery-3.6.0.js"></script> 
 <style>
+.btn {
+    background-color: #406882 !important;
+    border-color: #1A374D !important;
+    border-top-color: rgb(26, 55, 77) !important;
+    border-right-color: rgb(26, 55, 77) !important;
+    border-bottom-color: rgb(26, 55, 77) !important;
+    border-left-color: rgb(26, 55, 77) !important;
+}
 body {
    color: #999;
    background: #f3f3f3;
@@ -53,7 +58,7 @@ body {
    margin: 0 0 30px 0;
    display: inline-block;
    padding: 0 30px 10px 0;
-   border-bottom: 3px solid #5cd3b4;
+   border-bottom: 3px solid #406882;
 }
 
 .signup-form form {
@@ -95,7 +100,7 @@ body {
 }
 
 .signup-form a {
-   color: #5cd3b4;
+   color: #406882;
    text-decoration: underline;
 }
 
@@ -104,13 +109,20 @@ body {
 }
 
 .signup-form form a {
-   color: #5cd3b4;
+   color:#406882;
    text-decoration: none;
 }
 
 .signup-form form a:hover {
    text-decoration: underline;
 }
+
+#veri{
+	margin-right:50px
+}
+
+
+
 </style>
 <script>
 
@@ -120,8 +132,6 @@ $(function(){
 	
     $("#findPassword").on("click",function(){
     	
-    	$("#findPassword").attr("disabled","true");
-    	
        $.ajax({
     	  type: 'get',
           url:"/member/findPasswordProc",
@@ -130,12 +140,13 @@ $(function(){
               member_phone:$("#phone").val() 
           }
        }).done(function(resp){
-    	   if(JSON.parse(resp).result == "Optional[2]"){
+    	   if(JSON.parse(resp.includes('Optional'))){
+    		   $("#findPassword").attr("disabled","true");
     		   $("#username").attr("readonly","true");
      		 	$("#phone").attr("readonly","true");
      		 	$("#verification").css("display","block");
     		   alert("인증번호가 발송 되었습니다. 인증번호를 입력해주세요.")
-              $("#phoneContainer").append("<br><br><br><br><div id='veri' class='form-group row'><label class='col-form-label col-4'>인증번호:</label><div class='col-8'><input type='text' id='verificationNumber' class='form-control' name='verificationNumber' required='required'></div></div>")
+              $("#phoneContainer").append("<br><br><br><br><label class='col-form-label col-4'>인증번호:</label><div class='col-8'><input type='text' id='verificationNumber' class='form-control' name='verificationNumber' required='required'></div>")
               $("#veri").css("margin-left","80px");
                $("#verification").click(function(){
                         if($.trim(JSON.parse(resp).numStr) ==$('#verificationNumber').val()){
@@ -164,7 +175,7 @@ $(function(){
 
 
    <div class="signup-form">
-    <form
+    <form id="password-form"
          class="form-horizontal">
          <div class="row">
             <div class="col-8 offset-4">
@@ -181,23 +192,23 @@ $(function(){
 
          <div class="form-group row" id=phoneContainer>
             <label class="col-form-label col-4">전화번호:</label>
-            <div class="col-8">
+            <div id="div-phone"class="col-8">
                <input type="text" id="phone" class="form-control" name="member_phone"
                   required="required">
             </div>
          </div>
          <div class="form-group row">
-            <div class="col-8 offset-4">
+            <div id="veri-number"class="col-8 offset-4">
 
-               <button type="button" id="findPassword" class="btn btn-primary btn-lg">인증번호요청. </button>
+               <button type="button" id="findPassword" class="btn btn-primary btn-lg">인증번호요청 </button>
             </div>
             <div class="col-8 offset-4">
-               <button style="display: none" type="button" id="verification" class="btn btn-primary btn-lg">인증완료. </button>
+               <button style="display: none" type="button" id="verification" class="btn btn-primary btn-lg">인증완료 </button>
             </div>
          </div>
         </form>
       <div class="text-center">
-         아이디가 없으신가요? <a href="#">회원가입</a><br>
+         아이디가 없으신가요? <a href="/signup">회원가입</a><br>
       </div>
    </div>
    

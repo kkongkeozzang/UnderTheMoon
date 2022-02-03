@@ -16,6 +16,14 @@
 <script src="https://cdn.bootpay.co.kr/js/bootpay-3.3.2.min.js" type="application/javascript"></script> 
 <link rel="stylesheet" href="/resources/purchase/css/purchase.css">
 <style>
+.btn {
+    background-color: #406882 !important;
+    border-color: #1A374D !important;
+    border-top-color: rgb(26, 55, 77) !important;
+    border-right-color: rgb(26, 55, 77) !important;
+    border-bottom-color: rgb(26, 55, 77) !important;
+    border-left-color: rgb(26, 55, 77) !important;
+}
 .table>tbody>tr>td, .table>tfoot>tr>td{
     vertical-align: middle;
 }
@@ -266,7 +274,7 @@ $(document).ready(function(){
 					<h3 id="">개인정보 수집/제공</h3><hr>
 			<table>
 				<tr><td><div class="row">
-	                <input id="agree" type="checkbox"><a href="#popup1">정보수집ㆍ이용</a> 동의(필수)
+	                <input id="agree" type="checkbox"><a href="#popup1">정보수집ㆍ이용동의(필수)</a> 
 	            </div>
 	            </td></tr>
             </table>
@@ -419,7 +427,15 @@ $(document).ready(function(){
 					
 					//적립금전체사용..
 					$("#point-btn").on("click",function(){
-					    if( $("#point-input").val()=="" || $("#point-input").val()==0){
+					   
+						console.log(initialTotalPrice<${pointSum});
+						
+						if(initialTotalPrice<${pointSum}){
+					    	$("#point-input").val(initialTotalPrice);
+					    	$("#point-num").text("- " + initialTotalPrice + " ");
+					    	initialTotalPrice = 0;
+					    
+						}else if( $("#point-input").val()=="" || $("#point-input").val()==0){
 							$("#point-input").val(${pointSum}); 
 							$("#point-num").text("- " + ${pointSum} + " ");
 							initialTotalPrice = initialTotalPrice - Number(${pointSum}); 
@@ -431,7 +447,7 @@ $(document).ready(function(){
 						}else{
 							$("#point-num").text("- " + ${pointSum} + " ");
 					    	$("#point-input").val(${pointSum});
-					    	initialTotalPrice = initialTotalPrice - Number(${pointSum}); 
+					    	initialTotalPrice = initialTotalPrice - Number(${pointSum});
 					    	
 					    }
 					 	// 최종 결제금액 갱신

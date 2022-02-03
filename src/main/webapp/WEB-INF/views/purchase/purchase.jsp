@@ -412,7 +412,7 @@ $(document).ready(function(){
 							$("#point-num").text("- " + pointSum_int + " ");							
 							initialTotalPrice = initialTotalPrice - pointSum_int;
 						}else if (pointSum_int>${pointSum}){
-							$("#point-input").val(); 
+							$("#point-input").val(${pointSum}); 
 							$("#point-num").text("- " + ${pointSum} + " "); 
 							initialTotalPrice = initialTotalPrice - Number(${pointSum});
 						}

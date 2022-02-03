@@ -161,11 +161,11 @@ img {
 			</div>
 			<div class="card-body" style="justify-content: space-around; margin:0px;">
 				<div class="row no-gutters align-items-center"
-					style="justify-content: space-around">
+					style="justify-content: space-around; width:100%; margin:0px;">
 
 					<%-- 웹버전 --%>
 					<div class="col-12 d-none d-md-block" align=center style="padding-left:0px;">
-						<a href="/event/eventTiger"><img src="/resources/event/새해이벤트.png"></a>
+						<a href="/event/eventTiger"><img src="/resources/event/새해이벤트.png"></a><br>
 						<a href="/event/eventWelcome"><img src="/resources/event/월하합작_가입이벤트.png"></a>
 						<a href="/event/eventKH"><img src="/resources/event/kh 콜라보.png"></a>
 						<a href="/event/eventRecommend"><img src="/resources/event/월하합작_추천인.png"></a>

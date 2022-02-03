@@ -80,7 +80,7 @@
                 <a class="nav-link collapsed" href="/seller/mdReview" data-target="#collapse-four"
                     aria-expanded="true" aria-controls="collapse-four">
                     <i class="fas fa-fw fa-table"></i>
-                    <span>리뷰 관리</span>
+                    <span>상품 후기 관리</span>
                 </a>
             </li>
             

@@ -168,8 +168,6 @@ $(document).ready(function(){
 </script>
 <body>
 
-<!-- #userMenu 는 상단 로그인, 회원가입, 고객센터 메뉴-->
-<jsp:include page="/WEB-INF/views/homeHeader.jsp"></jsp:include>
 
     <div class="container">
 	<div class="row">
@@ -430,6 +428,7 @@ $(document).ready(function(){
 					//적립금전체사용..
 					$("#point-btn").on("click",function(){
 					   
+
 						if(initialTotalPrice<${pointSum}){ //총액이 적립금보다 작을떄.
 					    	$("#point-input").val(initialTotalPrice);
 					    	$("#point-num").text("- " + initialTotalPrice + " ");
@@ -458,10 +457,7 @@ $(document).ready(function(){
 	                
 	                   let current_point = $("#point-input").val();
 	                   let current_point_int = Number(current_point);
-	                   
-	                   /* let point-num = $("#point-num").text();
-	                   let point_num_int = Number(point-num); */
-	                   
+	                   	                   
 						initialTotalPrice = initialTotalPrice + current_point_int;
 						
 						 $("#totalPrice").text(initialTotalPrice);

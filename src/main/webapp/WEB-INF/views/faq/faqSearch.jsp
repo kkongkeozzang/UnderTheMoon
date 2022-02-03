@@ -163,7 +163,7 @@ select {
 		<br>
 
 		<!-- 게시판 박스 -->
-		<div class="card mb-3 col-xl-8 col-md-12">
+		<div class="card mb-3 col-xl-8 col-md-12" style="padding:0px;">
 			<!-- 분류 네비 -->
 			<div class="card-header pl-0 pr-0"
 				style="justify-content: space-around; background-color: #406882; color: white;">

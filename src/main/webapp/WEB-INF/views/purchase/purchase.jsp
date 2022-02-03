@@ -324,7 +324,7 @@ $(document).ready(function(){
 										<p class="reserve" style="display: block;">
 											<span class="ico">적립</span> 
 											구매 시 
-											<span id="expectAmount">${ (totalPrice*grade_point)/100}</span> 원 (<span class="ratio">${grade_point }</span>%)
+											<span id="expectAmount">${ (totalPrice*grade_point)/100}</span> 원 (${grade_point }%)
 											적립 <br>
 												<span >30000원 이상 주문시 배송비 무료</span> 
 										</p>

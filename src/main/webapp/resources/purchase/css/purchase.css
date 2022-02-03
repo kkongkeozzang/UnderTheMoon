@@ -132,3 +132,7 @@ body {
 	margin-left: 10px;
 	text-decoration:none;
 }
+
+.ratio {
+	display:inline-block;
+}

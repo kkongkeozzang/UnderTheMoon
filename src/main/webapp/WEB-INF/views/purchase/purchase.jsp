@@ -2,20 +2,22 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-<link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="https://cdn.bootpay.co.kr/js/bootpay-3.3.2.min.js" type="application/javascript"></script> 
 <link rel="stylesheet" href="/resources/purchase/css/purchase.css">
 <style>
+html{
+	font-size:14px !important;
+}
 .btn {
     background-color: #406882 !important;
     border-color: #1A374D !important;
@@ -98,8 +100,11 @@ dl {
     width: 144px;
     text-align: right;
 }
+.container {
+	max-width:1100px !important;
+}
   /* 결제금액_sticky */
-  .tax_absolute{height:600px;}
+  .tax_absolute{height:800px;}
   .tax_absolute .inner_sticky{position:sticky;top:4px;}
   #orderitem_money_info{width:100%;padding:17px 16px 18px 18px;background:#fafafa;border:1px solid #f2f2f2}
   #orderitem_money_info .amount{overflow:hidden;padding-top:12px;letter-spacing:-0.5px}
@@ -149,6 +154,9 @@ dl {
   h3:not(first-child) {
   	padding-top:74px;
   }
+  .table>tbody>tr>td {
+  	border-top : 1px solid #B1D0E0;
+  }
 </style>
 </head>
 <script>
@@ -179,20 +187,11 @@ $(document).ready(function(){
             </div>
     
             <table id="cart" class="table table-hover table-condensed">
-                <!-- 테이블컬럼. -->
-                <thead>
-                    <tr>
-                        <th style="width:50%">상품</th>
-                        <th style="width:8%"></th>
-                        <th style="width:22%" class="text-center">수량</th>
-                        <th style="width:10%">가격</th>
-                    </tr>
-                </thead>
                 <!-- 장바구니 상품 시작. -->
                 <tbody>
                     <c:forEach var="cart" items="${carts }">
                     <tr class="cart-unit">
-                        <td data-th="Product">
+                        <td data-th="Product" style="width:60%;">
                             <div class="row">
                                 <div class="col-sm-2 hidden-xs"><img src="${cart.cart_image}" alt="..." class="img-responsive"/></div>
                                 <div class="col-sm-10">
@@ -200,48 +199,48 @@ $(document).ready(function(){
                                 </div>
                             </div>
                         </td>
-                        <td data-th="Price"></td>
-                        <td data-th="Quantity"> 
+                        <td data-th="Quantity" style="width:20%"> 
                             <input type="hidden" class="cart_id" value="${cart.cart_id}">
                             <input type="hidden" class="member_id" value="${cart.member_id}">
-                            <input type="number" class="count form-control text-center" value="${cart.cart_item_count}" readonly>
-                        </td>
-                        <td data-th="Subtotal" class="cart_price text-center">${cart.cart_price}</td>
-                        <td class="actions" data-th="">                  
+                            <input type="text" class="count form-control text-center" value="${cart.cart_item_count}" readonly><span>개</span>
+                        </td >
+                        <td data-th="Subtotal" class="cart_price text-center" style="width:20%;"><fmt:formatNumber value="${cart.cart_price}" pattern="#,###" />원</td>
                         </td>
                     </tr>
                     </c:forEach>
                 </tbody>
                 <!-- 장바구니 상품 끝.. -->	
             </table>
-			<h3>
-				주문자 및 배송 정보
-			</h3>
-			<hr>
-			<table id="info-box">
-				<tr><td>받는사람 이름:
-	            <td><input id="recipient" type="text" class="form-control" value="${member.member_name}"  readonly>
-	            </tr>
-	            <tr><td>받는사람 번호:
-                <td><input id="recipient_phone" type="text" class="form-control" value="${member.member_phone}" >
-	            </tr>
-	            <tr><td>배송지:
-	            <td><input id="roadAddress" type="text" class="form-control addBtn" value="${member.member_address1}" readonly>
-	            <button id="addressSearch" type="button" class="btn btn-primary">주소검색</button>
-	            </tr>
-	            <tr><td>상세주소:
-	            <td><input id="roadAddress2" type="text" class="form-control" value="${member.member_address2}" >
-	            
-	            </td>
-	            </tr>
-            </table>
+			
 			
 			<div class="row">
-				<div class="col-md-8">
+				<div class="col-md-8" id="coupon-point-box">
+				<h3>
+				주문자 및 배송 정보
+				</h3>
+				<hr>
+				<table id="info-box">
+					<tr><td class="label-td">받는사람 이름:
+		            <td><input id="recipient" type="text" class="form-control" value="${member.member_name}"  readonly>
+		            </tr>
+		            <tr><td class="label-td">받는사람 번호:
+	                <td><input id="recipient_phone" type="text" class="form-control" value="${member.member_phone}" >
+		            </tr>
+		            <tr><td class="label-td">배송지:
+		            <td><input id="roadAddress" type="text" class="form-control addBtn" value="${member.member_address1}" readonly>
+		            <button id="addressSearch" type="button" class="btn btn-primary">주소검색</button>
+		            </tr>
+		            <tr><td class="label-td">상세주소:
+		            <td><input id="roadAddress2" type="text" class="form-control" value="${member.member_address2}" >
+		            
+		            </td>
+		            </tr>
+	            </table>
+				
 					<h3>쿠폰 / 적립금</h3><hr>
 					<table>
 					<!-- 쿠폰선택자. -->
-                  <tr><td>쿠폰 적용
+                  <tr><td class="label-td">쿠폰 적용
                   <td><div id="select-container">
                            <select id="coupon" class="form-select" >
                                <c:choose>
@@ -262,7 +261,7 @@ $(document).ready(function(){
                     <!-- 쿠폰선택자. -->
                     <!-- 적립금. -->
 	                    <tr><td colspan=2><hr></tr>
-	                    <tr><td>적립금 적용
+	                    <tr><td class="label-td">적립금 적용
 	                    <td><input type="text" id="point-input" class="addBtn form-control mb-2 mr-sm-2" value=0 id="pointSum">
 	                    <button id="point-btn"type="button" class="btn btn-primary mb-2">적립금전체사용</button>
 	                    </td></tr>
@@ -273,9 +272,8 @@ $(document).ready(function(){
            			</table>
 					<h3 id="">개인정보 수집/제공</h3><hr>
 			<table>
-				<tr><td><div class="row">
-	                <input id="agree" type="checkbox"><a href="#popup1">정보수집ㆍ이용동의(필수)</a> 
-	            </div>
+				<tr><td>
+	                <input id="agree" type="checkbox"><a id="agree-a" href="#popup1">정보수집ㆍ이용동의(필수)</a> 
 	            </td></tr>
             </table>
 					
@@ -284,7 +282,6 @@ $(document).ready(function(){
 					<div class="row">
 						<div class="col-md-12">
 							<!-- 결제 박스 부분-->
-
 
 							<div class="tax_absolute">
 								<div class="inner_sticky" id="sticky" style="top: 0px;">
@@ -344,7 +341,7 @@ $(document).ready(function(){
 						<div class="col-md-12">
 							<table>
                                 <tr>
-                                    <td>결제수단 선택</td>
+                                    <td class="label-td">결제수단 선택</td>
                                     <td><a href="javascript:void(0);" id="kakao"><img src="/resources/purchase/img/payment_icon_yellow_small.png"></a>
                                     <button class="btn btn-primary" id="purchase">신용카드결제</button></td>
                                 </tr>
@@ -354,7 +351,6 @@ $(document).ready(function(){
 			</div>
 		</div>
 	</div> 
-	<div style="height:500px"></div>
 	<div id="popup1" class="overlay">
 	                    <div class="popup">
 	                        <h2>정보수집ㆍ이용</h2>
@@ -416,7 +412,7 @@ $(document).ready(function(){
 							$("#point-num").text("- " + pointSum_int + " ");							
 							initialTotalPrice = initialTotalPrice - pointSum_int;
 						}else if (pointSum_int>${pointSum}){
-							$("#point-input").val(${pointSum}); 
+							$("#point-input").val(); 
 							$("#point-num").text("- " + ${pointSum} + " "); 
 							initialTotalPrice = initialTotalPrice - Number(${pointSum});
 						}

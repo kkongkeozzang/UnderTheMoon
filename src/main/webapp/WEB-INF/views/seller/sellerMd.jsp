@@ -128,12 +128,6 @@
 	                             			<td>상품명
 	                             			<td><input type=text placeholder="예) '안동소주'" id="md_name" name="md_name" maxLength=30>
 	                             			<td>
-	                             			<a href="#" class="btn btn-secondary btn-icon-split" id=check>
-		                                        <span class="icon text-white-50">
-		                                            <i class="fas fa-arrow-right"></i>
-		                                        </span>
-		                                        <span class="text">중복확인</span>
-		                                    </a>
 	                             			<span id="checkDbl"></span>
 	                             		</tr>
 	                             		<tr>
@@ -325,16 +319,24 @@
                             		})
                             		
           		                    $(function(){
-										$("#check").on("click",function(){
+										$("#md_name").on("blur",function(){
 											$.ajax({
 												url: "/seller/checkMd",
 												data:{md_name:$("#md_name").val()}
 											}).done(function(resp){
-												console.log(resp);
-												if(resp != 0){
+ 												if(resp != 0){
+ 													$("#checkDbl").css("color","red");
 													$("#checkDbl").html("이미 사용중인 이름 입니다.");
 												}else{
-													$("#checkDbl").html("사용 가능한 이름 입니다.");
+													let mdName = $("#md_name").val();
+			                                		let nameRegex = /^[a-zA-Zㄱ-ㅎ가-힣]+/;
+			                                		if(!nameRegex.test(mdName)){
+			                                			$("#checkDbl").css("color","red");
+			                                			$("#checkDbl").html("상품 이름을 다시 확인해주세요!");
+			                                		}else{
+			                                			$("#checkDbl").css("color","blue");
+														$("#checkDbl").html("사용 가능한 이름 입니다.");	
+			                                		}
 												}
 											})
 										});
@@ -380,9 +382,6 @@
                             				return false;
                             			}else if(mdDetailImage == "") {                            				
                             				alert("상품정보이미지 경로를 입력해주세요!");
-                            				return false;
-                            			}else if(checkDbl == "") {
-                            				alert("중복확인을 실행해주세요");
                             				return false;
                             			}else if(checkDbl == "이미 사용중인 이름 입니다.") {
                             				alert("등급이름이 중복됐는지 확인해주세요!");

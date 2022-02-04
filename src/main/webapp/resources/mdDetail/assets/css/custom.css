@@ -74,7 +74,7 @@ h1.h2 {
     font-weight: 400;
 }
 
-.btn {
+.card .btn {
 	background-color : #406882 !important;
 	border-color: #1A374D !important;
 }
@@ -88,7 +88,7 @@ h1.h2 {
   height: 36px;
   font-size: 0px;
 }
-.btn_pick{
+body .btn_pick{
   display: inline-block;
   width: 36px;
   height: 36px;
@@ -107,12 +107,12 @@ h1.h2 {
     padding-right: 0px;
     margin-right: 20px;
 }
-#cart {
+#cart, #login-cart {
 	flex: 9 1;
 	height:50px;
 	font-size:20px;
 }
-.d-flex {
+.col.d-flex.d-flex {
     align-items: center;
 }
 .pick_icon_button {
@@ -281,4 +281,17 @@ h1.h2 {
 
 .inqry-content>td>div {
 	padding: 10px 50px;
+}
+
+.user-box {
+	margin-bottom: 50px;
+    margin-top: 20px;
+}
+
+.user-inqry-content, .answer-inqry-content, .answer-inqry-date {
+	margin-left: 10px;
+}
+
+#md-inqry-write {
+	float: right;
 }

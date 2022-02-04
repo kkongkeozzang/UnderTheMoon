@@ -6,8 +6,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-
-
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
@@ -35,20 +33,67 @@
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
 <script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <style>
-.popup {
-	width:60% !important;
-	max-height: 80%;
-    overflow-y: scroll;
-    overflow-x: hidden;
+.overlay {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.7);
+  transition: opacity 500ms;
+  visibility: hidden;
+  opacity: 0;
+}
+.overlay:target {
+  visibility: visible;
+  opacity: 1;
+  z-index:1000;
 }
 
-.popup img {
-	height:auto;
-	max-width:100%;
+.popup {
+  z-index:1000 !important;
+  margin: 70px auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 5px;
+  width: 50%;
+  position: relative;
+  transition: all 5s ease-in-out;
+}
+
+.popup h2 {
+  margin-top: 0;
+  color: #333;
+  font-family: Tahoma, Arial, sans-serif;
+}
+.popup .close {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  transition: all 200ms;
+  font-size: 30px;
+  font-weight: bold;
+  text-decoration: none;
+  color: #333;
+}
+.popup .close:hover {
+  color: #06D85F;
+}
+.popup .content {
+  max-height: 30%;
+  overflow: auto;
+}
+
+@media screen and (max-width: 700px){
+  .box{
+    width: 70%;
+  }
+  .popup{
+    width: 70%;
+  }
 }
 </style>
 </head>
-
 <body>
 	<div class="container">	
         <div class="row">
@@ -194,16 +239,18 @@
 											</c:forEach>
 											<script>
 												$("body").on("click",".delete-btn",function(){
-													let mdBox = $(this).closest(".md-box");
-													let md_review_id = $(this).closest(".md-box").find(".md_review_id").val();
-													mdBox.remove();
-													$.ajax({
-						            					url:"/md/detail/review/rest/delete/"+md_review_id,
-						            					type:"delete",
-						            					dataType:"json"
-						            				}).done(function(){
-						            					mdBox.remove();
-													})
+													if(confirm("정말 삭제하시겠습니까?")) {
+														let mdBox = $(this).closest(".md-box");
+														let md_review_id = $(this).closest(".md-box").find(".md_review_id").val();
+														mdBox.remove();
+														$.ajax({
+							            					url:"/md/detail/review/rest/delete/"+md_review_id,
+							            					type:"delete",
+							            					dataType:"json"
+							            				}).done(function(){
+							            					mdBox.remove();
+														})
+													}
 												})
 												$("body").on("click",".read-review",function(){
 													let md_review_id = $(this).closest(".md-box").find(".md_review_id").val();

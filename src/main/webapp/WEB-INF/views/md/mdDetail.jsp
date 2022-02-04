@@ -3,8 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
  <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
  <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
- <%-- <jsp:include page="/WEB-INF/views/homeHeader.jsp"></jsp:include>
- <jsp:include page="/WEB-INF/views/homeFooter.jsp"></jsp:include> --%>
+ <jsp:include page="/WEB-INF/views/homeHeader.jsp"></jsp:include>
 <!DOCTYPE html>
 <html>
 <head>
@@ -57,10 +56,10 @@ ul.pages li a {
 	color: #121212;
 	transition: all .3s;
 }
-a {
+body a {
 	text-decoration: none!important;
 }
-ul {
+body ul {
 	padding: 0;
     margin: 0;
 	list-style: none;
@@ -127,17 +126,19 @@ $(document).ready(function(){
     })
 })
 $("body").on("click",".delete-inqry-btn",function(){
-	let md_inqry_id = $(this).closest(".inqry-content").prev().find(".md_inqry_id").text();
-	let inqryTitleBox = $(this).closest(".inqry-content").prev();
-	let inqryContentBox = $(this).closest(".inqry-content");
-	$.ajax({
-		url:"/md/detail/inqry/rest/delete/"+md_inqry_id,
-		type:"delete",
-		dataType:"json"
-	}).done(function(){
-		inqryTitleBox.remove();
-		inqryContentBox.remove();
-	})
+	if(confirm("정말 삭제하시겠습니까?")) {
+		let md_inqry_id = $(this).closest(".inqry-content").prev().find(".md_inqry_id").text();
+		let inqryTitleBox = $(this).closest(".inqry-content").prev();
+		let inqryContentBox = $(this).closest(".inqry-content");
+		$.ajax({
+			url:"/md/detail/inqry/rest/delete/"+md_inqry_id,
+			type:"delete",
+			dataType:"json"
+		}).done(function(){
+			inqryTitleBox.remove();
+			inqryContentBox.remove();
+		})
+	}
 })
 function viewCount(md_review_id, target) {
 	$.ajax({
@@ -185,15 +186,20 @@ function getPage(pageNavi, select, sort) {
     				str += "</tr>";
        				str += "<tr class='inqry-content hide-toggle'>";
     				str += "<td colspan='5'>";
-    				str += "<div>"
-   					str += resp.inqrys[i].md_question_content;
-    				if(resp.inqrys[i].md_response_content != null) {
-	    				str += "<br>";
-	    				str += "<br>";
+    				str += "<div><div class='d-flex user-box'>";
+    				str += "<span><img src='/resources/faqList/문.svg' style='width:24px;'></span><div class='user-inqry-content'>"
+    				str += resp.inqrys[i].md_question_content;
+    				str += "</div></div>";
+					if(resp.inqrys[i].md_response_content != null) {
+						str += "<div class='d-flex admin-box'><span><img src='/resources/faqList/답.svg' style='width:24px;'></span><div>"
+						str += "<div class='answer-inqry-content'>";
 	    				str += resp.inqrys[i].md_response_content;
-	    				str += "<br>";
-	    				str += "<br>";
+	    				str += "</div>";
+	    				str += "<div class='answer-inqry-date'>"
 	    				str += resp.inqrys[i].responseFormedDate;
+	    				str += "</div>"
+	    				str += "</div>"
+	    				str += "</div>"
     				}
     				str += "</div>";
     				str += "<div class='delete-inqry-box'></div>";
@@ -278,7 +284,6 @@ function getPage(pageNavi, select, sort) {
 		     })
 		   })
 		})
-	
 </script>
 </head>
 <body>
@@ -348,21 +353,22 @@ function getPage(pageNavi, select, sort) {
                                     <div class="gnbPick">
 									</div>
                                     <div class="col d-flex">
+                                    <sec:authorize access="isAnonymous()">
+                                    	<a href="/login"><button type="button" class="btn_pick pick_icon_button" ></button></a>
+                                    	<a href="/login"><button type="button" id="login" class=" btn btn-success btn-lg" name="submit" value="addtocard" >회원전용</button></a>
+                                    </sec:authorize>
+                                    <sec:authorize access="isAuthenticated()">
                                     	<c:choose>
                                     	<c:when test="${wishResult == 1}">
 										<button type="button" class="btn_pick pick_icon_button on" ></button>
+										<button type="button" id="cart" class=" btn btn-success btn-lg" name="submit" value="addtocard">장바구니 담기</button>
 										</c:when>
 										<c:otherwise>
 										<button type="button" class="btn_pick pick_icon_button" ></button>
-										</c:otherwise>
+										<button type="button" id="cart" class=" btn btn-success btn-lg" name="submit" value="addtocard">장바구니 담기</button>
+										</c:otherwise>										
 										</c:choose>
-                                        <sec:authorize access="isAuthenticated()">
-											<button type="button" id="cart" class=" btn btn-success btn-lg" name="submit" value="addtocard">장바구니 담기</button>
-										</sec:authorize>
-										<sec:authorize access="isAnonymous()">
-				 							<a href="/login"><button type="button" id="login" class=" btn btn-success btn-lg" name="submit" value="addtocard" >회원전용</button></a>
-										</sec:authorize>                                      
-                                        <script>
+										<script>
                                     	$(".pick_icon_button").on("click", function(){
                                     		$(this).toggleClass("on");
                                     		if($(this).hasClass("on")){
@@ -386,6 +392,7 @@ function getPage(pageNavi, select, sort) {
                                     		}
                                     	})
                                         </script>
+									</sec:authorize>                                                                           
                                     </div>
                                 </div>
                             </form>
@@ -433,7 +440,7 @@ function getPage(pageNavi, select, sort) {
 		    <li><a href="#fragment-4"><span>문의</span></a></li>
 		  </ul>
 		  <div id="fragment-1">
-		    <img src="/mdImage/${mdDetails.md_detail_image}">
+		    <img style="width:100%;" src="/mdImage/${mdDetails.md_detail_image}">
 		  </div>
 		  <div id="fragment-3">
 				<p>PRODUCT REVIEW</p>
@@ -463,7 +470,6 @@ function getPage(pageNavi, select, sort) {
 						</tr>
 					</tbody>
 				</table>
-				<a href="/mypage/myPageReviewWrite"><button>후기쓰기</button></a>
 				<div id="page-box">
 				<ul class="pages" id="pages" ></ul>
 				</div>
@@ -492,7 +498,11 @@ function getPage(pageNavi, select, sort) {
 						</tr>
 					</tbody>
 				</table>
-				<a href="#popup-inqry-write"><button id="md-inqry-write">문의하기</button></a>
+				
+				<sec:authorize access="isAuthenticated()">
+					<a href="#popup-inqry-write"><button id="md-inqry-write">문의하기</button></a>
+				</sec:authorize>
+				
 				<div id="page-box">
 				<ul class="pages" ></ul>
 				</div>
@@ -519,10 +529,10 @@ function getPage(pageNavi, select, sort) {
 					               </tr>
 					                
 					               <tr>
-						                <th id="tableHead">후기 작성</th>
+						                <th id="tableHead">문의 하기</th>
 						                <td>
-						                 <textarea rows="10" cols="40" maxlength="1000" id="md_question_content" placeholder="상품문의 작성 전 확인해주세요&#13;&#10;- 답변은 영업일 기준 2~3일 소요됩니다.&#13;&#10;- 해당 게시판의 성격과 다른 글은 사전동의 없이 담당 게시판으로 이동될 수 있습니다.&#13;&#10;- 배송관련, 주문(취소/교환/환불)관련 문의 및 요청사항은 마이컬리 내 1:1 문의에 남겨주세요.
-						                 " name="md_question_content" class="form-control"></textarea>
+						                 <textarea rows="10" cols="40" maxlength="1000" id="md_question_content" placeholder="상품문의 작성 전 확인해주세요&#13;&#10;- 답변은 영업일 기준 2~3일 소요됩니다.&#13;&#10;- 해당 게시판의 성격과 다른 글은 사전동의 없이 담당 게시판으로 이동될 수 있습니다.&#13;&#10;- 배송관련, 주문(취소/교환/환불)관련 문의 및 요청사항은 마이컬리 내 1:1 문의에 남겨주세요.&#13;&#10;- 문의는 수정이 불가하니 신중하게 작성해주세요.
+						                 " name="md_question_content" wrap="hard" class="form-control"></textarea>
 						                </td>     
 						            </tr>
 					               <tr>
@@ -711,15 +721,20 @@ function getPage(pageNavi, select, sort) {
 	            				str += "</tr>";
 	            				str += "<tr class='inqry-content hide-toggle'>";
 	            				str += "<td colspan='5'>";
-	            				str += "<div>"
+	            				str += "<div><div class='d-flex user-box'>";
+	            				str += "<span><img src='/resources/faqList/문.svg' style='width:24px;'></span><div class='user-inqry-content'>"
 	            				str += resp.inqrys[i].md_question_content;
+	            				str += "</div></div>";
             					if(resp.inqrys[i].md_response_content != null) {
-            						str += "<br>";
-            	    				str += "<br>";
+            						str += "<div class='d-flex admin-box'><span><img src='/resources/faqList/답.svg' style='width:24px;'></span><div>"
+            						str += "<div class='answer-inqry-content'>";
             	    				str += resp.inqrys[i].md_response_content;
-            	    				str += "<br>";
-            	    				str += "<br>"
+            	    				str += "</div>";
+            	    				str += "<div class='answer-inqry-date'>"
             	    				str += resp.inqrys[i].responseFormedDate;
+            	    				str += "</div>"
+            	    				str += "</div>"
+            	    				str += "</div>"
                 				}
 	            				str += "</div>";
 	            				str += "<div class='delete-inqry-box'></div>";
@@ -754,8 +769,6 @@ function getPage(pageNavi, select, sort) {
 	</script>
 	
 	
-	<!-- 임시 공백 푸터 -->
-	<div style="height:300px;"></div>
     <!-- Start Script -->
     <script src="/resources/mdDetail/assets/js/jquery-1.11.0.min.js"></script>
     <script src="/resources/mdDetail/assets/js/jquery-migrate-1.2.1.min.js"></script>
@@ -806,3 +819,4 @@ function getPage(pageNavi, select, sort) {
 </body>
 
 </html>
+<jsp:include page="/WEB-INF/views/homeFooter.jsp"></jsp:include>

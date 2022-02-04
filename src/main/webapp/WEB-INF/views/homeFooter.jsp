@@ -134,8 +134,8 @@
 
   <!-- Copyright -->
   <div class="text-center p-4" style="background-color: white">
-    © 2021 Copyright:
-    <a class="text-reset fw-bold" href="github.com">Under The Moon</a>
+    © 2022 Copyright:
+    <a class="text-reset fw-bold" href="github.com">月下合酌</a>
   </div>
   <!-- Copyright -->
 </footer>

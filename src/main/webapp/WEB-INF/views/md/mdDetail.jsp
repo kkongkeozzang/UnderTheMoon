@@ -127,17 +127,19 @@ $(document).ready(function(){
     })
 })
 $("body").on("click",".delete-inqry-btn",function(){
-	let md_inqry_id = $(this).closest(".inqry-content").prev().find(".md_inqry_id").text();
-	let inqryTitleBox = $(this).closest(".inqry-content").prev();
-	let inqryContentBox = $(this).closest(".inqry-content");
-	$.ajax({
-		url:"/md/detail/inqry/rest/delete/"+md_inqry_id,
-		type:"delete",
-		dataType:"json"
-	}).done(function(){
-		inqryTitleBox.remove();
-		inqryContentBox.remove();
-	})
+	if(confirm("정말 삭제하시겠습니까?")) {
+		let md_inqry_id = $(this).closest(".inqry-content").prev().find(".md_inqry_id").text();
+		let inqryTitleBox = $(this).closest(".inqry-content").prev();
+		let inqryContentBox = $(this).closest(".inqry-content");
+		$.ajax({
+			url:"/md/detail/inqry/rest/delete/"+md_inqry_id,
+			type:"delete",
+			dataType:"json"
+		}).done(function(){
+			inqryTitleBox.remove();
+			inqryContentBox.remove();
+		})
+	}
 })
 function viewCount(md_review_id, target) {
 	$.ajax({

@@ -191,16 +191,18 @@
 											</c:forEach>
 											<script>
 												$("body").on("click",".delete-btn",function(){
-													let mdBox = $(this).closest(".md-box");
-													let md_review_id = $(this).closest(".md-box").find(".md_review_id").val();
-													mdBox.remove();
-													$.ajax({
-						            					url:"/md/detail/review/rest/delete/"+md_review_id,
-						            					type:"delete",
-						            					dataType:"json"
-						            				}).done(function(){
-						            					mdBox.remove();
-													})
+													if(confirm("정말 삭제하시겠습니까?")) {
+														let mdBox = $(this).closest(".md-box");
+														let md_review_id = $(this).closest(".md-box").find(".md_review_id").val();
+														mdBox.remove();
+														$.ajax({
+							            					url:"/md/detail/review/rest/delete/"+md_review_id,
+							            					type:"delete",
+							            					dataType:"json"
+							            				}).done(function(){
+							            					mdBox.remove();
+														})
+													}
 												})
 												$("body").on("click",".read-review",function(){
 													let md_review_id = $(this).closest(".md-box").find(".md_review_id").val();

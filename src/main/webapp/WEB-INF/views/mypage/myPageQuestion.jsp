@@ -128,9 +128,11 @@
 										<tbody>
 											<c:forEach var="MdInqryDTO" items="${mdInqryList }">
 											<tr>												
-												<td class="grade-list" style="text-align:center" ><a href="#popup${MdInqryDTO.md_id}">${MdInqryDTO.md_question_title}</a></td>
+												<td class="grade-list" style="text-align:center" ><a href="#popup${MdInqryDTO.sort_md_question_id}">${MdInqryDTO.md_question_title}</a>
+												<input type="hidden" class="md_inqry_id" value="${MdInqryDTO.sort_md_question_id }"
+												</td>
 												<td class="grade-list" style="text-align:center"><fmt:formatDate value = "${MdInqryDTO.md_question_write_date}"  type="date" dateStyle="full"/></td>
-												<td class="grade-list" style="text-align:center">${MdInqryDTO.md_question_reply_yn}</td>									
+												<td class="grade-list" style="text-align:center">${MdInqryDTO.md_question_reply_yn}<button class="delete-btn" style="margin-left: 10px;">문의삭제</button></td>				
 											</tr>
 											
 											</c:forEach>														
@@ -138,7 +140,23 @@
 									</table>
 									<div class="navigator" style="margin:auto; display:block;">
 									${pageNavi}
-									</div>							
+									</div>		
+									<script>
+									$("body").on("click",".delete-btn",function(){
+										if(confirm("정말 삭제하시겠습니까?")) {
+											let tr = $(this).closest("tr");
+											let md_inqry_id = $(this).closest("tr").find(".md_inqry_id").val();
+											tr.remove();
+											$.ajax({
+				            					url:"/md/detail/inqry/rest/delete/"+md_inqry_id,
+				            					type:"delete",
+				            					dataType:"json"
+				            				}).done(function(){
+				            					tr.remove();
+											})
+										}
+									})
+									</script>					
 								</div>
 							</div>						
 					</div>
@@ -151,7 +169,7 @@
 	</div>
 	
 	<c:forEach var="MdInqryDTO" items="${mdInqryList }">
-		<div id="popup${MdInqryDTO.md_id }" class="overlay">
+		<div id="popup${MdInqryDTO.sort_md_question_id }" class="overlay">
 	       <div class="popup">
 	           <h2>${MdInqryDTO.md_question_title}</h2>
 	           <a class="close" href="javascript:history.back()">&times;</a>

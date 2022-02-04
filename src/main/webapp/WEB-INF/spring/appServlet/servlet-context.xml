@@ -26,8 +26,8 @@
 
 	<resources mapping="/resources/**" location="/resources/" />
 	<resources mapping="/summernoteImage/**" location="file:///C:/summernoteImage/" />
-	<resources mapping="/mdImage/**" location="${spring.datasource.initialSize}" />
-	<resources mapping="/mdReviewImage/**" location="${spring.datasource.upload}" />
+	<resources mapping="/mdImage/**" location="file:///C:/Program Files\\Apache Software Foundation\\Tomcat 8.5\\webapps\\ROOT\\tempImageFolder/" />
+	<resources mapping="/mdReviewImage/**" location="file:///C:/Program Files\\Apache Software Foundation\\Tomcat 8.5\\webapps\\ROOT\\upload/" />
 
 
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
@@ -43,7 +43,7 @@
     <!-- 파일업로드를 위한 디렉토리 설정 -->
     <!-- String uploadPath=new String("d:/upload"); -->
     <beans:bean id="uploadPath" class="java.lang.String">
-        <beans:constructor-arg value="${spring.datasource.upload}" />
+        <beans:constructor-arg value="C:/Program Files\\Apache Software Foundation\\Tomcat 8.5\\webapps\\ROOT\\upload/" />
     </beans:bean>
 	
 	<context:component-scan base-package="kh.spring" />

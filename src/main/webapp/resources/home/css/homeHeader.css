@@ -89,12 +89,12 @@ a{
 
 
 
-#heart{
+#heartbtn{
 	color:#406882;
 	font-size: 25px;
 }
 
-#heart:hover{
+#heartbtn:hover{
 transition-duration: 0.4s;
 	
 	color:#1A374D;
@@ -102,22 +102,17 @@ transition-duration: 0.4s;
 }
 
 
-#cart{
+#cartbtn{
 	color:#406882;
 }
 
-#cart:hover {
+#cartbtn:hover {
 		color:#1A374D;
 transition-duration: 0.4s;
 
 	
 }
 
-#shoppingcart{
-		font-size: 40px;
-	  display: inline-block;
-	
-}
 
 #sign{
 	padding-left:10px;

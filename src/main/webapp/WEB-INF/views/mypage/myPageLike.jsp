@@ -114,3 +114,4 @@
 </script>
 </body>
 </html>
+<jsp:include page="/WEB-INF/views/homeFooter.jsp"></jsp:include>

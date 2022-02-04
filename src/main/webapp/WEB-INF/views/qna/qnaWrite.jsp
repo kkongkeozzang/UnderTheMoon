@@ -90,7 +90,7 @@
                    <th id="tableHead">문자메세지</th> <!--placeholder에 사용자 휴대폰 번호 띄우기-->
                    <td>
                        <input readonly type="text" class="form-control"  placeholder="${memberDTO.member_phone }">
-                       <input type="checkbox"  name="qa_question_sms_yn" id="sms_yn" value="Y">답변 수신을 문자메세지로 받겠습니다. &nbsp;&nbsp;
+                       <input type="checkbox"   id="sms_yn" value="Y">답변 수신을 문자메세지로 받겠습니다. &nbsp;&nbsp;
                     </td>        
                </tr>
 

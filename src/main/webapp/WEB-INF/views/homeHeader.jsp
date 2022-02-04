@@ -24,11 +24,11 @@
 <!-- 로그인, 회원가입, 고객센터 -->
 <div id="topBar">
     <ul>
-        <li><a href="/signup" >회원가입</a></li>
 			<sec:authorize access="isAuthenticated()">
 				<li><a href="/logout" id="sign">로그아웃</a> </li>
 			</sec:authorize>
 			<sec:authorize access="isAnonymous()">
+				 <li><a href="/signup" >회원가입</a></li>
 				 <li><a href="/login" id="sign">로그인</a> </li>
 			</sec:authorize>
 			<sec:authorize access="hasRole('ROLE_ADMIN')">

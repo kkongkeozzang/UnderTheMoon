@@ -136,10 +136,9 @@ public class QnaController {
 	
 	
 	@RequestMapping("writeProc") //작성된 글 저장
-	public String writeProc(QnaDTO dto, MultipartFile file) throws Exception{
+	public String writeProc(QnaDTO dto) throws Exception{
 				
 		int result = qnaService.insert(dto);
-		System.out.println(file.getOriginalFilename());
 		return "redirect:/qna/qnaList";
 	}
 	

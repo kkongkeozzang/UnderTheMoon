@@ -48,21 +48,21 @@
           <h6 class="text-uppercase fw-bold mb-4">
             <p><i class="fas fa-phone me-3"></i>  고객센터</p>
           </h6>
-          <p>
+          <p id="footerButton">
             <button type="button" onclick = "location.href = '/views/qna/qnaList'"class="btn btn-primary btn-sm outline sharp">
               1:1 문의
             </button>
           <span style="font-weight: bold;">24시간 접수 가능 <br></span>
           고객센터 운영시간에 순차적으로 답변드리겠습니다.  
           </p>
-          <p>
+          <p id="footerButton">
             <button type="button" onclick = "location.href = '/views/qna/qnaList'"class="btn btn-primary btn-sm outline sharp">
               공지사항
             </button>
             <span style="font-weight: bold;">24시간 이용 가능 <br></span>
             배송 및 이벤트 관련 문의는 공지사항을 확인해주세요.  
           </p>
-          <p>
+          <p id="footerButton">
             <button type="button" onclick = "location.href = '/views/qna/qnaList'"class="btn btn-primary btn-sm outline sharp">
               자주 묻는 질문
             </button>

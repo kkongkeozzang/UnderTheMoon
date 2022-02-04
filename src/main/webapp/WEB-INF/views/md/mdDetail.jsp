@@ -349,14 +349,17 @@ function getPage(pageNavi, select, sort) {
                                     <div class="col d-flex">
                                     <sec:authorize access="isAnonymous()">
                                     	<a href="/login"><button type="button" class="btn_pick pick_icon_button" ></button></a>
+                                    	<a href="/login"><button type="button" id="login" class=" btn btn-success btn-lg" name="submit" value="addtocard" >회원전용</button></a>
                                     </sec:authorize>
                                     <sec:authorize access="isAuthenticated()">
                                     	<c:choose>
                                     	<c:when test="${wishResult == 1}">
 										<button type="button" class="btn_pick pick_icon_button on" ></button>
+										<button type="button" id="cart" class=" btn btn-success btn-lg" name="submit" value="addtocard">장바구니 담기</button>
 										</c:when>
 										<c:otherwise>
 										<button type="button" class="btn_pick pick_icon_button" ></button>
+										<button type="button" id="cart" class=" btn btn-success btn-lg" name="submit" value="addtocard">장바구니 담기</button>
 										</c:otherwise>										
 										</c:choose>
 										<script>
@@ -383,9 +386,7 @@ function getPage(pageNavi, select, sort) {
                                     		}
                                     	})
                                         </script>
-									</sec:authorize>
-                                        <button type="button" id="cart" class=" btn btn-success btn-lg" name="submit" value="addtocard">장바구니 담기</button>
-                                        
+									</sec:authorize>                                                                           
                                     </div>
                                 </div>
                             </form>

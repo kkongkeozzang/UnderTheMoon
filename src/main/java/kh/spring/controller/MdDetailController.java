@@ -42,13 +42,16 @@ private final MemberService memberService;
 	
 	@RequestMapping(value = "page")
 	public String detail(String md_id, Model model, HttpServletRequest request, HttpServletResponse response) {
-		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal(); 
-        String username = ((UserDetails)principal).getUsername();
-		MemberDTO memberDTO = memberService.selectByUsername(username);
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		if(principal != "anonymousUser") {
+			String username = ((UserDetails)principal).getUsername();
+			MemberDTO memberDTO = memberService.selectByUsername(username);
+			int wishResult = wishService.selectByMdId(md_id,memberDTO.getMember_id());
+			model.addAttribute("wishResult", wishResult);
+		}
 		MdDTO mdDetails = mdService.selectMdDetailById(md_id);
 		int allMdReviewCount = mdReviewService.selectCount(md_id);
 		List<MdDTO> relatedMds = mdService.selectSameRegionMdsExceptForSelectMd(md_id);
-		int wishResult = wishService.selectByMdId(md_id,memberDTO.getMember_id());
 		
 		// 상품 번호 쿠키에 추가
 		
@@ -104,7 +107,7 @@ private final MemberService memberService;
 		model.addAttribute("relatedMds", relatedMds);
 		model.addAttribute("mdDetails", mdDetails);
 		model.addAttribute("allMdReviewCount", allMdReviewCount);
-		model.addAttribute("wishResult", wishResult);
+		//model.addAttribute("wishResult", wishResult);
 		return "/md/mdDetail";
 	}
 	

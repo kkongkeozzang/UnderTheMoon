@@ -366,9 +366,12 @@ function getPage(pageNavi, select, sort) {
 											<button type="button" id="cart" class=" btn btn-success btn-lg" name="submit" value="addtocard">장바구니 담기</button>
 										</sec:authorize>
 										<sec:authorize access="isAnonymous()">
-				 							<a href="/login"><button type="button" id="login" class=" btn btn-success btn-lg" name="submit" value="addtocard" >회원전용</button></a>
+			 								<button type="button" id="login-cart" class=" btn btn-success btn-lg" name="submit" value="addtocard" >회원전용</button>
 										</sec:authorize>                                      
                                         <script>
+                                        $("#login-cart").on("click",function(){
+                                        	location.href="/login";
+                                        })
                                     	$(".pick_icon_button").on("click", function(){
                                     		$(this).toggleClass("on");
                                     		if($(this).hasClass("on")){
@@ -497,7 +500,11 @@ function getPage(pageNavi, select, sort) {
 						</tr>
 					</tbody>
 				</table>
-				<a href="#popup-inqry-write"><button id="md-inqry-write">문의하기</button></a>
+				
+				<sec:authorize access="isAuthenticated()">
+					<a href="#popup-inqry-write"><button id="md-inqry-write">문의하기</button></a>
+				</sec:authorize>
+				
 				<div id="page-box">
 				<ul class="pages" ></ul>
 				</div>

@@ -48,8 +48,11 @@ public class WishDAO {
 		return mybatis.delete("Wish.deleteByMdIdWish", md_id);
 	}
 	
-	public int selectByMdId(String md_id) {
+	public int selectByMdId(String md_id, int member_id) {
+		Map<String, String> map = new HashMap<>();
+		map.put("md_id", md_id);
+		map.put("member_id", String.valueOf(member_id));
 		
-		return mybatis.selectOne("Wish.selectByMdId", md_id);
+		return mybatis.selectOne("Wish.selectByMdId", map);
 	}
 }

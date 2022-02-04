@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>지역별 전통주</title>
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <!-- Bootstrap core CSS -->
 <link href="/resources/mdList/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">

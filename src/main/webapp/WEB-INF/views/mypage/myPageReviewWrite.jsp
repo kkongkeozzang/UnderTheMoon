@@ -254,7 +254,7 @@ $(function(){
 				data:{
 					md_id:$("#md_id").val(),
 					md_review_title:$("#md_review_title").val(),
-					md_review_content:$("#md_review_content").val(),
+					md_review_content:$("#md_review_content").val().replace(/\n/g, "<br>"),
 					purchase_detail_id:$("#purchase_detail_id").val()
 				}
 			}).done(function(resp){
@@ -404,7 +404,7 @@ $(function(){
                <tr>
                 <th id="tableHead">후기 작성</th>
                 <td>
-                 <textarea rows="10" cols="40" maxlength="1000" id="md_review_content" placeholder="자세한 후기는 다른 고객의 구매에 많은 도움이 되며,&#13;&#10;오해 소지가 있는 내용을 작성 시 검토 후 비공개 조치될 수 있습니다." name="md_review_content" class="form-control"></textarea>
+                 <textarea rows="10" cols="40" wrap="hard" maxlength="1000" id="md_review_content" placeholder="자세한 후기는 다른 고객의 구매에 많은 도움이 되며,&#13;&#10;오해 소지가 있는 내용을 작성 시 검토 후 비공개 조치될 수 있습니다.&#13;&#10;※상품 후기는 수정이 불가하니 신중하게 작성해주세요." name="md_review_content" class="form-control"></textarea>
                 </td>     
             </tr>
                 

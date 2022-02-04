@@ -16,6 +16,9 @@
 .table>tbody>tr>td, .table>tfoot>tr>td{
     vertical-align: middle;
 }
+html{
+	font-size:14px !important;
+}
 
 .count{
 
@@ -33,13 +36,14 @@
 }
 
  .minus{
-  width:40px;
+  width:40px !important;
+  height: 40px !important;
  
 }
 
 .plus{
-  width:40px;
- 
+  width:40px !important;
+  height: 40px !important;
 }
 .flex{
   display: flex;
@@ -254,7 +258,7 @@ $(function(){
 							</td>
 							<td data-th="Subtotal" class="cart_price text-center">${cart.cart_price}</td>
 							<td class="actions" data-th="">						
-								<button class="delete btn btn-danger btn-sm"><i class="fa fa-trash-o"></i></button>								
+								<button class="delete btn btn-danger btn-sm">삭제</button>								
 							</td>
 						</tr>
 						</c:forEach>

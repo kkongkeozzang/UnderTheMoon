@@ -51,16 +51,16 @@
 <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
     <div class="carousel-inner">
       <div class="carousel-item active">
-        <img src="resources/home/img/carouselTest1.png" class="d-block w-100" alt="1">
+        <a href="/event/eventTiger"><img src="resources/home/img/carouselTest1.png" class="d-block w-100" alt="1"></a>
       </div>
       <div class="carousel-item">
-        <img src="resources/home/img/carouselTest2.png" class="d-block w-100" alt="2">
+        <a href="event/eventKH"><img src="resources/home/img/carousel3.png" class="d-block w-100" alt="2"></a>
       </div>
       <div class="carousel-item">
-        <img src="resources/home/img/carouselTest1.png" class="d-block w-100" alt="3">
+        <a href="/event/eventRecommend"><img src="resources/home/img/carousel4.png" class="d-block w-100" alt="3"></a>
       </div>
       <div class="carousel-item">
-        <img src="resources/home/img/carouselTest2.png" class="d-block w-100" alt="4">
+       <a href="/event/eventWelcome"> <img src="resources/home/img/carousel2.png" class="d-block w-100" alt="4"></a>
       </div>
     </div>
     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">

@@ -33,7 +33,7 @@ public class SignupAPIController {
 	    params.put("to", phone);
 	    params.put("from", ApiKey.COOLSMS_PHONE_NUM); //발신자 번호 입력
 	    params.put("type", "SMS");
-	    params.put("text", "인증번호 : " + randomnumber);
+	    params.put("text", "월하합작 가입 인증번호 : " + randomnumber);
 	    params.put("app_version", "test app 1.2"); // application name and version
 
 	    try {

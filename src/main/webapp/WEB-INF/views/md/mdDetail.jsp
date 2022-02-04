@@ -347,16 +347,19 @@ function getPage(pageNavi, select, sort) {
                                     <div class="gnbPick">
 									</div>
                                     <div class="col d-flex">
+                                    <sec:authorize access="isAnonymous()">
+                                    	<a href="/login"><button type="button" class="btn_pick pick_icon_button" ></button></a>
+                                    </sec:authorize>
+                                    <sec:authorize access="isAuthenticated()">
                                     	<c:choose>
                                     	<c:when test="${wishResult == 1}">
 										<button type="button" class="btn_pick pick_icon_button on" ></button>
 										</c:when>
 										<c:otherwise>
 										<button type="button" class="btn_pick pick_icon_button" ></button>
-										</c:otherwise>
+										</c:otherwise>										
 										</c:choose>
-                                        <button type="button" id="cart" class=" btn btn-success btn-lg" name="submit" value="addtocard">장바구니 담기</button>
-                                        <script>
+										<script>
                                     	$(".pick_icon_button").on("click", function(){
                                     		$(this).toggleClass("on");
                                     		if($(this).hasClass("on")){
@@ -380,6 +383,9 @@ function getPage(pageNavi, select, sort) {
                                     		}
                                     	})
                                         </script>
+									</sec:authorize>
+                                        <button type="button" id="cart" class=" btn btn-success btn-lg" name="submit" value="addtocard">장바구니 담기</button>
+                                        
                                     </div>
                                 </div>
                             </form>

@@ -6,7 +6,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<jsp:include page="/WEB-INF/views/homeHeader.jsp"></jsp:include>
+
 
 <meta charset="UTF-8">
 <title>Insert title here</title>

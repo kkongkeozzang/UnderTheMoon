@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<jsp:include page="/WEB-INF/views/homeHeader.jsp"></jsp:include>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,10 +10,10 @@
 <link
 	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
 	rel="stylesheet" />
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
-
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script
@@ -260,6 +261,8 @@ body {
 							alert("내용을 입력해주세요.");
 						}else if($('.select').val()==""){
 							alert("카테고리를 선택해주세요.");
+						}else if(totalByte <= 11){
+							alert("바이트 수를 확인해주세요.(최소 12bytes)");
 						}else if(totalByte > maxByte){
 							alert("바이트 수를 확인해주세요.(최대 4000bytes)");
 						}else if($("#input-title").val()==""){
@@ -400,7 +403,8 @@ body {
 
 	</script>
 	</div>
-	<!--footer 시작 -->
-	
+
 </body>
 </html>
+<!--footer 시작 -->
+<jsp:include page="/WEB-INF/views/homeFooter.jsp"></jsp:include>

@@ -1,6 +1,8 @@
 package kh.spring.controller;
 
 
+import java.util.regex.Pattern;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -90,7 +92,7 @@ public class MemberController {
 	
 	@ResponseBody
 	@RequestMapping(value="member/idDuplCheck", produces="text/html;charset=utf8")
-	public String idDuplCheck(String id) throws Exception{
+	public String idDuplCheck(String id) throws Exception{				
 		int result = memberService.idDuplCheck(id);		
 		return String.valueOf(result);		
 	}

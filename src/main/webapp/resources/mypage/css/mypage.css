@@ -320,3 +320,8 @@ ul{
 .detail-box span{margin-right:5px;}
 .detail-box span::after{padding-left:5px;content:"|"}
 .detail-box span:last-child::after{content:""}
+
+.footer-bs{
+	
+	bottom:5000px;
+}

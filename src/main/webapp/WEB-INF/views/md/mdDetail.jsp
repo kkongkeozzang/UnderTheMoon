@@ -3,7 +3,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
  <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
  <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-
+ <%-- <jsp:include page="/WEB-INF/views/homeHeader.jsp"></jsp:include>
+ <jsp:include page="/WEB-INF/views/homeFooter.jsp"></jsp:include> --%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -284,6 +285,7 @@ function getPage(pageNavi, select, sort) {
 		     })
 		   })
 		})
+	
 </script>
 </head>
 <body>
@@ -361,7 +363,12 @@ function getPage(pageNavi, select, sort) {
 										<button type="button" class="btn_pick pick_icon_button" ></button>
 										</c:otherwise>
 										</c:choose>
-                                        <button type="button" id="cart" class=" btn btn-success btn-lg" name="submit" value="addtocard">장바구니 담기</button>
+                                        <sec:authorize access="isAuthenticated()">
+											<button type="button" id="cart" class=" btn btn-success btn-lg" name="submit" value="addtocard">장바구니 담기</button>
+										</sec:authorize>
+										<sec:authorize access="isAnonymous()">
+				 							<a href="/login"><button type="button" id="login" class=" btn btn-success btn-lg" name="submit" value="addtocard" >회원전용</button></a>
+										</sec:authorize>                                      
                                         <script>
                                     	$(".pick_icon_button").on("click", function(){
                                     		$(this).toggleClass("on");

@@ -24,7 +24,6 @@
 <!-- 로그인, 회원가입, 고객센터 -->
 <div id="topBar">
     <ul>
-       
 			<sec:authorize access="isAuthenticated()">
 				<li><a href="/logout" id="sign">로그아웃</a> </li>
 			</sec:authorize>

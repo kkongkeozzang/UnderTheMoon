@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<jsp:include page="/WEB-INF/views/homeHeader.jsp"></jsp:include>
 <!DOCTYPE html>
 <html>
 <head>
@@ -98,3 +99,4 @@
 </script>
 </body>
 </html>
+<jsp:include page="/WEB-INF/views/homeFooter.jsp"></jsp:include>

@@ -2,23 +2,13 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<jsp:include page="/WEB-INF/views/homeHeader.jsp"></jsp:include>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css"
-	rel="stylesheet">
-
-<script
-	src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
-	integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA=="
-	crossorigin="anonymous" referrerpolicy="no-referrer" />
 <link href="https://cdn.lineicons.com/3.0/lineicons.css"
 		rel="stylesheet">
 	<link
@@ -31,7 +21,7 @@
 </head>
 
 <body>
-<jsp:include page="/WEB-INF/views/homeHeader.jsp"></jsp:include>
+
 
 	<div class="container">
         <div class="row">
@@ -135,6 +125,7 @@
 	   })
 
 </script>
+</div>
 </body>
-
 </html>
+<jsp:include page="/WEB-INF/views/homeFooter.jsp"></jsp:include>

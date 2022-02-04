@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<jsp:include page="/WEB-INF/views/homeHeader.jsp"></jsp:include>
 <!DOCTYPE html>
 <html>
 <head>
@@ -113,33 +114,14 @@
          <label class="col-form-label col-10">* 는 필수 입력사항입니다.</label>
         </div>        
         <div class="form-group row">
-         <div class="col-8 offset-4">
-            <p><label class="form-check-label"><input type="checkbox"> <a href="#popup1"> 개인정보 활용 동의서</a> 에 동의합니다.</label></p>            
+         <div class="col-8 offset-4">                      
             <button type="submit" id="submit" class="btn btn-primary btn-lg" style="margin:auto; display:inline-block;">회원정보 수정</button>
             <button type="button" id="deleteMember" class="btn btn-primary btn-lg" style="margin:auto; display:inline-block;">회원 탈퇴</button>
          </div>  
       </div>            
     </form>
 </div>
-<div id="popup1" class="overlay">
-   <div class="popup">
-      <h2>이용약관</h2>
-      <a class="close" href="javascript:history.back()"></a>
-      <div class="content">
-         제1조(목적)<br>
-         이 약관은 월하합작(전자상거래 사업자)가 운영하는<br>
-         인터넷사이트 월하합작에서 제공하는 전자상거래 관련 서비스를<br> 
-         이용함에 있어 월하합작과 이용자의 권리,의무 및 책임사항을 규정함을 목적으로 합니다.<br>
-         <br>
-         제2조(정의)<br>
-         ① “몰”이란 OO 회사가 재화 또는 용역(이하 “재화 등”이라 함)을 이용자에게 제공하기 위하여 컴퓨터 등 정보통신설비를 이용하여 재화 등을 거래할 수 있도록 
-         설정한 가상의 영업장을 말하며, 아울러 사이버몰을 운영하는 사업자의 의미로도 사용합니다.<br>
-          ② “이용자”란 “몰”에 접속하여 이 약관에 따라 “몰”이 제공하는 서비스를 받는 회원 및 비회원을 말합니다.<br>
-           ③ ‘회원’이라 함은 “몰”에 회원등록을 한 자로서, 계속적으로 “몰”이 제공하는 서비스를 이용할 수 있는 자를 말합니다.<br>
-          ④ ‘비회원’이라 함은 회원에 가입하지 않고 “몰”이 제공하는 서비스를 이용하는 자를 말합니다.                               
-      </div>
-   </div>
-</div>
+
 
 <script> 
 
@@ -281,12 +263,12 @@
                return false;
               }
       
-      let regexMail = /^[a-zA-Z\d]{1,}@[a-z]{1,}.com$/;
-      let resultMail = regexMail.test($("#member-email").val());
-         if(resultMail == false){
-             alert("이메일을 다시 확인해주세요")
-             return false;
-         }
+      let regexMail = /^[a-zA-Z\d]{1,15}@[a-z]{1,15}(.com)|(.net)|(.co.kr)$/;
+ 	  let resultMail = regexMail.test($("#member-email").val());
+ 			if(resultMail == false){
+ 			    alert("이메일을 다시 확인해주세요")
+ 			    return false;
+ 			}
          
       let regexBirth = ""
       let resultBirth = regexBirth.test($("#member-birth-date").val());
@@ -327,19 +309,21 @@
     }
    
    
-      document.getElementById("member-confirm-password").oninput = function() {
-         let pw1 = $("#member-password").val();
-         let pw2 = $("#member-confirm-password").val();
-         if (pw1 != pw2) {
-            pwConfirm.innerHTML = "패스워드가 일치하지 않습니다."
-         } else if (pw1 ==""){
-            pwConfirm.innerHTML = ""
-         } else if (pw2 ==""){
-            pwConfirm.innerHTML = ""
-         }else  {
-            pwConfirm.innerHTML = "패스워드가 일치합니다."
-         }
-      }
+  	 document.getElementById("member-confirm-password").oninput = function() {
+       let pw1 = $("#member-password").val();
+       let pw2 = $("#member-confirm-password").val();
+       if (pw1 != pw2) {
+          pwConfirm.innerHTML = "패스워드가 일치하지 않습니다."
+          $("#pwConfirm").css("color","red");
+       } else if (pw1 ==""){
+          pwConfirm.innerHTML = ""
+       } else if (pw2 ==""){
+          pwConfirm.innerHTML = ""
+       }else  {
+          pwConfirm.innerHTML = "패스워드가 일치합니다."
+          $("#pwConfirm").css("color","blue");
+       }
+    }
       
    //휴대폰 번호 인증 API 시작
    //생성된 인증번호를 저장할 전역변수 선언

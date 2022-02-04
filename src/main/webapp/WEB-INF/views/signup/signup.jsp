@@ -102,7 +102,7 @@
             </div>           
         </div>
         <div class="form-group row">
-         <label class="col-form-label col-3">상세주소2</label>
+         <label class="col-form-label col-3">상세주소2*</label>
          <div class="col-7">
                 <input type="text" class="form-control" id="member-address2" name="member_address2">
             </div>           
@@ -130,32 +130,14 @@
         </div>        
         <div class="form-group row">
          <div class="col-8 offset-4">
-            <p><label class="form-check-label"><input type="checkbox"> <a href="#popup1"> 개인정보 활용 동의서</a> 에 동의합니다.</label></p>
+            <p><label class="form-check-label"><input type="checkbox" id="agree-personal-information"> <a href="#popup1"> 개인정보 활용 동의서</a> 에 동의합니다.</label></p>
             <button type="submit" id="submit" class="btn btn-primary btn-lg">가입하기</button>
          </div>  
       </div>            
     </form>
    <div class="text-center">이미 계정이 있으신가요? <a href="login">로그인 하러 가기</a></div>
 </div>
-<div id="popup1" class="overlay">
-   <div class="popup">
-      <h2>이용약관</h2>
-      <a class="close" href="javascript:history.back()">&times;</a>
-      <div class="content">
-         제1조(목적)<br>
-         이 약관은 월하합작(전자상거래 사업자)가 운영하는<br>
-         인터넷사이트 월하합작에서 제공하는 전자상거래 관련 서비스를<br> 
-         이용함에 있어 월하합작과 이용자의 권리,의무 및 책임사항을 규정함을 목적으로 합니다.<br>
-         <br>
-         제2조(정의)<br>
-         ① “몰”이란 OO 회사가 재화 또는 용역(이하 “재화 등”이라 함)을 이용자에게 제공하기 위하여 컴퓨터 등 정보통신설비를 이용하여 재화 등을 거래할 수 있도록 
-         설정한 가상의 영업장을 말하며, 아울러 사이버몰을 운영하는 사업자의 의미로도 사용합니다.<br>
-          ② “이용자”란 “몰”에 접속하여 이 약관에 따라 “몰”이 제공하는 서비스를 받는 회원 및 비회원을 말합니다.<br>
-           ③ ‘회원’이라 함은 “몰”에 회원등록을 한 자로서, 계속적으로 “몰”이 제공하는 서비스를 이용할 수 있는 자를 말합니다.<br>
-          ④ ‘비회원’이라 함은 회원에 가입하지 않고 “몰”이 제공하는 서비스를 이용하는 자를 말합니다.                               
-      </div>
-   </div>
-</div>
+<jsp:include page="agreement.jsp"></jsp:include>
 
 <script> 
 
@@ -174,20 +156,25 @@
    
       $(function(){
       $("#member-username").on("input",function(){
-         $.ajax({
-            url:"member/idDuplCheck",
-            data:{id:$("#member-username").val()}
-         }).done(function(resp){
-            if(resp == "1"){
-               $("#idCheckResult").css("color","red");
-               $("#idCheckResult").text("이미 사용중인 ID입니다.");
-               $("#member-username").val("");
-               $("#member-username").focus();
-            }else{
-               $("#idCheckResult").css("color","green");
-               $("#idCheckResult").text("사용 가능한 ID 입니다.");
-            }
-         });
+    	let regexId = /^[a-z]{1}[a-z\d]{5,13}$/;
+  		let resultId = regexId.test($("#member-username").val());
+  		if(resultId == false){
+  				$("#idCheckResult").css("color","green");
+  				$("#idCheckResult").text("아이디가 올바른 형식이 아닙니다.(영문+숫자조합 최소 6글자 이상 최대 14글자)");
+  		}else{
+  			$.ajax({
+  	            url:"member/idDuplCheck",
+  	            data:{id:$("#member-username").val()}
+  	         }).done(function(resp){
+  	            if(resp == "1"){
+  	               $("#idCheckResult").css("color","red");
+  	               $("#idCheckResult").text("이미 사용중인 ID입니다.");
+  	            }else{
+  	               $("#idCheckResult").css("color","blue");
+  	               $("#idCheckResult").text("사용 가능한 ID 입니다.");
+  	            }       
+  	         });
+  		}
       })
    })
    
@@ -233,37 +220,38 @@
 
    
    $("#member-birth-date").on("input", function(){
-      let regexBirthday1 = /^[0-9]{0,8}$/; //조건1  : yyyymmdd
-      let regexBirthday2; //조건2  : 만 19세 이상 회원가입
-      
-      let resultBirthday1 = regexBirthday1.test($("#member-birth-date").val());
-
-   
-      let memberYear = $("#member-birth-date").val();
-      let year = memberYear.substr(0,4);
-      console.log(year);
-
-      
-      if(year > adultYear){
-         resultBirthday2 = false;
-      }else{
-         resultBirthday2 = true;
-      }
-
-      if(resultBirthday1 && resultBirthday2 ){
-         $("#birthday-Condition1").css("color","blue");
-         $("#birthday-Condition2").css("color","blue");
-      }else if(resultBirthday1 == false && resultBirthday2){
-         $("#birthday-Condition1").css("color","red");
-         $("#birthday-Condition2").css("color","blue");
-      }else if(resultBirthday1 && resultBirthday2 == false){
-         $("#birthday-Condition1").css("color","blue");
-         $("#birthday-Condition2").css("color","red");
-      }else{
-         $("#birthday-Condition1").css("color","red");
-         $("#birthday-Condition2").css("color","red");
-      }
-      
+ 	    var year = Number($("#member-birth-date").val().substr(0,4)); // 입력한 값의 0~4자리까지 (연) 
+		var month = Number($("#member-birth-date").val().substr(4,2)); // 입력한 값의 4번째 자리부터 2자리 숫자 (월) 
+		var day = Number($("#member-birth-date").val().substr(6,2)); // 입력한 값 6번째 자리부터 2자리 숫자 (일) 
+		var today = new Date(); // 날짜 변수 선언 
+		var yearNow = today.getFullYear(); // 올해 연도 가져옴 
+		if ($("#member-birth-date").val().length <=8) { // 연도의 경우 1900 보다 작거나 yearNow 보다 크다면 false를 반환합니다. 
+			if (1900 > year || year > yearNow - 20){ 
+				$("#birthday-Condition2").css("color","red");
+				}else if (month < 1 || month > 12) {
+					$("#birthday-Condition1").css("color","red");
+					$("#birthday-Condition2").css("color","blue");
+				}else if (day < 1 || day > 31) {
+					$("#birthday-Condition1").css("color","red");
+					$("#birthday-Condition2").css("color","blue");
+				}else if ((month==4 || month==6 || month==9 || month==11) && day==31) {
+					$("#birthday-Condition1").css("color","red");
+					$("#birthday-Condition2").css("color","blue");
+				}else if (month == 2) { 
+					var isleap = (year % 4 == 0 && (year % 100 != 0 || year % 400 == 0)); 
+					if (day>29 || (day==29 && !isleap)) {
+						$("#birthday-Condition1").css("color","red");
+						$("#birthday-Condition2").css("color","blue");
+					}else { 
+						$("#birthday-Condition1").css("color","blue");
+						$("#birthday-Condition2").css("color","blue");} //end of if (day>29 || (day==29 && !isleap)) 
+				}else { 
+					 $("#birthday-Condition1").css("color","blue");
+					 $("#birthday-Condition2").css("color","blue");}//end of if 
+						} else { //1.입력된 생년월일이 8자 초과할때 : auth:false
+							$("#birthday-Condition1").css("color","red");
+							$("#birthday-Condition2").css("color","red");
+						}
    })
 
 
@@ -276,6 +264,11 @@
     			return false;
 		}
 			
+		if($("#idCheckResult").text() == "이미 사용중인 ID입니다."){
+				alert("중복되는 아이디입니다.")
+				return false;
+		}
+		
 		let regexPw = /^(?=.*[a-zA-Z])((?=.*\d)(?=.*\W)).{8,16}$/;
 		let resultPw = regexPw.test($("#member-password").val());
 			if(resultPw == false){
@@ -295,20 +288,50 @@
 			      return false;
 			     }
 		
-		let regexMail = /^[a-zA-Z\d]{1,}@[a-z]{1,}.com$/;
+		let regexMail = /^[a-zA-Z\d]{1,15}@[a-z]{1,15}(.com)|(.net)|(.co.kr)$/;
 		let resultMail = regexMail.test($("#member-email").val());
 			if(resultMail == false){
 			    alert("이메일을 다시 확인해주세요")
 			    return false;
 			}
 			
-		let regexBirth = "";
-		let resultBirth = regexBirth.test($("#member-birth-date").val());
-			if(resultBirth == true){
-				alert("생년월일이 올바른 형식이 아닙니다.")
-				return false;
-			}
-		 
+		let regexBirthday1 = /^\d{8}$/; //조건1  : yyyymmdd		      
+		let resultBirthday1 = regexBirthday1.test($("#member-birth-date").val());
+		if(resultBirthday1 == false){
+			alert("생년월일을 입력해주세요. (YYYYMMDD형식 / 8자리)")
+			return false;
+		}
+		
+		var year = Number($("#member-birth-date").val().substr(0,4)); // 입력한 값의 0~4자리까지 (연) 
+		var month = Number($("#member-birth-date").val().substr(4,2)); // 입력한 값의 4번째 자리부터 2자리 숫자 (월) 
+		var day = Number($("#member-birth-date").val().substr(6,2)); // 입력한 값 6번째 자리부터 2자리 숫자 (일) 
+		var today = new Date(); // 날짜 변수 선언 
+		var yearNow = today.getFullYear(); // 올해 연도 가져옴 
+		if ($("#member-birth-date").val().length <=8) { // 연도의 경우 1900 보다 작거나 yearNow 보다 크다면 false를 반환합니다. 
+			if (1900 > year || year > yearNow - 20){ 
+					alert("성인 이전의 생년월일 혹은 1900년 이전 생년월일 입니다.")
+					return false; 
+				}else if (month < 1 || month > 12) {
+					alert("생년월일중 올바른 '월'이 아닙니다.(1월~12월 사이)")
+					return false; 
+				}else if (day < 1 || day > 31) {
+					alert("생년월일중 올바른 '일'이 (1일~31일 사이)아닙니다.")
+					return false; 
+				}else if ((month==4 || month==6 || month==9 || month==11) && day==31) {
+					alert("31일이 존재하지않는 달입니다. 생년월일을 확인해주세요.")
+					return false; 
+				}else if (month == 2) { 
+					var isleap = (year % 4 == 0 && (year % 100 != 0 || year % 400 == 0)); 
+					if (day>29 || (day==29 && !isleap)) {
+						alert("생년월일이 올바른 형식이 아닙니다.")
+						return false; 
+					}
+				}
+						} else { //1.입력된 생년월일이 8자 초과할때 : auth:false
+							alert("생년월일이 올바른 형식이 아닙니다. (YYYYMMDD 형식)")
+							return false; 
+						}
+
 		let regexPhone = /^010\d{4}\d{4}$/;
 		let resultPhone = regexPhone.test($("#member-phone").val());
 		     if(resultPhone == false){
@@ -329,6 +352,11 @@
 		         alert("상세주소를 입력해주세요.")
 		         return false;
 		     }
+		     
+		if($("#agree-personal-information").is(":checked") == false){
+			alert("약관 동의가 되어야 가입이 가능합니다.")
+			return false;
+		}
 	})
 	
 	document.getElementById("addressSearch").onclick = function(){
@@ -346,12 +374,14 @@
          let pw2 = $("#member-confirm-password").val();
          if (pw1 != pw2) {
             pwConfirm.innerHTML = "패스워드가 일치하지 않습니다."
+            $("#pwConfirm").css("color","red");
          } else if (pw1 ==""){
             pwConfirm.innerHTML = ""
          } else if (pw2 ==""){
             pwConfirm.innerHTML = ""
          }else  {
             pwConfirm.innerHTML = "패스워드가 일치합니다."
+            $("#pwConfirm").css("color","blue");
          }
       }
       
@@ -417,5 +447,6 @@
    })
      
 </script>
+<jsp:include page="/WEB-INF/views/homeFooter.jsp"></jsp:include>
 </body>
 </html>

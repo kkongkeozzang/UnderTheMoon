@@ -291,3 +291,7 @@ body .btn_pick{
 .user-inqry-content, .answer-inqry-content, .answer-inqry-date {
 	margin-left: 10px;
 }
+
+#md-inqry-write {
+	float: right;
+}

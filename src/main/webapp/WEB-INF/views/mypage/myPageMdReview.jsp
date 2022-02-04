@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<jsp:include page="/WEB-INF/views/homeHeader.jsp"></jsp:include>
 <!DOCTYPE html>
 <html>
 <head>
@@ -34,7 +35,7 @@
 </head>
 
 <body>
-<jsp:include page="/WEB-INF/views/homeHeader.jsp"></jsp:include>
+
 
 	<div class="container">
         <div class="row">

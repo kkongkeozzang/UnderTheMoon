@@ -3,8 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
  <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
  <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
- <%-- <jsp:include page="/WEB-INF/views/homeHeader.jsp"></jsp:include>
- <jsp:include page="/WEB-INF/views/homeFooter.jsp"></jsp:include> --%>
+<jsp:include page="/WEB-INF/views/homeHeader.jsp"></jsp:include>
 <!DOCTYPE html>
 <html>
 <head>
@@ -525,10 +524,10 @@ function getPage(pageNavi, select, sort) {
 					               </tr>
 					                
 					               <tr>
-						                <th id="tableHead">후기 작성</th>
+						                <th id="tableHead">문의 하기</th>
 						                <td>
 						                 <textarea rows="10" cols="40" maxlength="1000" id="md_question_content" placeholder="상품문의 작성 전 확인해주세요&#13;&#10;- 답변은 영업일 기준 2~3일 소요됩니다.&#13;&#10;- 해당 게시판의 성격과 다른 글은 사전동의 없이 담당 게시판으로 이동될 수 있습니다.&#13;&#10;- 배송관련, 주문(취소/교환/환불)관련 문의 및 요청사항은 마이컬리 내 1:1 문의에 남겨주세요.&#13;&#10;- 문의는 수정이 불가하니 신중하게 작성해주세요.
-						                 " name="md_question_content" class="form-control"></textarea>
+						                 " name="md_question_content" wrap="hard" class="form-control"></textarea>
 						                </td>     
 						            </tr>
 					               <tr>
@@ -815,3 +814,4 @@ function getPage(pageNavi, select, sort) {
 </body>
 
 </html>
+<jsp:include page="/WEB-INF/views/homeFooter.jsp"></jsp:include>

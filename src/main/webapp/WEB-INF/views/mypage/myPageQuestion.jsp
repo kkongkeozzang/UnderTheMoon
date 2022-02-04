@@ -91,11 +91,26 @@
     width: 70%;
   }
 }
+.user-box {
+	margin-bottom: 50px;
+    margin-top: 20px;
+}
+
+.user-inqry-content, .answer-inqry-content, .answer-inqry-date {
+	margin-left: 10px;
+}
+
+#md-inqry-write {
+	float: right;
+}
+
+.answer-inqry-date {
+	text-align:left;
+}
 </style>
 </head>
 
 <body>
-<jsp:include page="/WEB-INF/views/homeHeader.jsp"></jsp:include>
 
 	<div class="container">
         <div class="row">
@@ -177,16 +192,16 @@
 	           <h2>${MdInqryDTO.md_question_title}</h2>
 	           <a class="close" href="javascript:history.back()">&times;</a>
 	           <div class="content" style="text-align:center;">
-	               <br>
-	               ${MdInqryDTO.md_question_content}
-	               <br>
-	               <br>
-	               ${MdInqryDTO.md_response_content}<br><br>
-	               ${MdInqryDTO.responseFormedDate }
-	              <br>
-	              <br>
-	              <a href="/md/detail/page?md_id=${MdInqryDTO.md_id }">상품으로 바로가기</a>
+		           <div><div class='d-flex user-box'>
+		           <img src='/resources/faqList/문.svg' style='width:24px;'><div class='user-inqry-content'>
+		           ${MdInqryDTO.md_question_content}   </div></div>
+		           <div class='d-flex admin-box'><span><img src='/resources/faqList/답.svg' style='width:24px;'></span><div>
+		           <div class='answer-inqry-content'>   
+		           ${MdInqryDTO.md_response_content}</div>   
+		           <div class='answer-inqry-date'>${MdInqryDTO.responseFormedDate }</div></div></div>
+		              
 	           </div>
+	              <div style="margin-top:50px;"><a href="/md/detail/page?md_id=${MdInqryDTO.md_id }">상품으로 바로가기</a></div>
 	       </div>
 	    </div>
 	</c:forEach>

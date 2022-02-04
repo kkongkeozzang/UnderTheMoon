@@ -29,6 +29,7 @@ public class MdInqryController {
         String username = ((UserDetails)principal).getUsername();
 		int member_id = memberService.selectIdByUsername(username);
 		inqry.setMember_id(member_id);
+		inqry.setMd_question_content(inqry.getMd_question_content().replace("\r\n","<br>"));
 		int result = mdInqryService.insert(inqry);
 		System.out.println(result);
 		return "redirect:/md/detail/page?md_id="+inqry.getMd_id();

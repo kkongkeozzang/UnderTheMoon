@@ -158,7 +158,7 @@ select {
 	<!-- 타이틀  -->
 	<div class="container-fluid mt-100">
 		<div id="board-title">
-			<span><h3>자주묻는질문</h3>자주묻는질문입니다. 자주묻는질문</span>
+			<span><h3>자주묻는질문</h3>고객님들께서 가장 자주하시는 질문을 모두 모았습니다.</span>
 		</div>
 		<br>
 

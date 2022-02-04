@@ -101,7 +101,6 @@ public class UploadFileUtils {
         + File.separator + "s_" + fileName;
         
         File newFile = new File(thumbnailName); //섬네일의 경로를 newFile변수에 저장
-        
         String formatName = fileName.substring( 
                 fileName.lastIndexOf(".") + 1);
                 //lastIndexOf() 메소드는 String오브젝트에서 "." 문자열부터 끝쪽 방향으로 문자열을 찾는다.

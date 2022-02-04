@@ -379,7 +379,7 @@ $(document).ready(function(){
   </body>
   
 				<script>
-					let deliveryFee = 2500;
+					let deliveryFee = ${deliveryFee };
 					let initialTotalPrice = Number($("#productsTotalPrice").text()) + deliveryFee; //전체가격과 배송비.  	
 					$("#totalPrice").text(initialTotalPrice); 
 					let coupon_discount_rate = 0;
@@ -462,16 +462,17 @@ $(document).ready(function(){
 		                	
                 })  
 //=========================================================================================================================================================================                
-                 //select 클릭 시 결제금액 초기화
-                $("body").on("change","#coupon",function(){
                 
+				//select 클릭 시 결제금액 초기화
+                $("body").on("change","#coupon",function(){
+                console.log($("#delivery-fee").text() =="0");
                 	if($("#delivery-fee").text()=="0"){
-                		 $("#delivery-fee").text(2500);
-                		 initialTotalPrice = initialTotalPrice + 2500;
-                	}else{
+                		 $("#delivery-fee").text(${deliveryFee });
+                		 initialTotalPrice = initialTotalPrice + ${deliveryFee };
+                	}
                     $("#coupon_price").text(coupon_discount_rate + " ");
                    initialTotalPrice = initialTotalPrice + Number($("#coupon_price").text());
-                	}
+                	
                 }) 
 					 
               //쿠폰 사용후 결제금액 갱신
@@ -483,6 +484,7 @@ $(document).ready(function(){
                  coupon_name = couponDetails[2];
                   let totalPrice_int = initialTotalPrice;
                   let coupon_price = Number(coupon_discount_rate);
+                  
                   if(coupon_name.includes("배송비")) {
                      coupon_discount_rate = 0;
                      $("#delivery-fee").text(0);

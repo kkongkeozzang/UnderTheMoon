@@ -3,7 +3,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
  <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
  <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
- <jsp:include page="/WEB-INF/views/homeHeader.jsp"></jsp:include>
 
 <!DOCTYPE html>
 <html>
@@ -57,10 +56,10 @@ ul.pages li a {
 	color: #121212;
 	transition: all .3s;
 }
-a {
+body a {
 	text-decoration: none!important;
 }
-ul {
+body ul {
 	padding: 0;
     margin: 0;
 	list-style: none;
@@ -187,15 +186,20 @@ function getPage(pageNavi, select, sort) {
     				str += "</tr>";
        				str += "<tr class='inqry-content hide-toggle'>";
     				str += "<td colspan='5'>";
-    				str += "<div>"
-   					str += resp.inqrys[i].md_question_content;
-    				if(resp.inqrys[i].md_response_content != null) {
-	    				str += "<br>";
-	    				str += "<br>";
+    				str += "<div><div class='d-flex user-box'>";
+    				str += "<img src='/resources/faqList/문.svg' style='width:24px;'><div class='user-inqry-content'>"
+    				str += resp.inqrys[i].md_question_content;
+    				str += "</div></div>";
+					if(resp.inqrys[i].md_response_content != null) {
+						str += "<div class='d-flex admin-box'><span><img src='/resources/faqList/답.svg' style='width:24px;'></span><div>"
+						str += "<div class='answer-inqry-content'>";
 	    				str += resp.inqrys[i].md_response_content;
-	    				str += "<br>";
-	    				str += "<br>";
+	    				str += "</div>";
+	    				str += "<div class='answer-inqry-date'>"
 	    				str += resp.inqrys[i].responseFormedDate;
+	    				str += "</div>"
+	    				str += "</div>"
+	    				str += "</div>"
     				}
     				str += "</div>";
     				str += "<div class='delete-inqry-box'></div>";
@@ -706,15 +710,20 @@ function getPage(pageNavi, select, sort) {
 	            				str += "</tr>";
 	            				str += "<tr class='inqry-content hide-toggle'>";
 	            				str += "<td colspan='5'>";
-	            				str += "<div>"
+	            				str += "<div><div class='d-flex user-box'>";
+	            				str += "<img src='/resources/faqList/문.svg' style='width:24px;'><div class='user-inqry-content'>"
 	            				str += resp.inqrys[i].md_question_content;
+	            				str += "</div></div>";
             					if(resp.inqrys[i].md_response_content != null) {
-            						str += "<br>";
-            	    				str += "<br>";
+            						str += "<div class='d-flex admin-box'><span><img src='/resources/faqList/답.svg' style='width:24px;'></span><div>"
+            						str += "<div class='answer-inqry-content'>";
             	    				str += resp.inqrys[i].md_response_content;
-            	    				str += "<br>";
-            	    				str += "<br>"
+            	    				str += "</div>";
+            	    				str += "<div class='answer-inqry-date'>"
             	    				str += resp.inqrys[i].responseFormedDate;
+            	    				str += "</div>"
+            	    				str += "</div>"
+            	    				str += "</div>"
                 				}
 	            				str += "</div>";
 	            				str += "<div class='delete-inqry-box'></div>";
@@ -799,4 +808,3 @@ function getPage(pageNavi, select, sort) {
 </body>
 
 </html>
- <jsp:include page="/WEB-INF/views/homeFooter.jsp"></jsp:include>

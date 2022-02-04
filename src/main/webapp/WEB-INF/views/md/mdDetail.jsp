@@ -4,7 +4,7 @@
  <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
  <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
  <jsp:include page="/WEB-INF/views/homeHeader.jsp"></jsp:include>
- <jsp:include page="/WEB-INF/views/homeFooter.jsp"></jsp:include>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -429,7 +429,7 @@ function getPage(pageNavi, select, sort) {
 		    <li><a href="#fragment-4"><span>문의</span></a></li>
 		  </ul>
 		  <div id="fragment-1">
-		    <img src="/mdImage/${mdDetails.md_detail_image}">
+		    <img style="width:100%;" src="/mdImage/${mdDetails.md_detail_image}">
 		  </div>
 		  <div id="fragment-3">
 				<p>PRODUCT REVIEW</p>
@@ -459,7 +459,6 @@ function getPage(pageNavi, select, sort) {
 						</tr>
 					</tbody>
 				</table>
-				<a href="/mypage/myPageReviewWrite"><button>후기쓰기</button></a>
 				<div id="page-box">
 				<ul class="pages" id="pages" ></ul>
 				</div>
@@ -750,8 +749,6 @@ function getPage(pageNavi, select, sort) {
 	</script>
 	
 	
-	<!-- 임시 공백 푸터 -->
-	<div style="height:300px;"></div>
     <!-- Start Script -->
     <script src="/resources/mdDetail/assets/js/jquery-1.11.0.min.js"></script>
     <script src="/resources/mdDetail/assets/js/jquery-migrate-1.2.1.min.js"></script>
@@ -802,3 +799,4 @@ function getPage(pageNavi, select, sort) {
 </body>
 
 </html>
+ <jsp:include page="/WEB-INF/views/homeFooter.jsp"></jsp:include>

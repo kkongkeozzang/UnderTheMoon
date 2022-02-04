@@ -3,8 +3,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
  <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
  <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
- <%-- <jsp:include page="/WEB-INF/views/homeHeader.jsp"></jsp:include>
- <jsp:include page="/WEB-INF/views/homeFooter.jsp"></jsp:include> --%>
+ <jsp:include page="/WEB-INF/views/homeHeader.jsp"></jsp:include>
+ <jsp:include page="/WEB-INF/views/homeFooter.jsp"></jsp:include> 
 <!DOCTYPE html>
 <html>
 <head>

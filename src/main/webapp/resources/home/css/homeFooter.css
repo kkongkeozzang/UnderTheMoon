@@ -1,14 +1,19 @@
 @charset "UTF-8";
 
 
-/* footer */
-
 /***** Footer *****/
-.footer-bs {
+
+*{
+    text-align: left;
+}
+
+footer {
+	margin-top:100px;
     background-color: white;
-	padding: 60px 40px;
 	color: 4c4c4c;
 	border-top-left-radius: 0px;
+	box-shadow:  2px 0px 10px gray;
+
     /*box-shadow: 0px 10px 2px #c0c0c0, 0px -2px 2px #c0c0c0;*/
     }
 .footer-bs .footer-brand, .footer-bs .footer-nav, .footer-bs .footer-social, .footer-bs .footer-ns { padding:10px 25px; }
@@ -51,5 +56,87 @@
 .footer-bs .footer-ns p { font-size:12px; color:4c4c4c; }
 
 
+/*Button*/
+
+
+.btn {
+width: 150px;
+height: 50px;
+    display: inline-block;
+  margin-bottom: 0;
+  font-size: 14px;
+  font-weight: normal;
+  line-height: 1.42857143;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  cursor: pointer;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  background-image: none;
+  border: 1px solid transparent;
+  border-radius: 0px;
+}
+  
+.btn-sm {
+  font-size: 20px;
+  line-height: 1.33;
+  border-radius: 0px;
+}
+
+.btn-primary {
+  color: #fff;
+  background-color: #406882;
+  border-color: #406882;
+}
+
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active,
+.btn-primary.active,
+.open .dropdown-toggle.btn-primary {
+  color: white;
+  background-color: #406882;
+  border-color: #406882;
+}
+
+/***********************
+  OUTLINE BUTTONS
+************************/
+
+.btn.outline {
+  background: none;
+  padding: 12px 22px;
+}
+.btn-primary.outline {
+  border: 2px solid #406882;
+  color: #0099cc;
+}
+.btn-primary.outline:hover, .btn-primary.outline:focus, .btn-primary.outline:active, .btn-primary.outline.active, .open > .dropdown-toggle.btn-primary {
+  color: white;
+  border-color: #406882;
+  background-color:#406882;
+}
+.btn-primary.outline:active, .btn-primary.outline.active {
+  border-color: #406882;
+  color: #406882;
+  box-shadow: none;
+}
+
+
+
+/***********************
+  CUSTON BTN VALUES
+************************/
+
+.btn {
+  padding: 14px 24px;
+  border: 0 none;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
 
 

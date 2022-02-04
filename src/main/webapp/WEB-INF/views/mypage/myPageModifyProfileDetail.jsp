@@ -18,6 +18,8 @@
    src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 </head>
 <body>
+<jsp:include page="/WEB-INF/views/homeHeader.jsp"></jsp:include>
+
    <div class="signup-form">
     <form action="/mypage/UpdateProfile" method="post" class="form-horizontal">
          <div class="row">

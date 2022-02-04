@@ -72,6 +72,11 @@ public class PurchaseController {
 		
 		if(totalPrice>=30000) {
 			deliveryFee= 0;
+			for(int i = 0; i < coupons.size(); i++) {
+				if(coupons.get(i).getCoupon_name().contains("배송")) {
+					coupons.remove(i);
+				}
+			}
 		}else {
 			deliveryFee =2500;
 		}

@@ -74,7 +74,7 @@ h1.h2 {
     font-weight: 400;
 }
 
-body .btn {
+.card .btn {
 	background-color : #406882 !important;
 	border-color: #1A374D !important;
 }
@@ -107,7 +107,7 @@ body .btn_pick{
     padding-right: 0px;
     margin-right: 20px;
 }
-#cart {
+#cart, #login {
 	flex: 9 1;
 	height:50px;
 	font-size:20px;

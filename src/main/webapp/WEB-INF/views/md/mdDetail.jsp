@@ -187,7 +187,7 @@ function getPage(pageNavi, select, sort) {
        				str += "<tr class='inqry-content hide-toggle'>";
     				str += "<td colspan='5'>";
     				str += "<div><div class='d-flex user-box'>";
-    				str += "<img src='/resources/faqList/문.svg' style='width:24px;'><div class='user-inqry-content'>"
+    				str += "<span><img src='/resources/faqList/문.svg' style='width:24px;'></span><div class='user-inqry-content'>"
     				str += resp.inqrys[i].md_question_content;
     				str += "</div></div>";
 					if(resp.inqrys[i].md_response_content != null) {
@@ -717,7 +717,7 @@ function getPage(pageNavi, select, sort) {
 	            				str += "<tr class='inqry-content hide-toggle'>";
 	            				str += "<td colspan='5'>";
 	            				str += "<div><div class='d-flex user-box'>";
-	            				str += "<img src='/resources/faqList/문.svg' style='width:24px;'><div class='user-inqry-content'>"
+	            				str += "<span><img src='/resources/faqList/문.svg' style='width:24px;'></span><div class='user-inqry-content'>"
 	            				str += resp.inqrys[i].md_question_content;
 	            				str += "</div></div>";
             					if(resp.inqrys[i].md_response_content != null) {

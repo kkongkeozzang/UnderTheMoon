@@ -184,7 +184,7 @@
         							                <h2>Q: ${mdInqrys.md_question_title }</h2>
 							                        <input type=hidden name="sort_md_question_id" value="${mdInqrys.sort_md_question_id }">
 							                        <input type=hidden name="md_response_username" value=${principal.username }>
-							                        <textarea style="width:100%;" rows=10 class="newResp" name="md_response_content" maxLength=900 required></textarea>
+							                        <textarea style="width:100%;" rows=10 class="newResp" name="md_response_content" maxLength=900 required>------------------------------------------------------</textarea>
 							                        <br>
 							                        <div align=right>
 														<a class="btn btn-info btn-icon-split">

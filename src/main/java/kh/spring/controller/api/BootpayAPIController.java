@@ -28,6 +28,7 @@ private final PurchaseService purchaseService;
 		this.purchaseService = purchaseService;
 	}
 	
+	@SuppressWarnings("rawtypes")
 	@GetMapping(value = "confirm", produces = "application/json; charset=utf8")
 	public ResponseEntity bootpay_confirm(@RequestParam("receipt_id") String receipt_id) throws Exception {
 		

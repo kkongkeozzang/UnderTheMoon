@@ -10,12 +10,12 @@
    content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link rel="stylesheet"
    href="https://fonts.googleapis.com/css?family=Roboto:400,700">
-<title>Bootstrap Sign up Form Horizontal</title>
+<title>월하합작 - 전국 8도 명주를 찾아서</title>
 <link rel="stylesheet"
    href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
 
 <!-- 화면 분할비  -->
-<title>Insert title here</title>
+
 <script
    src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 <script
@@ -118,6 +118,11 @@ body {
 
 .signup-form form a:hover {
    text-decoration: underline;
+}
+
+.signup-form{
+	padding-top: 125px;
+    padding-bottom: 25px;
 }
 </style>
 <script>

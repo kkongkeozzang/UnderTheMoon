@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>월하합작 - 전국 8도 명주를 찾아서</title>
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
@@ -89,7 +89,7 @@ html{
 	
 }
 
-.btn {
+.container .btn {
     background-color: #406882 !important;
     border-color: #1A374D !important;
     border-top-color: rgb(26, 55, 77) !important;

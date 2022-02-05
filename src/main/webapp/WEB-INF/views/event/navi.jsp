@@ -35,10 +35,9 @@
 <body>
 
 	<!-- 사이드 박스 -->
-	<div class="col-12 d-none d-md-block" style="width:100%;padding:0px;border:none;margin-top:50px;">
+	<div class="col-12 d-none d-md-block" style="width:100%;padding:0px;border:none;">
 		<div style="padding-bottom:35px;">
 			<h3 class="title">고객센터</h3>
-			<i class="bi bi-chevron-right"></i>
 		</div>
 		<div>
 			<ul class="list-group" >

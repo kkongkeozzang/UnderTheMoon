@@ -1,14 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<jsp:include page="/WEB-INF/views/homeHeader.jsp"></jsp:include>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
-<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<title>월하합작 - 전국 8도 명주를 찾아서</title>
 <style>
+.container {
+	margin-top:100px;
+}
 #error-box {
     display: flex;
     flex-direction: column;
@@ -32,13 +34,13 @@
         <div class="row">
             <div class="col-xm-12">
                 <div id="error-box">
-                <div id="img-box"><img src="error_icon.png"></div>
+                <div id="img-box"><img src="/resources/purchase/img/error_icon.png"></div>
                 <div class="h3">고객님께 불편을 드려서 대단히 죄송합니다.</div>
                 <div>주문 생성시 오류가 발생하였습니다.</div>
                 <div>다시 주문하여 주시기 바랍니다.</div>
                 <div id="btn-box">
-                    <button>홈으로 이동</button>
-                    <button>주문배송현황으로 이동</button>
+                    <a href="/"><button>홈으로 이동</button></a>
+                    <a href="/mypage/myPageList?cPage=1"><button>주문배송현황으로 이동</button></a>
                 </div>
                 
                 <ul>
@@ -53,3 +55,4 @@
 </div>
 </body>
 </html>
+<jsp:include page="/WEB-INF/views/homeFooter.jsp"></jsp:include>

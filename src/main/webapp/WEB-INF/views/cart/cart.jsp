@@ -13,11 +13,22 @@
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 <style>
+.container {
+	margin-top:50px;
+}
+#footerButton .btn-primary {
+	color: #fff;
+    background-color: #406882;
+    border-color: #406882;
+}
+#navi .gnb_search {
+    top: 16px !important;
+}
 .table>tbody>tr>td, .table>tfoot>tr>td{
     vertical-align: middle;
 }
 html{
-	font-size:14px !important;
+	font-size:16px !important;
 }
 
 .count{
@@ -89,7 +100,7 @@ html{
 	
 }
 
-.container .btn {
+.cartPage .btn {
     background-color: #406882 !important;
     border-color: #1A374D !important;
     border-top-color: rgb(26, 55, 77) !important;
@@ -98,11 +109,6 @@ html{
     border-left-color: rgb(26, 55, 77) !important;
 }
 
-a { color:#0000ff; text-decoration: none;}  
-
-a:visited { color:#0000ff; text-decoration: none;} 
-
-a:active { color:#ff0000; text-decoration: none;}
 
 
 </style>
@@ -222,7 +228,7 @@ $(function(){
 <jsp:include page="/WEB-INF/views/homeHeader.jsp"></jsp:include>
 
 
-<div class="container">
+<div class="container cartPage">
 	<h2 class="text-center">장바구니</h2>
 			<h3>주문상품</h3>
 	<table id="cart" class="table table-hover table-condensed">
@@ -242,7 +248,7 @@ $(function(){
 								<div class="row">
 									<div class="col-sm-2 hidden-xs"><img src="${cart.cart_image}" alt="..." class="img-responsive"/></div>
 									<div class="col-sm-10">
-										<h4 id="item" class="nomargin">${cart.cart_item} </h4>
+										<h5 id="item" class="nomargin">${cart.cart_item} </h5>
 									</div>
 								</div>
 							</td>
@@ -283,7 +289,7 @@ $("#mdList").on("click",function(){
 	location.href = "/md/list";
 })
 </script>
-<!--footer 시작 -->
-<jsp:include page="/WEB-INF/views/homeFooter.jsp"></jsp:include>
 </body>
 </html>
+<!--footer 시작 -->
+<jsp:include page="/WEB-INF/views/homeFooter.jsp"></jsp:include>

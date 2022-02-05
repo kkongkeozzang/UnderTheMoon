@@ -406,14 +406,20 @@ $(document).ready(function(){
 						
 						let point = $("#point").text();
 			            let point_int = Number(point);
-						
-		            	if(pointSum_int<0 || isNaN(pointSum) || $.trim(pointSum)=="" || pointSum==null) {
+			            if(initialTotalPrice<pointSum_int){ //총액이 적립금보다 작을떄.
+			            	console.log("총액이 적립금보다 작을떄");
+					    	$("#point-input").val(initialTotalPrice);
+					    	$("#point-num").text("- " + initialTotalPrice + " ");
+					    	initialTotalPrice = 0;	
+			            }else if(pointSum_int<0 || isNaN(pointSum) || $.trim(pointSum)=="" || pointSum==null) {
 							$("#point-input").val(0); 
 							initialTotalPrice = initialTotalPrice;
 						}else if(pointSum_int<=${pointSum}){
+							console.log("적립금 총액이 인풋값 보다 크거나 같을때.");
 							$("#point-num").text("- " + pointSum_int + " ");							
-							initialTotalPrice = initialTotalPrice - pointSum_int;
+							initialTotalPrice = (${totalPrice} + deliveryFee) - pointSum_int;
 						}else if (pointSum_int>${pointSum}){
+							console.log("포인트인풋값이 포인트 총액보다 클때..");
 							$("#point-input").val(${pointSum}); 
 							$("#point-num").text("- " + ${pointSum} + " "); 
 							initialTotalPrice = initialTotalPrice - Number(${pointSum});
@@ -425,22 +431,24 @@ $(document).ready(function(){
 					
 					//적립금전체사용..
 					$("#point-btn").on("click",function(){
-					   
 
-						if(initialTotalPrice<${pointSum}){ //총액이 적립금보다 작을떄.
-					    	$("#point-input").val(initialTotalPrice);
-					    	$("#point-num").text("- " + initialTotalPrice + " ");
-					    	initialTotalPrice = 0;				    
+						if(((${totalPrice} + deliveryFee)<${pointSum} && ($("#point-input").val()=='0' || $("#point-input").val() < (${totalPrice} + deliveryFee)))){ //총액이 적립금보다 작을떄.
+							console.log("총액이 적립금보다 작을떄.")
+					    	$("#point-input").val((${totalPrice} + deliveryFee));
+					    	$("#point-num").text((${totalPrice} + deliveryFee));
+					    	initialTotalPrice = (${totalPrice} + deliveryFee) - $("#point-input").val();				    
 						}else if( $("#point-input").val()=="" || $("#point-input").val()==0){ //0이나 아무것도 입력안했을때..
+							console.log("0이나 아무것도 입력안했을때..")
 							$("#point-input").val(${pointSum}); 
 							$("#point-num").text("- " + ${pointSum} + " ");
 							initialTotalPrice = initialTotalPrice - Number(${pointSum}); 
-					    }else if($("#point-input").val()==${pointSum}){
-					    	totalPriceMinusPoint = initialTotalPrice; 
+					    }else if($("#point-input").val()==$("#point-num").text()){ //이미 전체 금액이 input 에 있을때..
+					    	console.log("/이미 전체 금액이 input 에 있을때..")
 							$("#point-input").val(0); 	
 							$("#point-num").text(0);
-							 initialTotalPrice = initialTotalPrice + Number(${pointSum});  
+							 initialTotalPrice = ${totalPrice} + deliveryFee;  
 						}else{
+							console.log(1)
 							$("#point-num").text("- " + ${pointSum} + " ");
 					    	$("#point-input").val(${pointSum});
 					    	initialTotalPrice = initialTotalPrice - Number(${pointSum});

@@ -646,7 +646,7 @@ $(document).ready(function(){
 										 	if(initialTotalPrice=='0'){
 										 		
 										 		//0원일경우..
-										 		if(confirm("결제하시겠씁니까?")){
+										 		if(confirm("결제하시겠습니까?")){
 										 			$.ajax({
 													  	  type: 'post',
 													        url:'/purchaseDetail/rest/insertPurchaseDetail/',

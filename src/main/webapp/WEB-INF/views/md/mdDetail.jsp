@@ -344,7 +344,7 @@ function getPage(pageNavi, select, sort) {
 		            cart_item_count: $("#cart_item_count").text()
 		        }
 		     }).done(function(resp){
-		    	  if(confirm("장바구니에 선택하신 상품을 추가하였습니다. 장바구니로 이동하시겠습니까?")){ 
+		    	  if(confirm("장바구니에 선택하신 상품을 추가하였습니다.\n장바구니로 이동하시겠습니까?")){ 
 		    		 document.location.href="/cart/cart";
 		    		} 
 		     })

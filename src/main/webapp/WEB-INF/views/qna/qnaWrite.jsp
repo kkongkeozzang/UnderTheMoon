@@ -45,6 +45,8 @@
 </head>
 
 <body>
+<jsp:include page="/WEB-INF/views/homeHeader.jsp"></jsp:include>
+
 	<div class="container">
         <div class="row">
             <div class="col-12">
@@ -109,7 +111,7 @@
                     - 배송 및 배송시간 지정은 불가능합니다.<br>
                     
                 </div>
-                 <textarea rows="5" cols="40" name="qa_question_content" id="qa_question_content" class="form-control"></textarea>
+                 <textarea id="textarea" rows="5" cols="40" name="qa_question_content" id="qa_question_content" class="form-control"></textarea>
                 </td>     
             </tr>
                 
@@ -117,7 +119,7 @@
                <tr>
                    <td colspan="2">
                    <button type="submit" id="submit" class="btn btn-primary sharp">입력</button>
-                   <button type="reset" class="btn btn-danger sharp">취소</button>
+                   <button type="reset" id="btn-cancleQna"  class="btn btn-danger sharp">취소</button>
                    </td>
                </tr>
                 
@@ -201,6 +203,7 @@
 
 </script>
 </div>
+<jsp:include page="/WEB-INF/views/homeFooter.jsp"></jsp:include>
 
 </body>
 </html>

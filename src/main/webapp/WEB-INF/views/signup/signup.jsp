@@ -27,8 +27,8 @@
          </div>         
         <div class="form-group row">
          <label class="col-form-label col-3">아이디*</label>
-         <div class="col-6">
-                <input type="text" class="form-control" id="member-username" name="member_username">
+         <div class="col-7">
+                <input type="text" class="form-control" id="member-username" name="member_username" placeholder="영문 6-14자, 숫자 포함 가능">
                <div id="idCheckResult" class="idCondition"></div>
                <div id="idCheckResult2" class="idCondition"></div> <!-- 아이디 유효성 검사 필요 시 -->
             </div>
@@ -63,7 +63,7 @@
         <div class="form-group row">
          <label class="col-form-label col-3">생년월일*</label>
          <div class="col-7">
-                <input type="text" class="form-control" id="member-birth-date" name="member_birth_date">
+                <input type="text" class="form-control" id="member-birth-date" name="member_birth_date" placeholder="ex) 19970222">
                <div id="birthday-Condition1" class="birthday-Condition">YYYYMMDD 의 형식으로 입력</div>
                <div id="birthday-Condition2" class="birthday-Condition">만 19세 이상만 회원가입 가능</div>
             </div>           
@@ -71,7 +71,7 @@
         <div class="form-group row">
          <label class="col-form-label col-3">휴대폰*</label>
          <div class="col-5">
-                <input type="text" class="form-control" id="member-phone" name="member_phone">
+                <input type="text" class="form-control" id="member-phone" name="member_phone"  placeholder="ex) 01012341234">
             </div>
              <div class="col-4">
                <button type="button" class="btn btn-primary" id="member-confirm-send">인증받기</button>
@@ -160,7 +160,7 @@
   		let resultId = regexId.test($("#member-username").val());
   		if(resultId == false){
   				$("#idCheckResult").css("color","green");
-  				$("#idCheckResult").text("아이디가 올바른 형식이 아닙니다.(영문+숫자조합 최소 6글자 이상 최대 14글자)");
+  				$("#idCheckResult").text("아이디가 올바른 형식이 아닙니다.");
   		}else{
   			$.ajax({
   	            url:"member/idDuplCheck",
@@ -254,6 +254,8 @@
 						}
    })
 
+    let resultChecknumber = false;
+    let ifNumberCheck = false; 
 
 	//필수 입력값 유효성 검사
 	$("#submit").on("click",function(){
@@ -347,11 +349,26 @@
 		         return false;
 		     }
 		     
+		     let regexChecknumber =  /\d{4}/;;
+		     resultChecknumber = regexChecknumber.test($("#member-confirm-phone").val());
+		     if(resultChecknumber == false){
+		     alert("휴대폰 인증을 진행해주세요.")
+		     return false;
+		     }if(resultChecknumber == true){
+		    	 if(ifNumberCheck == true){
+		    		 
+		    	 }else{
+		    		 
+		    	 alert("휴대폰 인증을 진행해주세요.")
+		    	 return false;
+		    	 }
+		    	 return true;
+		     }
 		     
 
 		     
 		
-		let regexAddress2 = /^[가-힣\d]{1,50}/;
+		let regexAddress2 = /.{1,}/;
 		let resultAddress2 = regexAddress2.test($("#member-address2").val());
 		     if(resultAddress2 == false){
 		         alert("상세주소를 입력해주세요.")
@@ -394,18 +411,7 @@
    //생성된 인증번호를 저장할 전역변수 선언
    var confirmNumber ="";
    
-   $(function(){
-      $("#member-confirm-send").on("click",function(){
-         $.ajax({
-            url:"signup/confirmPhoneProc",
-            data:{phone:$("#member-phone").val()}
-         }).done(function(randomNumber){
-            console.log(randomNumber); //인증번호 확인을 위한 코드 추후 삭제
-            confirmNumber = randomNumber; //생성된 인증번호를 비교하기 위해 가져온 뒤, 변수에 저장
-         })
-      })
-      }
-   )
+  
    
    //인증확인 버튼을 누를 경우
    $(function(){
@@ -417,6 +423,8 @@
             if($("#member-confirm-phone").val() == confirmNumber){ //사용자가 입력한 인증번호와 생성된 인증번호를 비교
                   alert("휴대폰 인증에 성공했습니다.");
                   document.getElementById('member-phone').readOnly = true;
+                  resultChecknumber = true;
+                  ifNumberCheck = true
                   console.log("success"); 
             }else{
                console.log("fail");
@@ -433,10 +441,25 @@
 		let regexPhone = /^010\d{4}\d{4}$/;
 		let resultPhone = regexPhone.test($("#member-phone").val());
 		     if(resultPhone == false){
-		         alert("인증번호 전송을 위해 휴대폰 번호를 올바르게 입력해주세요.")
+		         alert("인증번호 전송을 위해 휴대폰 번호를 올바르게 입력해주세요.");
+	               $('#member-phone').val('');
+	               $('#member-phone').focus();
 		         return false;
+		     }else{
+		    	 $(function(){
+		    		 $(document).ready(function(){
+		    	         $.ajax({
+		    	            url:"signup/confirmPhoneProc",
+		    	            data:{phone:$("#member-phone").val()}
+		    	         }).done(function(randomNumber){
+		    	            console.log(randomNumber); //인증번호 확인을 위한 코드 추후 삭제
+		    	            confirmNumber = randomNumber; //생성된 인증번호를 비교하기 위해 가져온 뒤, 변수에 저장
+		    	     	   alert("인증번호가 전송되었습니다. \n수신까지는 최대 1분이 소요될 수 있습니다.");
+		    	            return true; })
+		    	      })
+		    	      }
+		    	   )
 		     }
-	   alert("인증번호가 전송되었습니다.");
 	   
    })
    

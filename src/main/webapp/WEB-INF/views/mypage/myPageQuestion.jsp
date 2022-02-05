@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>월하합작 - 전국 8도 명주를 찾아서</title>
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css"
@@ -147,11 +147,7 @@
 											<c:forEach var="MdInqryDTO" items="${mdInqryList }">
 											<tr>												
 												<td class="grade-list" style="text-align:center" ><a href="#popup${MdInqryDTO.sort_md_question_id}">${MdInqryDTO.md_question_title}</a>
-<<<<<<< HEAD
-												<input type="hidden" class="md_inqry_id" value="${MdInqryDTO.sort_md_question_id }"
-=======
 												<input type="hidden" class="md_inqry_id" value="${MdInqryDTO.sort_md_question_id }">
->>>>>>> 73f945f648bc9741d89ca669c099fbdfd0c44ebe
 												</td>
 												<td class="grade-list" style="text-align:center"><fmt:formatDate value = "${MdInqryDTO.md_question_write_date}"  type="date" dateStyle="full"/></td>
 												<td class="grade-list" style="text-align:center">${MdInqryDTO.md_question_reply_yn}<button class="delete-btn" style="margin-left: 10px;">문의삭제</button></td>				

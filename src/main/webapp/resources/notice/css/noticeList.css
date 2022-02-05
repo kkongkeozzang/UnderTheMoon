@@ -102,11 +102,10 @@ a {
 }
 
 #board-title {
-	text-align: center;
-	height: 150px;
-	line-height:60px;
-	padding: 30px 0;
-	margin-top:30px;
+	text-align: left;
+	padding: 0px 0;
+	margin-top:0px;
+	margin-bottom:35px;
 }
 
 #title {
@@ -124,17 +123,34 @@ select {
 }
 .container-fluid{
 	 max-width:1140px;
+	 margin-top:50px !important;
 }
 .page-link {
 	color: black;
 }
 .list-box{
 	width:100% !important;
-	padding:0px !important;
+	padding:0px 15px !important;
 	margin:0px !important;
 	border:none !important;
 }
 .btn-search, .btn-write{
 	background-color: #406882 !important;
 	border-color: #406882 !important;
+}
+.title-sub{
+	padding-left: 11px;
+    font-size: 14px;
+    color: #999;
+    line-height: 20px;
+    letter-spacing: -.3px;
+    vertical-align: 3px;
+}
+.title{
+	height: 36px;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 36px;
+    color: #333;
+    letter-spacing: -.5px;
 }

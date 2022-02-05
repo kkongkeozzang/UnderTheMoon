@@ -1,5 +1,6 @@
 package kh.spring.service;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -20,8 +21,8 @@ public class QnaService {
 		return qnaDAO.insert(dto);
 	}
 	
-	public List<QnaDTO> selectAllByUsername(int result){
-		return qnaDAO.selectAllByUsername(result);
+	public List<QnaDTO> selectAllByUsername(int result, int qa_question_id){
+		return qnaDAO.selectAllByUsername(result, qa_question_id);
 	} 
 	
 	public String selectUsername(String member_id) {

@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>${notices.notice_title}</title>
+<title>월하합작 - 전국 8도 명주를 찾아서</title>
 <link
 	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
 	rel="stylesheet" />
@@ -53,7 +53,7 @@
 	<!-- 타이틀  -->
 	<div class="container-fluid mt-100">
 		<div id="board-title">
-			<span><h3>공지사항</h3>월하합작의 새로운 소식들과 유용한 정보들을 한 곳에서 확인하세요.</span>
+			<h2 class="title">공지사항<span class="title-sub"><br>월하합작의 새로운 소식들과 유용한 정보들을 한 곳에서 확인하세요.</span></h2>
 		</div>
 		<div align=center>
 			

@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>이벤트 - 호랑이띠</title>
+<title>월하합작 - 전국 8도 명주를 찾아서</title>
 <link
 	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
 	rel="stylesheet" />
@@ -53,7 +53,7 @@
 	<!-- 타이틀  -->
 	<div class="container-fluid mt-100">
 		<div id="board-title">
-			<span><h3>이벤트</h3>월하합작에서 진행하는 이벤트를 확인하세요!</span>
+			<h2 class="title">이벤트<br><span class="title-sub">월하합작에서 진행하는 이벤트를 확인하세요!</span></h2>
 		</div>
 		<div align=center>
 			
@@ -87,7 +87,7 @@
 						이벤트 기간
 					</div>
 					<div class="col-12 col-sm-10 right-side">
-						2022.01.12 ~ 2022.02.09
+						2022.01.12 ~ 2022.02.28
 					</div>
 				</div>
 				<br>

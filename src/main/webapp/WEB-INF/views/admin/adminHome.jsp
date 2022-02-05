@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>관리자 대시보드</title>
+<title>월하합작 - 전국 8도 명주를 찾아서</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.1/dist/chart.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">

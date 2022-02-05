@@ -10,7 +10,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>월하합작 - 전국 8도 명주를 찾아서</title>
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 
 <link rel="apple-touch-icon" href="/resources/mdDetail/assets/img/apple-icon.png">
@@ -32,11 +32,77 @@
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
 <script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <sec:authorize access="isAuthenticated()">
     <sec:authentication property="principal" var="principal"/>
 </sec:authorize>
 <style>
+#tabs {
+	font-size:18px !important;
+	font-family: 'Roboto', sans-serif !important;
+}
+#mainLogo {
+	max-width: 100%;
+    height: auto;
+}
+.overlay {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.7);
+  transition: opacity 500ms;
+  visibility: hidden;
+  opacity: 0;
+}
+.overlay:target {
+  visibility: visible;
+  opacity: 1;
+  z-index:1000;
+}
+
+.popup {
+  z-index:1000 !important;
+  margin: 70px auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 5px;
+  width: 50%;
+  position: relative;
+  transition: all 5s ease-in-out;
+}
+
+.popup h2 {
+  margin-top: 0;
+  color: #333;
+  font-family: Tahoma, Arial, sans-serif;
+}
+.popup .close {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  transition: all 200ms;
+  font-size: 30px;
+  font-weight: bold;
+  text-decoration: none;
+  color: #333;
+}
+.popup .close:hover {
+  color: #06D85F;
+}
+.popup .content {
+  max-height: 30%;
+  overflow: auto;
+}
+
+@media screen and (max-width: 700px){
+  .box{
+    width: 70%;
+  }
+  .popup{
+    width: 70%;
+  }
+}
 .hiddenRow {
     padding: 0 !important;
 }
@@ -58,10 +124,10 @@ ul.pages li a {
 	color: #121212;
 	transition: all .3s;
 }
-body a {
+.mdDetailPage a {
 	text-decoration: none!important;
 }
-body ul {
+.mdDetailPage ul {
 	padding: 0;
     margin: 0;
 	list-style: none;
@@ -89,7 +155,7 @@ ul.pages li {
 	padding-top: 10px;
 }
 .container {
-	max-width:1100px !important;
+	max-width:1300px !important;
 }
 .popup {
 	width:80% !important;
@@ -289,12 +355,11 @@ function getPage(pageNavi, select, sort) {
 </script>
 </head>
 <body>
-
 	
 
 
     <!-- Open Content -->
-    <section class="bg-light">
+    <section class="mdDetailPage">
         <div class="container pb-5">
             <div class="row">
                 <div class="col-lg-5 mt-5 img-box">
@@ -303,7 +368,7 @@ function getPage(pageNavi, select, sort) {
                     </div>
                 </div>
                 <!-- col end -->
-                <div class="col-lg-7 mt-5">
+                <div class="col-lg-7" style="margin-top:50px">
                     <div class="card">
                         <div class="card-body" id="md-detail">
                         	<input id="md_id" name="md_id" type="hidden" value="${mdDetails.md_id }">
@@ -338,9 +403,7 @@ function getPage(pageNavi, select, sort) {
                                 <input type="hidden" name="product-title" value="Activewear">
                                 <div class="row">
                                     <div class="col-auto">
-                                    </div>
-                                    <div class="col-auto">
-                                        <ul class="list-inline pb-3">
+                                        <ul class="list-inline pb-3" style="padding-left:10px">
                                             <li class="list-inline-item text-right">
                                                 Quantity
                                                 <input type="hidden" name="product-quanity" id="product-quanity" value="1">
@@ -357,7 +420,7 @@ function getPage(pageNavi, select, sort) {
                                     <div class="col d-flex">
                                     <sec:authorize access="isAnonymous()">
                                     	<a href="/login"><button type="button" class="btn_pick pick_icon_button" ></button></a>
-                                    	<a href="/login"><button type="button" id="login" class=" btn btn-success btn-lg" name="submit" value="addtocard" >회원전용</button></a>
+                                    	<button type="button" id="login-cart" class=" btn btn-success btn-lg" name="submit" value="addtocard" >회원전용</button>
                                     </sec:authorize>
                                     <sec:authorize access="isAuthenticated()">
                                     	<c:choose>
@@ -371,7 +434,7 @@ function getPage(pageNavi, select, sort) {
 										</c:otherwise>										
 										</c:choose>
 										<script>
-                                    	$(".pick_icon_button").on("click", function(){
+										$(".pick_icon_button").on("click", function(){
                                     		$(this).toggleClass("on");
                                     		if($(this).hasClass("on")){
                                     		$.ajax({
@@ -393,8 +456,14 @@ function getPage(pageNavi, select, sort) {
                                         		     })
                                     		}
                                     	})
+										</script>
+									</sec:authorize>
+                                        <script>
+                                        $("#login-cart").on("click",function(){
+                                        	location.href="/login";
+                                        })
                                         </script>
-									</sec:authorize>                                                                           
+									                                                                           
                                     </div>
                                 </div>
                             </form>
@@ -407,8 +476,8 @@ function getPage(pageNavi, select, sort) {
     </section>
 
     <!-- Start Article -->
-    <section class="py-5">
-        <div class="container">
+    <section class="py-5 mdDetailPage">
+        <div class="container" id="first-md-container">
             <div class="row text-left p-2 pb-3">
                 <h4>Related Products</h4>
             </div>
@@ -434,7 +503,7 @@ function getPage(pageNavi, select, sort) {
     </section>
     <!-- End Article -->
     
-    <div class="container">
+    <div class="container mdDetailPage">
 	    <div id="tabs">
 		  <ul>
 		    <li><a href="#fragment-1"><span>상품설명</span></a></li>
@@ -609,22 +678,20 @@ function getPage(pageNavi, select, sort) {
             				}
             				$(".pages").html(pageStr);
             			} 
-            			$("body").on("click",".review-title",function(){
+            			$("body").one("click",".review-title",function(){
             				let md_review_id = $(this).find(".md_review_id").text();
             				let content = $(this).next().find(".helpful-box");
-            				if($(this).next().find("img").length==0) {
-            					$.ajax({
-                					url:"/md/detail/review/rest/board/image/"+md_review_id,
-                					type:"get",
-                					dataType:"json"
-                				}).done(function(resp){
-                					let imgStr = "";
-                					for(let i=0; i<resp.images.length; i++) {
-    	            					imgStr += "<img src='/mdReviewImage" + resp.images[i].md_review_image + "'>"
-                					}
-                					content.before(imgStr);
-                				})
-            				}
+           					$.ajax({
+               					url:"/md/detail/review/rest/board/image/"+md_review_id,
+               					type:"get",
+               					dataType:"json"
+               				}).done(function(resp){
+               					let imgStr = "";
+               					for(let i=0; i<resp.images.length; i++) {
+   	            					imgStr += "<img src='/mdReviewImage" + resp.images[i].md_review_image + "'>"
+               					}
+               					content.before(imgStr);
+               				})
             				
             				// 로그인한 회원의 글일 때
             				let member_username = $(this).find(".member_username").text();

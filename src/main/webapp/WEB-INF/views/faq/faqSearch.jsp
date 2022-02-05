@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>자주하는질문</title>
+<title>월하합작 - 전국 8도 명주를 찾아서</title>
 <link
 	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
 	rel="stylesheet" />
@@ -31,12 +31,7 @@
 	<!-- #userMenu 는 상단 로그인, 회원가입, 고객센터 메뉴-->
 	<jsp:include page="/WEB-INF/views/homeHeader.jsp"></jsp:include>
 
-	<!-- 타이틀  -->
 	<div class="container-fluid mt-100">
-		<div id="board-title">
-			<span><h3>자주묻는질문</h3>고객님들께서 가장 자주하시는 질문을 모두 모았습니다.</span>
-		</div>
-		<br>
 		<div class="row">
 			<!-- 사이드네비 -->
 			<div class="col-0 col-md-3 col-lg-3">
@@ -46,6 +41,10 @@
 			</div>
 			<!-- 게시판 박스 -->
 			<div class="card mb-3 col-12 col-md-9 col-lg-9 list-box">
+				<!-- 타이틀  -->
+				<div id="board-title">
+					<h2 class="title">자주묻는질문<span class="title-sub">고객님들께서 가장 자주하시는 질문을 모두 모았습니다.</span></h2>
+				</div>
 				<!-- 분류 네비 -->
 				<div class="card-header pl-0 pr-0"
 					style="justify-content: space-around;">
@@ -136,7 +135,7 @@
 							<div class="hidden-row"
 								style="border-top: 1px solid rgba(0, 0, 0, .125); display: none; padding: 30px;">
 								<span style="margin-right: 10px;"><img
-									src="/resources/faqList/답.svg" width=20px height=20px>></span>${faqs.faq_content }
+									src="/resources/faqList/답.svg" width=20px height=20px></span>${faqs.faq_content }
 								<div class=buttons${faqs.faq_id}></div>
 								<div class="col-sm-12"
 									style="text-align: right; margin-top: 15px; margin-bottom: 15px;">

@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>공지사항</title>
+<title>월하합작 - 전국 8도 명주를 찾아서</title>
 <link
 	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
 	rel="stylesheet" />
@@ -30,12 +30,7 @@
 	<!-- #userMenu 는 상단 로그인, 회원가입, 고객센터 메뉴-->
 	<jsp:include page="/WEB-INF/views/homeHeader.jsp"></jsp:include>
 	
-	<!-- 타이틀  -->
 	<div class="container-fluid mt-100">
-		<div id="board-title">
-			<span><h3>공지사항</h3>월하합작의 새로운 소식들과 유용한 정보들을 한 곳에서 확인하세요.</span>
-		</div>
-		<br>
 		<div class="row">
 			<!-- 사이드네비 -->
 			<div class="col-0 col-md-3 col-lg-3">
@@ -45,7 +40,10 @@
 			</div>
 			<!-- 게시판 박스 -->
 			<div class="card mb-3 col-12 col-md-9 col-lg-9 list-box">
-	
+				<!-- 타이틀  -->
+				<div id="board-title">
+					<h2 class="title">공지사항<span class="title-sub">월하합작의 새로운 소식들과 유용한 정보들을 한 곳에서 확인하세요.</span></h2>
+				</div>
 				<!-- 분류 네비 -->
 				<div class="card-header pl-0 pr-0"
 					style="justify-content: space-around; background-color: #406882; color: white;">

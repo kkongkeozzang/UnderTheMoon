@@ -284,7 +284,7 @@ $(function(){
 </head>
 
 <body>
-<jsp:include page="/WEB-INF/views/homeHeader.jsp"></jsp:include>
+
 
 	<div class="container">
 	<div class="row" id="header">

@@ -35,16 +35,16 @@
 <body>
 
 	<!-- 사이드 박스 -->
-	<div class="col-12 d-none d-md-block" style="float:left;position:absolute;width:180px;padding:100px 0;margin:30px;">
-		<div style="padding-bottom:35px;">
-			<h5><b>고객센터</b></h5>
+	<div class="col-12 d-none d-md-block" style="width:100%;padding:0px;border:none;">
+		<div style="padding-bottom:15px;">
+			<h5>고객센터</h5>
 			<i class="bi bi-chevron-right"></i>
 		</div>
 		<div>
 			<ul class="list-group" >
-			  <li class="list-group-item"><a href="/event/toEvent">이벤트<i class="fa fa-chevron-right" aria-hidden="true"></i></a></li>
-			  <li class="list-group-item"><a href="/notice/toNotice?cPage=1">공지사항<i class="fa fa-chevron-right" aria-hidden="true"></i></a></li>
-			  <li class="list-group-item"><a href="/faq/toFaq?cPage=1">자주묻는게시판<i class="fa fa-chevron-right" aria-hidden="true"></i></a></li>
+			  <a href="/event/toEvent"><li class="list-group-item">이벤트<i class="fa fa-chevron-right" aria-hidden="true"></i></li></a>
+			  <a href="/notice/toNotice?cPage=1"><li class="list-group-item">공지사항<i class="fa fa-chevron-right" aria-hidden="true"></i></li></a>
+			  <a href="/faq/toFaq?cPage=1"><li class="list-group-item">자주묻는게시판<i class="fa fa-chevron-right" aria-hidden="true"></i></li></a>
 			</ul>
 		</div>
 	</div>

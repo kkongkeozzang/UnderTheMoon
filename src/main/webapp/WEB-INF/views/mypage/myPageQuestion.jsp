@@ -204,6 +204,7 @@
 	              <div style="margin-top:50px;"><a href="/md/detail/page?md_id=${MdInqryDTO.md_id }">상품으로 바로가기</a></div>
 	       </div>
 	    </div>
+	    </div>
 	</c:forEach>
 	
 <script>
@@ -213,3 +214,4 @@
 </script>
 </body>
 </html>
+<jsp:include page="/WEB-INF/views/homeFooter.jsp"></jsp:include>

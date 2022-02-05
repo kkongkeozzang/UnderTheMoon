@@ -147,9 +147,9 @@
       let regexId = /^[a-z]{1}[a-z\d]{5,13}$/;
       
       if(regexId){
-         $("#idCheckResult2").css("color","blue");      
+         $("#idCheckResult2").css("color","#406882");      
       }else{
-         $("#idCheckResult2").css("color","red");      
+         $("#idCheckResult2").css("color","#F67280");      
       }
       
    })
@@ -167,10 +167,10 @@
   	            data:{id:$("#member-username").val()}
   	         }).done(function(resp){
   	            if(resp == "1"){
-  	               $("#idCheckResult").css("color","red");
+  	               $("#idCheckResult").css("color","#F67280");
   	               $("#idCheckResult").text("이미 사용중인 ID입니다.");
   	            }else{
-  	               $("#idCheckResult").css("color","blue");
+  	               $("#idCheckResult").css("color","#6998AB");
   	               $("#idCheckResult").text("사용 가능한 ID 입니다.");
   	            }       
   	         });
@@ -198,17 +198,17 @@
       let resultPw2 = regexPw2.test($("#member-password").val());
 
       if(resultPw1 && resultPw2 ){
-         $("#pwCondition1").css("color","blue");
-         $("#pwCondition2").css("color","blue");
+         $("#pwCondition1").css("color","#6998AB");
+         $("#pwCondition2").css("color","#6998AB");
       }else if(resultPw1 == false && resultPw2){
-         $("#pwCondition1").css("color","red");
-         $("#pwCondition2").css("color","blue");
+         $("#pwCondition1").css("color","#F67280");
+         $("#pwCondition2").css("color","#6998AB");
       }else if(resultPw1 && resultPw2 == false){
-         $("#pwCondition1").css("color","blue");
-         $("#pwCondition2").css("color","red");
+         $("#pwCondition1").css("color","#6998AB");
+         $("#pwCondition2").css("color","#F67280");
       }else{
-         $("#pwCondition1").css("color","red");
-         $("#pwCondition2").css("color","red");
+         $("#pwCondition1").css("color","#F67280");
+         $("#pwCondition2").css("color","#F67280");
       }
    })
    
@@ -227,30 +227,30 @@
 		var yearNow = today.getFullYear(); // 올해 연도 가져옴 
 		if ($("#member-birth-date").val().length <=8) { // 연도의 경우 1900 보다 작거나 yearNow 보다 크다면 false를 반환합니다. 
 			if (1900 > year || year > yearNow - 20){ 
-				$("#birthday-Condition2").css("color","red");
+				$("#birthday-Condition2").css("color","#F67280");
 				}else if (month < 1 || month > 12) {
-					$("#birthday-Condition1").css("color","red");
-					$("#birthday-Condition2").css("color","blue");
+					$("#birthday-Condition1").css("color","#F67280");
+					$("#birthday-Condition2").css("color","#6998AB");
 				}else if (day < 1 || day > 31) {
-					$("#birthday-Condition1").css("color","red");
-					$("#birthday-Condition2").css("color","blue");
+					$("#birthday-Condition1").css("color","#F67280");
+					$("#birthday-Condition2").css("color","#6998AB");
 				}else if ((month==4 || month==6 || month==9 || month==11) && day==31) {
-					$("#birthday-Condition1").css("color","red");
-					$("#birthday-Condition2").css("color","blue");
+					$("#birthday-Condition1").css("color","#F67280");
+					$("#birthday-Condition2").css("color","#6998AB");
 				}else if (month == 2) { 
 					var isleap = (year % 4 == 0 && (year % 100 != 0 || year % 400 == 0)); 
 					if (day>29 || (day==29 && !isleap)) {
-						$("#birthday-Condition1").css("color","red");
-						$("#birthday-Condition2").css("color","blue");
+						$("#birthday-Condition1").css("color","#F67280");
+						$("#birthday-Condition2").css("color","#6998AB");
 					}else { 
-						$("#birthday-Condition1").css("color","blue");
-						$("#birthday-Condition2").css("color","blue");} //end of if (day>29 || (day==29 && !isleap)) 
+						$("#birthday-Condition1").css("color","#6998AB");
+						$("#birthday-Condition2").css("color","#6998AB");} //end of if (day>29 || (day==29 && !isleap)) 
 				}else { 
-					 $("#birthday-Condition1").css("color","blue");
-					 $("#birthday-Condition2").css("color","blue");}//end of if 
+					 $("#birthday-Condition1").css("color","#6998AB");
+					 $("#birthday-Condition2").css("color","#6998AB");}//end of if 
 						} else { //1.입력된 생년월일이 8자 초과할때 : auth:false
-							$("#birthday-Condition1").css("color","red");
-							$("#birthday-Condition2").css("color","red");
+							$("#birthday-Condition1").css("color","#F67280");
+							$("#birthday-Condition2").css("color","#F67280");
 						}
    })
 
@@ -335,9 +335,10 @@
 		let regexPhone = /^010\d{4}\d{4}$/;
 		let resultPhone = regexPhone.test($("#member-phone").val());
 		     if(resultPhone == false){
-		         alert("휴대폰 번호가 올바르지않은 형식입니다.")
+		         alert("휴대폰 번호는 필수 입력사항입니다.")
 		         return false;
 		     }
+		     
 		
 		let regexAddress1 = /^[가-힣\d]{1,}/;
 		let resultAddress1 = regexAddress1.test($("#roadAddress").val());
@@ -345,6 +346,10 @@
 		         alert("주소는 필수 입력사항입니다.")
 		         return false;
 		     }
+		     
+		     
+
+		     
 		
 		let regexAddress2 = /^[가-힣\d]{1,50}/;
 		let resultAddress2 = regexAddress2.test($("#member-address2").val());
@@ -374,14 +379,14 @@
          let pw2 = $("#member-confirm-password").val();
          if (pw1 != pw2) {
             pwConfirm.innerHTML = "패스워드가 일치하지 않습니다."
-            $("#pwConfirm").css("color","red");
+            $("#pwConfirm").css("color","#F67280");
          } else if (pw1 ==""){
             pwConfirm.innerHTML = ""
          } else if (pw2 ==""){
             pwConfirm.innerHTML = ""
          }else  {
             pwConfirm.innerHTML = "패스워드가 일치합니다."
-            $("#pwConfirm").css("color","blue");
+            $("#pwConfirm").css("color","#6998AB");
          }
       }
       
@@ -402,7 +407,7 @@
       }
    )
    
-   
+   //인증확인 버튼을 누를 경우
    $(function(){
       $("#member-confirm-check").on("click", function(){   
          $.ajax({
@@ -411,12 +416,29 @@
          }).done(function(result){   
             if($("#member-confirm-phone").val() == confirmNumber){ //사용자가 입력한 인증번호와 생성된 인증번호를 비교
                   alert("휴대폰 인증에 성공했습니다.");
-               console.log("성공"); 
+                  document.getElementById('member-phone').readOnly = true;
+                  console.log("success"); 
             }else{
-               console.log("f");
+               console.log("fail");
+               alert("인증번호를 다시 한 번 확인해주세요.");
+               $('#member-confirm-phone').val('');
+               $('#member-confirm-phone').focus();
+
             }})   
       })
    })   
+   
+   //인증받기 버튼을 누를경우
+   $("#member-confirm-send").on("click", function(){
+		let regexPhone = /^010\d{4}\d{4}$/;
+		let resultPhone = regexPhone.test($("#member-phone").val());
+		     if(resultPhone == false){
+		         alert("인증번호 전송을 위해 휴대폰 번호를 올바르게 입력해주세요.")
+		         return false;
+		     }
+	   alert("인증번호가 전송되었습니다.");
+	   
+   })
    
    //추천인 입력 시 포인트 적립
    $(function(){
@@ -438,14 +460,14 @@
    //이벤트 입력 시 포인트 적립
    $("#event-check").on("click",function(){
       if($("#event").val() == "월하합작"){
-         alert("이벤트 정답입니다!")
+         alert("이벤트 정답입니다! 가입 후 마이페이지에서 적립금을 확인해주세요.")
          $("#event").attr("readonly",true);
       }else{
          alert("이벤트 정답이 아닙니다. 현재 진행중인 이벤트를 확인해주세요.")
       }
 
    })
-     
+    
 </script>
 <jsp:include page="/WEB-INF/views/homeFooter.jsp"></jsp:include>
 </body>

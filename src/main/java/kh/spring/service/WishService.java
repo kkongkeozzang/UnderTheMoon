@@ -36,7 +36,7 @@ public class WishService {
 		return wishDAO.deleteByMdIdWish(md_id);
 	}
 	
-	public int selectByMdId(String md_id) {
-		return wishDAO.selectByMdId(md_id);
+	public int selectByMdId(String md_id, int member_id) {
+		return wishDAO.selectByMdId(md_id, member_id);
 	}
 }

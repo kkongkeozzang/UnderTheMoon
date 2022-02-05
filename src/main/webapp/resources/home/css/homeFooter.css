@@ -3,9 +3,6 @@
 
 /***** Footer *****/
 
-*{
-    text-align: left;
-}
 
 footer {
 	margin-top:100px;
@@ -59,12 +56,11 @@ footer {
 /*Button*/
 
 
-.btn {
+#footerButton .btn {
 width: 150px;
 height: 50px;
     display: inline-block;
   margin-bottom: 0;
-  font-size: 14px;
   font-weight: normal;
   line-height: 1.42857143;
   text-align: center;
@@ -80,23 +76,22 @@ height: 50px;
   border-radius: 0px;
 }
   
-.btn-sm {
-  font-size: 20px;
+#footerButton .btn-sm {
   line-height: 1.33;
   border-radius: 0px;
 }
 
-.btn-primary {
+#footerButton .btn-primary {
   color: #fff;
   background-color: #406882;
   border-color: #406882;
 }
 
-.btn-primary:hover,
-.btn-primary:focus,
-.btn-primary:active,
-.btn-primary.active,
-.open .dropdown-toggle.btn-primary {
+#footerButton .btn-primary:hover,
+#footerButton .btn-primary:focus,
+#footerButton .btn-primary:active,
+#footerButton .btn-primary.active,
+#footerButton .open .dropdown-toggle.btn-primary {
   color: white;
   background-color: #406882;
   border-color: #406882;
@@ -106,20 +101,20 @@ height: 50px;
   OUTLINE BUTTONS
 ************************/
 
-.btn.outline {
+#footerButton .btn.outline {
   background: none;
   padding: 12px 22px;
 }
-.btn-primary.outline {
+#footerButton .btn-primary.outline {
   border: 2px solid #406882;
   color: #0099cc;
 }
-.btn-primary.outline:hover, .btn-primary.outline:focus, .btn-primary.outline:active, .btn-primary.outline.active, .open > .dropdown-toggle.btn-primary {
+#footerButton .btn-primary.outline:hover, .btn-primary.outline:focus, .btn-primary.outline:active, .btn-primary.outline.active, .open > .dropdown-toggle.btn-primary {
   color: white;
   border-color: #406882;
   background-color:#406882;
 }
-.btn-primary.outline:active, .btn-primary.outline.active {
+#footerButton .btn-primary.outline:active, .btn-primary.outline.active {
   border-color: #406882;
   color: #406882;
   box-shadow: none;
@@ -131,7 +126,7 @@ height: 50px;
   CUSTON BTN VALUES
 ************************/
 
-.btn {
+#footerButton .btn {
   padding: 14px 24px;
   border: 0 none;
   font-weight: 700;

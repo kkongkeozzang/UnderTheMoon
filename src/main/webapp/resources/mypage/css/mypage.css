@@ -213,6 +213,7 @@ ul{
   width: 30%;
   position: relative;
   transition: all 5s ease-in-out;
+  z-index:1000 !important;
 }
 
 .popup h2 {
@@ -246,6 +247,10 @@ ul{
     width: 70%;
   }
 
+}
+
+.overlay {
+	z-index: 100;
 }
    
 

@@ -24,7 +24,6 @@
 <!-- 로그인, 회원가입, 고객센터 -->
 <div id="topBar">
     <ul>
-       
 			<sec:authorize access="isAuthenticated()">
 				<li><a href="/logout" id="sign">로그아웃</a> </li>
 			</sec:authorize>
@@ -130,8 +129,8 @@
 
       <!-- searchbar 아이콘 -->
           <div id="icon">
-            <a href="/mypage/myPageLike?cPage=1" id="heart"><i class="far fa-heart"  style="font-size: 25px;"></i></a>
-			<a href="/cart/cart" id="cart"><i class="fas fa-shopping-cart" style="font-size: 22px;"></i></a>           
+            <a href="/mypage/myPageLike?cPage=1" id="heartbtn"><i class="far fa-heart"  style="font-size: 25px;"></i></a>
+			<a href="/cart/cart" id="cartbtn"><i class="fas fa-shopping-cart" style="font-size: 22px;"></i></a>           
           </div>
         </div>
       </nav>

@@ -399,10 +399,10 @@ ul{
                                           	<c:when test="${purchaseList.purchase_detail_cancel_order == 'Y'}">
                                           		주문취소완료
                                           	</c:when>
-                                          	<c:otherwise>
-                                          		<c:if test=" ${purchaseList.purchase_detail_result == 'Y'}">
-                                          				배송완료                                
-                                          		</c:if>
+                                          	<c:when test="${purchaseList.purchase_detail_result == 'Y'}">
+                                          		배송완료
+                                          	</c:when>
+                                          	<c:otherwise>                                    
                                           		배송중
                                           	</c:otherwise>
                                           </c:choose>

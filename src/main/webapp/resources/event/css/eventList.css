@@ -79,6 +79,7 @@ body {
 .card-body {
 	flex: 1 1 auto;
 	padding: 0px !important;
+	border:none;
 }
 
 .d-block {
@@ -97,11 +98,10 @@ img {
 }
 
 #board-title {
-	text-align: center;
-	height: 150px;
-	line-height:60px;
-	padding: 30px 0;
-	margin-top:30px;
+	text-align: left;
+	padding: 0px 0;
+	margin-top:50px;
+	margin-bottom:40px;
 }
 
 .search-bar {
@@ -110,4 +110,20 @@ img {
 
 .container-fluid{
 	 max-width:1140px;
+}
+.title-sub{
+	padding-left: 11px;
+    font-size: 14px;
+    color: #999;
+    line-height: 20px;
+    letter-spacing: -.3px;
+    vertical-align: 3px;
+}
+.title{
+	height: 36px;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 36px;
+    color: #333;
+    letter-spacing: -.5px;
 }

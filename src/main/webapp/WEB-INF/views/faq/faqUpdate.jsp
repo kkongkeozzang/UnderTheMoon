@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>글 수정</title>
+<title>월하합작 - 전국 8도 명주를 찾아서</title>
 <link
 	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
 	rel="stylesheet" />
@@ -41,7 +41,7 @@
 	<!-- 타이틀  -->
 	<div class="container-fluid mt-100">
 		<div id="board-title">
-			<span><h3>자주묻는질문</h3>고객님들께서 가장 자주하시는 질문을 모두 모았습니다.</span>
+			<h2 class="title">자주묻는질문<br><span class="title-sub">고객님들께서 가장 자주하시는 질문을 모두 모았습니다.</span></h2>
 		</div>
 		<br>
 

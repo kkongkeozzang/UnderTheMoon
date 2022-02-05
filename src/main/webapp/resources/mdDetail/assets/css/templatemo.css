@@ -25,15 +25,14 @@ Table of contents
 16. Extra large devices (large desktops, 1200px and up)
 --------------------------------------------- */
 
-
-
-
-/* Typography */
-body, ul, li, p, a, label, input, div {
+.mdDetailPage {
   font-family: 'Roboto', sans-serif;
   font-size: 18px !important;
   font-weight: 300 !important;
 }
+
+
+/* Typography */
 .h1 {
   font-family: 'Roboto', sans-serif;
   font-size: 48px !important;

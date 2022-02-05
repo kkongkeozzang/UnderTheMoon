@@ -44,10 +44,10 @@
 	height:100px; !important
 }
 .products {
-	margin-top:10px;
+	margin-top:50px;
 }
 .container {	
-	max-width:1100px !important;
+	max-width:1300px !important;
 }
 .slick-prev:before, .slick-next:before {
 	color :#1A374D !important;

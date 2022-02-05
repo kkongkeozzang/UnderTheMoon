@@ -89,8 +89,7 @@
 	</div>
 </div>
 
-
-
+ 
 <div class="row justify-content-md-center">
 	<div class="col-2  ">
 	</div>

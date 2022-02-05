@@ -58,6 +58,7 @@
 <h1>
 <a href="/">
 <img src="/resources/home/img/logo.png" id="logo" alt="월하합작 로고" >
+
 </a>
 </h1>
 </div>

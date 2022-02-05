@@ -15,7 +15,7 @@
         rel="stylesheet">
 
     <!-- Custom styles for this template-->
-    <link href="/resources/admin/css/sb-admin-2.min.css" rel="stylesheet">
+    <link href="/resources/admin/css/sb-admin-2.css" rel="stylesheet">
 <sec:authorize access="isAuthenticated()">
     <sec:authentication property="principal" var="principal"/>
 </sec:authorize>
@@ -25,7 +25,7 @@
     <!-- Page Wrapper -->
 
         <!-- Sidebar -->
-        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar" style="background-color:#406882;">
+        <ul class="navbar-nav bg-gradient-secondary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/admin/adminOffice">

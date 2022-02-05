@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>월하합작 - 전국 8도 명주를 찾아서</title>
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
@@ -23,7 +23,7 @@
    <div class="signup-form">
     <form action="/mypage/UpdateProfile" method="post" class="form-horizontal">
          <div class="row">
-           <div class="col-8 offset-4">
+           <div class="col-12" align="center">
             <h2>회원정보 수정</h2>
          </div>   
          </div>         
@@ -113,10 +113,10 @@
         <div class="form-group row">
          <label class="col-form-label col-10">* 는 필수 입력사항입니다.</label>
         </div>        
-        <div class="form-group row">
-         <div class="col-8 offset-4">                      
-            <button type="submit" id="submit" class="btn btn-primary btn-lg" style="margin:auto; display:inline-block;">회원정보 수정</button>
-            <button type="button" id="deleteMember" class="btn btn-primary btn-lg" style="margin:auto; display:inline-block;">회원 탈퇴</button>
+        <div class="form-group row" align="center">
+         <div class="col-12">                      
+            <button type="submit" id="submit" class="btn btn-primary btn-lg" >회원정보 수정</button>
+            <button type="button" id="deleteMember" class="btn btn-primary btn-lg">회원 탈퇴</button>
          </div>  
       </div>            
     </form>

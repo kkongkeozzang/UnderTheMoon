@@ -135,6 +135,9 @@ private final MemberService memberService;
 	@ResponseBody
 	@RequestMapping(value="cancelWishMd", produces="text/html;charset=utf8")
 	public void cancelWishMd(String md_id) {
-		wishService.deleteByMdIdWish(md_id);
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal(); 
+        String username = ((UserDetails)principal).getUsername();
+		MemberDTO memberDTO = memberService.selectByUsername(username);
+		wishService.deleteByMdIdWish(md_id, memberDTO.getMember_id());
 	}
 }

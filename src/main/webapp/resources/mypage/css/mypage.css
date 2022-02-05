@@ -4,6 +4,74 @@ body {
 	margin-top: 20px;
 }
 
+.container{
+	margin-top: 50px;
+}
+
+#all-grade{
+	background-color:#406882;
+	color:white;
+}
+
+.table thead th{
+	
+	border-bottom:2px solid #406882!important;
+}
+
+.h6, h6{
+	font-size: 1.2rem!important;
+}
+
+.list-group-item:focus, .list-group-item:hover{
+	color:#406882!important;
+}
+
+.purchase-unit{
+	border-bottom:1px solid #1A374D!important;
+}
+
+.purchase-id{
+	height:40px;
+}
+
+#purchase-option{
+	padding-left:30px;
+}
+
+.detail-detail>span{
+	color:#1A374D!important;
+	font-size:20px!important;
+}
+
+#md-detail{
+	background-color:#406882;
+	color:white;
+}
+
+#md-delete{
+	background-color:#406882;
+	color:white;
+}
+
+#modify-profile{
+	background-color:#406882;
+	color:white;
+}
+
+.delete-wish{
+	background-color:#406882;
+	color:white;
+}
+
+.wish-purchase-text>a{
+	color:inherit;
+}
+
+.status-box{
+	background-color:#406882;
+	color:white;
+}
+
 .card {
 	position: relative;
 	display: flex;
@@ -185,8 +253,8 @@ ul{
 
 }
 
-.navigator > button.btn btn-outline-primary{
-	float:center;
+.navigator>button{
+	margin:auto;
 }
 
 .overlay {

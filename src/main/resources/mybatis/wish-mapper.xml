@@ -22,7 +22,7 @@
   	</delete>
   	
   	<delete id="deleteByMdIdWish">
-  		delete from wish where md_id = #{md_id} 
+  		delete from wish where md_id = #{md_id} and member_id = #{member_id}
   	</delete>
   	
   	<select id="selectByMdId" resultType="int">

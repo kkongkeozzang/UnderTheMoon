@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>월하합작 - 전국 8도 명주를 찾아서</title>
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css"
@@ -79,7 +79,7 @@
 										</tbody>
 									</table>
 									<div>
-										<button type="submit" class="btn btn-light" style="margin:auto; display:block;">확인</button>
+										<button type="submit" class="btn btn-light" id="modify-profile" style="margin:auto; display:block;">확인</button>
 									</div>
 									</form>							
 								</div>

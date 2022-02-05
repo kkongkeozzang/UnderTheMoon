@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>월하합작 - 전국 8도 명주를 찾아서</title>
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
@@ -160,7 +160,7 @@
   		let resultId = regexId.test($("#member-username").val());
   		if(resultId == false){
   				$("#idCheckResult").css("color","green");
-  				$("#idCheckResult").text("아이디가 올바른 형식이 아닙니다.(영문+숫자조합 최소 6글자 이상 최대 14글자)");
+  				$("#idCheckResult").text("아이디가 올바른 형식이 아닙니다.(영문 또는 영문+숫자조합 최소 6글자 이상 최대 14글자)");
   		}else{
   			$.ajax({
   	            url:"member/idDuplCheck",
@@ -288,7 +288,7 @@
 			      return false;
 			     }
 		
-		let regexMail = /^[a-zA-Z\d]{1,15}@[a-z]{1,15}(.com)|(.net)|(.co.kr)$/;
+		let regexMail = /^[a-zA-Z\d]{1,15}@[a-z]{1,15}(\.com)|(\.net)|(\.co.kr)$/;
 		let resultMail = regexMail.test($("#member-email").val());
 			if(resultMail == false){
 			    alert("이메일을 다시 확인해주세요")

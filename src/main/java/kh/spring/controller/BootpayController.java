@@ -58,7 +58,7 @@ public class BootpayController {
     		
 			// 결제 완료
 			purchaseService.completeOrder(orderId);
-			return "redirect:/"; // (임시) 마이페이지 주문 완료 페이지로 이동
+			return "redirect:/mypage/myPageList?cPage=1"; 
 			
     	} else {
     		
@@ -75,12 +75,12 @@ public class BootpayController {
 			cancelDataJson = IOUtils.toString(res.getEntity().getContent(), "UTF-8");
 			System.out.println("결제 오류 : " + cancelDataJson);
     		
-    		return "redirect:/purchase/purchaseFail";
+    		return "redirect:/purchase/fail";
     	}
     	
     	} catch (Exception e) {
     		e.printStackTrace();
-    		return "redirect:/purchase/purchaseFail";
+    		return "redirect:/purchase/fail";
     	}
 	}
 }

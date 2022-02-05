@@ -7,6 +7,7 @@
 /*body*/
 
 
+
 .container-fluid {
   padding-right: 0;
   padding-left: 0;
@@ -30,7 +31,11 @@
 
 /*body-carousel*/
 
-
+#carousel{
+	padding-right: 0 !important;
+	padding-left: 0 !important;
+	
+}
 	         
  /*time attack*/
 #countdown,
@@ -80,4 +85,13 @@ padding-top:50px;
         .hover\:grow:hover {
             transform: scale(1.02);
         }
+
+/*interval*/
+#interval{
+	padding-bottom:100px;
+}
+
+/*scroll 제거하는 코드*/
+body{ -ms-overflow-style: none; } ::-webkit-scrollbar { display: none; }
+
 

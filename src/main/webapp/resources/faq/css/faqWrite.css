@@ -23,6 +23,7 @@ body {
 	border-width: 0;
 	transition: all .2s;
 	margin: auto;
+	max-width:1300px !important;
 }
 
 .card-header:first-child {
@@ -121,7 +122,7 @@ a {
 }
 
 .container {
-	max-width:1140px;
+	max-width:1300px !important;
 }
 
 textarea {

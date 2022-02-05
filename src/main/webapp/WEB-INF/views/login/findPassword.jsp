@@ -10,7 +10,7 @@
    content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link rel="stylesheet"
    href="https://fonts.googleapis.com/css?family=Roboto:400,700">
-<title>비밀번호찾기</title>
+<title>월하합작 - 전국 8도 명주를 찾아서</title>
 <link rel="stylesheet"
    href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
 <script
@@ -119,6 +119,11 @@ body {
 
 #veri{
 	margin-right:50px
+}
+
+.signup-form{
+	padding-top: 125px;
+    padding-bottom: 25px;
 }
 
 

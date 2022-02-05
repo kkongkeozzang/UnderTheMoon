@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -47,6 +48,7 @@ public class PurchaseAPIController {
 		this.purchaseDetailService = purchaseDetailService;
 	}
 	
+	@Transactional(rollbackFor = Exception.class) 
 	@PostMapping(value="insertPurchase", produces = "application/json")
 	public ResponseEntity<Integer> insertPurchase(@RequestBody List<Map<String,String>> objects) throws IOException{
 			
@@ -75,7 +77,7 @@ public class PurchaseAPIController {
 			
 			return new ResponseEntity<Integer>(purchase_id,HttpStatus.OK);
 	}
-
+	@Transactional(rollbackFor = Exception.class) 
 	@DeleteMapping("deleteId/{delivery_id}/{order_id}")
 	public ResponseEntity<Integer> deleteId(@PathVariable Integer delivery_id,@PathVariable Integer order_id){
 		
@@ -86,7 +88,7 @@ public class PurchaseAPIController {
 		return new ResponseEntity<Integer>(HttpStatus.OK);
 		
 	}
-	
+	@Transactional(rollbackFor = Exception.class) 
 	@PatchMapping("updatePurchase/{receipt_id}/{purchase_id}")
 	public ResponseEntity<Integer> updatePurchase(@PathVariable("receipt_id") String receipt_id,@PathVariable("purchase_id") Integer purchase_id) throws InterruptedException{
 			System.out.println(receipt_id+" "+purchase_id);

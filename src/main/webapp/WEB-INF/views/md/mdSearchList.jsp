@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>월하합작 - 전국 8도 명주를 찾아서</title>
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <!-- Bootstrap core CSS -->
 <link href="/resources/mdList/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">

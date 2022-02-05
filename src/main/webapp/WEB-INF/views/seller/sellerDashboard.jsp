@@ -2,12 +2,11 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>셀러오피스</title>
+<title>월하합작 - 전국 8도 명주를 찾아서</title>
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.1/dist/chart.min.js"></script>
 <link href="/resources/admin/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -106,14 +105,14 @@
                             </div>
                         </div>
 
-                        <!-- 당기순이익(연) -->
+                        <!-- 영업이익(연) -->
                         <div class="col-xl-3 col-md-6 mb-4">
                             <div class="card border-left-success shadow h-100 py-2">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                                ④ 당기순이익 (年, ④=①-②-③)</div>
+                                                ④ 영업이익 (年, ④=①-②-③)</div>
                                             <div class="h5 mb-0 font-weight-bold text-gray-800"><fmt:formatNumber value="${year.purchase_amount - year.purchase_used_point - year.purchase_coupon}" pattern="￦#,###"/></div>
                                         </div>
                                         <div class="col-auto">
@@ -184,14 +183,14 @@
                             </div>
                         </div>
 
-                        <!-- 당기순이익(월) -->
+                        <!-- 영업이익(월) -->
                         <div class="col-xl-3 col-md-6 mb-4">
                             <div class="card border-left-success shadow h-100 py-2">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                                ⑧ 당기순이익 (月, ⑧=⑤-⑥-⑦)</div>
+                                                ⑧ 영업이익 (月, ⑧=⑤-⑥-⑦)</div>
                                             <div class="h5 mb-0 font-weight-bold text-gray-800"><fmt:formatNumber value="${month.purchase_amount - month.purchase_used_point - month.purchase_coupon}" pattern="￦#,###"/></div>
                                         </div>
                                         <div class="col-auto">
@@ -350,10 +349,22 @@
 	                        'rgba(255, 206, 86, 0.2)',
 	                        'rgba(75, 192, 192, 0.2)',
 	                        'rgba(153, 102, 255, 0.2)',
+	                        'rgba(255, 159, 64, 0.2)',
+	                        'rgba(255, 99, 132, 0.2)',
+	                        'rgba(54, 162, 235, 0.2)',
+	                        'rgba(255, 206, 86, 0.2)',
+	                        'rgba(75, 192, 192, 0.2)',
+	                        'rgba(153, 102, 255, 0.2)',
 	                        'rgba(255, 159, 64, 0.2)'
 	                    ],
 	                    borderColor: [
 	                        //경계선 색상
+	                        'rgba(255, 99, 132, 1)',
+	                        'rgba(54, 162, 235, 1)',
+	                        'rgba(255, 206, 86, 1)',
+	                        'rgba(75, 192, 192, 1)',
+	                        'rgba(153, 102, 255, 1)',
+	                        'rgba(255, 159, 64, 1)',
 	                        'rgba(255, 99, 132, 1)',
 	                        'rgba(54, 162, 235, 1)',
 	                        'rgba(255, 206, 86, 1)',
@@ -364,7 +375,7 @@
 	                    borderWidth: 1 //경계선 굵기
 	                } ,
 	                {
-	                    label: '당기순이익',
+	                    label: '영업이익',
 	                    fill: false,
 	                    data: [
 	                    	${months[0].purchase_amount - months[0].purchase_used_point - months[0].purchase_coupon},

@@ -8,6 +8,7 @@ import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,6 +34,7 @@ public class PurchaseDetailAPIController {
 		this.purchaseDetailService = purchaseDetailService;
 	}
 	
+	@Transactional(rollbackFor = Exception.class) 
 	@PostMapping(value="insertPurchaseDetail")
 	public ResponseEntity<Integer> insertPurchaseDetail(@RequestBody List<PurchaseDetailDTO> objects) throws IOException{
 			

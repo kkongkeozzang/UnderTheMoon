@@ -70,7 +70,7 @@ public class QnaController {
         //int qa_question_id= this.writer_id;
 		int qa_question_id= this.writer_id;
         System.out.println(qa_question_id);
-		List<QnaDTO> qnas = qnaService.selectAllByUsername(result);
+		List<QnaDTO> qnas = qnaService.selectAllByUsername(result, qdto.getQa_question_id());
 		System.out.println("null3");
 		List<QnaDTO> qnasAdmin = qnaService.selectAllAsAdmin();
         List<QnaResponseDTO> response = qnaResponseService.selectAll(result);
@@ -86,7 +86,7 @@ public class QnaController {
 		return "/qna/qnaList";
 
 		}else {
-		List<QnaDTO> qnas = qnaService.selectAllByUsername(result);
+		List<QnaDTO> qnas = qnaService.selectAllByUsername(result,qdto.getQa_question_id());
 		System.out.println("null3");
 		List<QnaDTO> qnasAdmin = qnaService.selectAllAsAdmin();
         List<QnaResponseDTO> response = qnaResponseService.selectAll(result);
@@ -164,7 +164,7 @@ public class QnaController {
 		//int qa_question_id = qnaResponseService.selectQuestionId(result);
 		System.out.print(qa_question_id);
 
-		List<QnaDTO> qnas = qnaService.selectAllByUsername(result);
+		List<QnaDTO> qnas = qnaService.selectAllByUsername(result, qdto.getQa_question_id());
 		List<QnaDTO> qnasAdmin = qnaService.selectAllAsAdmin();
 		List<QnaResponseDTO> response = qnaResponseService.selectAll(result);
 		System.out.println("성공");

@@ -411,6 +411,11 @@ $(document).ready(function(){
 					    	$("#point-input").val(initialTotalPrice);
 					    	$("#point-num").text("- " + initialTotalPrice + " ");
 					    	initialTotalPrice = 0;	
+			            }else if(initialTotalPrice<pointSum_int){ //총액이 적립금보다 작을떄.
+			            	console.log("총액이 적립금보다 작을떄");
+					    	$("#point-input").val(${pointSum});
+					    	$("#point-num").text("-" + ${pointSum} + " ");
+					    	initialTotalPrice = initialTotalPrice - ${pointSum};	
 			            }else if(pointSum_int<0 || isNaN(pointSum) || $.trim(pointSum)=="" || pointSum==null) {
 							$("#point-input").val(0); 
 							initialTotalPrice = initialTotalPrice;
@@ -431,7 +436,7 @@ $(document).ready(function(){
 					
 					//적립금전체사용..
 					$("#point-btn").on("click",function(){
-						console.log(Number($("#coupon_price").text()));
+
 						if(((${totalPrice} + deliveryFee)<${pointSum} && ($("#point-input").val()=='0' || $("#point-input").val() < (${totalPrice} + deliveryFee)))){ //총액이 적립금보다 작을떄.
 							console.log("총액이 적립금보다 작을떄.")
 					    	$("#point-input").val((${totalPrice} + deliveryFee));
@@ -447,10 +452,16 @@ $(document).ready(function(){
 							$("#point-input").val(0); 	
 							$("#point-num").text(0);
 							 initialTotalPrice = (${totalPrice} + deliveryFee) + Number($("#coupon_price").text()) ;  
-						}else if($("#point-input").val() > 0 || $("#point-input").val() < ${pointSum}){ 				
+						/* }else if($("#point-input").val() > 0 || $("#point-input").val() < ${pointSum}){ 	
+							console.log("인풋값이0보다 크꺼나 인풋값이 포인트전첵값보다 작을떄..")
 							$("#point-input").val(${pointSum}); 
 							$("#point-num").text("- " + ${pointSum} + " ");
-							 initialTotalPrice = (${totalPrice} + deliveryFee) - ${pointSum}; 
+							 initialTotalPrice = (${totalPrice} + deliveryFee) - ${pointSum};  */
+						}else if($("#point-input").val() > 0 || $("#point-input").val() < ${pointSum}){ 	
+							console.log("인풋값이0보다 크꺼나 인풋값이 포인트전첵값보다 작을떄..")
+							$("#point-input").val(0); 
+							$("#point-num").text(0);
+							 initialTotalPrice = (${totalPrice} + deliveryFee) + Number($("#coupon_price").text()) ;  
 						}else{
 							console.log(1)
 							$("#point-num").text("- " + ${pointSum} + " ");

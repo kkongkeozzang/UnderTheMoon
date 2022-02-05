@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>어드민오피스</title>
+<title>월하합작 - 전국 8도 명주를 찾아서</title>
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.1/dist/chart.min.js"></script>
 <link href="/resources/admin/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -109,7 +109,9 @@
 											url:"/admin/rest/"+member_id,
 											dataType:"json"
 										}).done(function(){
-											target.remove();
+											if(confirm("정말 삭제하시겠습니까?")){
+												target.remove();	
+											}
 										})
 									})	                        		
                             	</script>

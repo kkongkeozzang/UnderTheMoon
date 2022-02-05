@@ -101,10 +101,10 @@ a {
 
 #board-title {
 	text-align: center;
-	height: 150px;
-	line-height:60px;
-	padding: 30px 0;
-	margin-top:30px;
+	height:70px;
+	line-height:70px;
+	margin-top:50px;
+	margin-bottom:30px;
 }
 
 #title {
@@ -232,4 +232,20 @@ body {
 }
 #board-list{
 	background-color: #406882 !important;
+}
+.title-sub{
+	padding-left: 11px;
+    font-size: 14px;
+    color: #999;
+    line-height: 20px;
+    letter-spacing: -.3px;
+    vertical-align: 3px;
+}
+.title{
+	height: 36px;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 36px;
+    color: #333;
+    letter-spacing: -.5px;
 }

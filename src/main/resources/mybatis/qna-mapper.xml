@@ -11,12 +11,12 @@ insert into qa_question values(qa_question_id_seq.nextval, #{qa_question_categor
 
 <!-- 본인이 작성한 글만 조회하기 -->
 <select id="selectAllByUsername" resultType="kh.spring.dto.QnaDTO">
-select * from qa_question where member_id=#{value}
+select * from qa_question A where member_id=#{result} order by A.qa_question_id asc
 </select>
 
 <!-- 전체 글 조회하기 -->
 <select id="selectAllAsAdmin" resultType="kh.spring.dto.QnaDTO">
-select * from qa_question 
+select * from qa_question A order by A.qa_question_id asc
 </select>
 
 

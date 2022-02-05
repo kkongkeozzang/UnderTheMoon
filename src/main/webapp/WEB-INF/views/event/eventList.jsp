@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>이벤트</title>
+<title>월하합작 - 전국 8도 명주를 찾아서</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 <link
@@ -32,12 +32,7 @@
 	<jsp:include page="/WEB-INF/views/homeHeader.jsp"></jsp:include>
 	
 
-	<!-- 타이틀  -->
 	<div class="container-fluid mt-100">
-		<div id="board-title">
-			<span><h3>이벤트</h3>월하합작에서 진행하는 이벤트를 확인하세요!</span>
-		</div>
-		<br>
 		<div class="row">
 			<!-- 사이드네비 -->
 			<div class="col-0 col-md-4 col-lg-3">
@@ -47,6 +42,10 @@
 			</div>
 			<!-- 게시판 박스 -->
 			<div class=" col-12 col-md-8 col-lg-9">
+				<!-- 타이틀  -->
+				<div id="board-title">
+					<h2 class="title">이벤트<span class="title-sub">월하합작에서 진행하는 이벤트를 확인하세요!</span></h2>
+				</div>
 				<div class="card">	
 						
 					<!-- 분류 네비 -->

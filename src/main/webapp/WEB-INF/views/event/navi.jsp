@@ -28,16 +28,16 @@
 	.fa-chevron-right{
 		float:right;
 	}
-	li{
+	.list-group-item{
 		padding-right:10px;
 	}
 </style>
 <body>
 
 	<!-- 사이드 박스 -->
-	<div class="col-12 d-none d-md-block" style="width:100%;padding:0px;border:none;">
-		<div style="padding-bottom:15px;">
-			<h5>고객센터</h5>
+	<div class="col-12 d-none d-md-block" style="width:100%;padding:0px;border:none;margin-top:50px;">
+		<div style="padding-bottom:35px;">
+			<h3 class="title">고객센터</h3>
 			<i class="bi bi-chevron-right"></i>
 		</div>
 		<div>

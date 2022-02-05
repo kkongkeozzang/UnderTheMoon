@@ -41,7 +41,7 @@
 	<!-- 타이틀  -->
 	<div class="container-fluid mt-100">
 		<div id="board-title">
-			<span><h3>자주묻는질문</h3>고객님들께서 가장 자주하시는 질문을 모두 모았습니다.</span>
+			<h2 class="title">자주묻는질문<br><span class="title-sub">고객님들께서 가장 자주하시는 질문을 모두 모았습니다.</span></h2>
 		</div>
 		<br>
 

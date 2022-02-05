@@ -53,7 +53,7 @@
 	<!-- 타이틀  -->
 	<div class="container-fluid mt-100">
 		<div id="board-title">
-			<span><h3>이벤트</h3>월하합작에서 진행하는 이벤트를 확인하세요!</span>
+			<h2 class="title">이벤트<br><span class="title-sub">월하합작에서 진행하는 이벤트를 확인하세요!</span></h2>
 		</div>
 		<div align=center>
 			

@@ -109,7 +109,9 @@
 											url:"/admin/rest/"+member_id,
 											dataType:"json"
 										}).done(function(){
-											target.remove();
+											if(confirm("정말 삭제하시겠습니까?")){
+												target.remove();	
+											}
 										})
 									})	                        		
                             	</script>

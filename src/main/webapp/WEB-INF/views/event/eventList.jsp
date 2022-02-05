@@ -32,12 +32,7 @@
 	<jsp:include page="/WEB-INF/views/homeHeader.jsp"></jsp:include>
 	
 
-	<!-- 타이틀  -->
 	<div class="container-fluid mt-100">
-		<div id="board-title">
-			<span><h3>이벤트</h3>월하합작에서 진행하는 이벤트를 확인하세요!</span>
-		</div>
-		<br>
 		<div class="row">
 			<!-- 사이드네비 -->
 			<div class="col-0 col-md-4 col-lg-3">
@@ -47,6 +42,10 @@
 			</div>
 			<!-- 게시판 박스 -->
 			<div class=" col-12 col-md-8 col-lg-9">
+				<!-- 타이틀  -->
+				<div id="board-title">
+					<h2 class="title">이벤트<span class="title-sub">월하합작에서 진행하는 이벤트를 확인하세요!</span></h2>
+				</div>
 				<div class="card">	
 						
 					<!-- 분류 네비 -->

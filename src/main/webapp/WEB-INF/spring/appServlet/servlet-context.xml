@@ -26,7 +26,7 @@
 
 	<resources mapping="/resources/**" location="/resources/" />
 	<resources mapping="/summernoteImage/**" location="file:///C:/summernoteImage/" />
-	<resources mapping="/mdImage/**" location="file:///E:\FinalProjectUnderTheMoon\tempImageFolder" />
+	<resources mapping="/mdImage/**" location="file:///E:\FinalProjectUnderTheMoon\tempImageFolder/" />
 	<resources mapping="/mdReviewImage/**" location="file:///C:/Program Files\\Apache Software Foundation\\Tomcat 8.5\\webapps\\ROOT\\upload/" />
 
 

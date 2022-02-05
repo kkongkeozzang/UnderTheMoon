@@ -442,13 +442,15 @@ $(document).ready(function(){
 							$("#point-input").val(${pointSum}); 
 							$("#point-num").text("- " + ${pointSum} + " ");
 							initialTotalPrice = initialTotalPrice - Number(${pointSum}); 
-
 					    }else if($("#point-input").val()==${pointSum}){ //이미 전체 금액이 input 에 있을때..
-
 					    	console.log("/이미 전체 금액이 input 에 있을때..")
 							$("#point-input").val(0); 	
 							$("#point-num").text(0);
 							 initialTotalPrice = ${totalPrice} + deliveryFee;  
+						}else if($("#point-input").val() > 0 || $("#point-input").val() < ${pointSum}){ 				
+							$("#point-input").val(${pointSum}); 
+							$("#point-num").text("- " + ${pointSum} + " ");
+							 initialTotalPrice = (${totalPrice} + deliveryFee) - ${pointSum}; 
 						}else{
 							console.log(1)
 							$("#point-num").text("- " + ${pointSum} + " ");

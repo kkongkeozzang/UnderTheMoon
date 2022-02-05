@@ -15,6 +15,24 @@
 <script src="https://cdn.bootpay.co.kr/js/bootpay-3.3.2.min.js" type="application/javascript"></script> 
 <link rel="stylesheet" href="/resources/purchase/css/purchase.css">
 <style>
+.cart-unit h5 {
+	padding:10px;
+	margin-bottom:0;
+}
+html{
+	font-size:16px !important;
+}
+.container {
+	margin-top:50px;
+}
+#navi .gnb_search {
+    top: 16px !important;
+}
+#footerButton .btn-primary {
+	color: #fff;
+    background-color: #406882;
+    border-color: #406882;
+}
 .overlay {
   position: fixed;
   top: 0;
@@ -74,11 +92,7 @@
     width: 70%;
   }
 }
-
-html{
-	font-size:14px !important;
-}
-.btn {
+.purchasePage .btn {
     background-color: #406882 !important;
     border-color: #1A374D !important;
     border-top-color: rgb(26, 55, 77) !important;
@@ -161,7 +175,7 @@ dl {
     text-align: right;
 }
 .container {
-	max-width:1100px !important;
+	max-width:1300px !important;
 }
   /* 결제금액_sticky */
   .tax_absolute{height:800px;}
@@ -211,7 +225,7 @@ dl {
   .tax_absolute .reserve .emph,
   .tax_absolute .reserve .emph span{font-weight:700;color:#666}
   .pm_sign{display:none;margin-right:4px}
-  h3:not(first-child) {
+  h5:not(first-child) {
   	padding-top:74px;
   }
   .table>tbody>tr>td {
@@ -238,11 +252,11 @@ $(document).ready(function(){
 <!-- #userMenu 는 상단 로그인, 회원가입, 고객센터 메뉴-->
 <jsp:include page="/WEB-INF/views/homeHeader.jsp"></jsp:include>
 
-    <div class="container">
+    <div class="container purchasePage">
 	<div class="row">
 		<div class="col-md-12">
 			<h2 class="text-center">주문서</h2>
-			<h3>주문상품</h3>
+			<h5>주문상품</h5>
             <div>
                 <input type="hidden" id="amount" value="${totalPrice}">
             </div>
@@ -254,9 +268,9 @@ $(document).ready(function(){
                     <tr class="cart-unit">
                         <td data-th="Product" style="width:60%;">
                             <div class="row">
-                                <div class="col-sm-2 hidden-xs"><img src="${cart.cart_image}" alt="..." class="img-responsive"/></div>
+                                <div class="col-sm-2 hidden-xs"><img src="/mdImages/${cart.cart_image}" alt="..." class="img-responsive"/></div>
                                 <div class="col-sm-10">
-                                    <h4 id="item" class="cart-item nomargin">${cart.cart_item}${cart.md_id} </h4>
+                                    <h5 id="item" class="cart-item nomargin">${cart.cart_item}${cart.md_id} </h5>
                                 </div>
                             </div>
                         </td>
@@ -276,9 +290,9 @@ $(document).ready(function(){
 			
 			<div class="row">
 				<div class="col-md-8" id="coupon-point-box">
-				<h3>
+				<h5>
 				주문자 및 배송 정보
-				</h3>
+				</h5>
 				<hr>
 				<table id="info-box">
 					<tr><td class="label-td">받는사람 이름:
@@ -298,7 +312,7 @@ $(document).ready(function(){
 		            </tr>
 	            </table>
 				
-					<h3>쿠폰 / 적립금</h3><hr>
+					<h5>쿠폰 / 적립금</h5><hr>
 					<table>
 					<!-- 쿠폰선택자. -->
                   <tr><td class="label-td">쿠폰 적용
@@ -331,7 +345,7 @@ $(document).ready(function(){
 	                    </td></tr>
 	                  <!-- 적립금. -->
            			</table>
-					<h3 id="">개인정보 수집/제공</h3><hr>
+					<h5 id="">개인정보 수집/제공</h5><hr>
 			<table>
 				<tr><td>
 	                <input id="agree" type="checkbox"><a id="agree-a" href="#popup1">정보수집ㆍ이용동의(필수)</a> 
@@ -397,7 +411,7 @@ $(document).ready(function(){
 				</div>
 			</div>
 			
-           <h3>결제 </h3><hr>
+           <h5>결제 </h5><hr>
 					<div class="row">
 						<div class="col-md-12">
 							<table>

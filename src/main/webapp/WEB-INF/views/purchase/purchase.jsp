@@ -15,6 +15,30 @@
 <script src="https://cdn.bootpay.co.kr/js/bootpay-3.3.2.min.js" type="application/javascript"></script> 
 <link rel="stylesheet" href="/resources/purchase/css/purchase.css">
 <style>
+.col-sm-10.cart-item {
+	display: flex;
+    align-items: center;
+}
+.nomargin {
+	margin:0;
+}
+.img-box2 {
+	display: flex;
+    align-items: center;
+    text-align: center;
+    width: 80px;
+    height: 100px;
+    justify-content: space-around;
+}
+.md-img-box img {
+	max-height: 100px;
+    width: auto;
+}
+.md-img-box {
+	display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
 .cart-unit h5 {
 	padding:10px;
 	margin-bottom:0;
@@ -268,8 +292,21 @@ $(document).ready(function(){
                     <tr class="cart-unit">
                         <td data-th="Product" style="width:60%;">
                             <div class="row">
-                                <div class="col-sm-2 hidden-xs"><img src="/mdImages/${cart.cart_image}" alt="..." class="img-responsive"/></div>
-                                <div class="col-sm-10">
+                                <div class="col-sm-2 hidden-xs md-img-box">
+                                
+	                                <div class="img-box">
+						           		<div class="img-box2">
+						           			<img src="/mdImage/${cart.cart_image}" alt="..." class="img-responsive"/>
+						           		</div>
+					           		</div>
+                                
+                                
+                                
+                                
+                                
+                                
+                                </div>
+                                <div class="col-sm-10 cart-item">
                                     <h5 id="item" class="cart-item nomargin">${cart.cart_item}${cart.md_id} </h5>
                                 </div>
                             </div>
@@ -416,7 +453,7 @@ $(document).ready(function(){
 						<div class="col-md-12">
 							<table>
                                 <tr>
-                                    <td class="label-td">결제수단 선택</td>
+                                    <td class="label-td" style="width:20%">결제수단 선택</td>
                                     <td><a href="javascript:void(0);" id="kakao"><img src="/resources/purchase/img/payment_icon_yellow_small.png"></a>
                                     <button class="btn btn-primary" id="purchase">신용카드결제</button></td>
                                 </tr>

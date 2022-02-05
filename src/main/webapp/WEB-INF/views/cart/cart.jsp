@@ -13,8 +13,33 @@
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 <style>
+.col-sm-10.cart-item {
+	display: flex;
+    align-items: center;
+}
+.nomargin {
+	margin:0;
+}
+.img-box2 {
+	display: flex;
+    align-items: center;
+    text-align: center;
+    width: 80px;
+    height: 100px;
+    justify-content: space-around;
+}
+.md-img-box img {
+	max-height: 100px;
+    width: auto;
+}
+.md-img-box {
+	display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
 .container {
 	margin-top:50px;
+	max-width:1300px !important;
 }
 #footerButton .btn-primary {
 	color: #fff;
@@ -234,7 +259,7 @@ $(function(){
 	<table id="cart" class="table table-hover table-condensed">
     				<thead>
 						<tr>
-							<th style="width:50%">상품</th>
+							<th style="width:50%;text-align:center">상품</th>
 							 
 							<th style="width:8%"></th>
 							<th style="width:22%" class="text-center">수량</th>
@@ -246,8 +271,19 @@ $(function(){
 						<tr class="cart-unit">
 							<td data-th="Product">
 								<div class="row">
-									<div class="col-sm-2 hidden-xs"><img src="${cart.cart_image}" alt="..." class="img-responsive"/></div>
-									<div class="col-sm-10">
+									<div class="col-sm-2 hidden-xs md-img-box">
+									
+									
+									
+						           		<div class="img-box">
+							           		<div class="img-box2">
+							           			<img src="/mdImage/${cart.cart_image}" alt="..." class="img-responsive"/>
+							           		</div>
+						           		</div>
+									
+									
+									</div>
+									<div class="col-sm-10 cart-item">
 										<h5 id="item" class="nomargin">${cart.cart_item} </h5>
 									</div>
 								</div>

@@ -156,7 +156,6 @@
 				<div align=center style="margin-bottom: 15px;">
 					<span>${pageNavi}</span>
 				</div>
-
 				<!-- 글쓰기 & 검색 라인 -->
 				<div class="row search-bar" style="justify-content: space-around;">
 					<div class="col-xl-12 col-md-12 d-none d-md-block">
@@ -184,7 +183,6 @@
 							</sec:authorize>
 						</div>
 					</div>
-
 					<div class="d-md-none">
 						<div class="row">
 							<div class="col-5">

@@ -9,6 +9,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -34,6 +35,7 @@ public class CartAPIController {
 		this.cartService = cartService;
 	}
 	
+	@Transactional(rollbackFor = Exception.class) 
 	@PostMapping("addToCart")
 	public ResponseEntity<Integer> addToCart(String member_username,Integer md_id, Integer cart_item_count){
 		
@@ -43,6 +45,7 @@ public class CartAPIController {
 		
 	}
 	
+	@Transactional(rollbackFor = Exception.class) 
 	@DeleteMapping("deleteCart/{cart_id}")
 	public ResponseEntity<Integer> deleteCart(@PathVariable String cart_id){
 		
@@ -51,6 +54,7 @@ public class CartAPIController {
 		return new ResponseEntity<Integer>(result,HttpStatus.OK);
 	}
 	
+	@Transactional(rollbackFor = Exception.class) 
 	@PatchMapping("addItemCount/{cart_id}")
 	public ResponseEntity<Integer> addItemCount(@PathVariable String cart_id){
 		
@@ -59,6 +63,7 @@ public class CartAPIController {
 		return new ResponseEntity<Integer>(result,HttpStatus.OK);
 	}
 	
+	@Transactional(rollbackFor = Exception.class) 
 	@PatchMapping("subtractItemCount/{cart_id}")
 	public ResponseEntity<Integer> subtractItemCount(@PathVariable String cart_id){
 		
@@ -67,6 +72,7 @@ public class CartAPIController {
 		return new ResponseEntity<Integer>(result,HttpStatus.OK);
 	}
 	
+	@Transactional(rollbackFor = Exception.class) 
 	@DeleteMapping("deleteAll/{member_id}")
 	public ResponseEntity<Integer> deleteAll(@PathVariable String member_id){
 

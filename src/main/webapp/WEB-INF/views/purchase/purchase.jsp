@@ -299,12 +299,6 @@ $(document).ready(function(){
 						           			<img src="/mdImage/${cart.cart_image}" alt="..." class="img-responsive"/>
 						           		</div>
 					           		</div>
-                                
-                                
-                                
-                                
-                                
-                                
                                 </div>
                                 <div class="col-sm-10 cart-item">
                                     <h5 id="item" class="cart-item nomargin">${cart.cart_item}${cart.md_id} </h5>

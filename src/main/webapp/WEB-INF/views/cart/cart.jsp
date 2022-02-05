@@ -272,16 +272,11 @@ $(function(){
 							<td data-th="Product">
 								<div class="row">
 									<div class="col-sm-2 hidden-xs md-img-box">
-									
-									
-									
 						           		<div class="img-box">
 							           		<div class="img-box2">
 							           			<img src="/mdImage/${cart.cart_image}" alt="..." class="img-responsive"/>
 							           		</div>
 						           		</div>
-									
-									
 									</div>
 									<div class="col-sm-10 cart-item">
 										<h5 id="item" class="nomargin">${cart.cart_item} </h5>

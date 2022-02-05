@@ -1,5 +1,6 @@
 package kh.spring.dao;
 
+import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,8 +24,12 @@ public class QnaDAO {
 		return mybatis.insert("Qna.insert", dto);
 	}
 	
-	public List<QnaDTO> selectAllByUsername(int result){
-		return mybatis.selectList("Qna.selectAllByUsername", result);
+	public List<QnaDTO> selectAllByUsername(int result, int qa_question_id){
+		
+		Map<String,Integer> map = new HashMap<>();
+		map.put("result", result);
+		map.put("qa_question_id", qa_question_id);		
+		return mybatis.selectList("Qna.selectAllByUsername",map);
 	}
 	
 	public String selectUsername(String member_id) {

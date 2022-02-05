@@ -57,7 +57,7 @@
 <div id="mainLogo">
 <h1>
 <a href="/">
-<img src="" alt="월하합작 로고" >
+<img src="/resources/home/img/logo.png" alt="월하합작 로고" >
 
 </a>
 </h1>
@@ -66,7 +66,7 @@
 <!--nav 시작부분 -->
 
 <div class="navScroll">
- <nav class="navbar navbar-expand-sm   navbar-light bg-white" id="navi">
+ <nav class="navbar navbar-expand-lg   navbar-light bg-white" id="navi">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -118,10 +118,10 @@
               <a class="dropdown-item" href="#">Link 6</a>
             </div>
           </li> -->
-          </ul>
           
 
-          <!-- searchbar 검색바 -->
+          </ul>
+                              <!-- searchbar 검색바 -->
 <div id="side_search" class="gnb_search">
 <input name="search" type="text" id="search" class="inp_search" value="" required label="검색어" placeholder="검색어를 입력해주세요.">
 <a href="javascript:void(0);" id="search-button"><input type=image src="https://res.kurly.com/pc/service/common/1908/ico_search_x2.png" class="btn_search"></a>
@@ -129,9 +129,12 @@
 
       <!-- searchbar 아이콘 -->
           <div id="icon">
-            <a href="/mypage/myPageLike?cPage=1" id="heartbtn"><i class="far fa-heart"  style="font-size: 25px;"></i></a>
-			<a href="/cart/cart" id="cartbtn"><i class="fas fa-shopping-cart" style="font-size: 22px;"></i></a>           
+          <span >
+            <a href="/mypage/myPageLike?cPage=1" id="heartbtn"><i class="far fa-heart"  style="font-size: 25px;"></i></a></span>
+			<span style="margin:10px;"><a href="/cart/cart" id="cartbtn"><i class="fas fa-shopping-cart" style="font-size: 22px;"></i></a> </span>          
           </div>
+
+
         </div>
       </nav>
          

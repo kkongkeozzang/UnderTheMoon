@@ -163,7 +163,7 @@
 			if($("#qa_question_title").val().trim() == "")
 			{
 				console.log($("#qa_question_title").val().trim());
-    			alert("아이디는 필수 입력사항입니다.");
+    			alert("제목은 필수 입력사항입니다.");
     			$("#qa_question_title").focus();
     			f_flag = true;
     		}

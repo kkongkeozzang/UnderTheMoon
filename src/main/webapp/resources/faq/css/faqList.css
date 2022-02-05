@@ -105,7 +105,7 @@ a {
 #board-title {
 	text-align: left;
 	padding: 0px 0;
-	margin-top:50px;
+	margin-top:0px;
 	margin-bottom:35px;
 }
 
@@ -124,6 +124,7 @@ select {
 }
 .container-fluid{
 	 max-width:1140px;
+	 margin-top:50px !important;
 }
 .page-link {
 	color: black;

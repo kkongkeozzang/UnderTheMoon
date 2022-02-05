@@ -36,7 +36,7 @@
 		<div class="row">
 			<!-- 사이드네비 -->
 			<div class="col-0 col-md-4 col-lg-3">
-				<div class="card" style="border:none;">
+				<div class="card">
 					<jsp:include page="/WEB-INF/views/event/navi.jsp"></jsp:include>	
 				</div>
 			</div>

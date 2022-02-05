@@ -3,7 +3,7 @@
 
 
 /* 검색창 */
-#navi .gnb_search{position:absolute;right:174px;top:10px;width:242px}
+#navi .gnb_search{position:absolute;right:400px;top:10px;width:242px}
 #navi .gnb_search .inp_search{width:242px;height:36px;padding:0 60px 0 14px;border:1px solid #f7f7f6;border-radius:18px;background-color:#f7f7f7;font-family: 'Noto Sans';font-weight:400;font-size:12px;color:#666;line-height:16px;outline:none}
 #navi .gnb_search .inp_search.focus{background-color:#fff;color:#333}
 #navi .gnb_search .btn_search{position:absolute;right:5px;top:3px;width:30px;height:30px}
@@ -22,12 +22,11 @@
  }
  
  #navi ul {
- padding-left:20%;
+ padding-left:15%;
  
  }
 
 #topBar li {
-
 
 	display:inline;
 }
@@ -83,8 +82,8 @@ a{
 }
 
 #icon{
-	
-	padding-right:50px;	
+	position:absolute;
+	right:300px;
 }
 
 

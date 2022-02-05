@@ -26,7 +26,7 @@
 
 
  <!-- Footer -->
-<footer class="text-center text-lg-start bg-white text-muted">
+<footer class="text-lg-start bg-white text-muted">
   <!-- Section: Social media -->
   <section
     class="d-flex justify-content-center justify-content-lg-between"
@@ -42,7 +42,7 @@
 
   <!-- Section: Links  -->
   <section class="">
-    <div class="container text-center text-md-start mt-5">
+    <div class="container text-left text-md-start mt-5">
       <!-- Grid row -->
       <div class="row mt-3">
         <!-- Grid column -->
@@ -88,8 +88,8 @@
             <i class="fas fa-envelope me-3"></i> info@example.com
           </p>
           <p>
-            <i class="fab fa-github"></i><a href="">&nbsp;김도경</a>  &nbsp;&nbsp;        
-            <i class="fas fa-envelope me-3"></i> info@example.com
+            <i class="fab fa-github"></i><a href="https://github.com/danaKim-dokyung">&nbsp;김도경</a>  &nbsp;&nbsp;        
+            <i class="fas fa-envelope me-3"></i> dordyluv@naver.com
           </p>
           <p>
             <i class="fab fa-github"></i><a href="">&nbsp;이승훈</a>   &nbsp;&nbsp;       

@@ -71,7 +71,7 @@
         <div class="form-group row">
          <label class="col-form-label col-3">휴대폰*</label>
          <div class="col-5">
-                <input type="text" class="form-control" id="member-phone" name="member_phone">
+                <input type="text" class="form-control" id="member-phone" name="member_phone" placeholder="ex) 01012345678">
             </div>
              <div class="col-4">
                <button type="button" class="btn btn-primary" id="member-confirm-send">인증받기</button>
@@ -339,7 +339,13 @@
 		         return false;
 		     }
 		     
-		
+		let regexChecknumber = /\d{4}/;
+		let resultChecknumber = regexChecknumber.test($("#member-confirm-phone").val());
+			if(resultChecknumber == false){
+				alert("휴대폰 인증을 진행해주세요.")
+				return false;
+			}
+			
 		let regexAddress1 = /^[가-힣\d]{1,}/;
 		let resultAddress1 = regexAddress1.test($("#roadAddress").val());
 		     if(resultAddress1 == false){
@@ -362,6 +368,7 @@
 			alert("약관 동의가 되어야 가입이 가능합니다.")
 			return false;
 		}
+		
 	})
 	
 	document.getElementById("addressSearch").onclick = function(){

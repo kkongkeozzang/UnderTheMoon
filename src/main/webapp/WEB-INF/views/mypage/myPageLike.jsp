@@ -67,7 +67,7 @@
 									<div class="md-box">
                                    <div class="img-box"><div class="img-box2"><img src="/mdImage/${wishDTO.md_image }"></div></div>
                                    <div class="detail-box">
-                                   	<input type="hidden" id="wish_id" name="wish_id" value="${wishDTO.wish_id }">
+                                   	<input type="hidden" class="wish-id" id="wish_id" name="wish_id" value="${wishDTO.wish_id }">
                                    	<input type="hidden" id="md_id" name="md_id" value="${wishDTO.md_id }">                                   	
                                    	<input type="hidden" id="cart_item_count" name="cart_item_count" value="1">
                                       <div class="wish-purchase-text"><a href="/md/detail/page?md_id=${wishDTO.md_id}">상품이름 : ${wishDTO.wish_item }</a></div>
@@ -77,24 +77,11 @@
                                       </div>
                                    </div>
                                    <div class="btn-box">
-                                      <button class="delete-wish">삭제 </button>
-                                      <script>
-                                      $("body").on("click",".delete-wish",function(){
-                                      		$.ajax({
-                                      			type: "post",
-                                      			url:"/md/detail/deleteWishMd",
-                                      			data:{
-                                      				wish_id:$("#wish_id").val()
-                                      			}
-                                      		})
-                                      		$(this).closest(".md-box").remove();
-                                      		})                                                                          		
-                                      </script>
-                                      
+                                      <button class="delete-wish">삭제 </button>                                  
                                    </div>
                                 </div>
 									<br>
-									</c:forEach>
+									</c:forEach>									
 									<div class="navigator" align="center">
 									${pageNavi}
 									</div>																									
@@ -111,6 +98,18 @@
 	$("#all-grade").on("click",function(){
 		location="/mypage/myPageGrade"
 	})
+
+     $("body").on("click",".delete-wish",function(){
+        $.ajax({
+           type: "post",
+           url:"/md/detail/deleteWishMd",
+           data:{wish_id:$(".wish-id").val()}
+        })
+        if(confirm("삭제하시겠습니까?")){
+        	$(this).closest(".md-box").remove();
+        }
+     })                                                                          		
+ 
 </script>
 </body>
 </html>

@@ -86,6 +86,16 @@
 											<button type="button" class="cancel btn btn-light" id="md-delete">주문취소</button><br>
 										</div>
 									</div>
+																			<table class="table">
+										<thead>
+											<tr>
+												<th class="name truncate" colspan=4>  
+                                                   </th>
+											</tr>
+										</thead>										
+										<tbody>														
+										</tbody>
+									</table>
 									<br>									
 									</c:forEach>
 									<div class="navigator" align="center">

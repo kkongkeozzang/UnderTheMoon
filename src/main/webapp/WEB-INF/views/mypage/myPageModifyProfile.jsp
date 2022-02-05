@@ -54,7 +54,7 @@
 					<div class="card-body">											
 							<div class="drive-wrapper drive-list-view">
 								<div class="table-responsive drive-items-table-wrapper">
-								<form action="/mypage/myPageCheckPassword" method="post">	
+								<form id="mypage-check-password" method="post">	
 									<table class="table">
 										<thead>
 											<tr>
@@ -74,12 +74,12 @@
 											</tr>
 											<tr>
 												<td class="grade-list" style="text-align:center">비밀번호</td>
-												<td class="grade-list" style="text-align:center"><input type="password" name="member_password"></td>
+												<td class="grade-list" style="text-align:center"><input type="password" id="member-password" name="member_password"></td>
 											</tr>	
 										</tbody>
 									</table>
 									<div>
-										<button type="submit" class="btn btn-light" id="modify-profile" style="margin:auto; display:block;">확인</button>
+										<button type="button" class="btn btn-light" id="modify-profile" style="margin:auto; display:block;">확인</button>
 									</div>
 									</form>							
 								</div>
@@ -95,6 +95,21 @@
 <script>
 	$("#all-grade").on("click",function(){
 		location="/mypage/myPageGrade"
+	})
+	
+	$("#modify-profile").on("click",function(){
+			$.ajax({
+				type:"post",
+				url:"/mypage/myPageCheckPassword",
+				data:{member_password:$("#member-password").val()}			
+			}).done(function(resp){
+				if(resp == "1"){
+					location.replace("/mypage/goModify");
+				}else{
+					alert("비밀번호가 올바르지않습니다.");
+					location.href="/mypage/failModify";
+				}
+			})
 	})
 </script>
 </body>

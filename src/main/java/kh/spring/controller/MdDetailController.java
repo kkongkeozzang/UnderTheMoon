@@ -128,8 +128,10 @@ private final MemberService memberService;
 	
 	@ResponseBody
 	@RequestMapping(value="deleteWishMd", produces="text/html;charset=utf8")
-	public void deleteWishMd(int wish_id) {
+	public String deleteWishMd(int wish_id) {
 		wishService.deleteMdWish(wish_id);
+		
+		return String.valueOf(1);
 	}
 	
 	@ResponseBody

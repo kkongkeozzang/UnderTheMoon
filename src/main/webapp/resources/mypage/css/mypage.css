@@ -4,6 +4,10 @@ body {
 	margin-top: 20px;
 }
 
+.row{
+	margin-right:-5px!important;
+}
+
 .container{
 	margin-top: 50px;
 }
@@ -24,10 +28,6 @@ body {
 
 .list-group-item:focus, .list-group-item:hover{
 	color:#406882!important;
-}
-
-.purchase-unit{
-	border-bottom:1px solid #1A374D!important;
 }
 
 .purchase-id{

@@ -5,7 +5,7 @@
   
   <mapper namespace ="Wish">
   	<select id="selectByBound" resultType="kh.spring.dto.WishDTO">
-  		select * from (select * from (select target.*, row_number() over(order by wish_date desc) rn from 
+  		select * from (select * from (select target.*, row_number() over(order by wish_date) rn from 
   		(select * from wish w join md m on w.md_id = m.md_id where member_id = #{member_id}) target)) where rn between #{start} and #{end}
   	</select>
   	

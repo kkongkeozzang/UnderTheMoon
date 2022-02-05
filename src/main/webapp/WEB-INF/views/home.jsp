@@ -45,7 +45,7 @@
 <div class="container-fluid" id="container">
 <!--Main 내용 시작 부분-->
 <div class="row">
-<div class="col">
+<div class="col" id="carousel">
 
 <!--이벤트 carousel-->
 <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
@@ -89,6 +89,7 @@
 	</div>
 </div>
 
+ 
 <div class="row justify-content-md-center">
 	<div class="col-2  ">
 	</div>
@@ -118,6 +119,9 @@
 	</div>
 </div>
 
+<div class="row" id="interval">
+
+</div>
 
 
 <!--타임 어택 상품 소개 -->
@@ -188,7 +192,9 @@
 </div>
 
 
+<div class="row" id="interval">
 
+</div>
 
 <!--지도 API-->
 <div class="row" id="main_title">

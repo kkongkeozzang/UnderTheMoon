@@ -149,7 +149,7 @@ ul.pages li {
 	padding-top: 10px;
 }
 .container {
-	max-width:1100px !important;
+	max-width:1300px !important;
 }
 .popup {
 	width:80% !important;
@@ -353,7 +353,7 @@ function getPage(pageNavi, select, sort) {
 
 
     <!-- Open Content -->
-    <section class="bg-light mdDetailPage">
+    <section class="mdDetailPage">
         <div class="container pb-5">
             <div class="row">
                 <div class="col-lg-5 mt-5 img-box">
@@ -362,7 +362,7 @@ function getPage(pageNavi, select, sort) {
                     </div>
                 </div>
                 <!-- col end -->
-                <div class="col-lg-7 mt-5">
+                <div class="col-lg-7" style="margin-top:50px">
                     <div class="card">
                         <div class="card-body" id="md-detail">
                         	<input id="md_id" name="md_id" type="hidden" value="${mdDetails.md_id }">
@@ -397,9 +397,7 @@ function getPage(pageNavi, select, sort) {
                                 <input type="hidden" name="product-title" value="Activewear">
                                 <div class="row">
                                     <div class="col-auto">
-                                    </div>
-                                    <div class="col-auto">
-                                        <ul class="list-inline pb-3">
+                                        <ul class="list-inline pb-3" style="padding-left:10px">
                                             <li class="list-inline-item text-right">
                                                 Quantity
                                                 <input type="hidden" name="product-quanity" id="product-quanity" value="1">
@@ -473,7 +471,7 @@ function getPage(pageNavi, select, sort) {
 
     <!-- Start Article -->
     <section class="py-5 mdDetailPage">
-        <div class="container">
+        <div class="container" id="first-md-container">
             <div class="row text-left p-2 pb-3">
                 <h4>Related Products</h4>
             </div>

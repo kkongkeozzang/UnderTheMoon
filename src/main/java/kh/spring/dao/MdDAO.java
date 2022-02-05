@@ -55,10 +55,8 @@ private final SqlSessionTemplate mybatis;
 			if(sort.equals("reviewSort")) {
 				return mybatis.selectList("Md.selectRegionByBoundReviewSort", map);
 			} else if (sort.equals("newSort")) {
-				System.out.println("최신순");
 				return mybatis.selectList("Md.selectRegionByBoundNewSort", map);
 			} else if(sort.equals("search")) {
-				System.out.println("검색..");
 				return mybatis.selectList("Md.selectSearchResult",map);
 			}
 			return mybatis.selectList("Md.selectRegionByBound", map);

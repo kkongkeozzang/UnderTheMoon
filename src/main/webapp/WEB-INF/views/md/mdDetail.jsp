@@ -34,6 +34,10 @@
     <sec:authentication property="principal" var="principal"/>
 </sec:authorize>
 <style>
+#tabs {
+	font-size:18px !important;
+	font-family: 'Roboto', sans-serif !important;
+}
 #mainLogo {
 	max-width: 100%;
     height: auto;
@@ -672,22 +676,20 @@ function getPage(pageNavi, select, sort) {
             				}
             				$(".pages").html(pageStr);
             			} 
-            			$("body").on("click",".review-title",function(){
+            			$("body").one("click",".review-title",function(){
             				let md_review_id = $(this).find(".md_review_id").text();
             				let content = $(this).next().find(".helpful-box");
-            				if($(this).next().find("img").length==0) {
-            					$.ajax({
-                					url:"/md/detail/review/rest/board/image/"+md_review_id,
-                					type:"get",
-                					dataType:"json"
-                				}).done(function(resp){
-                					let imgStr = "";
-                					for(let i=0; i<resp.images.length; i++) {
-    	            					imgStr += "<img src='/mdReviewImage" + resp.images[i].md_review_image + "'>"
-                					}
-                					content.before(imgStr);
-                				})
-            				}
+           					$.ajax({
+               					url:"/md/detail/review/rest/board/image/"+md_review_id,
+               					type:"get",
+               					dataType:"json"
+               				}).done(function(resp){
+               					let imgStr = "";
+               					for(let i=0; i<resp.images.length; i++) {
+   	            					imgStr += "<img src='/mdReviewImage" + resp.images[i].md_review_image + "'>"
+               					}
+               					content.before(imgStr);
+               				})
             				
             				// 로그인한 회원의 글일 때
             				let member_username = $(this).find(".member_username").text();

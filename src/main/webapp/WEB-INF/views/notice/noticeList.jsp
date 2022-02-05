@@ -21,131 +21,7 @@
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
-<style>
-body {
-	margin: 0;
-	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-		"Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji",
-		"Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-	font-size: .88rem;
-	font-weight: 400;
-	line-height: 1.5;
-	color: #495057;
-    background-color: #eef1f3;
-}
-
-.mt-100 {
-	margin-top: 80px;
-}
-
-.card {
-	box-shadow: 0 0.46875rem 2.1875rem rgba(4, 9, 20, 0.03), 0 0.9375rem
-		1.40625rem rgba(4, 9, 20, 0.03), 0 0.25rem 0.53125rem
-		rgba(4, 9, 20, 0.05), 0 0.125rem 0.1875rem rgba(4, 9, 20, 0.03);
-	border-width: 0;
-	transition: all .2s;
-	margin: auto;
-	padding:0px;
-}
-
-.card-header:first-child {
-	border-radius: calc(.25rem - 1px) calc(.25rem - 1px) 0 0
-}
-
-.card-header {
-	display: flex;
-	align-items: center;
-	border-bottom-width: 1px;
-	padding-top: 0;
-	padding-bottom: 0;
-	padding-right: .625rem;
-	height: 3.5rem;
-	background-color: #fff;
-	border-bottom: 1px solid rgba(26, 54, 126, 0.125);
-}
-
-.btn-primary.btn-shadow {
-	box-shadow: 0 0.125rem 0.625rem rgba(63, 106, 216, 0.4), 0 0.0625rem
-		0.125rem rgba(63, 106, 216, 0.5);
-}
-
-.btn.btn-wide {
-	padding: .375rem 1.5rem;
-	font-size: .8rem;
-	line-height: 1.5;
-	border-radius: .25rem;
-}
-
-.btn-primary {
-	color: #fff;
-	background-color: #3f6ad8;
-	border-color: #3f6ad8;
-}
-
-.form-control {
-	display: block;
-	width: 100%;
-	height: calc(2.25rem + 2px);
-	padding: .375rem .75rem;
-	font-size: 1rem;
-	font-weight: 400;
-	line-height: 1.5;
-	color: #495057;
-	background-color: #fff;
-	background-clip: padding-box;
-	border: 1px solid #ced4da;
-	border-radius: .25rem;
-	transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-}
-
-.card-body {
-	flex: 1 1 auto;
-	padding: 0rem
-}
-
-.flex-truncate {
-	min-width: 0 !important
-}
-
-.d-block {
-	display: block !important
-}
-
-a {
-	color: #406882;
-	text-decoration: none !important;
-	background-color: transparent
-}
-
-.media img {
-	width: 40px;
-	height: auto
-}
-
-#board-title {
-	text-align: center;
-	height: 100px;
-	padding: 100px 0;
-}
-
-#title {
-	width: 50px;
-	height: 50px;
-}
-
-.search-bar {
-	margin: auto;
-}
-
-select {
-	width: 30%;
-	height: 100%;
-}
-
-.page-link {
-	color: black;
-}
-</style>
+<link rel="stylesheet" href="/resources/notice/css/noticeList.css">	
 <sec:authorize access="isAuthenticated()">
     <sec:authentication property="principal" var="principal"/>
 </sec:authorize>
@@ -153,7 +29,6 @@ select {
 <body>
 	<!-- #userMenu 는 상단 로그인, 회원가입, 고객센터 메뉴-->
 	<jsp:include page="/WEB-INF/views/homeHeader.jsp"></jsp:include>
-	<jsp:include page="/WEB-INF/views/event/navi.jsp"></jsp:include>
 	
 	<!-- 타이틀  -->
 	<div class="container-fluid mt-100">
@@ -161,9 +36,15 @@ select {
 			<span><h3>공지사항</h3>월하합작의 새로운 소식들과 유용한 정보들을 한 곳에서 확인하세요.</span>
 		</div>
 		<br>
-
-		<!-- 게시판 박스 -->
-		<div class="card mb-3 col-xl-8 col-md-12" style="padding:0px;">
+		<div class="row">
+			<!-- 사이드네비 -->
+			<div class="col-0 col-md-3 col-lg-3">
+				<div class="card" style="border:none;">
+					<jsp:include page="/WEB-INF/views/event/navi.jsp"></jsp:include>	
+				</div>
+			</div>
+			<!-- 게시판 박스 -->
+			<div class="card mb-3 col-12 col-md-9 col-lg-9 list-box">
 
 			<!-- 분류 네비 -->
 			<div class="card-header pl-0 pr-0"
@@ -198,9 +79,9 @@ select {
 							style="justify-content: space-around;">
 	
 							<%-- 웹버전 seq --%>
-							<div class="col-2 d-none d-md-block" align=center style="padding-left:0px;">${notices.notice_id }</div>
+							<div class="col-2 d-none d-md-block" align=center style="padding-left:0px !important;">${notices.notice_id }</div>
 							<%-- 웹버전 title --%>
-							<div class="col-4 d-none d-md-block" align=center>
+							<div class="col-4 d-none d-md-block" align=left>
 								<a href="/notice/detail?notice_id=${notices.notice_id}&member_id=${notices.member_id}&cPage=${cPage}"
 									class="text-big" data-abc="true">${notices.notice_title }</a>
 								<div class="text-muted small mt-1 d-md-none">${notices.getFormedDate() }
@@ -232,87 +113,74 @@ select {
 				</c:forEach>
 				</c:otherwise>
 			</c:choose>
-		</div>
-		<div align=center style="margin-bottom:15px;"><span>${pageNavi}</span></div>
+			<br>
+			<div align=center style="margin-bottom:15px;"><span>${pageNavi}</span></div>
 
-		<!-- 글쓰기 & 검색 라인 -->
-		<div class="row search-bar" style="justify-content: space-around;">
-			<div class="col-xl-8 col-md-12 d-none d-md-block">
-				<div class="row">
-					<div class="col-4" style="padding-left:0px;">
-						<select class="select">
-							<option value="notice_title">제목</option>
-							<option value="member_username">작성자</option>
-							<option value="notice_content">내용</option>
-						</select>
-						<input type="text" placeholder="Search..." class="input-search" style="width: 66%; height: 100%;">
-						<input id="member_username" type=hidden value=${principal.username }>
-					</div>
-					<div class="col-4 pl-0">
-						<button type="button"
-							class="btn btn-shadow btn-wide btn-primary btn-search"
-							style="background-color: #406882; border-color: #406882;">
-							검색하기</button>
-					</div>
-					<sec:authorize access="hasRole('ROLE_ADMIN')">
-						<div class="col-4" style="text-align: right;padding-right:0px;">
-							<button type="button"
-								class="btn-write btn btn-shadow btn-wide btn-primary"
-								style="background-color: #406882; border-color: #406882;">
-								글 쓰기</button>
+				<!-- 글쓰기 & 검색 라인 -->
+				<div class="row search-bar" style="justify-content: space-around;">
+					<div class="col-xl-12 col-md-12 d-none d-md-block">
+						<div class="row">
+							<div class="col-4" style="padding-left:0px;">
+								<select class="select">
+									<option value="notice_title">제목</option>
+									<option value="member_username">작성자</option>
+									<option value="notice_content">내용</option>
+								</select>
+								<input type="text" placeholder="Search..." class="input-search" style="width: 66%; height: 100%;">
+								<input id="member_username" type=hidden value=${principal.username }>
+							</div>
+							<div class="col-4 pl-0">
+								<button type="button"
+									class="btn btn-shadow btn-wide btn-primary btn-search">검색하기</button>
+							</div>
+							<sec:authorize access="hasRole('ROLE_ADMIN')">
+								<div class="col-4" style="text-align: right;padding-right:0px;">
+									<button type="button"
+										class="btn-write btn btn-shadow btn-wide btn-primary">글 쓰기</button>
+								</div>
+							</sec:authorize>
 						</div>
-					</sec:authorize>
-				</div>
-			</div>
-
-			<div class="d-md-none">
-				<div class="row">
-					<div class="col-5">
-						<select class="select">
-							<option value="notice_title">제목</option>
-							<option value="member_username">작성자</option>
-							<option value="notice_content">내용</option>
-						</select>
-						<input type="text" placeholder="Search..." class="input-search" style="width: 66%; height: 100%;">
 					</div>
-					<div class="col-4 pl-0">
-						<button type="button"
-							class="btn btn-shadow btn-wide btn-primary btn-search"
-							style="background-color: #406882; border-color: #406882;">
-							검색하기</button>
-					</div>
-					<div class="col-3" style="text-align: right;">
-					<sec:authorize access="hasRole('ROLE_ADMIN')">
-						<button type="button" id="done"
-							class="btn btn-shadow btn-wide btn-primary btn-write"
-							style="background-color: #406882; border-color: #406882;">
-							글쓰기</button>
-					</sec:authorize>
-					<sec:authorize access="hasRole('ROLE_SELLER')">
-						<button type="button" id="done"
-							class="btn btn-shadow btn-wide btn-primary btn-write"
-							style="background-color: #406882; border-color: #406882;">
-							글쓰기</button>
-					</sec:authorize>
-						<script>
-	         			$(".btn-write").on("click",function(){
-	         				location.href="/notice/toWrite";
-	         			});
-	         			let searchEvent = function(){
-	         				let select = $(".select").val();
-	         				let keyword = $(".input-search").val();
-	         				location.href="/notice/search?cPage=1&select="+select+"&keyword="+keyword;
-	         			};
-	         			$(".btn-search").on("click",searchEvent);
-	         			$(".input-search").on("keyup",function(key){
-	         				if(key.keyCode==13){
-	         					let select = $(".select").val();
-		         				let keyword = $(".input-search").val();
-		         				location.href="/notice/search?cPage=1&select="+select+"&keyword="+keyword;
-	         				}
-	         			})
-
-	         		</script>
+		
+					<div class="d-md-none">
+						<div class="row">
+							<div class="col-5">
+								<select class="select">
+									<option value="notice_title">제목</option>
+									<option value="member_username">작성자</option>
+									<option value="notice_content">내용</option>
+								</select>
+								<input type="text" placeholder="Search..." class="input-search" style="width: 66%; height: 100%;">
+							</div>
+							<div class="col-4 pl-0">
+								<button type="button"
+									class="btn btn-shadow btn-wide btn-primary btn-search">검색하기</button>
+							</div>
+							<div class="col-3" style="text-align: right;">
+							<sec:authorize access="hasRole('ROLE_ADMIN')">
+								<button type="button" id="done"
+									class="btn btn-shadow btn-wide btn-primary btn-write">글쓰기</button>
+							</sec:authorize>
+								<script>
+			         			$(".btn-write").on("click",function(){
+			         				location.href="/notice/toWrite";
+			         			});
+			         			let searchEvent = function(){
+			         				let select = $(".select").val();
+			         				let keyword = $(".input-search").val();
+			         				location.href="/notice/search?cPage=1&select="+select+"&keyword="+keyword;
+			         			};
+			         			$(".btn-search").on("click",searchEvent);
+			         			$(".input-search").on("keyup",function(key){
+			         				if(key.keyCode==13){
+			         					let select = $(".select").val();
+				         				let keyword = $(".input-search").val();
+				         				location.href="/notice/search?cPage=1&select="+select+"&keyword="+keyword;
+			         				}
+			         			})
+			         		</script>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>

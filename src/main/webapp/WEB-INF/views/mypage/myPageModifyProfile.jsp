@@ -32,7 +32,7 @@
 </head>
 
 <body>
-<jsp:include page="/WEB-INF/views/homeHeader.jsp"></jsp:include>
+
 
 	<div class="container">
         <div class="row">
@@ -99,3 +99,4 @@
 </script>
 </body>
 </html>
+<jsp:include page="/WEB-INF/views/homeFooter.jsp"></jsp:include>

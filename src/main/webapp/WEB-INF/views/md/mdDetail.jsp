@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>월하합작 - 전국 8도 명주를 찾아서</title>
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 
 <link rel="apple-touch-icon" href="/resources/mdDetail/assets/img/apple-icon.png">
@@ -343,7 +343,6 @@ function getPage(pageNavi, select, sort) {
 		     })
 		   })
 		})
-	
 </script>
 </head>
 <body>
@@ -413,25 +412,23 @@ function getPage(pageNavi, select, sort) {
                                     <div class="gnbPick">
 									</div>
                                     <div class="col d-flex">
+                                    <sec:authorize access="isAnonymous()">
+                                    	<a href="/login"><button type="button" class="btn_pick pick_icon_button" ></button></a>
+                                    	<button type="button" id="login-cart" class=" btn btn-success btn-lg" name="submit" value="addtocard" >회원전용</button>
+                                    </sec:authorize>
+                                    <sec:authorize access="isAuthenticated()">
                                     	<c:choose>
                                     	<c:when test="${wishResult == 1}">
 										<button type="button" class="btn_pick pick_icon_button on" ></button>
+										<button type="button" id="cart" class=" btn btn-success btn-lg" name="submit" value="addtocard">장바구니 담기</button>
 										</c:when>
 										<c:otherwise>
 										<button type="button" class="btn_pick pick_icon_button" ></button>
-										</c:otherwise>
+										<button type="button" id="cart" class=" btn btn-success btn-lg" name="submit" value="addtocard">장바구니 담기</button>
+										</c:otherwise>										
 										</c:choose>
-                                        <sec:authorize access="isAuthenticated()">
-											<button type="button" id="cart" class=" btn btn-success btn-lg" name="submit" value="addtocard">장바구니 담기</button>
-										</sec:authorize>
-										<sec:authorize access="isAnonymous()">
-			 								<button type="button" id="login-cart" class=" btn btn-success btn-lg" name="submit" value="addtocard" >회원전용</button>
-										</sec:authorize>                                      
-                                        <script>
-                                        $("#login-cart").on("click",function(){
-                                        	location.href="/login";
-                                        })
-                                    	$(".pick_icon_button").on("click", function(){
+										<script>
+										$(".pick_icon_button").on("click", function(){
                                     		$(this).toggleClass("on");
                                     		if($(this).hasClass("on")){
                                     		$.ajax({
@@ -453,7 +450,14 @@ function getPage(pageNavi, select, sort) {
                                         		     })
                                     		}
                                     	})
+										</script>
+									</sec:authorize>
+                                        <script>
+                                        $("#login-cart").on("click",function(){
+                                        	location.href="/login";
+                                        })
                                         </script>
+									                                                                           
                                     </div>
                                 </div>
                             </form>

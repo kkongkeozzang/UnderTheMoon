@@ -20,6 +20,10 @@
 <link rel="stylesheet" type="text/css" href="/resources/mdDetail/assets/css/slick.min.css">
 <link rel="stylesheet" type="text/css" href="/resources/mdList/assets/css/slick-theme.css">
 <style>
+#pages a:hover {
+	background-color:#406882 !important;
+	border:1px solid #406882 !important;
+}
 .region-sort {
 	border:1px solid black; !important
 }

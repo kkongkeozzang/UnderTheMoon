@@ -29,111 +29,11 @@
 		href="https://cdn.jsdelivr.net/npm/boxicons@2.0.7/css/boxicons.min.css"
 		rel="stylesheet" />
 <link rel="stylesheet" href="/resources/mypage/css/mypage.css">	
+<link rel="stylesheet" href="/resources/qna/css/qnaList.css">	
 
-    <style>
-        .submenu h3{
-            margin-bottom: 16px;
-            cursor: pointer;
-            color: teal;
-        }
-        .submenu h3:hover{
-            text-decoration: underline;
-        }
-        /* 가려질 수 있도록 하자 */
-        .hidden{
-            display: none;
-        }
-        textarea{
-        resize:none;
-        width:100%;
-        }
-        
-        
-        /*버튼 관련 */
 
-.btn {
-  display: inline-block;
-  padding: 6px 12px;
-  margin-bottom: 0;
-  font-size: 14px;
-  font-weight: normal;
-  line-height: 1.42857143;
-  text-align: center;
-  white-space: nowrap;
-  vertical-align: middle;
-  cursor: pointer;
-  -webkit-user-select: none;
-     -moz-user-select: none;
-      -ms-user-select: none;
-          user-select: none;
-  background-image: none;
-  border: 1px solid transparent;
-  border-radius: 4px;
-  padding: 10px 16px;
-}
-  
-.btn-lg {
-  font-size: 18px;
-  line-height: 1.33;
-  border-radius: 6px;
-}
-
-.btn-primary {
-  color: #fff;
-  background-color: #1A374D;
-  border-color: #1A374D;
-}
-
-.btn-primary:hover,
-.btn-primary:focus,
-.btn-primary:active,
-.btn-primary.active,
-.open .dropdown-toggle.btn-primary {
-  color: #fff;
-  background-color: #1A374D;
-  border-color: #1A374D;
-}
-
-/***********************
-  SHARP BUTTONS
-************************/
-.sharp {
-  border-radius:0;
-}
-
-/***********************
-  CUSTON BTN VALUES
-************************/
-
-.btn {
-  padding: 14px 24px;
-  border: 0 none;
-  font-weight: 700;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-}
-.btn:focus, .btn:active:focus, .btn.active:focus {
-  outline: 0 none;
-}
-
-.btn-primary {
-  background: #406882;
-  color: #ffffff;
-}
-.btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open > .dropdown-toggle.btn-primary {
-  background: #1A374D;
-}
-.btn-primary:active, .btn-primary.active {
-  background: #1A374D;
-  box-shadow: none;
-}
-        
-        
-        
-        
-        
-    </style>
-
+<!-- Header 삽입 -->
+<jsp:include page="/WEB-INF/views/homeHeader.jsp"></jsp:include>
 
 
 <sec:authorize access="isAuthenticated()">
@@ -459,7 +359,7 @@
 
 
 
-<button id="btn-write"  class="btn btn-primary sharp"> 문의하기 </button>
+<button id="btn-writeQna"  class="btn btn-primary sharp"> 문의하기 </button>
 
 </div>
 </div>
@@ -471,7 +371,7 @@
 	</div>
 	</div>
 <script>
-$("#btn-write").on("click", function(){
+$("#btn-writeQna").on("click", function(){
 	location.href="/qna/qnaWrite";
 	
 });
@@ -480,5 +380,10 @@ $("#btn-write").on("click", function(){
 		location="/mypage/myPageGrade"
 	})
 </script>
+
+
+<!-- Footer 삽입 -->
+<jsp:include page="/WEB-INF/views/homeFooter.jsp"></jsp:include>
+
 </body>
 </html>

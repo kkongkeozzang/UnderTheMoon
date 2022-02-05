@@ -89,30 +89,32 @@
 	</div>
 </div>
 
-<div class="row">
-	<div class="col-2">
+<div class="row justify-content-md-center">
+	<div class="col-2  ">
 	</div>
-	<div class="col">
+	<div class=" col-2">
                 <a href="#">
                     <img class="hover:grow hover:shadow-lg" src="https://images.unsplash.com/photo-1555982105-d25af4182e4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&h=400&q=80">
                 </a>
             </div>
-	<div class="col">
+	<div class=" col-2">
                 <a href="#">
                     <img class="hover:grow hover:shadow-lg" src="https://images.unsplash.com/photo-1555982105-d25af4182e4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&h=400&q=80">
                 </a>
 	</div>
-	<div class="col">
+	<div class=" col-2">
                 <a href="#">
                     <img class="hover:grow hover:shadow-lg" src="https://images.unsplash.com/photo-1555982105-d25af4182e4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&h=400&q=80">
                 </a>
 	</div>
-	<div class="col">
+	<div class="
+	
+	 col-2">
                 <a href="#">
                     <img class="hover:grow hover:shadow-lg" src="https://images.unsplash.com/photo-1555982105-d25af4182e4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&h=400&q=80">
                 </a>
 	</div>	
-	<div class="col-2">
+	<div class="col-2   ">
 	</div>
 </div>
 
@@ -129,10 +131,10 @@
 	</div>
 </div>
 
-<div class="row">
-	<div class="col"> 
+<div class="row justify-content-md-center">
+	<div class="col-2 "> 
 	</div>
-	<div class="col-2" id="timeattack"> 
+	<div class="col-lg-2" id="timeattack"> 
 	<br><div id="HourCountdown"></div><br>
 	        
 	<script>
@@ -174,13 +176,13 @@
 	}
 	</script>
 	</div>
-	<div class="col-6"> 
+	<div class="col-lg-6"> 
 	<!-- 이미지 삽입 -->
 	 <a href="#">
           <img class="" src="/resources/home/img/timeattack.png">
      </a>
 	</div>
-	<div class="col"> 
+	<div class="col-2"> 
 	</div>
 
 </div>
@@ -190,7 +192,7 @@
 
 <!--지도 API-->
 <div class="row" id="main_title">
-	<div class="col-2">
+	<div class="col-2 ">
 	</div>
 	<div class="col">
 	전국 지역별 전통주

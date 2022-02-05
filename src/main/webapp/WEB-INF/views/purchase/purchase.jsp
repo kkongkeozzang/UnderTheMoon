@@ -560,8 +560,7 @@ $(document).ready(function(){
 						        success : function(resp){
 						        	
 						        	delivery_id = resp;
-						        	
-						        	
+						        							        	
 						        	$.ajax({
 						  		  	  type: 'get',
 						  		        url:"/purchase/rest/selectId/"+delivery_id,

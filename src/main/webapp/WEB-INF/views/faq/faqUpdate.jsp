@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>글 수정</title>
+<title>월하합작 - 전국 8도 명주를 찾아서</title>
 <link
 	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
 	rel="stylesheet" />
@@ -32,176 +32,7 @@
 	src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
 <script
 	src=" https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/lang/summernote-ko-KR.min.js"></script>
-<style>
-body {
-	margin: 0;
-	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-		"Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji",
-		"Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-	font-size: .88rem;
-	font-weight: 400;
-	line-height: 1.5;
-	color: #495057;
-	background-color: #eef1f3;
-}
-
-.mt-100 {
-	margin-top: 80px;
-}
-
-.card {
-	box-shadow: 0 0.46875rem 2.1875rem rgba(4, 9, 20, 0.03), 0 0.9375rem
-		1.40625rem rgba(4, 9, 20, 0.03), 0 0.25rem 0.53125rem
-		rgba(4, 9, 20, 0.05), 0 0.125rem 0.1875rem rgba(4, 9, 20, 0.03);
-	border-width: 0;
-	transition: all .2s;
-	margin: auto;
-}
-
-.card-header:first-child {
-	border-radius: calc(.25rem - 1px) calc(.25rem - 1px) 0 0
-}
-
-.card-header {
-	display: flex;
-	align-items: center;
-	border-bottom-width: 1px;
-	padding-top: 0;
-	padding-bottom: 0;
-	padding-right: .625rem;
-	height: 3.5rem;
-	background-color: #fff;
-	border-bottom: 1px solid rgba(26, 54, 126, 0.125);
-}
-
-.btn-primary.btn-shadow {
-	box-shadow: 0 0.125rem 0.625rem rgba(63, 106, 216, 0.4), 0 0.0625rem
-		0.125rem rgba(63, 106, 216, 0.5);
-}
-
-.btn.btn-wide {
-	padding: .375rem 1.5rem;
-	font-size: .8rem;
-	line-height: 1.5;
-	border-radius: .25rem;
-}
-
-.btn-primary {
-	color: #fff;
-	background-color: #3f6ad8;
-	border-color: #3f6ad8;
-}
-
-.form-control {
-	display: block;
-	width: 100%;
-	height: calc(2.25rem + 2px);
-	padding: .375rem .75rem;
-	font-size: 1rem;
-	font-weight: 400;
-	line-height: 1.5;
-	color: #495057;
-	background-color: #fff;
-	background-clip: padding-box;
-	border: 1px solid #ced4da;
-	border-radius: .25rem;
-	transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-}
-
-.card-body {
-	flex: 1 1 auto;
-	padding: 1.25rem
-}
-
-.flex-truncate {
-	min-width: 0 !important
-}
-
-.d-block {
-	display: block !important
-}
-
-a {
-	color: #E91E63;
-	text-decoration: none !important;
-	background-color: transparent
-}
-
-.media img {
-	width: 40px;
-	height: auto
-}
-
-#board-title {
-	text-align: center;
-	height: 100px;
-	line-height: 100px;
-	padding: 100px 0;
-}
-
-#title {
-	width: 50px;
-	height: 50px;
-}
-
-.search-bar {
-	margin: auto;
-}
-
-* {
-	box-sizing: border-box;
-}
-
-.container {
-/* 	width: 1000px; */
-}
-
-textarea {
-	-webkit-box-sizing: border-box;
-	-moz-box-sizing: border-box;
-	box-sizing: border-box;
-	width: 100%;
-}
-
-body {
-	margin: 0;
-	line-height: 1.5;
-	color: #495057;
-	text-align: left;
-	background-color: #eef1f3
-}
-
-.profile-box {
-	display: flex;
-}
-
-.img-profile {
-	border-radius: 70%;
-	width: 100%;
-	height: 100%;
-}
-
-.profile-detail {
-	text-align: center;
-}
-
-.name {
-	font-weight: bold;
-}
-
-.list li {
-	margin-top: 5px;
-}
-
-.label {
-	font-size: 12px;
-}
-
-.profile-detail {
-	justify-content: flex-start;
-	flex-direction: column;
-}
-</style>
+<link rel="stylesheet" href="/resources/faq/css/faqWrite.css">
 </head>
 <body>
 	<!-- #userMenu 는 상단 로그인, 회원가입, 고객센터 메뉴-->
@@ -210,7 +41,7 @@ body {
 	<!-- 타이틀  -->
 	<div class="container-fluid mt-100">
 		<div id="board-title">
-			<span><h3>자주묻는질문</h3></span>
+			<h2 class="title">자주묻는질문<br><span class="title-sub">고객님들께서 가장 자주하시는 질문을 모두 모았습니다.</span></h2>
 		</div>
 		<br>
 
@@ -253,10 +84,8 @@ body {
 					</div>
 					<div class="row">
 						<div class="col-sm-12" style="text-align: right">
-							<button type="button" id="update" class="btn btn-dark"
-								style="background-color: #406882;">수정완료</button>
-							<button class="btn btn-dark" type=button id="cancel"
-								style="background-color: #406882;">취소</button>
+							<button type="button" id="update" class="btn btn-dark">수정완료</button>
+							<button class="btn btn-dark" type=button id="cancel">취소</button>
 					<script>
 					
 					$("#cancel").on("click",function(){

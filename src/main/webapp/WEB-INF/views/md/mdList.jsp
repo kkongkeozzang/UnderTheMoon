@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>지역별 전통주</title>
+<title>월하합작 - 전국 8도 명주를 찾아서</title>
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <!-- Bootstrap core CSS -->
 <link href="/resources/mdList/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -20,6 +20,10 @@
 <link rel="stylesheet" type="text/css" href="/resources/mdDetail/assets/css/slick.min.css">
 <link rel="stylesheet" type="text/css" href="/resources/mdList/assets/css/slick-theme.css">
 <style>
+#pages a:hover {
+	background-color:#406882 !important;
+	border:1px solid #406882 !important;
+}
 .region-sort {
 	border:1px solid black; !important
 }

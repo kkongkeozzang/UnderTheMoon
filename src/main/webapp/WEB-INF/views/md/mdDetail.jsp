@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>월하합작 - 전국 8도 명주를 찾아서</title>
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 
 <link rel="apple-touch-icon" href="/resources/mdDetail/assets/img/apple-icon.png">
@@ -35,6 +35,65 @@
     <sec:authentication property="principal" var="principal"/>
 </sec:authorize>
 <style>
+.overlay {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.7);
+  transition: opacity 500ms;
+  visibility: hidden;
+  opacity: 0;
+}
+.overlay:target {
+  visibility: visible;
+  opacity: 1;
+  z-index:1000;
+}
+
+.popup {
+  z-index:1000 !important;
+  margin: 70px auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 5px;
+  width: 50%;
+  position: relative;
+  transition: all 5s ease-in-out;
+}
+
+.popup h2 {
+  margin-top: 0;
+  color: #333;
+  font-family: Tahoma, Arial, sans-serif;
+}
+.popup .close {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  transition: all 200ms;
+  font-size: 30px;
+  font-weight: bold;
+  text-decoration: none;
+  color: #333;
+}
+.popup .close:hover {
+  color: #06D85F;
+}
+.popup .content {
+  max-height: 30%;
+  overflow: auto;
+}
+
+@media screen and (max-width: 700px){
+  .box{
+    width: 70%;
+  }
+  .popup{
+    width: 70%;
+  }
+}
 .hiddenRow {
     padding: 0 !important;
 }
@@ -284,7 +343,6 @@ function getPage(pageNavi, select, sort) {
 		     })
 		   })
 		})
-	
 </script>
 </head>
 <body>
@@ -354,25 +412,23 @@ function getPage(pageNavi, select, sort) {
                                     <div class="gnbPick">
 									</div>
                                     <div class="col d-flex">
+                                    <sec:authorize access="isAnonymous()">
+                                    	<a href="/login"><button type="button" class="btn_pick pick_icon_button" ></button></a>
+                                    	<button type="button" id="login-cart" class=" btn btn-success btn-lg" name="submit" value="addtocard" >회원전용</button>
+                                    </sec:authorize>
+                                    <sec:authorize access="isAuthenticated()">
                                     	<c:choose>
                                     	<c:when test="${wishResult == 1}">
 										<button type="button" class="btn_pick pick_icon_button on" ></button>
+										<button type="button" id="cart" class=" btn btn-success btn-lg" name="submit" value="addtocard">장바구니 담기</button>
 										</c:when>
 										<c:otherwise>
 										<button type="button" class="btn_pick pick_icon_button" ></button>
-										</c:otherwise>
+										<button type="button" id="cart" class=" btn btn-success btn-lg" name="submit" value="addtocard">장바구니 담기</button>
+										</c:otherwise>										
 										</c:choose>
-                                        <sec:authorize access="isAuthenticated()">
-											<button type="button" id="cart" class=" btn btn-success btn-lg" name="submit" value="addtocard">장바구니 담기</button>
-										</sec:authorize>
-										<sec:authorize access="isAnonymous()">
-			 								<button type="button" id="login-cart" class=" btn btn-success btn-lg" name="submit" value="addtocard" >회원전용</button>
-										</sec:authorize>                                      
-                                        <script>
-                                        $("#login-cart").on("click",function(){
-                                        	location.href="/login";
-                                        })
-                                    	$(".pick_icon_button").on("click", function(){
+										<script>
+										$(".pick_icon_button").on("click", function(){
                                     		$(this).toggleClass("on");
                                     		if($(this).hasClass("on")){
                                     		$.ajax({
@@ -394,7 +450,14 @@ function getPage(pageNavi, select, sort) {
                                         		     })
                                     		}
                                     	})
+										</script>
+									</sec:authorize>
+                                        <script>
+                                        $("#login-cart").on("click",function(){
+                                        	location.href="/login";
+                                        })
                                         </script>
+									                                                                           
                                     </div>
                                 </div>
                             </form>

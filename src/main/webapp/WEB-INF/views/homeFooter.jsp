@@ -52,21 +52,21 @@
             <p><i class="fas fa-phone me-3"></i>  고객센터</p>
           </h6>
           <p id="footerButton">
-            <button type="button" onclick = "location.href = '/views/qna/qnaList'"class="btn btn-primary btn-sm outline sharp">
+            <button type="button" onclick = "location.href = '/qna/qnaList'" class="btn btn-primary btn-sm outline sharp">
               1:1 문의
             </button>
           <span style="font-weight: bold;">24시간 접수 가능 <br></span>
           고객센터 운영시간에 순차적으로 답변드리겠습니다.  
           </p>
           <p id="footerButton">
-            <button type="button" onclick = "location.href = '/views/qna/qnaList'"class="btn btn-primary btn-sm outline sharp">
+            <button type="button" onclick = "location.href = '/notice/toNotice?cPage=1'" class="btn btn-primary btn-sm outline sharp">
               공지사항
             </button>
             <span style="font-weight: bold;">24시간 이용 가능 <br></span>
             배송 및 이벤트 관련 문의는 공지사항을 확인해주세요.  
           </p>
           <p id="footerButton">
-            <button type="button" onclick = "location.href = '/views/qna/qnaList'"class="btn btn-primary btn-sm outline sharp">
+            <button type="button" onclick = "location.href = '/faq/toFaq?cPage=1'" class="btn btn-primary btn-sm outline sharp">
               자주 묻는 질문
             </button>
             <span style="font-weight: bold;">24시간 이용 가능 <br></span>
@@ -84,24 +84,24 @@
             월하합작 TEAM
           </h6>
           <p id="contact">
-            <i class="fab fa-github"></i><a href="">&nbsp;박주영</a>  &nbsp;&nbsp;          
-            <i class="fas fa-envelope me-3"></i> info@example.com
+            <i class="fab fa-github"></i><a href="https://github.com/kkongkeozzang ">&nbsp;박주영</a>  &nbsp;&nbsp;          
+            <i class="fas fa-envelope me-3"></i> suzie1642@gmail.com
           </p>
           <p>
             <i class="fab fa-github"></i><a href="https://github.com/danaKim-dokyung">&nbsp;김도경</a>  &nbsp;&nbsp;        
             <i class="fas fa-envelope me-3"></i> dordyluv@naver.com
           </p>
           <p>
-            <i class="fab fa-github"></i><a href="">&nbsp;이승훈</a>   &nbsp;&nbsp;       
-            <i class="fas fa-envelope me-3"></i> info@example.com
+            <i class="fab fa-github"></i><a href="https://github.com/SlimskiTheWise">&nbsp;이승훈</a>   &nbsp;&nbsp;       
+            <i class="fas fa-envelope me-3"></i> hun2456@hanmail.net
           </p>
           <p>
-            <i class="fab fa-github"></i><a href="">&nbsp;이준협</a>   &nbsp;&nbsp;       
-            <i class="fas fa-envelope me-3"></i> info@example.com
+            <i class="fab fa-github"></i><a href="https://github.com/jhleeeeeeee/jhleeeeeeee">&nbsp;이준협</a>   &nbsp;&nbsp;       
+            <i class="fas fa-envelope me-3"></i> gov987@naver.com
           </p>
           <p>
-            <i class="fab fa-github"></i><a href="">&nbsp;조성훈</a>     &nbsp;&nbsp;     
-            <i class="fas fa-envelope me-3"></i> info@example.com
+            <i class="fab fa-github"></i><a href="https://github.com/craving4u">&nbsp;조성훈</a>     &nbsp;&nbsp;     
+            <i class="fas fa-envelope me-3"></i> craving4m@gmail.com
           </p>
         </div>
         <!-- Grid column -->
@@ -113,18 +113,32 @@
             이용안내
           </h6>
           <p>
-            <a href="#!" class="text-reset">개인정보제공동의서</a>
+            <a href="" id="er" class="text-reset">개인정보제공동의서</a>
           </p>
           <p>
-            <a href="#!" class="text-reset">개인정보처리방침</a>
+            <a href="" id="er2" class="text-reset">개인정보처리방침</a>
           </p>
           <p>
-            <a href="#!" class="text-reset">이용약관</a>
+            <a href="" id="er3" class="text-reset">이용약관</a>
           </p>
         </div>
         <!-- Grid column -->
 
+       <script> 
        
+       $("#er").on("click", function(){
+    	   alert("준비 중입니다.");
+       })
+       
+              $("#er2").on("click", function(){
+    	   alert("준비 중입니다.");
+       })
+       
+              $("#er3").on("click", function(){
+    	   alert("준비 중입니다.");
+       })
+       
+       </script>
 
       </div>
       <!-- Grid row -->

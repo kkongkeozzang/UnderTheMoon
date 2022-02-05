@@ -147,9 +147,6 @@
 
                            str += "<button type=\"submit\" class=\"btn btn-dark\" id=\"insert${qnasAdmin.qa_question_id}\" style=\"background-color: #406882;\">답변하기</button>";
                            str += "<button type=\"button\" class=\"btn btn-dark\" id=\"delete${qnasAdmin.qa_question_id}\" style=\"background-color: #406882;\">해당 회원 글 삭제하기</button>";
-                           str += "<hr>";
-                           str += "<div>${ response[status.index].qa_response_content }</div>";
-
                            str += "<form>";
                            str += "</div>";
 
@@ -193,16 +190,16 @@
                    <div class=buttons${qnasAdmin.qa_question_id}>
                    </div>
                    <div class="col-sm-12" style="text-align: right; margin-top:15px;margin-bottom:15px;">
-                   <hr>
-      <button  type='button' class='btn btn-dark' id='write-response'>문자로 알리기 test</button>
-            <button  type='button' class='btn btn-dark' id='write-response'>here</button>
+      <button  type='button' class='btn btn-dark' id='write-response'>문자로 알리기</button>
       
                      <script>
                         username = $("#username${qnasAdmin.qa_question_id}").val();
                         principal = $("#principal${qnasAdmin.qa_question_id}").val();
                      </script>
+                                        <hr>
+                     
                   </div>
-                 ↳  ${qnasAdmin.qa_question_content } 
+                 ↳   ${ response[status.index].qa_response_content }
                 </div>
                <hr class="m-0">
             </c:forEach>
@@ -240,12 +237,18 @@
                          $(username${qnas.qa_question_id}).val(resp);
                         username = resp;
                         let str = "";
-                        if(principal == username) {
-                           str += "<div class='col-sm-12' style='text-align: right; margin-top:15px;margin-bottom:15px;'>";
-                           str += "<button type='button' class='btn btn-dark' id='delete${qnas.qa_question_id}' style='background-color: #406882;'>내 글 삭제하기</button>";
-                           
-                           str += "<div>${ response[status.index].qa_response_content }</div>";
+                        if(principal == username) {  
+                            str += "<div>";
+
+                           str += "<div class='col-sm-12' style='text-align: left; margin-bottom:15px;'>";
+                           str += "${qnas.qa_question_content }";
                            str += "</div>";
+                           str += "<div id = 'deleteButtonContainer'><button id='deleteBtn' type='button' class='btn btn-dark' id='delete${qnas.qa_question_id}' style='background-color: #406882; width : 150px; ' />내 글 삭제하기</button>";  
+                           str += "</div>";
+                           str += "</div>";
+
+                           str += "<hr>"
+                           
                            $(".buttons${qnas.qa_question_id}").html(str);   
                         }else{
                            str += "<sec:authorize access="hasRole('ROLE_ADMIN')">";
@@ -292,13 +295,13 @@
                    <div class=buttons${qnas.qa_question_id}>
                    </div>
                    <div class="col-sm-12" style="text-align: right; margin-top:15px;margin-bottom:15px;">
-                   <hr>
+                   
                      <script>
                         username = $("#username${qnas.qa_question_id}").val();
                         principal = $("#principal${qnas.qa_question_id}").val();
                      </script>
                   </div>
-                 ↳  답변 준비 중입니다. 
+                 ↳  ${ response[status.index].qa_response_content } 
                 </div>
                <hr class="m-0">
             </c:forEach>

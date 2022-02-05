@@ -436,7 +436,7 @@ $(document).ready(function(){
 					
 					//적립금전체사용..
 					$("#point-btn").on("click",function(){
-						
+
 						if(((${totalPrice} + deliveryFee)<${pointSum} && ($("#point-input").val()=='0' || $("#point-input").val() < (${totalPrice} + deliveryFee)))){ //총액이 적립금보다 작을떄.
 							console.log("총액이 적립금보다 작을떄.")
 					    	$("#point-input").val((${totalPrice} + deliveryFee));

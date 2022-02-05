@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
  <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
  <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<jsp:include page="/WEB-INF/views/homeHeader.jsp"></jsp:include>
+ <jsp:include page="/WEB-INF/views/homeHeader.jsp"></jsp:include>
 <!DOCTYPE html>
 <html>
 <head>
@@ -30,11 +30,14 @@
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
 <script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <sec:authorize access="isAuthenticated()">
     <sec:authentication property="principal" var="principal"/>
 </sec:authorize>
 <style>
+#mainLogo {
+	max-width: 100%;
+    height: auto;
+}
 .overlay {
   position: fixed;
   top: 0;
@@ -115,10 +118,10 @@ ul.pages li a {
 	color: #121212;
 	transition: all .3s;
 }
-body a {
+.mdDetailPage a {
 	text-decoration: none!important;
 }
-body ul {
+.mdDetailPage ul {
 	padding: 0;
     margin: 0;
 	list-style: none;
@@ -346,12 +349,11 @@ function getPage(pageNavi, select, sort) {
 </script>
 </head>
 <body>
-
 	
 
 
     <!-- Open Content -->
-    <section class="bg-light">
+    <section class="bg-light mdDetailPage">
         <div class="container pb-5">
             <div class="row">
                 <div class="col-lg-5 mt-5 img-box">
@@ -470,7 +472,7 @@ function getPage(pageNavi, select, sort) {
     </section>
 
     <!-- Start Article -->
-    <section class="py-5">
+    <section class="py-5 mdDetailPage">
         <div class="container">
             <div class="row text-left p-2 pb-3">
                 <h4>Related Products</h4>
@@ -497,7 +499,7 @@ function getPage(pageNavi, select, sort) {
     </section>
     <!-- End Article -->
     
-    <div class="container">
+    <div class="container mdDetailPage">
 	    <div id="tabs">
 		  <ul>
 		    <li><a href="#fragment-1"><span>상품설명</span></a></li>

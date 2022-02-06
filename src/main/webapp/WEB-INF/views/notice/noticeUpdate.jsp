@@ -40,67 +40,76 @@
 	
 	<!-- 타이틀  -->
 	<div class="container-fluid mt-100">
-		<div id="board-title">
-			<h2 class="title">공지사항<span class="title-sub"><br>월하합작의 새로운 소식들과 유용한 정보들을 한 곳에서 확인하세요.</span></h2>
-		</div>
-		<br>
-
-		<!-- 게시판 박스 -->
-		<div class="card mb-3 col-xl-6 col-md-12">
-			<!-- 게시글 등록 박스 -->
-			<form action="/notice/update?cPage=${cPage}" method="post" id="frmDetail">
-				<div class="container mb-4 mt-4">
-					<div class="row" style="padding-bottom: 5px;">
-						<div class="col-sm-12"> 
-							<input type="hidden" value="${notices.member_id}" name="member_id">
-							<input type="hidden" value="${notices.notice_id}" name="notice_id">
-							<input type=text id=input-title name=notice_title placeholder="제목을 작성하세요 (최대 30자)" maxlength=30 style="width: 100%;" value='${notices.notice_title }'>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-sm-12">
-							<textarea name="notice_content" id="summernote"
-								style="min-height: 200px; overflow: auto" maxlength="1000">${notices.notice_content }</textarea>
-							<script>
-                				autosize($("textarea"));
-        			        </script>
-                	<sup>(<span id="nowByte">0</span>/4000bytes)</sup>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-sm-12" style="text-align: right">
-							<button type="button" id="update" class="btn btn-dark">수정완료</button>
-							<button class="btn btn-dark" type=button id="cancel">취소</button>
-					<script>
-					
-					$("#cancel").on("click",function(){
-						if(confirm("정말 취소하시겠습니까?")){
-							location.href="/notice/detail?notice_id=${notices.notice_id}&member_id=${notices.member_id}&cPage=${cPage}";
-						}
-					});
-					
-					$("#update").on("click",function(){
-						if($('.note-editable').html()==""){
-							alert("내용을 입력해주세요.");
-						}else if(totalByte <= 11){
-							alert("바이트 수를 확인해주세요.(최소 12bytes)");
-						}else if(totalByte > maxByte){
-							alert("바이트 수를 확인해주세요.(최대 4000bytes)");
-						}else if($("#input-title").val()==""){
-							alert("제목을 입력해주세요.");
-						}else {
-							if(confirm("이대로 수정하시겠습니까?")){
-								$("#frmDetail").submit();
-							}				
-						}
-					})
-				</script>
-						</div>
-					</div>
+		<div class="row">
+			<!-- 사이드네비 -->
+			<div class="col-0 col-md-4 col-lg-3">
+				<div class="card">
+					<jsp:include page="/WEB-INF/views/event/navi.jsp"></jsp:include>	
 				</div>
-			</form>
+			</div>
+			<!-- 게시판 박스 -->
+			<div class="col-12 col-md-8 col-lg-9">
+				<div id="board-title">
+					<h2 class="title">공지사항<span class="title-sub">월하합작의 새로운 소식들과 유용한 정보들을 한 곳에서 확인하세요.</span></h2>
+				</div>
+		
+				<!-- 게시판 박스 -->
+				<div class="card mb-3 col-xl-6 col-md-12">
+					<!-- 게시글 등록 박스 -->
+					<form action="/notice/update?cPage=${cPage}" method="post" id="frmDetail">
+						<div class="container mb-4 mt-4">
+							<div class="row" style="padding-bottom: 5px;">
+								<div class="col-sm-12"> 
+									<input type="hidden" value="${notices.member_id}" name="member_id">
+									<input type="hidden" value="${notices.notice_id}" name="notice_id">
+									<input type=text id=input-title name=notice_title placeholder="제목을 작성하세요 (최대 30자)" maxlength=30 style="width: 100%;" value='${notices.notice_title }'>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-sm-12">
+									<textarea name="notice_content" id="summernote"
+										style="min-height: 200px; overflow: auto" maxlength="1000">${notices.notice_content }</textarea>
+									<script>
+		                				autosize($("textarea"));
+		        			        </script>
+		                	<sup>(<span id="nowByte">0</span>/4000bytes)</sup>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-sm-12" style="text-align: right">
+									<button type="button" id="update" class="btn btn-dark">수정완료</button>
+									<button class="btn btn-dark" type=button id="cancel">취소</button>
+							<script>
+							
+							$("#cancel").on("click",function(){
+								if(confirm("정말 취소하시겠습니까?")){
+									location.href="/notice/detail?notice_id=${notices.notice_id}&member_id=${notices.member_id}&cPage=${cPage}";
+								}
+							});
+							
+							$("#update").on("click",function(){
+								if($('.note-editable').html()==""){
+									alert("내용을 입력해주세요.");
+								}else if(totalByte <= 11){
+									alert("바이트 수를 확인해주세요.(최소 12bytes)");
+								}else if(totalByte > maxByte){
+									alert("바이트 수를 확인해주세요.(최대 4000bytes)");
+								}else if($("#input-title").val()==""){
+									alert("제목을 입력해주세요.");
+								}else {
+									if(confirm("이대로 수정하시겠습니까?")){
+										$("#frmDetail").submit();
+									}				
+								}
+							})
+						</script>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
 		</div>
-
 		<br>
 
 		<script>

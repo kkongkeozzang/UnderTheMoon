@@ -52,61 +52,73 @@
 		
 	<!-- 타이틀  -->
 	<div class="container-fluid mt-100">
-		<div id="board-title">
-			<h2 class="title">이벤트<br><span class="title-sub">월하합작에서 진행하는 이벤트를 확인하세요!</span></h2>
-		</div>
-		<div align=center>
+		<div class="row">
+			<!-- 사이드네비 -->
+			<div class="col-0 col-md-4 col-lg-3">
+				<div class="card">
+					<jsp:include page="/WEB-INF/views/event/navi.jsp"></jsp:include>	
+				</div>
+			</div>
+			<!-- 게시판 박스 -->
+			<div class="col-12 col-md-8 col-lg-9">
 			
-		</div>
-
-		<!-- 게시판 박스 -->
-		<div class="card mb-3 col-xl-6 col-md-12">
-			<div class="container mb-4">
-				<div class="row" style="padding-bottom: 5px;">
-					<div class="col-sm-12">
-						<div class="row profile-detail">
-							<div class="col profile-box mt-4 mb-2 ">
-								<ul class="meta list list-unstyled profile-detail d-flex mb-0 ml-2">
-									<li class="name mt-0" style="color: rgba(255, 111, 97);"></li>
-									<li class="label" style="margin: 0; padding: 0"></li>
-								</ul>
+				<div id="board-title">
+					<h2 class="title">이벤트<span class="title-sub">월하합작에서 진행하는 이벤트를 확인하세요!</span></h2>
+				</div>
+				<div align=center>
+					
+				</div>
+		
+				<!-- 게시판 박스 -->
+				<div class="card mb-3 col-xl-6 col-md-12">
+					<div class="container mb-4">
+						<div class="row" style="padding-bottom: 5px;">
+							<div class="col-sm-12">
+								<div class="row profile-detail">
+									<div class="col profile-box mt-4 mb-2 ">
+										<ul class="meta list list-unstyled profile-detail d-flex mb-0 ml-2">
+											<li class="name mt-0" style="color: rgba(255, 111, 97);"></li>
+											<li class="label" style="margin: 0; padding: 0"></li>
+										</ul>
+									</div>
+								</div>
 							</div>
 						</div>
-					</div>
-				</div>
-				<div class="row event-title">
-					<div class="col-2 d-none d-sm-block left-side" >
-						제목
-					</div>
-					<div class="col-12 col-sm-10 right-side">
-						[이벤트] 호랑이 띠 고객님들께 쿠폰을 제공합니다!
-					</div>
-				</div>
-				<div class="row event-period">
-					<div class="col-2 d-none d-sm-block left-side">
-						이벤트 기간
-					</div>
-					<div class="col-12 col-sm-10 right-side">
-						2022.01.01 ~ 2022.12.31
-					</div>
-				</div>
-				<br>
-				<div class="row">
-					<div class="col-sm-12" id="contents" name="contents"
-							style="min-height: 200px; overflow: auto;">
-						<img src="/resources/event/새해이벤트_상세.png" width=100% height=100%>
-					</div>
-				</div>
-				<hr>
-				<div class="row">
-					<div class="col-sm-12" style="text-align: right; margin-top:15px;margin-bottom:15px;">
-							<button type="button" id="board-list" class="btn btn-dark"
-								style="background-color: #406882;">목록으로</button>
-						<script>
-							$("#board-list").on("click",function(){
-								location.href="javascript:history.back()";
-							});
-						</script>
+						<div class="row event-title">
+							<div class="col-2 d-none d-sm-block left-side" >
+								제목
+							</div>
+							<div class="col-12 col-sm-10 right-side">
+								[이벤트] 호랑이 띠 고객님들께 쿠폰을 제공합니다!
+							</div>
+						</div>
+						<div class="row event-period">
+							<div class="col-2 d-none d-sm-block left-side">
+								이벤트 기간
+							</div>
+							<div class="col-12 col-sm-10 right-side">
+								2022.01.01 ~ 2022.12.31
+							</div>
+						</div>
+						<br>
+						<div class="row">
+							<div class="col-sm-12" id="contents" name="contents"
+									style="min-height: 200px; overflow: auto;">
+								<img src="/resources/event/새해이벤트_상세.png" width=100% height=100%>
+							</div>
+						</div>
+						<hr>
+						<div class="row">
+							<div class="col-sm-12" style="text-align: right; margin-top:15px;margin-bottom:15px;">
+									<button type="button" id="board-list" class="btn btn-dark"
+										style="background-color: #406882;">목록으로</button>
+								<script>
+									$("#board-list").on("click",function(){
+										location.href="javascript:history.back()";
+									});
+								</script>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>

@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<jsp:include page="/WEB-INF/views/homeHeader.jsp"></jsp:include>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -66,7 +66,7 @@ $(document).ready(function(){
 	var currentPosition = parseInt($("#recently-md-view-box").css("top"));
 	$(window).scroll(function() {
 	    var position = $(window).scrollTop(); 
-	    $("#recently-md-view-box").stop().animate({"top":position+currentPosition+"px"},1000);
+	    $("#recently-md-view-box").stop().animate({"top":position+200+"px"},1000);
 	});
 })
 function priceToString(price) {
@@ -168,6 +168,7 @@ function getPage(pageNavi, select, sort) {
 </script>
 </head>
 <body>
+<jsp:include page="/WEB-INF/views/homeHeader.jsp"></jsp:include>
 	<c:if test="${fn:length(mdImgs) != 0}">
 		<div id="recently-md-view-box" style="z-index:100;margin-right:10px;background-color:white;">
 			<div id="recently-md-view-title" style="background-color:white;">최근본상품</div>

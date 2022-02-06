@@ -11,5 +11,11 @@ public class HomeController {
 		
 		return "home";
 	}
+	
+	@RequestMapping("/error")
+	public String error() {
+		
+		return "/error/error";
+	}
 		
 }

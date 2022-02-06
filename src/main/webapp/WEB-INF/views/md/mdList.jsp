@@ -70,7 +70,7 @@ $(document).ready(function(){
 	var currentPosition = parseInt($("#recently-md-view-box").css("top"));
 	$(window).scroll(function() {
 	    var position = $(window).scrollTop(); 
-	    $("#recently-md-view-box").stop().animate({"top":position+currentPosition+"px"},1000);
+	    $("#recently-md-view-box").stop().animate({"top":position+200+"px"},1000);
 	});
 })
 function priceToString(price) {

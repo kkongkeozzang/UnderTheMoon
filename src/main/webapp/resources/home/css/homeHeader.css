@@ -104,6 +104,8 @@
 #icon{
 	position:absolute;
 	right:300px;
+	display:flex;
+	align-items: center;
 }
 
 

@@ -3,9 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
  <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
  <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-
  <jsp:include page="/WEB-INF/views/homeHeader.jsp"></jsp:include>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -346,7 +344,7 @@ function getPage(pageNavi, select, sort) {
 		            cart_item_count: $("#cart_item_count").text()
 		        }
 		     }).done(function(resp){
-		    	  if(confirm("장바구니에 선택하신 상품을 추가하였습니다. 장바구니로 이동하시겠습니까?")){ 
+		    	  if(confirm("장바구니에 선택하신 상품을 추가하였습니다.\n장바구니로 이동하시겠습니까?")){ 
 		    		 document.location.href="/cart/cart";
 		    		} 
 		     })

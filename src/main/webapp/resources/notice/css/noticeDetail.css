@@ -101,11 +101,9 @@ a {
 }
 
 #board-title {
-	text-align: center;
-	height:70px;
-	line-height:70px;
-	margin-top:50px;
-	margin-bottom:30px;
+	text-align: left;
+	margin-top:0px;
+	margin-bottom:43px;
 }
 
 #title {
@@ -121,8 +119,9 @@ a {
 	box-sizing: border-box;
 }
 
-.container{
+.container-fluid{
 	 max-width:1300px !important;
+	 margin-top:50px !important;
 }
 
 textarea {

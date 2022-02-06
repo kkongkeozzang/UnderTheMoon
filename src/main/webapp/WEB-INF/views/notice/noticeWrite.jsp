@@ -40,61 +40,73 @@
 	
 	<!-- 타이틀  -->
 	<div class="container-fluid mt-100">
-		<div id="board-title">
-			<h2 class="title">공지사항<span class="title-sub"><br>월하합작의 새로운 소식들과 유용한 정보들을 한 곳에서 확인하세요.</span></h2>
-		</div>
-		<br>
-
-		<!-- 게시판 박스 -->
-		<div class="card mb-3 col-xl-6 col-md-12">
-			<!-- 게시글 등록 박스 -->
-			<form action="/notice/insert" method="post" id="frm">
-				<div class="container mb-4 mt-4">
-					<div class="row" style="padding-bottom: 5px;">
-						<div class="col-sm-12">
-							<input type="hidden" name=member_id value=${member_id}> 
-							<input type=text id=input-title name=notice_title placeholder="제목을 작성하세요 (최대 30자)" style="width: 100%;" maxlength=30>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-sm-12">
-							<textarea name="notice_content" id="summernote"
-								style="min-height: 200px; overflow: auto" onkeyup="fn_checkByte(this)"></textarea>
-							<script>
-                				autosize($("textarea"));
-        			        </script>
-        			<sup>(<span id="nowByte">0</span>/4000bytes)</sup>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-sm-12" style="text-align: right">
-							<button type="button" id="board-list" class="btn btn-dark">목록으로</button>
-							<button class="btn btn-dark" type=button id="write">작성하기</button>
-							<script>
-					$("#board-list").on("click",function(){
-						location.href="javascript:history.back()";
-					})
-					
-					$("#write").on("click",function(){
-						if($('.note-editable').html()==""){
-							alert("내용을 입력해주세요.");
-						}else if(totalByte <= 11){
-							alert("바이트 수를 확인해주세요.(최소 12bytes)");
-						}else if(totalByte > maxByte){
-							alert("바이트 수를 확인해주세요.(최대 4000bytes)");
-						}else if($("#input-title").val()==""){
-							alert("제목을 입력해주세요.");
-						}else {
-							$("#frm").submit();			
-						}
-					})
-				</script>
-						</div>
-					</div>
+		<div class="row">
+			<!-- 사이드네비 -->
+			<div class="col-0 col-md-4 col-lg-3">
+				<div class="card">
+					<jsp:include page="/WEB-INF/views/event/navi.jsp"></jsp:include>	
 				</div>
-			</form>
+			</div>
+			<!-- 게시판 박스 -->
+			<div class="col-12 col-md-8 col-lg-9">
+				<div id="board-title">
+					<h2 class="title">공지사항<span class="title-sub">월하합작의 새로운 소식들과 유용한 정보들을 한 곳에서 확인하세요.</span></h2>
+				</div>
+		
+				<!-- 게시판 박스 -->
+				<div class="card mb-3 col-xl-6 col-md-12">
+					<!-- 게시글 등록 박스 -->
+					<form action="/notice/insert" method="post" id="frm">
+						<div class="container mb-4 mt-4">
+							<div class="row" style="padding-bottom: 5px;">
+								<div class="col-sm-12">
+									<input type="hidden" name=member_id value=${member_id}> 
+									<input type=text id=input-title name=notice_title placeholder="제목을 작성하세요 (최대 30자)" style="width: 100%;" maxlength=30>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-sm-12">
+									<textarea name="notice_content" id="summernote"
+										style="min-height: 200px; overflow: auto" onkeyup="fn_checkByte(this)"></textarea>
+									<script>
+		                				autosize($("textarea"));
+		        			        </script>
+		        			<sup>(<span id="nowByte">0</span>/4000bytes)</sup>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-sm-12" style="text-align: right">
+									<button type="button" id="board-list" class="btn btn-dark">목록으로</button>
+									<button class="btn btn-dark" type=button id="write">작성하기</button>
+									<script>
+							$("#board-list").on("click",function(){
+								location.href="javascript:history.back()";
+							})
+							
+							$("#write").on("click",function(){
+								if($('.note-editable').html()==""){
+									alert("내용을 입력해주세요.");
+								}else if(totalByte <= 11){
+									alert("바이트 수를 확인해주세요.(최소 12bytes)");
+								}else if(totalByte > maxByte){
+									alert("바이트 수를 확인해주세요.(최대 4000bytes)");
+								}else if($("#input-title").val()==""){
+									alert("제목을 입력해주세요.");
+								}else {
+									if(confirm("이대로 입력하시겠습니까?")){
+										$("#frm").submit();										
+									}
+								}
+							})
+						</script>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
 		</div>
-
+			
 		<br>
 
 		<script>
@@ -159,8 +171,6 @@
 				contentType : false,
 				processData: false,
 				success : function(data) {
-					console.log(data.responseCode);
-					console.log(data.url);
 					$(el).summernote('editor.insertImage', data.url); // 게시판에 사진 업로드
 				}
 			});

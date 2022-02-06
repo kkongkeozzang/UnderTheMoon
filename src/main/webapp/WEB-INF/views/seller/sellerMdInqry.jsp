@@ -132,7 +132,7 @@
 		                                    </c:choose>
 	                                        </tr>
 	                                        <div id="popup${mdInqrys.sort_md_question_id }" class="overlay">  <!-- 고객의 상품문의글 조회 -->
-							                    <div class="popup">
+							                    <div class="popup" style="max-height:500px;overflow:auto;">
 							                        <h2>${mdInqrys.md_question_title }</h2>
 							                        <a class="close" href="javascript:history.back()">&times;</a>
 							                        <div class="content" style="text-align:left;">
@@ -144,7 +144,7 @@
 										    <div id="popupResp${mdInqrys.sort_md_question_id }" class="overlay">   <!-- 고객의 상품문의 및 답변글, 수정기능 -->
 											<form action="/seller/updateResp" class="updateFrm">
 											<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-							                    <div class="popup">
+							                    <div class="popup" style="max-height:500px;overflow:auto;">
 							                        <h2>${mdInqrys.md_question_title }</h2>
 							                        <a class="close" href="javascript:history.back()">&times;</a>
 							                        <div class="content" style="text-align:left;">${mdInqrys.md_response_content }</div>

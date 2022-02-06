@@ -4,6 +4,94 @@ body {
 	margin-top: 20px;
 }
 
+.row{
+	margin-right:-5px!important;
+}
+
+.container{
+	margin-top: 50px;
+	max-width:1300px !important;
+}
+
+a{
+	text-decoration:none!important;
+}
+
+#all-grade{
+	background-color:#406882;
+	color:white;
+}
+
+.table thead th{
+	
+	border-bottom:2px solid #406882!important;
+}
+
+.h6, h6{
+	font-size: 1.2rem!important;
+}
+
+.list-group-item:focus, .list-group-item:hover{
+	color:#406882!important;
+}
+
+.purchase-id{
+	height:40px;
+}
+
+#purchase-option{
+	padding-left:30px;
+}
+
+.detail-detail>span{
+	color:#1A374D!important;
+	font-size:20px!important;
+}
+
+#md-detail{
+	background-color:#406882;
+	color:white;
+}
+
+#md-delete{
+	background-color:#406882;
+	color:white;
+}
+
+#modify-profile{
+	background-color:#406882;
+	color:white;
+}
+
+.delete-wish{
+	background-color:#406882;
+	color:white;
+}
+
+.read-review{
+	background-color:#406882;
+	color:white;
+}
+
+.delete-btn{
+	background-color:#406882;
+	color:white;
+}
+
+.wish-purchase-text>a{
+	color:inherit;
+}
+
+.status-box{
+	color:black;
+}
+
+.write-md-review{
+	background-color:#406882;
+	color:white;
+	font-size: 15px;
+}
+
 .card {
 	position: relative;
 	display: flex;
@@ -185,8 +273,8 @@ ul{
 
 }
 
-.navigator > button.btn btn-outline-primary{
-	float:center;
+.navigator>button{
+	margin:auto;
 }
 
 .overlay {

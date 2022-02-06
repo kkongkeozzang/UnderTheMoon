@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>월하합작 - 전국 8도 명주를 찾아서</title>
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
@@ -290,7 +290,7 @@
 			      return false;
 			     }
 		
-		let regexMail = /^[a-zA-Z\d]{1,15}@[a-z]{1,15}(.com)|(.net)|(.co.kr)$/;
+		let regexMail = /^[a-zA-Z\d]{1,15}@[a-z]{1,15}(\.com)|(\.net)|(\.co.kr)$/;
 		let resultMail = regexMail.test($("#member-email").val());
 			if(resultMail == false){
 			    alert("이메일을 다시 확인해주세요")
@@ -339,9 +339,9 @@
 		     if(resultPhone == false){
 		         alert("휴대폰 번호는 필수 입력사항입니다.")
 		         return false;
-		     }
+		     }		     
+
 		     
-		
 		let regexAddress1 = /^[가-힣\d]{1,}/;
 		let resultAddress1 = regexAddress1.test($("#roadAddress").val());
 		     if(resultAddress1 == false){
@@ -362,7 +362,7 @@
 		    	 alert("휴대폰 인증을 진행해주세요.")
 		    	 return false;
 		    	 }
-		    	 return true;
+		    	 
 		     }
 		     
 
@@ -379,6 +379,7 @@
 			alert("약관 동의가 되어야 가입이 가능합니다.")
 			return false;
 		}
+		
 	})
 	
 	document.getElementById("addressSearch").onclick = function(){

@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>월하합작 - 전국 8도 명주를 찾아서</title>
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css"
@@ -66,7 +66,7 @@
 									<div class="purchase-unit row">
 										<%-- <div class="col-sm-12" id="purchase-name"><a href="/md/detail/page?md_id=${purchaseList.md_id }">${purchaseList.md_name }</a>											
 											<hr> --%>
-										<div>
+										<div class="purchase-id">
 											주문번호: <span>${purchaseList.purchase_id}</span>
 										</div>										
 										<%-- <div class="col-sm-2" id="purchase-img">${purchaseList.purchase_id} 
@@ -79,16 +79,26 @@
 												<li>결제 금액 : <fmt:formatNumber value="${purchaseList.purchase_payment }" type="number"/> 원</li>
 											</ul>
 										</div>
-										<div class="option col-sm-3" id="purchase-option">
+										<div class="option col-sm-5" id="purchase-option" align="center">
 											<input type="hidden" class="purchase_id" name="purchase_id" value="${purchaseList.purchase_id}">
 											<input type="hidden" class="receipt_id" name="receipt_id" value="${purchaseList.receipt_id}">
-											<a href="/mypage/myPagePurchaseDetail?cPage=1&purchase_id=${purchaseList.purchase_id }"><button type="button" class="btn btn-light">상세보기</button></a><br>
+											<a href="/mypage/myPagePurchaseDetail?cPage=1&purchase_id=${purchaseList.purchase_id }"><button type="button" class="btn btn-light" id="md-detail">상세보기</button></a><br>
 											<button type="button" class="cancel btn btn-light" id="md-delete">주문취소</button><br>
 										</div>
 									</div>
+																			<table class="table">
+										<thead>
+											<tr>
+												<th class="name truncate" colspan=4>  
+                                                   </th>
+											</tr>
+										</thead>										
+										<tbody>														
+										</tbody>
+									</table>
 									<br>									
 									</c:forEach>
-									<div class="navigator" style="margin:auto; display:block;">
+									<div class="navigator" align="center">
 									${pageNavi}
 									</div>																									
 							</div>						

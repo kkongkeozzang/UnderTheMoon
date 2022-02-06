@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Under The Moon</title>
+<title>월하합작 - 전국 8도 명주를 찾아서</title>
 
 <!--CSS 파일-->
 <link  rel="stylesheet" href="/resources/home/css/home.css">

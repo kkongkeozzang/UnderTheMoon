@@ -12,7 +12,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kh.spring.dto.CouponDTO;
@@ -218,26 +217,18 @@ public class MyPageController {
 		return "/mypage/myPageModifyProfile";
 	}
 	
-	@RequestMapping("myPageCheckPassword")
-	public String myPageCheckPassword(Model model, @RequestParam(value = "member_password", required=false, defaultValue="") 
-	String member_password) throws Exception{
+	@ResponseBody
+	@RequestMapping(value="myPageCheckPassword", produces="text/html;charset=utf8")
+	public String myPageCheckPassword(Model model, String member_password) throws Exception{
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal(); 
         String username = ((UserDetails)principal).getUsername();
 		MemberDTO memberDTO = memberService.selectByUsername(username);
 		String password = memberDTO.getMember_password();
 		boolean result = bCrptPasswordEncoder.matches(member_password, password);
 		if(result == true) {
-			model.addAttribute("memberDTO",memberDTO);
-			return "/mypage/myPageModifyProfileDetail";
+			return String.valueOf(1);
 		}else {
-			int pointSum = pointService.selectPointById(username).get();
-			int couponSum = couponService.selectCouponPossibleById(memberDTO.getMember_id());
-			model.addAttribute("memberDTO",memberDTO);
-			model.addAttribute("pointSum",pointSum);
-			model.addAttribute("couponSum", couponSum);
-			ScriptUtils.alert(response, "비밀번호가 올바르지않습니다");
-
-			return "/mypage/myPageModifyProfile";
+			return String.valueOf(0);
 		}
 	}
 	
@@ -257,29 +248,6 @@ public class MyPageController {
 		
 		return "/mypage/myPageModifyProfile";
 	}
-
-	// 리뷰작성 컨트롤러
-//	@RequestMapping("writeReview")
-//	public String writeReview(Model model) {
-//		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal(); 
-//        String username = ((UserDetails)principal).getUsername();
-//		MemberDTO memberDTO = memberService.selectByUsername(username);
-//		int pointSum = pointService.selectPointById(username).get();
-//		int couponSum = couponService.selectCouponPossibleById(memberDTO.getMember_id());
-//		
-//		int md_id = Integer.parseInt(request.getParameter(id));
-//		int md_id = (int) model.getAttribute("md_id");
-//		System.out.println(md_id);
-//		List<MdDTO> mdDTO = mdService.selectMdById(md_id);
-//		
-//		model.addAttribute("memberDTO",memberDTO);
-//		model.addAttribute("pointSum",pointSum);
-//		model.addAttribute("couponSum", couponSum);
-//		model.addAttribute("mdDTO",mdDTO);
-//		
-//		return "/mypage/myPageWriteReview";
-//	}
-	
 
 	@RequestMapping("myPageMdReview")
 	public String myPageReview(Model model, int cPage) throws Exception{
@@ -429,5 +397,30 @@ public class MyPageController {
 	public String khCollaborationCheck(String member_id) {
 		int result = pointService.selectByIdandCheckKhEvent(member_id);
 		return String.valueOf(result);
+	}
+	
+	@RequestMapping("goModify")
+	public String goModify(Model model) {
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal(); 
+        String username = ((UserDetails)principal).getUsername();
+		MemberDTO memberDTO = memberService.selectByUsername(username);
+		
+		model.addAttribute("memberDTO",memberDTO);
+		
+		return "/mypage/myPageModifyProfileDetail";
+	}
+	
+	@RequestMapping("failModify")
+	public String failModify(Model model) throws Exception {
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal(); 
+        String username = ((UserDetails)principal).getUsername();
+		MemberDTO memberDTO = memberService.selectByUsername(username);
+		int pointSum = pointService.selectPointById(username).get();
+		int couponSum = couponService.selectCouponPossibleById(memberDTO.getMember_id());
+		model.addAttribute("memberDTO",memberDTO);
+		model.addAttribute("pointSum",pointSum);
+		model.addAttribute("couponSum", couponSum);
+		
+		return "/mypage/myPageModifyProfile";
 	}
 }

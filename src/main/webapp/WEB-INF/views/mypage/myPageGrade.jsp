@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>월하합작 - 전국 8도 명주를 찾아서</title>
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css"
@@ -57,8 +57,18 @@
 								<div class="card shadow-none border radius-15">
 									<div class="card-body" align=center>
 										<div class="d-flex">
-											<div class="fm-icon-box radius-15 bg-primary text-white icon-box">
-												<i class="fa fa-address-card-o fa-2x" aria-hidden="true"></i>
+											<div class="fm-icon-box radius-15 text-white icon-box" style="background-color:#1A374D">
+											<c:choose>
+												<c:when test="${memberDTO.grade_name == '별'}">
+												<img src="/resources/mypage/img/별.jpg" style="width:75px; height:75px;">
+												</c:when>
+												<c:when test="${memberDTO.grade_name == '달'}">
+												<img src="/resources/mypage/img/달.jpg" style="width:75px; height:75px;">
+												</c:when>
+												<c:when test="${memberDTO.grade_name == '해'}">
+												<img src="/resources/mypage/img/해.jpg" style="width:75px; height:75px;">
+												</c:when> 
+											</c:choose>
 											</div>
 											<div class="detail">
 												<h6 class="detail-title">나의 현재 등급</h6>

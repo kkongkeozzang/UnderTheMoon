@@ -43,6 +43,7 @@ body {
 	font-weight: normal;
 	font-size: 14px;
 	line-height: 2;
+	padding-left:12px!important;
 }
 .signup-form input[type="checkbox"] {
 	position: relative;

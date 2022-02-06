@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>월하합작 - 전국 8도 명주를 찾아서</title>
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css"
@@ -91,13 +91,13 @@
 											</c:forEach>														
 										</tbody>
 									</table>
-									<div>
+									<div style="display:inline-block">
 									<span style="float:right;">
 									이벤트 코드 입력: <input type="text" id="event-code" name="event_code">
 									<button type="button" class='btn btn-outline-primary' id="event-button" style="background-color:#406882;color:white;">입력</button>
 									</span>	
 									</div>
-									<div class="navigator" style="margin:auto; display:block;">
+									<div class="navigator" align="center">
 									${pageNavi}
 									</div>							
 								</div>

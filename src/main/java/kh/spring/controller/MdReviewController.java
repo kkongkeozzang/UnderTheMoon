@@ -14,25 +14,4 @@ import kh.spring.service.MemberService;
 @RequestMapping("/md/detail/review/")
 public class MdReviewController {
 	
-//	private final MemberService memberService;
-//	private final MdReviewService mdReviewService;
-//	
-//	public MdReviewController(MemberService memberService, MdReviewService mdReviewService) {
-//		this.memberService = memberService;
-//		this.mdReviewService = mdReviewService;
-//	}
-//	
-//	@RequestMapping("write")
-//	public String insert(MdReviewDTO mdReview, String md_id) {
-//		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal(); 
-//        String username = ((UserDetails)principal).getUsername();
-//		int member_id = memberService.selectIdByUsername(username);
-//		mdReview.setMember_id(String.valueOf(member_id));
-//		System.out.println(mdReview.getMd_id());
-//		System.out.println(mdReview.getMd_review_title());
-//		System.out.println(mdReview.getMember_id());
-//		System.out.println(mdReview.getMd_review_content());
-//		int result = mdReviewService.insertMdReview(mdReview);
-//		return "redirect:/mypage/myPageAfterMdReview?cPage=1";
-//	}
 }

@@ -124,7 +124,7 @@
 			if(resp == "1"){
 				alert("이미 이벤트에 참여하셨습니다.")
 			}else{
-				if($("#event-code").val() == "test"){
+				if($("#event-code").val() == "ThankyouJoe"){
 					$.ajax({
 						type:"post",
 						url:"/mypage/khCollaboration",

@@ -286,7 +286,7 @@
 													})
 												})
 											</script>
-											<div id="page-box">${pageNavi }</div>
+											<div id="page-box" align="center">${pageNavi }</div>
 										</div>
 										</div>
 									</div>

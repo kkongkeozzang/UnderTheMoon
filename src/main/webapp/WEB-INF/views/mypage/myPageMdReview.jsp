@@ -182,11 +182,11 @@
 														<span class=status>배송완료</span>
 													</div>
 													<div class="btn-box">
-														<button class="write-md-review" style="font-size: 15px">후기작성</button>
+														<button class="write-md-review">후기작성</button>
 													</div>
 												</div>
 											</c:forEach>
-											<div id="page-box">${pageNavi }</div>
+											<div id="page-box" align="center">${pageNavi }</div>
 										</div>
 										</div>
 									</div>

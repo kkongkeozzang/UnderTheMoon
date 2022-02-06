@@ -44,15 +44,19 @@
 <script src="/resources/mypage/js/myPageReviewWrite.js"></script>
 
 <style> 
-
+html {
+	font-size:16px !important;
+}
 #tableHead{
     background-color: #406882;
 }
-
+#navi .gnb_search {
+    top: 16px !important;
+}
 
 /*버튼 관련 */
 
-.btn {
+.myPageReviewWrite .btn {
   display: inline-block;
   padding: 6px 12px;
   margin-bottom: 0;
@@ -73,22 +77,22 @@
   padding: 10px 16px;
 }
   
-.btn-lg {
+.myPageReviewWrite .btn-lg {
   font-size: 18px;
   line-height: 1.33;
   border-radius: 6px;
 }
 
-.btn-primary {
+.myPageReviewWrite .btn-primary {
   color: #fff;
   background-color: #1A374D;
   border-color: #1A374D;
 }
 
-.btn-primary:hover,
-.btn-primary:focus,
-.btn-primary:active,
-.btn-primary.active,
+.myPageReviewWrite .btn-primary:hover,
+.myPageReviewWrite .btn-primary:focus,
+.myPageReviewWrite .btn-primary:active,
+.myPageReviewWrite .btn-primary.active,
 .open .dropdown-toggle.btn-primary {
   color: #fff;
   background-color: #1A374D;
@@ -106,34 +110,35 @@
   CUSTON BTN VALUES
 ************************/
 
-.btn {
+.myPageReviewWrite .btn {
   padding: 14px 24px;
   border: 0 none;
   font-weight: 700;
   letter-spacing: 1px;
   text-transform: uppercase;
 }
-.btn:focus, .btn:active:focus, .btn.active:focus {
+.myPageReviewWrite .btn:focus, .myPageReviewWrite .btn:active:focus, .myPageReviewWrite .btn.active:focus {
   outline: 0 none;
 }
 
-.btn-primary {
+.myPageReviewWrite .btn-primary {
   background: #406882;
   color: #ffffff;
 }
-.btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open > .dropdown-toggle.btn-primary {
+.myPageReviewWrite .btn-primary:hover, .myPageReviewWrite .btn-primary:focus, .myPageReviewWrite .btn-primary:active, .myPageReviewWrite .btn-primary.active, .open > .myPageReviewWrite .dropdown-toggle.btn-primary {
   background: #1A374D;
 }
-.btn-primary:active, .btn-primary.active {
+.myPageReviewWrite .btn-primary:active, .myPageReviewWrite .btn-primary.active {
   background: #1A374D;
   box-shadow: none;
 }
 
-textarea {
+.myPageReviewWrite textarea {
     width: 100%;
-    height: 6.25em;
-    border: none;
+    height:auto;
     resize: none;
+    border: 1px solid #ced4da;
+    overflow:auto !important;
   }
   
 #tableHead{
@@ -286,9 +291,7 @@ $(function(){
 <body>
 
 
-	<div class="container">
-	<div class="row" id="header">
-		</div>
+	<div class="container myPageReviewWrite">
         <div class="row">
             <div class="col-12">
                 <div class="card">
@@ -400,3 +403,4 @@ $(function(){
 </div>
 </body>
 </html>
+<jsp:include page="/WEB-INF/views/homeFooter.jsp"></jsp:include>

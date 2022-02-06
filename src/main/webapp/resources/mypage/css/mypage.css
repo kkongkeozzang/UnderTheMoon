@@ -13,6 +13,10 @@ body {
 	max-width:1300px !important;
 }
 
+a{
+	text-decoration:none!important;
+}
+
 #all-grade{
 	background-color:#406882;
 	color:white;
@@ -64,13 +68,28 @@ body {
 	color:white;
 }
 
+.read-review{
+	background-color:#406882;
+	color:white;
+}
+
+.delete-btn{
+	background-color:#406882;
+	color:white;
+}
+
 .wish-purchase-text>a{
 	color:inherit;
 }
 
 .status-box{
+	color:black;
+}
+
+.write-md-review{
 	background-color:#406882;
 	color:white;
+	font-size: 15px;
 }
 
 .card {

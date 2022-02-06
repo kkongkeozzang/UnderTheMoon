@@ -160,7 +160,7 @@
 												  	</div>
 												  </div>
 											  </c:forEach>
-											<div id="page-box">${pageNavi }</div>
+											<div id="page-box" style="text-align:center">${pageNavi }</div>
 										</div>
 
 										<div id="fragment-4">

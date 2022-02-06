@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>월하합작 - 전국 8도 명주를 찾아서</title>
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css"
@@ -120,7 +120,7 @@
 										<div class="d-flex">
 
 											<div class="detail">
-												<h6 class="detail-title"><a href="/mypage/myPagePoint">적립금 ></a></h6>
+												<h6 class="detail-title"><a href="/mypage/myPagePoint?cPage=1">적립금 ></a></h6>
 												<p class="detail-detail"><span><fmt:formatNumber value="${pointSum}" type="number"/> 원</span></p>
 											</div>
 										</div>
@@ -286,7 +286,7 @@
 													})
 												})
 											</script>
-											<div id="page-box">${pageNavi }</div>
+											<div id="page-box" align="center">${pageNavi }</div>
 										</div>
 										</div>
 									</div>

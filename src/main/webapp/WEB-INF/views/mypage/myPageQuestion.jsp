@@ -146,17 +146,17 @@
 										<tbody>
 											<c:forEach var="MdInqryDTO" items="${mdInqryList }">
 											<tr>												
-												<td class="grade-list" style="text-align:center" ><a href="#popup${MdInqryDTO.sort_md_question_id}">${MdInqryDTO.md_question_title}</a>
+												<td class="grade-list" style="text-align:center" ><a href="#popup${MdInqryDTO.sort_md_question_id}" style="color:inherit;">${MdInqryDTO.md_question_title}</a>
 												<input type="hidden" class="md_inqry_id" value="${MdInqryDTO.sort_md_question_id }">
 												</td>
 												<td class="grade-list" style="text-align:center"><fmt:formatDate value = "${MdInqryDTO.md_question_write_date}"  type="date" dateStyle="full"/></td>
-												<td class="grade-list" style="text-align:center">${MdInqryDTO.md_question_reply_yn}<button class="delete-btn" style="margin-left: 10px;">문의삭제</button></td>				
+												<td class="grade-list" style="text-align:center">${MdInqryDTO.md_question_reply_yn}<button class="delete-btn" style="margin-left: 10px; background-color:#406882; color:white;">문의삭제</button></td>				
 											</tr>
 											
 											</c:forEach>														
 										</tbody>
 									</table>
-									<div class="navigator" style="margin:auto; display:block;">
+									<div class="navigator" align="center">
 									${pageNavi}
 									</div>		
 									<script>

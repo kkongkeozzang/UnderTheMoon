@@ -429,10 +429,8 @@ function getPage(pageNavi, select, sort) {
 										<c:otherwise>
 										<button type="button" class="btn_pick pick_icon_button" ></button>
 										<button type="button" id="cart" class=" btn btn-success btn-lg" name="submit" value="addtocard">장바구니 담기</button>
-										</c:otherwise>										
-										</c:choose>
 										<script>
-										$(".pick_icon_button").on("click", function(){
+                                    	$(".pick_icon_button").on("click", function(){
                                     		$(this).toggleClass("on");
                                     		if($(this).hasClass("on")){
                                     		$.ajax({
@@ -454,14 +452,15 @@ function getPage(pageNavi, select, sort) {
                                         		     })
                                     		}
                                     	})
-										</script>
+                                        </script> 
+										</c:otherwise>										
+										</c:choose>										
 									</sec:authorize>
-                                        <script>
-                                        $("#login-cart").on("click",function(){
-                                        	location.href="/login";
-                                        })
-                                        </script>
-									                                                                           
+									<script>
+										$("#login-cart").on("click",function(){
+                                        location.href="/login";
+                                     	})
+									</script>  									                                                                        
                                     </div>
                                 </div>
                             </form>

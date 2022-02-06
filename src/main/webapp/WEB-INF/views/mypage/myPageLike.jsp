@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>월하합작 - 전국 8도 명주를 찾아서</title>
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css"
@@ -67,35 +67,22 @@
 									<div class="md-box">
                                    <div class="img-box"><div class="img-box2"><img src="/mdImage/${wishDTO.md_image }"></div></div>
                                    <div class="detail-box">
-                                   	<input type="hidden" id="wish_id" name="wish_id" value="${wishDTO.wish_id }">
+                                   	<input type="hidden" class="wish-id" id="wish_id" name="wish_id" value="${wishDTO.wish_id }">
                                    	<input type="hidden" id="md_id" name="md_id" value="${wishDTO.md_id }">                                   	
                                    	<input type="hidden" id="cart_item_count" name="cart_item_count" value="1">
-                                      <div><a href="/md/detail/page?md_id=${wishDTO.md_id}">상품이름 : ${wishDTO.wish_item }</a></div>
-                                      <div><a href="/md/detail/page?md_id=${wishDTO.md_id}">가격 : <fmt:formatNumber value="${wishDTO.wish_price }" type="number"/> 원</a></div>                                      
+                                      <div class="wish-purchase-text"><a href="/md/detail/page?md_id=${wishDTO.md_id}">상품이름 : ${wishDTO.wish_item }</a></div>
+                                      <div class="wish-purchase-text"><a href="/md/detail/page?md_id=${wishDTO.md_id}">가격 : <fmt:formatNumber value="${wishDTO.wish_price }" type="number"/> 원</a></div>                                      
                                       <div>
                                          <span>찜한 날짜 :  <fmt:formatDate value = "${wishDTO.wish_date }"  type="date" dateStyle="full"/></span>
                                       </div>
                                    </div>
                                    <div class="btn-box">
-                                      <button class="delete-wish">삭제 </button>
-                                      <script>
-                                      $("body").on("click",".delete-wish",function(){
-                                      		$.ajax({
-                                      			type: "post",
-                                      			url:"/md/detail/deleteWishMd",
-                                      			data:{
-                                      				wish_id:$("#wish_id").val()
-                                      			}
-                                      		})
-                                      		$(this).closest(".md-box").remove();
-                                      		})                                                                          		
-                                      </script>
-                                      
+                                      <button class="delete-wish">삭제 </button>                                  
                                    </div>
                                 </div>
 									<br>
-									</c:forEach>
-									<div class="navigator" style="margin:auto; display:block;">
+									</c:forEach>									
+									<div class="navigator" align="center">
 									${pageNavi}
 									</div>																									
 							</div>						
@@ -111,6 +98,16 @@
 	$("#all-grade").on("click",function(){
 		location="/mypage/myPageGrade"
 	})
+
+     $("body").on("click",".delete-wish",function(){
+        $.ajax({
+           type: "post",
+           url:"/md/detail/deleteWishMd",
+           data:{wish_id:$(this).closest(".md-box").find(".wish-id").val()}
+        })
+        	$(this).closest(".md-box").remove();
+     })                                                                          		
+ 
 </script>
 </body>
 </html>

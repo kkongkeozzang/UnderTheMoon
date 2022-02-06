@@ -128,13 +128,18 @@ private final MemberService memberService;
 	
 	@ResponseBody
 	@RequestMapping(value="deleteWishMd", produces="text/html;charset=utf8")
-	public void deleteWishMd(int wish_id) {
+	public String deleteWishMd(int wish_id) {
 		wishService.deleteMdWish(wish_id);
+		
+		return String.valueOf(1);
 	}
 	
 	@ResponseBody
 	@RequestMapping(value="cancelWishMd", produces="text/html;charset=utf8")
 	public void cancelWishMd(String md_id) {
-		wishService.deleteByMdIdWish(md_id);
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal(); 
+        String username = ((UserDetails)principal).getUsername();
+		MemberDTO memberDTO = memberService.selectByUsername(username);
+		wishService.deleteByMdIdWish(md_id, memberDTO.getMember_id());
 	}
 }

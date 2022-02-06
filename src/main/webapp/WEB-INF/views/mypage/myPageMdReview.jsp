@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>월하합작 - 전국 8도 명주를 찾아서</title>
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css"
@@ -48,7 +48,7 @@
 									<div class="card-body" align=center>
 										<div class="d-flex">										
 											<div class="detail">
-                                                <h6 class="detail-title-one">${memberDTO.member_username }회원님</h6>
+                                                <h6 class="detail-title-one">${memberDTO.member_name } 회원님</h6>
 												<button type="button" class="btn btn-light" id="all-grade">나의등급 보기</button>
 												<input type="hidden" name="member_id" value="${memberDTO.member_id }">
 											</div>
@@ -62,7 +62,7 @@
 										<div class="d-flex">
 
 											<div class="detail">
-												<h6 class="detail-title"><a href="/mypage/myPagePoint">적립금 ></a></h6>
+												<h6 class="detail-title"><a href="/mypage/myPagePoint?cPage=1">적립금 ></a></h6>
 												<p class="detail-detail"><span><fmt:formatNumber value="${pointSum}" type="number"/> 원</span></p>
 											</div>
 										</div>
@@ -182,11 +182,11 @@
 														<span class=status>배송완료</span>
 													</div>
 													<div class="btn-box">
-														<button class="write-md-review" style="font-size: 15px">후기작성</button>
+														<button class="write-md-review">후기작성</button>
 													</div>
 												</div>
 											</c:forEach>
-											<div id="page-box">${pageNavi }</div>
+											<div id="page-box" align="center">${pageNavi }</div>
 										</div>
 										</div>
 									</div>

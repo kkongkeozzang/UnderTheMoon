@@ -103,11 +103,9 @@
         $.ajax({
            type: "post",
            url:"/md/detail/deleteWishMd",
-           data:{wish_id:$(".wish-id").val()}
+           data:{wish_id:$(this).closest(".md-box").find(".wish-id").val()}
         })
-        if(confirm("삭제하시겠습니까?")){
         	$(this).closest(".md-box").remove();
-        }
      })                                                                          		
  
 </script>

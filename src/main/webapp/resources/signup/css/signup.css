@@ -133,3 +133,9 @@ body {
     width: 70%;
   }
 }
+
+
+
+#idCheckResult, #idCheckResult2, #pwCondition1, #pwCondition2, #pwConfirm, #birthday-Condition1, #birthday-Condition2 {
+font-size:14px;
+}

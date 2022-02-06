@@ -10,6 +10,7 @@ body {
 
 .container{
 	margin-top: 50px;
+	max-width:1300px !important;
 }
 
 #all-grade{

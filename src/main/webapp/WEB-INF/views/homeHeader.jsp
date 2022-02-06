@@ -25,17 +25,17 @@
 <div id="topBar">
     <ul>
 			<sec:authorize access="isAuthenticated()">
-				<li><a href="/logout" id="sign">로그아웃</a> </li>
+				<li><a id="sign" href="/logout">로그아웃</a> </li>
 			</sec:authorize>
 			<sec:authorize access="isAnonymous()">
-				 <li><a href="/signup" >회원가입</a></li>
-				 <li><a href="/login" id="sign">로그인</a> </li>
+				 <li><a id="sign" href="/signup" >회원가입</a></li>
+				 <li><a id="sign" href="/login">로그인</a> </li>
 			</sec:authorize>
 			<sec:authorize access="hasRole('ROLE_ADMIN')">
-				<li><a href="/admin/adminOffice" >관리자페이지</a> </li>
+				<li><a id="sign" href="/admin/adminOffice" >관리자페이지</a> </li>
 			</sec:authorize>
 			<sec:authorize access="hasRole('ROLE_SELLER')">
-				<li><a href="/seller/sellerOffice" >판매자페이지</a> </li>
+				<li><a id="sign" href="/seller/sellerOffice" >판매자페이지</a> </li>
 			</sec:authorize>
 						
        <div class="dropdown">
@@ -57,7 +57,7 @@
 <div id="mainLogo">
 <h1>
 <a href="/">
-<img src="/resources/home/img/logo.png" alt="월하합작 로고" >
+<img src="/resources/home/img/logo.png" id="logo" alt="월하합작 로고" >
 
 </a>
 </h1>

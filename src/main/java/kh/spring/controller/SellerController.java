@@ -236,6 +236,7 @@ public class SellerController {
 	
 	@RequestMapping("updateResp")
 	public String updateResp(MdInqryDTO inqrys) throws Exception {
+		inqrys.setMd_response_content(inqrys.getMd_response_content().replace("\r\n","<br>"));
 		int result = mdInqryService.updateResp(inqrys);
 	    return "redirect:/seller/mdInqry";
 	}

@@ -349,7 +349,7 @@
 		         return false;
 		     }
 		     
-		     let regexChecknumber =  /\d{4}/;;
+		     let regexChecknumber =  /\d{4}/;
 		     resultChecknumber = regexChecknumber.test($("#member-confirm-phone").val());
 		     if(resultChecknumber == false){
 		     alert("휴대폰 인증을 진행해주세요.")
@@ -413,7 +413,7 @@
    
   
    
-   //인증확인 버튼을 누를 경우
+   //2.인증확인 버튼을 누를 경우
    $(function(){
       $("#member-confirm-check").on("click", function(){   
          $.ajax({
@@ -436,7 +436,7 @@
       })
    })   
    
-   //인증받기 버튼을 누를경우
+   //1. 인증받기 버튼을 누를경우
    $("#member-confirm-send").on("click", function(){
 		let regexPhone = /^010\d{4}\d{4}$/;
 		let resultPhone = regexPhone.test($("#member-phone").val());

@@ -30,7 +30,7 @@
 </select>
 
 <select id="selectAll" resultType="kh.spring.dto.QnaResponseDTO">
-	select * from qa_response  A order by A.qa_question_id asc
+	select * from qa_response  A order by A.qa_question_id asc 
 </select> 
 
 

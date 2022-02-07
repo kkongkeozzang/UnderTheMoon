@@ -90,29 +90,38 @@
 </div>
 
  
-<div class="row justify-content-md-center">
+<div class="row justify-content-md-center main-md">
 	<div class="col-2  ">
 	</div>
 	<div class=" col-2">
-                <a href="#">
-                    <img class="hover:grow hover:shadow-lg" src="https://images.unsplash.com/photo-1555982105-d25af4182e4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&h=400&q=80">
+                <a href="/md/detail/page?md_id=60">
+                    <img class="hover:grow hover:shadow-lg" src="/resources/home/img/main-md-1.png">
+                    <p class="pt-3" style="text-align:center; text-decoration:none !important" id="main-md-name">서울의 밤</p>
+                    <p class="pt-1" style="text-align:center; text-decoration:none !important" id="main-md-price">7,500원</p>
+               
                 </a>
             </div>
 	<div class=" col-2">
-                <a href="#">
-                    <img class="hover:grow hover:shadow-lg" src="https://images.unsplash.com/photo-1555982105-d25af4182e4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&h=400&q=80">
+                <a href="/md/detail/page?md_id=17">
+                    <img class="hover:grow hover:shadow-lg" src="/resources/home/img/main-md-2.png">
+                 <p class="pt-3" style="text-align:center; text-decoration:none !important" id="main-md-name">문희 오미자</p>
+                 <p class="pt-1" style="text-align:center; text-decoration:none !important" id="main-md-price">21,000원</p>
                 </a>
 	</div>
 	<div class=" col-2">
-                <a href="#">
-                    <img class="hover:grow hover:shadow-lg" src="https://images.unsplash.com/photo-1555982105-d25af4182e4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&h=400&q=80">
+                <a href="/md/detail/page?md_id=6">
+                    <img class="hover:grow hover:shadow-lg" src="/resources/home/img/main-md-3.png">
+                 <p class="pt-3" style="text-align:center; text-decoration:none !important" id="main-md-name">추사 애플와인</p>
+                 <p class="pt-1" style="text-align:center; text-decoration:none !important" id="main-md-price">20,000원</p>
                 </a>
 	</div>
 	<div class="
 	
 	 col-2">
-                <a href="#">
-                    <img class="hover:grow hover:shadow-lg" src="https://images.unsplash.com/photo-1555982105-d25af4182e4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&h=400&q=80">
+                <a href="/md/detail/page?md_id=29">
+                    <img class="hover:grow hover:shadow-lg" src="/resources/home/img/main-md-4.png">
+                 <p class="pt-3" style="text-align:center; text-decoration:none !important" id="main-md-name">홍삼 인삼주</p>
+                 <p class="pt-1" style="text-align:center; text-decoration:none !important" id="main-md-price">70,000원</p>
                 </a>
 	</div>	
 	<div class="col-2   ">
@@ -140,10 +149,10 @@
 	</div>
 	<div class="col-2" id="timeattack"> 
 
-<!--  
 <div class="clock-box">
 <div class="clock-clock"></div>
-</div>-->
+</div>
+
 
 	<br><div id="HourCountdown"></div><br>
 
@@ -212,7 +221,7 @@
 	<div class="col-2 ">
 	</div>
 	<div class="col">
-	전국 지역별 전통주
+	전국 지역별 전통주	
 	</div>
 	<div class="col-2">
 	</div>
@@ -242,7 +251,7 @@
     var clusterer = new kakao.maps.MarkerClusterer({
         map: map, // 마커들을 클러스터로 관리하고 표시할 지도 객체
         averageCenter: true, // 클러스터에 포함된 마커들의 평균 위치를 클러스터 마커 위치로 설정
-        minLevel: 10, // 클러스터 할 최소 지도 레벨
+        minLevel: 5, // 클러스터 할 최소 지도 레벨
         disableClickZoom: true // 클러스터 마커를 클릭했을 때 지도가 확대되지 않도록 설정한다
     });
 

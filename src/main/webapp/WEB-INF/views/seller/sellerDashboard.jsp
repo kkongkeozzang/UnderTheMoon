@@ -235,31 +235,31 @@
                                     <h6 class="m-0 font-weight-bold text-primary">인기상품 Top 5</h6>
                                 </div>
                                 <div class="card-body">
-                                    <h4 class="small font-weight-bold">${ranks[0].md_name } <span
+                                    <h4 class="small font-weight-bold">${ranks[0].md_name } (${ranks[0].count}개)<span
                                             class="float-right"><fmt:formatNumber value="${ranks[0].count / total}" pattern="###%"/></span></h4>
                                     <div class="progress mb-4">
                                         <div class="progress-bar bg-danger" role="progressbar" style="width:${ranks[0].count / total * 100}%;"
                                             aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
                                     </div>
-                                    <h4 class="small font-weight-bold">${ranks[1].md_name } <span
+                                    <h4 class="small font-weight-bold">${ranks[1].md_name } (${ranks[1].count}개) <span
                                             class="float-right"><fmt:formatNumber value="${ranks[1].count / total}" pattern="###%"/></span></h4>
                                     <div class="progress mb-4">
                                         <div class="progress-bar bg-warning" role="progressbar" style="width: ${ranks[1].count / total * 100}%;"
                                             aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
                                     </div>
-                                    <h4 class="small font-weight-bold">${ranks[2].md_name } <span
+                                    <h4 class="small font-weight-bold">${ranks[2].md_name } (${ranks[2].count}개) <span
                                             class="float-right"><fmt:formatNumber value="${ranks[2].count / total}" pattern="###%"/></span></h4>
                                     <div class="progress mb-4">
                                         <div class="progress-bar" role="progressbar" style="width: ${ranks[2].count / total * 100}%;"
                                             aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
                                     </div>
-                                    <h4 class="small font-weight-bold">${ranks[3].md_name } <span
+                                    <h4 class="small font-weight-bold">${ranks[3].md_name } (${ranks[3].count}개) <span
                                             class="float-right"><fmt:formatNumber value="${ranks[3].count / total}" pattern="###%"/></span></h4>
                                     <div class="progress mb-4">
                                         <div class="progress-bar bg-info" role="progressbar" style="width: ${ranks[3].count / total * 100}%;"
                                             aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
                                     </div>
-                                    <h4 class="small font-weight-bold">${ranks[4].md_name } <span
+                                    <h4 class="small font-weight-bold">${ranks[4].md_name } (${ranks[4].count}개) <span
                                             class="float-right 5"><fmt:formatNumber value="${ranks[4].count / total}" pattern="###%"/></span></h4>
                                     <div class="progress">
                                         <div class="progress-bar bg-success" role="progressbar" style="width:${ranks[4].count / total * 100}%;"
@@ -328,6 +328,7 @@
 	                    label: '매출액', //차트 제목
 	                    fill: false, // line 형태일 때, 선 안쪽을 채우는지 안채우는지
 	                    data: [
+	                    	0,
 	                    	${months[0].purchase_amount},
 	                    	${months[1].purchase_amount},
 	                    	${months[2].purchase_amount},
@@ -338,8 +339,7 @@
 	                    	${months[7].purchase_amount},
 	                    	${months[8].purchase_amount},
 	                    	${months[9].purchase_amount},
-	                    	${months[10].purchase_amount},
-	                    	${months[11].purchase_amount},
+	                    	${months[10].purchase_amount}
 	                    	//x축 label에 대응되는 데이터 값
 	                    ],
 	                    backgroundColor: [
@@ -378,6 +378,7 @@
 	                    label: '영업이익',
 	                    fill: false,
 	                    data: [
+	                    	0,
 	                    	${months[0].purchase_amount - months[0].purchase_used_point - months[0].purchase_coupon},
 	                    	${months[1].purchase_amount - months[1].purchase_used_point - months[1].purchase_coupon},
 	                    	${months[2].purchase_amount - months[2].purchase_used_point - months[2].purchase_coupon},
@@ -388,8 +389,7 @@
 	                    	${months[7].purchase_amount - months[7].purchase_used_point - months[7].purchase_coupon},
 	                    	${months[8].purchase_amount - months[8].purchase_used_point - months[8].purchase_coupon},
 	                    	${months[9].purchase_amount - months[9].purchase_used_point - months[9].purchase_coupon},
-	                    	${months[10].purchase_amount - months[10].purchase_used_point - months[10].purchase_coupon},
-	                    	${months[11].purchase_amount - months[11].purchase_used_point - months[11].purchase_coupon},
+	                    	${months[10].purchase_amount - months[10].purchase_used_point - months[10].purchase_coupon}
 	                    ],
 	                    backgroundColor: 'rgb(157, 109, 12)',
 	                    borderColor: 'rgb(157, 109, 12)'

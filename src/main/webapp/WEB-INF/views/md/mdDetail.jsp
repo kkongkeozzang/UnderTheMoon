@@ -424,6 +424,30 @@ function getPage(pageNavi, select, sort) {
                                     	<c:choose>
                                     	<c:when test="${wishResult == 1}">
 										<button type="button" class="btn_pick pick_icon_button on" ></button>
+										<script>
+										$(".pick_icon_button.on").on("click", function(){
+											$(this).toggleClass("on off");
+											if($(this).hasClass("off")){
+											$.ajax({
+                                      		  type: 'post',
+                                      		  url:"/md/detail/cancelWishMd",
+                                      		  data: {
+                                      		    md_id: $("#md_id").val()
+                                      		        }
+                                      		     })
+											}else if($(this).hasClass("on")){
+												$.ajax({
+		                                  		  type: 'post',
+		                                  		  url:"/md/detail/wishMd",
+		                                  		  data: {
+		                                  		  	wish_item: $("#wish_item").val(),
+		                                  		  	md_id: $("#md_id").val(),
+		                                  		  	wish_price: $("#wish_price").val()
+		                                  		        }
+		                                  		     })
+											}
+										})
+										</script>
 										<button type="button" id="cart" class=" btn btn-success btn-lg" name="submit" value="addtocard">장바구니 담기</button>
 										</c:when>
 										<c:otherwise>
@@ -447,11 +471,12 @@ function getPage(pageNavi, select, sort) {
                                         		  type: 'post',
                                         		  url:"/md/detail/cancelWishMd",
                                         		  	data: {
-                                        		      md_id: $("#md_id").val(),
+                                        		      md_id: $("#md_id").val()
                                         		        }
                                         		     })
                                     		}
                                     	})
+                                    	
                                         </script> 
 										</c:otherwise>										
 										</c:choose>										

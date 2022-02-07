@@ -212,7 +212,7 @@
 													</div>
 													<div class="detail-box">
 														<div><a href="/md/detail/page?md_id=${md.md_id}">${md.md_name }</a></div>
-														<div><a href="/md/detail/page?md_id=${md.md_id}">${md.md_content }</a></div>
+														<%-- <div><a href="/md/detail/page?md_id=${md.md_id}">${md.md_content }</a></div>--%>
 														<div>
 															<span>${md.purchase_detail_price}원</span><span>${md.purchase_detail_quantity}개</span>
 														</div>

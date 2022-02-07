@@ -147,7 +147,7 @@
 							                        <h2>${mdInqrys.md_question_title }</h2>
 							                        <a class="close" href="javascript:history.back()">&times;</a>
 							                        <div class="content" style="text-align:left;">${mdInqrys.md_response_content }</div>
-							                        <input type=text name="sort_md_question_id" value="${mdInqrys.sort_md_question_id }">
+							                        <input type=hidden name="sort_md_question_id" value="${mdInqrys.sort_md_question_id }">
 							                        <div class="updateResp" style="display:none;">
 							                        	<textarea style="width:100%;" rows=10 class="md_response_content" name="md_response_content" maxLength=900>${mdInqrys.md_response_content }</textarea>
 							                        </div>
@@ -162,7 +162,6 @@
 					                                        <span class="icon text-white-50">
 					                                            <i class="fas fa-exclamation-triangle"></i>
 					                                        </span>
-<!-- 					                                        <span class="text">수정</span> -->
 					                                        <button type=button class="btn btn-warning respUp">수정</button>
 					                                    </a>
 					                                    <a class="btn btn-danger btn-icon-split respUpdateCancel" style="display:none;">

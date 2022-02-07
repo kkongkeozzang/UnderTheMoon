@@ -48,15 +48,65 @@ color: #406882;
 	    
 font-weight: bold;
 	
-font-size: 18px;
+font-size: 20px;
 	                
- width:100%
 	
 }
 	            
 #timeattack{
-padding-top:50px;
 }
+
+ /*time attack clock*/
+       /* animation-icon 공통 디자인 */
+      /* .clock-box{display: inline-block; 
+            background-color: transparent;
+             position: relative;
+        }*/
+        /* clock 원 디자인 */
+        .clock-clock{
+            width: 80px; height: 80px;
+            border: 3px solid  #406882; border-radius: 50%; /* 정원 */
+            position: relative;
+            top: 57px; left: 57px; /* 박스 안에서 가운데 위치 */
+        }
+        /* 시계의 긴 바늘 */
+        .clock-clock:after{
+            content: "";
+            width: 4px; height: 38px;
+            border-radius: 5px;
+            background: #406882;
+            position: absolute;
+            top: 3px; left: 48%;
+            transform-origin: 50% 97%;
+            animation: clocka 2s linear infinite;
+        }
+        @keyframes clocka{
+            0%{transform: rotate(0deg);}
+            100%{transform: rotate(360deg);}
+        }
+        /* 시계의 짧은 바늘 */
+        .clock-clock:before{
+            content: "";
+            width: 4px; height: 35px;
+            border-radius: 5px;
+            background:  #406882;
+            position: absolute;
+            top: 7px; left: 48%;
+            transform-origin: 50% 94%;
+            animation: clockb 12s linear infinite;
+        }
+        @keyframes clockb{
+            0%{transform: rotate(0deg);}
+            100%{transform: rotate(360deg);}
+        }
+        
+        @keyframes hourglass{
+            0%{transform: rotate(0deg);}
+            100%{transform: rotate(180deg)}
+        }
+
+
+
 
 
 /*body-map*/

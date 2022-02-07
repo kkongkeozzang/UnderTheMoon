@@ -41,4 +41,6 @@ public class QnaResponseService {
 		return qnaResponseDAO.selectResponseContent(dto);
 	}
 	
+	
+	
 }

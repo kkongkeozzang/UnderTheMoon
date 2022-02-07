@@ -322,10 +322,6 @@ ul{
 .popup .close:hover {
   color: #06D85F;
 }
-.popup .content {
-  max-height: 30%;
-  overflow: auto;
-}
 
 @media screen and (max-width: 700px){
   .box{
@@ -418,4 +414,9 @@ ul{
 .footer-bs{
 	
 	bottom:5000px;
+}
+
+.popup .content img {
+	max-width:80%;
+	height:auto;
 }

@@ -34,6 +34,10 @@
     <sec:authentication property="principal" var="principal"/>
 </sec:authorize>
 <style>
+.review-content-div img{
+	max-width: 80%;
+	height:auto;
+}
 #tabs {
 	font-size:18px !important;
 	font-family: 'Roboto', sans-serif !important;

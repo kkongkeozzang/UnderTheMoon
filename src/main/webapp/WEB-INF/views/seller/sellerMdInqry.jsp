@@ -132,7 +132,7 @@
 		                                    </c:choose>
 	                                        </tr>
 	                                        <div id="popup${mdInqrys.sort_md_question_id }" class="overlay">  <!-- 고객의 상품문의글 조회 -->
-							                    <div class="popup">
+							                    <div class="popup" style="max-height:500px;overflow:auto;">
 							                        <h2>${mdInqrys.md_question_title }</h2>
 							                        <a class="close" href="javascript:history.back()">&times;</a>
 							                        <div class="content" style="text-align:left;">
@@ -142,18 +142,15 @@
 							                    </div>
 										    </div>
 										    <div id="popupResp${mdInqrys.sort_md_question_id }" class="overlay">   <!-- 고객의 상품문의 및 답변글, 수정기능 -->
-							                    <div class="popup">
+											<form action="/seller/updateResp" class="updateFrm">
+											<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+							                    <div class="popup" style="max-height:500px;overflow:auto;">
 							                        <h2>${mdInqrys.md_question_title }</h2>
 							                        <a class="close" href="javascript:history.back()">&times;</a>
-							                        <div class="content" style="text-align:left;">
-							                            Q: ${mdInqrys.md_question_content }
-							                            <hr>
-							                            A: ${mdInqrys.md_response_content }
-							                        </div>
-							                        <form action="/seller/updateResp" method="post" class="updateFrm">
+							                        <div class="content" style="text-align:left;">${mdInqrys.md_response_content }</div>
 							                        <input type=hidden name="sort_md_question_id" value="${mdInqrys.sort_md_question_id }">
 							                        <div class="updateResp" style="display:none;">
-							                        	<textarea style="width:100%;" rows=10 class="md_response_content" name="md_response_content" maxLength=900 required>${mdInqrys.md_response_content }</textarea>
+							                        	<textarea style="width:100%;" rows=10 class="md_response_content" name="md_response_content" maxLength=900>${mdInqrys.md_response_content }</textarea>
 							                        </div>
 							                        <div align=right>
 									                    <a class="btn btn-warning btn-icon-split respMod">
@@ -166,7 +163,8 @@
 					                                        <span class="icon text-white-50">
 					                                            <i class="fas fa-exclamation-triangle"></i>
 					                                        </span>
-					                                        <span class="text">수정</span>
+<!-- 					                                        <span class="text">수정</span> -->
+					                                        <button class="btn btn-warning respUp">수정</button>
 					                                    </a>
 					                                    <a class="btn btn-danger btn-icon-split respUpdateCancel" style="display:none;">
 					                                        <span class="icon text-white-50">
@@ -175,8 +173,8 @@
 					                                        <span class="text">취소</span>
 					                                    </a>
 				                                    </div>
-				                                    </form>
 							                    </div>
+							                    </form>
 										    </div>
 										    <div id="popupWrite${mdInqrys.sort_md_question_id }" class="overlay">  <!--판매자 문의 답변 글 작성 팝업 -->
 							                    <form action="/seller/insertResp" method="post" id=frmResp>
@@ -184,7 +182,7 @@
         							                <h2>Q: ${mdInqrys.md_question_title }</h2>
 							                        <input type=hidden name="sort_md_question_id" value="${mdInqrys.sort_md_question_id }">
 							                        <input type=hidden name="md_response_username" value=${principal.username }>
-							                        <textarea style="width:100%;" rows=10 class="newResp" name="md_response_content" maxLength=900 required>------------------------------------------------------</textarea>
+							                        <textarea style="width:100%;" rows=10 class="newResp" name="md_response_content" maxLength=900 required></textarea>
 							                        <br>
 							                        <div align=right>
 														<a class="btn btn-info btn-icon-split">
@@ -247,8 +245,9 @@
                             		})
                             		
                             		$(".overlay").on('click',".respMod",function(){ // 답변내용 팝업창 안 답변수정버튼 클릭시
-										bkResp = $(this).parent().prev(".updateResp").find(".md_response_content").text();
-                            			
+ 										bkResp = $(this).parent().parent().children(".content").html().replace(/(<br>|<br\/>|<br \/>)/g, '\r\n');
+                            		
+ 										$(".md_response_content").val(bkResp);
                             			$(".content").css("display","none");
                             			$(".updateResp").css("display","inline");
                             			$(this).css("display","none");
@@ -258,6 +257,7 @@
                             		})
                             		
                             		$(".overlay").on('click',".respUpdateCancel",function(){ // 답변내용 팝업창 안 취소버튼 클릭시
+                            			
                             			if(confirm("수정을 정말 취소하시겠습니까?")){
                             				$(".content").css("display","inline");
                             				$(".md_response_content").val(bkResp);
@@ -269,9 +269,9 @@
                             			}
                             		})    
                             		
-                            		$(".overlay").on('click',".respUpdate",function(){ // 답변내용 팝업창 안 수정버튼 클릭시
-                           				if(confirm("답변을 정말 수정하시겠습니까?")){
-                           					if($(this).parent().prev(".updateResp").find(".md_response_content").val().replace(/\s| /gi,"").length == 0) {
+                            		$(".overlay").on('click',".respUp",function(){ // 답변내용 팝업창 안 수정버튼 클릭시
+                            			if(confirm("답변을 정말 수정하시겠습니까?")){
+                           					if($(this).parent().parent().parent().children(".updateResp").children(".md_response_content").val().replace(/\s| /gi,"").length == 0) {
                            						alert("내용을 입력해주세요");
                            						$(".md_response_content").focus();
                                    				return;

@@ -225,7 +225,6 @@ public class SellerController {
 	
 	@RequestMapping("insertResp")
 	public String insertResp(MdInqryDTO inqrys) throws Exception {
-		System.out.println(inqrys.getSort_md_question_id() +":"+inqrys.getMd_response_content());
 		int member_id = mdInqryService.selectMemberId(inqrys.getMd_response_username());
 		inqrys.setMd_response_content(inqrys.getMd_response_content().replace("\r\n","<br>"));
 		int result1 = mdInqryService.insertResp(inqrys, member_id);

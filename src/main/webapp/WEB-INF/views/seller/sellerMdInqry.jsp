@@ -59,7 +59,7 @@
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
-                                <form action="/admin/updateGrade" method="post" id="upgrade">
+                                
 	                                <table class="table table-bordered" id="dataTable" style="width:100%" >
 	                                    <thead>
 	                                    	<tr style="text-align:center">
@@ -142,8 +142,7 @@
 							                    </div>
 										    </div>
 										    <div id="popupResp${mdInqrys.sort_md_question_id }" class="overlay">   <!-- 고객의 상품문의 및 답변글, 수정기능 -->
-											<form action="/seller/updateResp" class="updateFrm">
-											<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+											<form action="/seller/updateResp" id="updateFrm">
 							                    <div class="popup" style="max-height:500px;overflow:auto;">
 							                        <h2>${mdInqrys.md_question_title }</h2>
 							                        <a class="close" href="javascript:history.back()">&times;</a>
@@ -163,8 +162,7 @@
 					                                        <span class="icon text-white-50">
 					                                            <i class="fas fa-exclamation-triangle"></i>
 					                                        </span>
-<!-- 					                                        <span class="text">수정</span> -->
-					                                        <button class="btn btn-warning respUp">수정</button>
+					                                        <button type=button class="btn btn-warning respUp">수정</button>
 					                                    </a>
 					                                    <a class="btn btn-danger btn-icon-split respUpdateCancel" style="display:none;">
 					                                        <span class="icon text-white-50">
@@ -174,7 +172,7 @@
 					                                    </a>
 				                                    </div>
 							                    </div>
-							                    </form>
+							                </form>
 										    </div>
 										    <div id="popupWrite${mdInqrys.sort_md_question_id }" class="overlay">  <!--판매자 문의 답변 글 작성 팝업 -->
 							                    <form action="/seller/insertResp" method="post" id=frmResp>
@@ -189,7 +187,7 @@
 															<span class="icon text-white-50">
 					                                    		<i class="fas fa-exclamation-triangle"></i>
 					                                    	</span>
-															<button class="btn btn-primary submit">입력</button>
+															<button type=button class="btn btn-primary submit">입력</button>
 														</a>
 					                                    <a class="btn btn-danger btn-icon-split reset">
 					                                        <span class="icon text-white-50">
@@ -204,7 +202,7 @@
 	                                    </c:forEach>
 	                                    </tbody>
 	                                </table>
-                                </form>
+                                
                                 <script>
 									$("table").on('click',".deleteInqry",function(){ // 문의삭제버튼 클릭시
 										let md_question_id = $(this).closest("tr").find(".md_question_id").text();
@@ -231,7 +229,7 @@
                            				if(confirm("답변을 정말 입력하시겠습니까?")){
                            					if($(".newResp").val().replace(/\s| /gi,"").length == 0) {
                                    				$(".newResp").focus();
-                                   				return;
+                                   				return false;
                                    			}else{
                                   				$("#frmResp").submit();
                                    			}
@@ -274,9 +272,9 @@
                            					if($(this).parent().parent().parent().children(".updateResp").children(".md_response_content").val().replace(/\s| /gi,"").length == 0) {
                            						alert("내용을 입력해주세요");
                            						$(".md_response_content").focus();
-                                   				return;
+                                   				return false;
                                    			}else{
-                                   				$(".updateFrm").submit();
+                                    			$("#updateFrm").submit();
                                    			}
                                   		}
                             		})                        	

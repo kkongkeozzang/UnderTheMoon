@@ -65,7 +65,7 @@
 									<input type="hidden" id="member_id" name="member_id" value="${memberDTO.member_id} ">					
 									<c:forEach var="wishDTO" items="${wishList}">
 									<div class="md-box">
-                                   <div class="img-box"><div class="img-box2"><img src="/mdImage/${wishDTO.md_image }"></div></div>
+                                   <div class="img-box"><div class="img-box2"><a href="/md/detail/page?md_id=${wishDTO.md_id}"><img src="/mdImage/${wishDTO.md_image }"></a></div></div>
                                    <div class="detail-box">
                                    	<input type="hidden" class="wish-id" id="wish_id" name="wish_id" value="${wishDTO.wish_id }">
                                    	<input type="hidden" id="md_id" name="md_id" value="${wishDTO.md_id }">                                   	

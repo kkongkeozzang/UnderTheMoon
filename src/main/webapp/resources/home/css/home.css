@@ -36,6 +36,31 @@
 	padding-left: 0 !important;
 	
 }
+
+
+
+
+/*md - main*/
+
+#main-md-name{
+	text-decoration:none !important; 
+	color:#406882;
+	font-size:17px;
+	text-weight:bold;
+}
+
+#main-md-price{
+	text-decoration:none !important; 
+	color:#406882;
+	font-size:15px;
+}
+
+.main-md a:hover{
+		text-decoration:none !important; 
+	
+}
+
+
 	         
  /*time attack*/
 #countdown,
@@ -48,9 +73,13 @@ color: #406882;
 	    
 font-weight: bold;
 	
-font-size: 20px;
+font-size: 22px;
+
+text-align:right;
 	                
-	
+margin-top:50px;
+
+position:absolute;
 }
 	            
 #timeattack{

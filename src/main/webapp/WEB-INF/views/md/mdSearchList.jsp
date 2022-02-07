@@ -112,7 +112,7 @@ function sortFuncDetail(select, sort) {
 			str += "<input type=hidden id='md_id' value="+resp.mds[i].md_id+">"
 			str += "<h4>"+resp.mds[i].md_name+"</h4>";
 			str += "<h6>"+priceToString(resp.mds[i].md_price)+"원</h6>";
-			str += "<p>"+resp.mds[i].md_content+"</p>";
+			//str += "<p>"+resp.mds[i].md_content+"</p>";
 			str += "</div>";
 			str += "</div>";
 			str += "</div>";
@@ -148,7 +148,7 @@ function getPage(pageNavi, select, sort) {
 			str += "<input type=hidden id='md_id' value="+resp.mds[i].md_id+">"
 			str += "<h4>"+resp.mds[i].md_name+"</h4>";
 			str += "<h6>"+priceToString(resp.mds[i].md_price)+"원</h6>";
-			str += "<p>"+resp.mds[i].md_content+"</p>";
+			//str += "<p>"+resp.mds[i].md_content+"</p>";
 			str += "</div>";
 			str += "</div>";
 			str += "</div>";
@@ -276,7 +276,7 @@ function getPage(pageNavi, select, sort) {
 	                          <input type=hidden id="md_id" value=${md.md_id }>
 	                          <a><h4>${md.md_name }</h4></a>
 	                          <h6><fmt:formatNumber value="${md.md_price }" pattern="#,###" />원</h6>
-	                          <p>${md.md_content }</p>
+	                          <%--<p>${md.md_content }</p> --%>
 	                        </div>
 	                      </div>
 	                    </div>

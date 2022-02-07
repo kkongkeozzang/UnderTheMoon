@@ -138,8 +138,19 @@
 <div class="row justify-content-md-center">
 	<div class="col-2 "> 
 	</div>
-	<div class="col-lg-2" id="timeattack"> 
+	<div class="col-2" id="timeattack"> 
+
+<!--  
+<div class="clock-box">
+<div class="clock-clock"></div>
+</div>-->
+
 	<br><div id="HourCountdown"></div><br>
+
+
+</div>
+
+	
 	        
 	<script>
 	//카운트 다운 기준 날짜
@@ -179,14 +190,14 @@
 	   timer = setInterval(showRemaining, 1000);
 	}
 	</script>
-	</div>
-	<div class="col-lg-6"> 
+	<div class="col-md-6"> 
 	<!-- 이미지 삽입 -->
 	 <a href="#">
           <img class="" src="/resources/home/img/timeattack.png">
      </a>
 	</div>
 	<div class="col-2"> 
+	</div>
 	</div>
 
 </div>

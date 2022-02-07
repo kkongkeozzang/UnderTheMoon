@@ -104,6 +104,8 @@
 #icon{
 	position:absolute;
 	right:300px;
+	display:flex;
+	align-items: center;
 }
 
 
@@ -151,3 +153,7 @@ z-index:100;
 	  position:relative;
 }
 
+.navScroll {
+	position:relative;
+	top:-7px;
+}

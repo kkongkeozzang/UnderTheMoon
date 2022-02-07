@@ -159,7 +159,7 @@ public class NoticeController {
 	@ExceptionHandler(Exception.class)
 	public String exceptionHandler(Exception e) {
 		e.printStackTrace();
-		return "redirect:/";
+		return "redirect:/error";
 	}
 
 }

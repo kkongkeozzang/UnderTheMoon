@@ -40,73 +40,84 @@
 
 	<!-- 타이틀  -->
 	<div class="container-fluid mt-100">
-		<div id="board-title">
-			<h2 class="title">자주묻는질문<br><span class="title-sub">고객님들께서 가장 자주하시는 질문을 모두 모았습니다.</span></h2>
-		</div>
-		<br>
-
-		<!-- 게시판 박스 -->
-		<div class="card mb-3 col-xl-6 col-md-12">
-			<!-- 게시글 등록 박스 -->
-			<form action="/faq/insert" method="post" id="frm">
-				<div class="container mb-4 mt-4">
-					<div class="row" style="padding-bottom: 5px; margin:0px;">
-						<select class="select" name="faq_category" style="margin-bottom:5px;">
-							<option value="">-카테고리 선택-</option>
-							<option value="회원">회원</option>
-							<option value="서비스 이용">서비스 이용</option>
-							<option value="주문/결제">주문/결제</option>
-							<option value="상품">상품</option>
-							<option value="이벤트/쿠폰/적립금">이벤트/쿠폰/적립금</option>>
-							<option value="취소/교환/환불">취소/교환/환불</option>>
-						</select>
-						<br>
-						<div class="col-sm-12" style="padding:0px;">
-							<input type="hidden" name=member_id value=${member_id}> 
-							<input type=text id=input-title name=faq_title placeholder="제목을 작성하세요 (최대 30자)" style="width: 100%;" maxlength=30>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-sm-12">
-							<textarea name="faq_content" id="summernote"
-								style="min-height: 200px; overflow: auto" onkeyup="fn_checkByte(this)"></textarea>
-							<script>
-                				autosize($("textarea"));
-        			        </script>
-        			<sup>(<span id="nowByte">0</span>/4000bytes)</sup>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-sm-12" style="text-align: right">
-							<button type="button" id="board-list" class="btn btn-dark">목록으로</button>
-							<button class="btn btn-dark" type=button id="write">작성하기</button>
-							<script>
-					$("#board-list").on("click",function(){
-						location.href="javascript:history.back()";
-					})
-					
-					$("#write").on("click",function(){
-						if($('.note-editable').html()==""){
-							alert("내용을 입력해주세요.");
-						}else if($('.select').val()==""){
-							alert("카테고리를 선택해주세요.");
-						}else if(totalByte <= 11){
-							alert("바이트 수를 확인해주세요.(최소 12bytes)");
-						}else if(totalByte > maxByte){
-							alert("바이트 수를 확인해주세요.(최대 4000bytes)");
-						}else if($("#input-title").val()==""){
-							alert("제목을 입력해주세요.");
-						}else {
-							$("#frm").submit();			
-						}
-					})
-				</script>
-						</div>
-					</div>
+		<div class="row">
+			<!-- 사이드네비 -->
+			<div class="col-0 col-md-4 col-lg-3">
+				<div class="card">
+					<jsp:include page="/WEB-INF/views/event/navi.jsp"></jsp:include>	
 				</div>
-			</form>
+			</div>
+			<!-- 게시판 박스 -->
+			<div class="col-12 col-md-8 col-lg-9">
+				<div id="board-title">
+					<h2 class="title">자주묻는질문<span class="title-sub">고객님들께서 가장 자주하시는 질문을 모두 모았습니다.</span></h2>
+				</div>
+		
+				<!-- 게시판 박스 -->
+				<div class="card mb-3 col-xl-6 col-md-12">
+					<!-- 게시글 등록 박스 -->
+					<form action="/faq/insert" method="post" id="frm">
+						<div class="container mb-4 mt-4">
+							<div class="row" style="padding-bottom: 5px; margin:0px;">
+								<select class="select" name="faq_category" style="margin-bottom:5px;">
+									<option value="">-카테고리 선택-</option>
+									<option value="회원">회원</option>
+									<option value="서비스 이용">서비스 이용</option>
+									<option value="주문/결제">주문/결제</option>
+									<option value="상품">상품</option>
+									<option value="이벤트/쿠폰/적립금">이벤트/쿠폰/적립금</option>
+									<option value="취소/교환/환불">취소/교환/환불</option>
+								</select>
+								<br>
+								<div class="col-sm-12" style="padding:0px;">
+									<input type=hidden name=member_id value="${member_id}"> 
+									<input type=text id=input-title name=faq_title placeholder="제목을 작성하세요 (최대 30자)" style="width: 100%;" maxlength=30>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-sm-12">
+									<textarea name="faq_content" id="summernote"
+										style="min-height: 200px; overflow: auto" onkeyup="fn_checkByte(this)"></textarea>
+									<script>
+		                				autosize($("textarea"));
+		        			        </script>
+		        			<sup>(<span id="nowByte">0</span>/4000bytes)</sup>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-sm-12" style="text-align: right">
+									<button type="button" id="board-list" class="btn btn-dark">목록으로</button>
+									<button class="btn btn-dark" type=button id="write">작성하기</button>
+									<script>
+							$("#board-list").on("click",function(){
+								location.href="javascript:history.back()";
+							})
+							
+							$("#write").on("click",function(){
+								if($('.note-editable').html()==""){
+									alert("내용을 입력해주세요.");
+								}else if($('.select').val()==""){
+									alert("카테고리를 선택해주세요.");
+								}else if(totalByte <= 11){
+									alert("바이트 수를 확인해주세요.(최소 12bytes)");
+								}else if(totalByte > maxByte){
+									alert("바이트 수를 확인해주세요.(최대 4000bytes)");
+								}else if($("#input-title").val()==""){
+									alert("제목을 입력해주세요.");
+								}else {
+									if(confirm("이대로 입력하시겠습니까?")){
+										$("#frm").submit();	
+									}
+								}
+							})
+						</script>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
 		</div>
-
 		<br>
 
 		<script>
@@ -231,6 +242,7 @@
 	    }
 
 	</script>
+	
 	</div>
 
 </body>

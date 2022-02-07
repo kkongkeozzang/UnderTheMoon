@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -88,14 +89,13 @@ public class MdController {
 	}
 	
 	@RequestMapping("search")
-	public String search(Model model, String search, HttpServletRequest request, HttpServletResponse response) {
+	public String search(Model model, String search, HttpServletRequest request, HttpServletResponse response) throws Exception {
 
 		int cPage = 1;
 		int start = cPage*PageStatic.MD_COUNT_PER_PAGE-(PageStatic.MD_COUNT_PER_PAGE);
 		int end = cPage*PageStatic.MD_COUNT_PER_PAGE;
 		List<MdDTO> mds = mdService.selectByBound(start, end, search, "search");
 		int searchMdCount = mdService.selectSerchResultCount(search);
-		System.out.println(searchMdCount);
 		List<String> pageNavis = PageNavigator.getPageNavigator(searchMdCount, 1, PageStatic.MD_COUNT_PER_PAGE, PageStatic.MD_NAVI_COUNT_PER_PAGE, search, "search");
 		// 최근 본 상품 html 리스트 전송
 		Cookie[] cookies = request.getCookies();
@@ -130,6 +130,7 @@ public class MdController {
 		model.addAttribute("search",search);
 		return "/md/mdSearchList";
 
+
 	}
 	
 	@ResponseBody
@@ -149,6 +150,7 @@ public class MdController {
 		result.put("cPage", cPage);
 		return result;
 	}
+	
 	
 	
 }

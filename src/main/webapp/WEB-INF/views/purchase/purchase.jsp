@@ -15,10 +15,108 @@
 <script src="https://cdn.bootpay.co.kr/js/bootpay-3.3.2.min.js" type="application/javascript"></script> 
 <link rel="stylesheet" href="/resources/purchase/css/purchase.css">
 <style>
-html{
-	font-size:14px !important;
+.col-sm-10.cart-item {
+	display: flex;
+    align-items: center;
 }
-.btn {
+.nomargin {
+	margin:0;
+}
+.img-box2 {
+	display: flex;
+    align-items: center;
+    text-align: center;
+    width: 80px;
+    height: 100px;
+    justify-content: space-around;
+}
+.md-img-box img {
+	max-height: 100px;
+    width: auto;
+}
+.md-img-box {
+	display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.cart-unit h5 {
+	padding:10px;
+	margin-bottom:0;
+}
+html{
+	font-size:16px !important;
+}
+.container {
+	margin-top:50px;
+}
+#navi .gnb_search {
+    top: 16px !important;
+}
+#footerButton .btn-primary {
+	color: #fff;
+    background-color: #406882;
+    border-color: #406882;
+}
+.overlay {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.7);
+  transition: opacity 500ms;
+  visibility: hidden;
+  opacity: 0;
+}
+.overlay:target {
+  visibility: visible;
+  opacity: 1;
+  z-index:1000;
+}
+
+.popup {
+  z-index:1000 !important;
+  margin: 70px auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 5px;
+  width: 50%;
+  position: relative;
+  transition: all 5s ease-in-out;
+}
+
+.popup h2 {
+  margin-top: 0;
+  color: #333;
+  font-family: Tahoma, Arial, sans-serif;
+}
+.popup .close {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  transition: all 200ms;
+  font-size: 30px;
+  font-weight: bold;
+  text-decoration: none;
+  color: #333;
+}
+.popup .close:hover {
+  color: #06D85F;
+}
+.popup .content {
+  max-height: 30%;
+  overflow: auto;
+}
+
+@media screen and (max-width: 700px){
+  .box{
+    width: 70%;
+  }
+  .popup{
+    width: 70%;
+  }
+}
+.purchasePage .btn {
     background-color: #406882 !important;
     border-color: #1A374D !important;
     border-top-color: rgb(26, 55, 77) !important;
@@ -101,7 +199,7 @@ dl {
     text-align: right;
 }
 .container {
-	max-width:1100px !important;
+	max-width:1300px !important;
 }
   /* 결제금액_sticky */
   .tax_absolute{height:800px;}
@@ -151,7 +249,7 @@ dl {
   .tax_absolute .reserve .emph,
   .tax_absolute .reserve .emph span{font-weight:700;color:#666}
   .pm_sign{display:none;margin-right:4px}
-  h3:not(first-child) {
+  h5:not(first-child) {
   	padding-top:74px;
   }
   .table>tbody>tr>td {
@@ -178,11 +276,11 @@ $(document).ready(function(){
 <!-- #userMenu 는 상단 로그인, 회원가입, 고객센터 메뉴-->
 <jsp:include page="/WEB-INF/views/homeHeader.jsp"></jsp:include>
 
-    <div class="container">
+    <div class="container purchasePage">
 	<div class="row">
 		<div class="col-md-12">
 			<h2 class="text-center">주문서</h2>
-			<h3>주문상품</h3>
+			<h5>주문상품</h5>
             <div>
                 <input type="hidden" id="amount" value="${totalPrice}">
             </div>
@@ -194,9 +292,16 @@ $(document).ready(function(){
                     <tr class="cart-unit">
                         <td data-th="Product" style="width:60%;">
                             <div class="row">
-                                <div class="col-sm-2 hidden-xs"><img src="${cart.cart_image}" alt="..." class="img-responsive"/></div>
-                                <div class="col-sm-10">
-                                    <h4 id="item" class="cart-item nomargin">${cart.cart_item}${cart.md_id} </h4>
+                                <div class="col-sm-2 hidden-xs md-img-box">
+                                
+	                                <div class="img-box">
+						           		<div class="img-box2">
+						           			<img src="/mdImage/${cart.cart_image}" alt="..." class="img-responsive"/>
+						           		</div>
+					           		</div>
+                                </div>
+                                <div class="col-sm-10 cart-item">
+                                    <h5 id="item" class="cart-item nomargin">${cart.cart_item}${cart.md_id} </h5>
                                 </div>
                             </div>
                         </td>
@@ -216,9 +321,9 @@ $(document).ready(function(){
 			
 			<div class="row">
 				<div class="col-md-8" id="coupon-point-box">
-				<h3>
+				<h5>
 				주문자 및 배송 정보
-				</h3>
+				</h5>
 				<hr>
 				<table id="info-box">
 					<tr><td class="label-td">받는사람 이름:
@@ -238,7 +343,7 @@ $(document).ready(function(){
 		            </tr>
 	            </table>
 				
-					<h3>쿠폰 / 적립금</h3><hr>
+					<h5>쿠폰 / 적립금</h5><hr>
 					<table>
 					<!-- 쿠폰선택자. -->
                   <tr><td class="label-td">쿠폰 적용
@@ -271,7 +376,7 @@ $(document).ready(function(){
 	                    </td></tr>
 	                  <!-- 적립금. -->
            			</table>
-					<h3 id="">개인정보 수집/제공</h3><hr>
+					<h5 id="">개인정보 수집/제공</h5><hr>
 			<table>
 				<tr><td>
 	                <input id="agree" type="checkbox"><a id="agree-a" href="#popup1">정보수집ㆍ이용동의(필수)</a> 
@@ -306,7 +411,7 @@ $(document).ready(function(){
 											<dt class="tit">쿠폰할인금액</dt>
 											<dd class="price coupon_area">
 												<dd class="price coupon_area">
-													<span class="pm_sign" style="display: none;">-</span>
+													<!-- <span class="pm_sign" style="display: none;">-</span> -->
 													<span id="coupon_price">0 </span>원
 											</dd>
 										</dl>
@@ -337,12 +442,12 @@ $(document).ready(function(){
 				</div>
 			</div>
 			
-           <h3>결제 </h3><hr>
+           <h5>결제 </h5><hr>
 					<div class="row">
 						<div class="col-md-12">
 							<table>
                                 <tr>
-                                    <td class="label-td">결제수단 선택</td>
+                                    <td class="label-td" style="width:20%">결제수단 선택</td>
                                     <td><a href="javascript:void(0);" id="kakao"><img src="/resources/purchase/img/payment_icon_yellow_small.png"></a>
                                     <button class="btn btn-primary" id="purchase">신용카드결제</button></td>
                                 </tr>
@@ -402,18 +507,29 @@ $(document).ready(function(){
 					$("#point-input").on("blur",function(){
 						let pointSum = $("#point-input").val();
 						let pointSum_int = Number(pointSum);
-						console.log(pointSum);
+						//console.log(pointSum);
 						
 						let point = $("#point").text();
 			            let point_int = Number(point);
-						
-		            	if(pointSum_int<0 || isNaN(pointSum) || $.trim(pointSum)=="" || pointSum==null) {
+			            if(initialTotalPrice<pointSum_int && (${totalPrice} + deliveryFee) < ${pointSum}){ //총액이 적립금보다 작을떄.1
+			            	//console.log("총액이 적립금보다 작을떄1");
+					    	$("#point-input").val(initialTotalPrice);
+					    	$("#point-num").text("- " + initialTotalPrice + " ");
+					    	initialTotalPrice = 0;	
+			            }else if(initialTotalPrice<pointSum_int && (${totalPrice} + deliveryFee) > ${pointSum} ){ //총액이 적립금보다 작을떄.2
+			            	//console.log("총액이 적립금보다 작을떄2");
+					    	$("#point-input").val(${pointSum});
+					    	$("#point-num").text("-" + ${pointSum} + " ");
+					    	initialTotalPrice = initialTotalPrice - ${pointSum};	
+			            }else if(pointSum_int<0 || isNaN(pointSum) || $.trim(pointSum)=="" || pointSum==null) {
 							$("#point-input").val(0); 
 							initialTotalPrice = initialTotalPrice;
 						}else if(pointSum_int<=${pointSum}){
+							//console.log("적립금 총액이 인풋값 보다 크거나 같을때.");
 							$("#point-num").text("- " + pointSum_int + " ");							
-							initialTotalPrice = initialTotalPrice - pointSum_int;
+							initialTotalPrice = (${totalPrice} + Number($("#delivery-fee").text())) - pointSum_int + Number($("#coupon_price").text()) ;  
 						}else if (pointSum_int>${pointSum}){
+							//console.log("포인트인풋값이 포인트 총액보다 클때..");
 							$("#point-input").val(${pointSum}); 
 							$("#point-num").text("- " + ${pointSum} + " "); 
 							initialTotalPrice = initialTotalPrice - Number(${pointSum});
@@ -425,22 +541,34 @@ $(document).ready(function(){
 					
 					//적립금전체사용..
 					$("#point-btn").on("click",function(){
-					   
-
-						if(initialTotalPrice<${pointSum}){ //총액이 적립금보다 작을떄.
-					    	$("#point-input").val(initialTotalPrice);
-					    	$("#point-num").text("- " + initialTotalPrice + " ");
-					    	initialTotalPrice = 0;				    
+						//console.log(Number($("#delivery-fee").text()))
+						if(((${totalPrice} + deliveryFee)<${pointSum} && ($("#point-input").val()=='0' || $("#point-input").val() < (${totalPrice} + Number($("#delivery-fee").text()))))){ //총액이 적립금보다 작을떄.
+							//console.log("총액이 적립금보다 작을떄.")
+					    	$("#point-input").val((${totalPrice} + Number($("#delivery-fee").text())));
+					    	$("#point-num").text((${totalPrice} + Number($("#delivery-fee").text())));
+					    	initialTotalPrice = (${totalPrice} + Number($("#delivery-fee").text())) - $("#point-input").val();				    
 						}else if( $("#point-input").val()=="" || $("#point-input").val()==0){ //0이나 아무것도 입력안했을때..
+							//console.log("0이나 아무것도 입력안했을때..")
 							$("#point-input").val(${pointSum}); 
 							$("#point-num").text("- " + ${pointSum} + " ");
 							initialTotalPrice = initialTotalPrice - Number(${pointSum}); 
-					    }else if($("#point-input").val()==${pointSum}){
-					    	totalPriceMinusPoint = initialTotalPrice; 
+					    }else if($("#point-input").val()==${pointSum}){ //이미 전체 금액이 input 에 있을때..
+					    	//console.log("/이미 전체 금액이 input 에 있을때..")
 							$("#point-input").val(0); 	
-							$("#point-num").text(0);
-							 initialTotalPrice = initialTotalPrice + Number(${pointSum});  
+							$("#point-num").text(0 + " ");
+							 initialTotalPrice = (${totalPrice} + Number($("#delivery-fee").text())) + Number($("#coupon_price").text()) ;  
+						/* }else if($("#point-input").val() > 0 || $("#point-input").val() < ${pointSum}){ 	
+							console.log("인풋값이0보다 크꺼나 인풋값이 포인트전첵값보다 작을떄..")
+							$("#point-input").val(${pointSum}); 
+							$("#point-num").text("- " + ${pointSum} + " ");
+							 initialTotalPrice = (${totalPrice} + deliveryFee) - ${pointSum};  */
+						}else if($("#point-input").val() > 0 || $("#point-input").val() < ${pointSum}){ 	
+							//console.log("인풋값이0보다 크꺼나 인풋값이 포인트전첵값보다 작을떄..")
+							$("#point-input").val(0); 
+							$("#point-num").text(0 + " ");
+							 initialTotalPrice = (${totalPrice} + deliveryFee) + Number($("#coupon_price").text()) ;  
 						}else{
+							//console.log(1)
 							$("#point-num").text("- " + ${pointSum} + " ");
 					    	$("#point-input").val(${pointSum});
 					    	initialTotalPrice = initialTotalPrice - Number(${pointSum});
@@ -467,7 +595,7 @@ $(document).ready(function(){
                 
 				//select 클릭 시 결제금액 초기화
                 $("body").on("change","#coupon",function(){
-                console.log($("#delivery-fee").text() =="0");
+                //console.log($("#delivery-fee").text() =="0");
                 	if($("#delivery-fee").text()=="0"){
                 		 $("#delivery-fee").text(${deliveryFee });
                 		 initialTotalPrice = initialTotalPrice + ${deliveryFee };
@@ -496,7 +624,7 @@ $(document).ready(function(){
                      initialTotalPrice = initialTotalPrice + Number($("#coupon_price").text());
                      $("#totalPrice").text(initialTotalPrice);
                   } else {
-                     $("#coupon_price").text("- " + coupon_discount_rate + " ");
+                     $("#coupon_price").text("-" + coupon_discount_rate + " ");
                   }
                   if(totalPrice_int-coupon_price<0) {
                      $("#totalPrice").text(0);
@@ -523,7 +651,7 @@ $(document).ready(function(){
 						alert("상세 주소를 입력해주세요.");
 						return false;
 					} else {
-						console.log($("#roadAddress2").val());
+						//console.log($("#roadAddress2").val());
 						var deliveryDTO = {
 								 member_id: ${member.member_id},
 								 delivery_address1: $("#roadAddress").val(),
@@ -548,7 +676,7 @@ $(document).ready(function(){
 						let order_id = 0;
 						let delivery_id = 0;
 						let member_id = $(".member_id").val();
-						console.log(member_id);
+						//console.log(member_id);
 						 
 						 $.ajax({
 						  	  type: 'post',
@@ -586,7 +714,7 @@ $(document).ready(function(){
 										 	if(initialTotalPrice=='0'){
 										 		
 										 		//0원일경우..
-										 		if(confirm("결제하시겠씁니까?")){
+										 		if(confirm("결제하시겠습니까?")){
 										 			$.ajax({
 													  	  type: 'post',
 													        url:'/purchaseDetail/rest/insertPurchaseDetail/',
@@ -634,7 +762,7 @@ $(document).ready(function(){
 													
 												}).error(function (data) {
 													//결제 진행시 에러가 발생하면 수행됩니다.
-													console.log(data);
+													//console.log(data);
 												}).cancel(function (data) {
 													//결제가 취소되면 수행됩니다.
 													$.ajax({
@@ -644,14 +772,14 @@ $(document).ready(function(){
 													        dataType:"json",
 													        async: false     
 													})
-													console.log(data);
+													//console.log(data);
 												}).ready(function (data) {
 													// 가상계좌 입금 계좌번호가 발급되면 호출되는 함수입니다.
-													console.log(data);
+													//console.log(data);
 												}).close(function (data) {
 												    // 결제창이 닫힐때 수행됩니다. (성공,실패,취소에 상관없이 모두 수행됨)
 												    
-												    console.log(data);
+												    //console.log(data);
 												}).done(function (data) {
 													//결제가 정상적으로 완료되면 수행됩니다
 													//비즈니스 로직을 수행하기 전에 결제 유효성 검증을 하시길 추천합니다.
@@ -725,7 +853,7 @@ $(document).ready(function(){
 						alert("상세 주소를 입력해주세요.");
 						return false;
 					} else {
-						console.log($("#roadAddress2").val());
+						//console.log($("#roadAddress2").val());
 						var deliveryDTO = {
 								 member_id: ${member.member_id},
 								 delivery_address1: $("#roadAddress").val(),
@@ -750,7 +878,7 @@ $(document).ready(function(){
 						let order_id = 0;
 						let delivery_id = 0;
 						let member_id = $(".member_id").val();
-						console.log(member_id);
+						//console.log(member_id);
 						 
 						 $.ajax({
 						  	  type: 'post',
@@ -835,7 +963,7 @@ $(document).ready(function(){
 										 			order_id: order_id,
 										 		}).error(function (data) {
 										 			//결제 진행시 에러가 발생하면 수행됩니다.
-										 			console.log(data);
+										 			//console.log(data);
 										 		}).cancel(function (data) {
 										 			//결제가 취소되면 수행됩니다.
 										 			$.ajax({
@@ -844,10 +972,10 @@ $(document).ready(function(){
 													        contentType:"application/json;charset=utf-8",
 													        dataType:"json",  
 													})
-										 			console.log(data);
+										 			//console.log(data);
 										 		}).close(function (data) {
 										 		    // 결제창이 닫힐때 수행됩니다. (성공,실패,취소에 상관없이 모두 수행됨)
-										 		    console.log(data);
+										 		    //console.log(data);
 										 		}).done(function (data) {
 													//결제가 정상적으로 완료되면 수행됩니다
 													//비즈니스 로직을 수행하기 전에 결제 유효성 검증을 하시길 추천합니다.

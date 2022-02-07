@@ -1,14 +1,17 @@
 package kh.spring.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 
 import kh.spring.dto.MemberDTO;
 import kh.spring.dto.QnaDTO;
@@ -181,6 +184,21 @@ public class QnaController {
 	}
 	
 
+	@ResponseBody
+	@RequestMapping(value="getQnaContent", produces = "application/json")
+	public HashMap<String, Object> getQnaContent(int questionId) {
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal(); 
+        String username = ((UserDetails)principal).getUsername();
+		int result = qnaService.selectMemberId(username);
+		HashMap<String, Object> response = new HashMap<>();
+		QnaDTO qdto = new QnaDTO();
+		qdto.setQa_question_id(questionId);
+		String content = qnaResponseService.selectResponseContent(qdto);
+		response.put("content", content);
+
+		return response;
+
+	}
 
 	
 	

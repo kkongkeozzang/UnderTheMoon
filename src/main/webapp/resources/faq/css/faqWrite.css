@@ -188,3 +188,6 @@ body {
     color: #333;
     letter-spacing: -.5px;
 }
+select[name=faq_category]{
+	padding:0px;
+}

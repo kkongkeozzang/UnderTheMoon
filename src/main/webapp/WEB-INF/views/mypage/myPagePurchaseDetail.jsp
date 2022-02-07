@@ -282,44 +282,6 @@ ul{
   
 /* 상품 박스 CSS */
   
-.md-box {
-	display: flex; 
-}
-
-.md-box>div {
-	padding:5px;
-}  
-  
-.img-box {
-	display:flex;
-	flex: 1 1;
-	align-items: center;
-	text-align: center;
-	justify-content: space-around;
-}
-
-.img-box .img-box2 {
-	display:flex;
-	align-items: center;
-	text-align: center;
-}
-
-.img-box2 {
-	width:80px;
-	height:100px;
-}
-
-.img-box2 img {
-	width:100%;
-	height:100%;
-}
-
-.detail-box {
-	flex: 5 1;
-	display: flex;
-	flex-direction: column;
-    justify-content: space-evenly;
-}
 
 .status-box {
 	display:flex;
@@ -379,16 +341,16 @@ ul{
 										<tbody>														
 										</tbody>
 									</table>
-									<c:forEach var="purchaseList" items="#{purchaseList}">
+									<c:forEach var="purchaseList" items="${purchaseList}">
 									<div class="md-box">
                                        <div class="img-box">
                                           <div class="img-box2">
-                                             <a href="/md/detail/page?md_id=${purchaseList.md_id}"><img src="${purchaseList.md_image} }"></a>
+                                             <a href="/md/detail/page?md_id=${purchaseList.md_id}"><img src="/mdImage/${purchaseList.md_image}"></a>
                                           </div>
                                        </div>
                                        <div class="detail-box">
                                           <div class="wish-purchase-text"><a href="/md/detail/page?md_id=${purchaseList.md_id}">${purchaseList.md_name }</a></div>
-                                          <div class="wish-purchase-text"><a href="/md/detail/page?md_id=${purchaseList.md_id}">${purchaseList.md_content }</a></div>
+                                          <%-- <div class="wish-purchase-text"><a href="/md/detail/page?md_id=${purchaseList.md_id}">${purchaseList.md_content }</a></div>--%>
                                           <div>
                                              <span>${purchaseList.purchase_detail_price}원</span><span>${purchaseList.purchase_detail_quantity}개</span>
                                           </div>

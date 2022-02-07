@@ -52,6 +52,8 @@
 
 .popup {
   z-index:1000 !important;
+  height:80%;
+  overflow-y:auto;
   margin: 70px auto;
   padding: 20px;
   background: #fff;
@@ -81,7 +83,6 @@
 }
 .popup .content {
   max-height: 30%;
-  overflow: auto;
 }
 
 @media screen and (max-width: 700px){
@@ -207,12 +208,12 @@
 													<div class="img-box">
 														<div class="img-box2">
 															<input type=hidden class="md_review_id" value="${md.md_review_id }">
-															<a href="/md/detail/page?md_id=${md.md_id}"><img src="/mdImage/a.png"></a>
+															<a href="/md/detail/page?md_id=${md.md_id}"><img src="/mdImage/${md.md_image }"></a>
 														</div>
 													</div>
 													<div class="detail-box">
 														<div><a href="/md/detail/page?md_id=${md.md_id}">${md.md_name }</a></div>
-														<div><a href="/md/detail/page?md_id=${md.md_id}">${md.md_content }</a></div>
+														<%-- <div><a href="/md/detail/page?md_id=${md.md_id}">${md.md_content }</a></div>--%>
 														<div>
 															<span>${md.purchase_detail_price}원</span><span>${md.purchase_detail_quantity}개</span>
 														</div>

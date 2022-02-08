@@ -171,7 +171,4 @@ position:absolute;
 	padding-bottom:100px;
 }
 
-/*scroll 제거하는 코드*/
-body{ -ms-overflow-style: none; } ::-webkit-scrollbar { display: none; }
-
 

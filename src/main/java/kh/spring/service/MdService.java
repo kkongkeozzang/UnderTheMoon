@@ -37,6 +37,10 @@ public class MdService {
 		return mdDAO.selectByBound(start, end, select, sort);
 	}
 	
+	public List<MdDTO> selectByBoundForSearch(int start, int end, String select, String sort) {
+		return mdDAO.selectByBoundForSearch(start, end, select, sort);
+	}
+	
 	public MdDTO selectMdDetailById(String md_id) {
 		return mdDAO.selectMdDetailById(md_id);
 	}

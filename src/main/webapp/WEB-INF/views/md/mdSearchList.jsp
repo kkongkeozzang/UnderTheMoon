@@ -73,8 +73,10 @@ function priceToString(price) {
     return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 }
 function sortFunc(select, sort) {
-	if (select != "all") {
-		select = $(this).html();
+	if (select == "") {
+		select = "all";
+	} else if (select == "all") {
+		select = "${search}";
 	}
 	$("#review-sort").on("click",function(){
 		sortFuncDetail(select, "reviewSort");
@@ -89,7 +91,7 @@ function sortFunc(select, sort) {
 }
 function sortFuncDetail(select, sort) {
 	$.ajax({
-		url: "/md/listPage",
+		url: "/md/listSearchPage",
 		DataType: "json",
 		type: "get",
 		data: {
@@ -247,7 +249,7 @@ function getPage(pageNavi, select, sort) {
         <div class="row">
           <div class="col-md-12">
             <div class="filters">
-            <div class=count id=count>총 ${allMdCount } 개</div>
+            <div class=count id=count>총 ${allMdCount } 개</div><input type="hidden" id="initialSearch" value="${search }">
             <div class=sort id=review-sort>리뷰순</div>
             <div class="sort sort-none">|</div>
             <div class=sort id=new-sort>최신순</div>

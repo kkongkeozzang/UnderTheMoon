@@ -158,11 +158,12 @@
 					                                        </span>
 					                                        <span class="text">답변수정</span>
 					                                    </a>
-					                                    <a class="btn btn-warning btn-icon-split respUpdate" style="display:none;">
+					                                    <a class="btn btn-warning btn-icon-split respUpdate" id="respUp" style="display:none;">
 					                                        <span class="icon text-white-50">
 					                                            <i class="fas fa-exclamation-triangle"></i>
 					                                        </span>
-					                                        <button type=button class="btn btn-warning respUp">수정</button>
+					                                        <span class="text">수정</span>
+<!-- 					                                        <button type=button class="btn btn-warning respUp">수정</button> -->
 					                                    </a>
 					                                    <a class="btn btn-danger btn-icon-split respUpdateCancel" style="display:none;">
 					                                        <span class="icon text-white-50">
@@ -175,19 +176,20 @@
 							                </form>
 										    </div>
 										    <div id="popupWrite${mdInqrys.sort_md_question_id }" class="overlay">  <!--판매자 문의 답변 글 작성 팝업 -->
-							                    <form action="/seller/insertResp" method="post" id=frmResp>
+							                    <form action="/seller/insertResp" method="post" id="frmResp">
 							                    <div class="popup">
         							                <h2>Q: ${mdInqrys.md_question_title }</h2>
-							                        <input type=hidden name="sort_md_question_id" value="${mdInqrys.sort_md_question_id }">
+							                        <input type=hidden name="sort_md_question_id" value="${mdInqrys.sort_md_question_id }" class="id">
 							                        <input type=hidden name="md_response_username" value=${principal.username }>
 							                        <textarea style="width:100%;" rows=10 class="newResp" name="md_response_content" maxLength=900 required></textarea>
 							                        <br>
 							                        <div align=right>
-														<a class="btn btn-info btn-icon-split">
+														<a class="btn btn-info btn-icon-split" id="insert">
 															<span class="icon text-white-50">
 					                                    		<i class="fas fa-exclamation-triangle"></i>
 					                                    	</span>
-															<button type=button class="btn btn-primary submit">입력</button>
+					                                    	<span class="text">입력</span>
+<!-- 															<button type="button" class="btn btn-primary submit">입력</button> -->
 														</a>
 					                                    <a class="btn btn-danger btn-icon-split reset">
 					                                        <span class="icon text-white-50">
@@ -225,19 +227,20 @@
                             			}
                             		})
                             		
-                            		$(".overlay").on('click',".submit",function(){ // 답변입력 팝업창 안 입력버튼 클릭시
-                           				if(confirm("답변을 정말 입력하시겠습니까?")){
-                           					if($(".newResp").val().replace(/\s| /gi,"").length == 0) {
-                                   				$(".newResp").focus();
+                            		$(".overlay").on('click',"#insert",function(){ // 답변입력 팝업창 안 입력버튼 클릭시
+                            			if(confirm("답변을 정말 입력하시겠습니까?")){
+                           					if($(this).parent().parent(".popup").children(".newResp").val().replace(/\s| /gi,"").length == 0) {
+                           						alert("내용을 입력해주세요");
+                           						$(this).parent().parent(".popup").children(".newResp").focus();
                                    				return false;
                                    			}else{
-                                  				$("#frmResp").submit();
+                                   				$(this).parent().parent().parent().find("#frmResp").submit();
                                    			}
                                   		}
                             		})
                             		$(".overlay").on('click',".reset",function(){ // 답변입력 팝업창 안 취소버튼 클릭시
                             			if(confirm("입력을 정말 취소하시겠습니까?")){
-                            				$(".newResp").val("");
+                            				$(this).parent().parent(".popup").children(".newResp").val("");
                              				location.href="javascript:history.back()";
                             			}
                             		})
@@ -267,14 +270,14 @@
                             			}
                             		})    
                             		
-                            		$(".overlay").on('click',".respUp",function(){ // 답변내용 팝업창 안 수정버튼 클릭시
+                            		$(".overlay").on('click',"#respUp",function(){ // 답변내용 팝업창 안 수정버튼 클릭시
                             			if(confirm("답변을 정말 수정하시겠습니까?")){
-                           					if($(this).parent().parent().parent().children(".updateResp").children(".md_response_content").val().replace(/\s| /gi,"").length == 0) {
+                           					if($(this).parent().parent(".popup").children(".updateResp").children(".md_response_content").val().replace(/\s| /gi,"").length == 0) {
                            						alert("내용을 입력해주세요");
-                           						$(".md_response_content").focus();
+                           						$(this).parent().parent(".popup").children(".updateResp").children(".md_response_content").focus();
                                    				return false;
                                    			}else{
-                                    			$("#updateFrm").submit();
+                                   				$(this).parent().parent().parent().find("#updateFrm").submit();
                                    			}
                                   		}
                             		})                        	

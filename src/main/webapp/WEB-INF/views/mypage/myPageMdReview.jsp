@@ -142,10 +142,10 @@
 												  <c:if test="${notReviewMdCount eq '0'}"><div style="text-align:center">작성가능 후기가 없습니다.</div></c:if>
 											  <c:forEach var="md" items="${mds}">
 												  <div class="md-box">
-												  	<div class="img-box"><div class="img-box2"><a href="/md/detail/page?md_id=${md.md_id}"><img src="/mdImage/a.png"></a></div></div>
+												  	<div class="img-box"><div class="img-box2"><a href="/md/detail/page?md_id=${md.md_id}"><img src="/mdImage/${md.md_image }"></a></div></div>
 												  	<div class="detail-box">
 												  		<div><a href="/md/detail/page?md_id=${md.md_id}">${md.md_name }</a></div>
-												  		<div><a href="/md/detail/page?md_id=${md.md_id}">${md.md_content }</a></div>
+												  		<%-- <div><a href="/md/detail/page?md_id=${md.md_id}">${md.md_content }</a></div>--%>
 												  		<div>
 													  		<span>${md.purchase_detail_price}원</span><span>${md.purchase_detail_quantity}개</span>
 												  		</div>
@@ -168,12 +168,12 @@
 												<div class="md-box">
 													<div class="img-box">
 														<div class="img-box2">
-															<img src="/mdImage/a.png">
+															<img src="/mdImage/${md.md_image}">
 														</div>
 													</div>
 													<div class="detail-box">
 														<div>${md.md_name }</div>
-														<div>${md.md_content }</div>
+														<%-- <div>${md.md_content }</div>--%>
 														<div>
 															<span>${md.purchase_detail_price}원</span><span>${md.purchase_detail_quantity}개</span>
 														</div>

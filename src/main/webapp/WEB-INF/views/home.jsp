@@ -201,7 +201,7 @@
 	</script>
 	<div class="col-md-6"> 
 	<!-- 이미지 삽입 -->
-	 <a href="#">
+	 <a href="/md/detail/page?md_id=3">
           <img class="" src="/resources/home/img/timeattack.png">
      </a>
 	</div>

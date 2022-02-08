@@ -171,4 +171,7 @@ position:absolute;
 	padding-bottom:100px;
 }
 
+/*scroll 제거하는 코드*/
+body{ width:100%;overflow-x:hidden; }
+
 

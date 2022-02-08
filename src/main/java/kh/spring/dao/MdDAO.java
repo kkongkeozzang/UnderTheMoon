@@ -63,6 +63,19 @@ private final SqlSessionTemplate mybatis;
 		}
 	}
 	
+	public List<MdDTO> selectByBoundForSearch(int start, int end, String select, String sort) {
+		Map<String, String> map = new HashMap<>();
+		map.put("start", String.valueOf(start));
+		map.put("end", String.valueOf(end));
+		map.put("select", select);
+		if(sort.equals("reviewSort")) {
+			return mybatis.selectList("Md.selectAllSearchByBoundReviewSort", map);
+		} else if (sort.equals("newSort")) {
+			return mybatis.selectList("Md.selectAllSearchByBoundNewSort", map);
+		} 
+		return mybatis.selectList("Md.selectAllSearchByBound", map);
+	}
+	
 	public MdDTO selectMdDetailById(String md_id) {
 		return mybatis.selectOne("Md.selectMdDetailById", md_id);
 	}

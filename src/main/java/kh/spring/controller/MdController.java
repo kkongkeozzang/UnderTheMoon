@@ -90,11 +90,10 @@ public class MdController {
 	
 	@RequestMapping("search")
 	public String search(Model model, String search, HttpServletRequest request, HttpServletResponse response) throws Exception {
-
 		int cPage = 1;
 		int start = cPage*PageStatic.MD_COUNT_PER_PAGE-(PageStatic.MD_COUNT_PER_PAGE);
 		int end = cPage*PageStatic.MD_COUNT_PER_PAGE;
-		List<MdDTO> mds = mdService.selectByBound(start, end, search, "search");
+		List<MdDTO> mds = mdService.selectByBoundForSearch(start, end, search, "all");
 		int searchMdCount = mdService.selectSerchResultCount(search);
 		List<String> pageNavis = PageNavigator.getPageNavigator(searchMdCount, 1, PageStatic.MD_COUNT_PER_PAGE, PageStatic.MD_NAVI_COUNT_PER_PAGE, search, "search");
 		// 최근 본 상품 html 리스트 전송
@@ -139,7 +138,7 @@ public class MdController {
 		int cPage = Integer.parseInt(currentPage);
 		int start = cPage*PageStatic.MD_COUNT_PER_PAGE-(PageStatic.MD_COUNT_PER_PAGE-1);
 		int end = cPage*PageStatic.MD_COUNT_PER_PAGE;
-		List<MdDTO> mds = mdService.selectByBound(start, end, select, "search");
+		List<MdDTO> mds = mdService.selectByBoundForSearch(start, end, select, sort);
 		int searchMdCount = mdService.selectSerchResultCount(select);
 			
 		List<String> pageNavis = PageNavigator.getPageNavigator(searchMdCount, cPage, PageStatic.MD_COUNT_PER_PAGE, PageStatic.MD_NAVI_COUNT_PER_PAGE, select, sort);

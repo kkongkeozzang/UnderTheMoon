@@ -375,7 +375,7 @@ function getPage(pageNavi, select, sort) {
                         <div class="card-body" id="md-detail">
                         	<input id="md_id" name="md_id" type="hidden" value="${mdDetails.md_id }">
                         	<input id="member_username" name="member_username" type=hidden value=${principal.username }>
-                        	<input id="wish_item" name="wish_item" type=hidden value=${mdDetails.md_name }>
+                        	<input id="wish_item" name="wish_item" type=hidden value="${mdDetails.md_name }">
                         	<input id="wish_price" name="wish_price"type=hidden value=${mdDetails.md_price }>
                             <h1 class="h2">${mdDetails.md_name }</h1>
                             <div id="price-box">

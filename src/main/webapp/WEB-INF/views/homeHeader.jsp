@@ -80,7 +80,7 @@
             <div class="dropdown-menu sm-menu">
               <a class="dropdown-item" href="/md/search?search=서울">서울</a>
               <a class="dropdown-item" href="/md/search?search=인천">인천</a>
-              <a class="dropdown-item" href="/md/search?search=경기">경기</a>
+              <a class="dropdown-item" href="/md/search?search=경기도">경기</a>
               <a class="dropdown-item" href="/md/search?search=강원도">강원</a>
               <a class="dropdown-item" href="/md/search?search=충청북도">충북</a>
               <a class="dropdown-item" href="/md/search?search=충청남도">충남</a>
@@ -213,8 +213,11 @@ $(function() {
 
 //검색하기..
 	$('#search-button').on('click', function() {
-	  
-	  location.href = "/md/search?search="+$('#search').val(); 
+	  if($('#search').val()=="") {
+		  alert("입력란을 작성해주세요.");
+	  } else {
+		  location.href = "/md/search?search="+$('#search').val(); 
+	  }
 	  });
 
 

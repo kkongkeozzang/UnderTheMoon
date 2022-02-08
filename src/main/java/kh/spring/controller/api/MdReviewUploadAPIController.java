@@ -131,6 +131,7 @@ public class MdReviewUploadAPIController {
     	List<String> fileNameArr = new ArrayList<>();
     	String[] temp = fileNames.split(",");
     	for(String i : temp) {
+    		i = i.replace("s_", "");
     		fileNameArr.add(i);
     	}
     	mdReviewImageService.insertMdReviewImage(fileNameArr, md_id, md_review_id);

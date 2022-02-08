@@ -288,14 +288,14 @@
        let pw2 = $("#member-confirm-password").val();
        if (pw1 != pw2) {
           pwConfirm.innerHTML = "패스워드가 일치하지 않습니다."
-          $("#pwConfirm").css("color","red");
+          $("#pwConfirm").css("color","#F67280");
        } else if (pw1 ==""){
           pwConfirm.innerHTML = ""
        } else if (pw2 ==""){
           pwConfirm.innerHTML = ""
        }else  {
           pwConfirm.innerHTML = "패스워드가 일치합니다."
-          $("#pwConfirm").css("color","blue");
+          $("#pwConfirm").css("color","#6998AB");
        }
     }
       

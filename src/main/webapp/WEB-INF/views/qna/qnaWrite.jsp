@@ -111,7 +111,7 @@
                     - 배송 및 배송시간 지정은 불가능합니다.<br>
                     
                 </div>
-                 <textarea id="textarea" rows="5" cols="40" name="qa_question_content" id="qa_question_content" class="form-control"></textarea>
+                 <textarea  rows="5" cols="40" name="qa_question_content" id="qa_question_content" class="form-control"></textarea>
                 </td>     
             </tr>
                 
@@ -161,34 +161,25 @@
 	//공백 유효성 검사
 	$("#submit").on("click",function(){
 		console.log($("#qa_question_title").val().trim());
-		let f_flag = false;
 			if($("#qa_question_title").val().trim() == "")
 			{
 				console.log($("#qa_question_title").val().trim());
+				console.log($("#qa_question_content").val().trim());
+
     			alert("제목은 필수 입력사항입니다.");
     			$("#qa_question_title").focus();
-    			f_flag = true;
+    			return false;
     		}
 
-			else if($("#qa_question_content").val().trim() == ""){
+			if($("#qa_question_content").val().trim() == ""){
 				console.log($("#qa_question_content").val().trim());
     			alert("글 내용을 작성해 주세요.");
     			$("#qa_question_content").focus();
-  				f_flag = true;
+    			return false;
+
     			}
 			
-			if(f_flag === true)
-				{
-				f_flag = false;
-				 return false;
-				}
-			else{
-				f_flag = false;
-				return true;
-			}
-				
-			
-		
+
 
     	
 

@@ -1,5 +1,7 @@
 # 월하합작(UnderTheMoon)
-KH 정보교육원 Final Project (2021-1-12 ~ 2021-02-09 : 총 29일)
+KH 정보교육원 Final Project (2021-1-12 ~ 2021-02-09 : 총 29일)  
+자세한 정보는 아래 노션 페이지에서 확인해주세요! :point_down:  
+https://www.notion.so/FINAL-Project-10356e5988474b5fa69612ca56c19e7f
 
 ## 1. 이름과 역할
 
